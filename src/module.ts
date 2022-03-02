@@ -1,24 +1,18 @@
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+// import { fileURLToPath } from 'url'
+import { defineNuxtModule, installModule } from '@nuxt/kit'
+import UnocssModule from '@unocss/nuxt'
 
-export interface ModuleOptions {
-  addPlugin: Boolean
-}
+import { name as moduleName, version } from '../package.json'
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule'
+    name: moduleName,
+    version,
   },
-  defaults: {
-    addPlugin: true
+  setup(_, nuxt) {
+    // const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    // nuxt.options.build.transpile.push(runtimeDir)
+
+    installModule(UnocssModule)
   },
-  setup (options, nuxt) {
-    if (options.addPlugin) {
-      const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-      nuxt.options.build.transpile.push(runtimeDir)
-      addPlugin(resolve(runtimeDir, 'plugin'))
-    }
-  }
 })

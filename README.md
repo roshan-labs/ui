@@ -1,4 +1,4 @@
-# Nuxt Module
+# @roshan-labs/nuxt-ui
 
 ## Development
 
