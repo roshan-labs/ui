@@ -995,7 +995,7 @@
     "@unocss/core" "0.27.1"
     unconfig "^0.3.1"
 
-"@unocss/core@0.27.1":
+"@unocss/core@0.27.1", "@unocss/core@^0.27.1":
   version "0.27.1"
   resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.27.1.tgz#eb27c13902affa55cd209b86d5662745ea426c38"
   integrity sha512-qfhhib27Lq4IouT6OVSQsS5FTXrjyp/dfzhyfAnx/kdxDGPX6vQchdict3YEtsJLYQZ/pnm/TjdU2wDKhALjJg==
@@ -1041,7 +1041,7 @@
     "@unocss/core" "0.27.1"
     local-pkg "^0.4.1"
 
-"@unocss/preset-mini@0.27.1":
+"@unocss/preset-mini@0.27.1", "@unocss/preset-mini@^0.27.1":
   version "0.27.1"
   resolved "https://registry.npmmirror.com/@unocss/preset-mini/-/preset-mini-0.27.1.tgz#ef71b4e28c2717ce88da1c74f2ac14db9838cfcb"
   integrity sha512-nZ6Wlp1aDGkaWgMoKjm4BhKPr6i+NkCFRxd2xp1AHuIcboA0bvffBRMsSonvEfnX/3+mnKeso44xCCH60mwatA==
@@ -1090,7 +1090,7 @@
   resolved "https://registry.npmmirror.com/@unocss/scope/-/scope-0.27.1.tgz#290d9d7a308fd7541ec2e05a458315a37e3f6c1d"
   integrity sha512-GucEQQUCMn8fh+aYI2Gie2pkKETQ8t+tay+/oNcGJMyh6AxL4ENC44XldrKxNyuWJBCvdOS2K5nYrX1HF/JEHQ==
 
-"@unocss/transformer-directives@0.27.1":
+"@unocss/transformer-directives@0.27.1", "@unocss/transformer-directives@^0.27.1":
   version "0.27.1"
   resolved "https://registry.npmmirror.com/@unocss/transformer-directives/-/transformer-directives-0.27.1.tgz#8a6e4e3e6128dcb993b2a4ca3eb291774267e104"
   integrity sha512-cDB0/ChPlEnpF2lYXJPdDk6OPjn8iMGDHfRdGfzafQOrlFHL4w6EFtiX6ONWeesXJ1IwX9KDVPK0kf9z8yN+ew==
@@ -1098,7 +1098,7 @@
     "@unocss/core" "0.27.1"
     css-tree "^2.0.4"
 
-"@unocss/transformer-variant-group@0.27.1":
+"@unocss/transformer-variant-group@0.27.1", "@unocss/transformer-variant-group@^0.27.1":
   version "0.27.1"
   resolved "https://registry.npmmirror.com/@unocss/transformer-variant-group/-/transformer-variant-group-0.27.1.tgz#10f24ee37509079e5c805b863c1bab70e8ee3f8f"
   integrity sha512-NLoUW0bOGCTJi1mMyCabQBK5uMsTXxOeV7w1OSjsVEO7DpdA93uaYvHsXssIdD1I5N2F98tq50rp1x4ikAV5Og==

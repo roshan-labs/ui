@@ -27,7 +27,11 @@
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
-    "@unocss/nuxt": "^0.27.1"
+    "@unocss/core": "^0.27.1",
+    "@unocss/nuxt": "^0.27.1",
+    "@unocss/preset-mini": "^0.27.1",
+    "@unocss/transformer-directives": "^0.27.1",
+    "@unocss/transformer-variant-group": "^0.27.1"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
