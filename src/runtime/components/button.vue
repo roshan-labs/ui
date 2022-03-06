@@ -5,11 +5,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 
 const props = defineProps({
-  type: { type: String, default: 'default' },
+  type: { type: String as PropType<'default' | 'primary' | 'dashed'>, default: 'default' },
 })
 
-const classes = computed(() => ['btn', `btn-${props.type}`])
+const classes = computed(() => ({
+  'n-button': true,
+  'n-button-default': props.type === 'default',
+  'n-button-primary': props.type === 'primary',
+  'n-button-dashed': props.type === 'dashed',
+}))
 </script>

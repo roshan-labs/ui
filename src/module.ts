@@ -1,5 +1,6 @@
+import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { addComponentsDir, defineNuxtModule, installModule } from '@nuxt/kit'
+import { addComponentsDir, addPlugin, defineNuxtModule, installModule } from '@nuxt/kit'
 import UnocssModule from '@unocss/nuxt'
 
 import { name as packageName, version } from '../package.json'
@@ -14,13 +15,16 @@ export interface ModuleOptions {
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: packageName,
+    configKey: 'nuxtUI',
     version,
   },
   defaults: {
     prefix: 'n',
   },
   async setup(_, nuxt) {
-    nuxt.options.build.transpile.push(getPath('./runtime'))
+    const runtimeDir = getPath('./runtime')
+
+    nuxt.options.build.transpile.push(runtimeDir)
     // 注册组件
     addComponentsDir({
       path: getPath('./runtime/components'),
@@ -30,6 +34,15 @@ export default defineNuxtModule<ModuleOptions>({
     // 合并 unocss 默认规则与用户自定义规则
     nuxt.options.unocss = extendUnocssOptions(nuxt.options.unocss)
 
+    addPlugin(resolve(runtimeDir, './plugin'))
     await installModule(UnocssModule)
   },
 })
+
+declare module '@nuxt/schema' {
+  interface NuxtConfig {
+    nuxtUI?: {
+      prefix?: string
+    }
+  }
+}
