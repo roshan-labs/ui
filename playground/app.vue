@@ -1,6 +1,7 @@
 <template>
   <div>
     <n-button>Button</n-button>
+    <n-button>Button</n-button>
   </div>
 </template>
 
