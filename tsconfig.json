@@ -9,7 +9,8 @@
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "types": [
-      "node"
+      "node",
+      "nuxt-windicss"
     ]
   }
 }

@@ -37,7 +37,9 @@
     "@unocss/preset-mini": "^0.27.2",
     "@unocss/reset": "^0.27.2",
     "@unocss/transformer-directives": "^0.27.2",
-    "@unocss/transformer-variant-group": "^0.27.2"
+    "@unocss/transformer-variant-group": "^0.27.2",
+    "defu": "^5.0.1",
+    "nuxt-windicss": "^2.2.8"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

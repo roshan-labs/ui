@@ -1,48 +1,54 @@
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { addComponentsDir, addPlugin, defineNuxtModule, installModule } from '@nuxt/kit'
-import UnocssModule from '@unocss/nuxt'
+import {
+  addComponentsDir,
+  createResolver,
+  defineNuxtModule,
+  installModule,
+  requireModule,
+} from '@nuxt/kit'
+import defu from 'defu'
+import WindiModule from 'nuxt-windicss'
 
 import { name as packageName, version } from '../package.json'
-import { extendUnocssOptions } from './runtime/unocss'
-
-const getPath = (path: string) => fileURLToPath(new URL(path, import.meta.url))
+import uiConfig from './windicss'
 
 export interface ModuleOptions {
-  prefix: string
+  /** 组件前缀 */
+  prefix?: string
 }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: packageName,
-    configKey: 'nuxtUI',
     version,
+    configKey: 'roshanUI',
   },
   defaults: {
     prefix: 'n',
   },
-  async setup(_, nuxt) {
-    const runtimeDir = getPath('./runtime')
+  async setup(options, nuxt) {
+    const resolver = createResolver(import.meta.url)
+    let windiConfig: any = {}
 
-    nuxt.options.build.transpile.push(runtimeDir)
-    // 注册组件
+    // 获取 windicss 配置
+    if (typeof (nuxt.options as any)?.windicss?.config === 'string') {
+      windiConfig = requireModule((nuxt.options as any).windicss.config, {
+        clearCache: true,
+      })
+    } else if (typeof (nuxt.options as any)?.windicss?.config === 'object') {
+      windiConfig = (nuxt.options as any).windicss.config
+    }
+
+    windiConfig = defu(windiConfig, uiConfig)
+
+    // 注册组件库组件
     addComponentsDir({
-      path: getPath('./runtime/components'),
-      prefix: 'n',
+      path: resolver.resolve('./runtime/components'),
+      prefix: options.prefix,
     })
 
-    // 合并 unocss 默认规则与用户自定义规则
-    nuxt.options.unocss = extendUnocssOptions(nuxt.options.unocss)
-
-    addPlugin(resolve(runtimeDir, './plugin'))
-    await installModule(UnocssModule)
+    await installModule(WindiModule, {
+      ...((nuxt.options as any).windicss || {}),
+      config: windiConfig,
+    })
   },
 })
-
-declare module '@nuxt/schema' {
-  interface NuxtConfig {
-    nuxtUI?: {
-      prefix?: string
-    }
-  }
-}
