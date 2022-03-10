@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-blue-700" :class="classes" :disabled="disabled" @click="onClick">
+  <button class="text-primary-1" :class="classes" :disabled="disabled" @click="onClick">
     <slot />
   </button>
 </template>
