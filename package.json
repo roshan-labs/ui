@@ -2,7 +2,6 @@
   "name": "@roshan-labs/nuxt-ui",
   "version": "1.0.0",
   "license": "MIT",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
@@ -18,7 +17,9 @@
     "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "config": {
     "commitizen": {
@@ -31,13 +32,23 @@
     "nuxt-windicss": "^2.2.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/vue3": "^6.4.19",
+    "@types/react": "file:stub/types-react",
+    "babel-loader": "^8.2.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.10.0",
-    "eslint-config-prettier": "^8.4.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "nuxt3": "latest",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "storybook-builder-vite": "^0.1.18",
+    "vite-plugin-windicss": "^1.8.3",
+    "vue-loader": "^16.8.3"
   }
 }

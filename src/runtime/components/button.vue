@@ -1,11 +1,12 @@
 <template>
-  <button class="text-primary-1" :class="classes" :disabled="disabled" @click="onClick">
+  <button :class="classes" :disabled="disabled" @click="onClick">
     <slot />
   </button>
 </template>
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
+
 const props = defineProps({
   /** 按钮类型 */
   type: {
@@ -19,7 +20,9 @@ const props = defineProps({
   /** 按钮失效状态 */
   disabled: { type: Boolean, default: false },
 })
+
 const emit = defineEmits(['click'])
+
 const classes = computed(() => ({
   'n-button': true,
   'n-button-default': props.type === 'default',
@@ -34,6 +37,7 @@ const classes = computed(() => ({
   'n-button-text-danger': props.danger && props.type === 'text',
   'n-button-link-danger': props.danger && props.type === 'link',
 }))
+
 const onClick = () => {
   emit('click')
 }
