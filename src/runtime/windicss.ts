@@ -54,10 +54,15 @@ export default defineConfig({
         'in-out': 'cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
       padding: {
+        /** more small */
         xss: '4px',
+        /** small items */
         xs: '8px',
+        /** Form controls and items */
         sm: '12px',
+        /** small containers and buttons */
         md: '16px',
+        /** containers */
         lg: '24px',
       },
       margin: {
@@ -92,5 +97,12 @@ export default defineConfig({
     'n-button-text-danger':
       'text-error-base hover:text-error-hover focus:text-error-hover active:text-error-active',
     'n-button-link-danger': 'n-button-text-danger',
+    'n-button-default-ghost':
+      'text-white bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent',
+    'n-button-primary-ghost':
+      'text-primary-6 bg-transparent text-shadow-none hover:(text-primary-5 bg-transparent) focus:(text-primary-5 bg-transparent) active:(text-primary-7 bg-transparent)',
+    'n-button-dashed-ghost': 'n-button-default-ghost',
+    'n-button-danger-ghost':
+      'text-error-base hover:text-error-hover focus:text-error-hover active:text-error-active',
   },
 })
