@@ -12,7 +12,7 @@ import defu from 'defu'
 import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
 
 import { name as packageName, version } from '../package.json'
-import defaultWindiConfig from './windicss'
+import defaultWindiConfig from './runtime/windicss'
 
 export interface ModuleOptions {
   /** 组件前缀 */
@@ -23,6 +23,7 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: packageName,
     version,
+    configKey: 'nuxtUI',
   },
   defaults: {
     prefix: 'n',
@@ -71,5 +72,9 @@ export default defineNuxtModule<ModuleOptions>({
 declare module '@nuxt/schema' {
   interface NuxtOptions {
     windicss?: WindiModuleOptions
+  }
+
+  interface NuxtConfig {
+    nuxtUI?: ModuleOptions
   }
 }

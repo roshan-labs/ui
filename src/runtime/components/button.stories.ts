@@ -73,39 +73,53 @@ Block.args = {
   block: true,
 }
 
-export const Danger: Story = () => ({
+export const Danger: Story = (args) => ({
   components: { NButton: Button },
+  setup: () => ({ args }),
   template: `
-    <n-button type="primary" danger>Primary</n-button>
-    <n-button danger>Default</n-button>
-    <n-button type="dashed" danger>Dashed</n-button>
-    <n-button type="text" danger>Text</n-button>
-    <n-button type="link" danger>Link</n-button>
+    <n-button v-bind="args" type="primary" danger>Primary</n-button>
+    <n-button v-bind="args" danger>Default</n-button>
+    <n-button v-bind="args" type="dashed" danger>Dashed</n-button>
+    <n-button v-bind="args" type="text" danger>Text</n-button>
+    <n-button v-bind="args" type="link" danger>Link</n-button>
   `,
 })
 
-export const Disabled: Story = () => ({
+export const Disabled: Story = (args) => ({
   components: { NButton: Button },
+  setup: () => ({ args }),
   template: `
-    <div style="margin-bottom: 8px">
-      <n-button type="primary">Primary</n-button>
-      <n-button type="primary" disabled>Primary(disabled)</n-button>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="primary">Primary</n-button>
+      <n-button v-bind="args" type="primary" disabled>Primary(disabled)</n-button>
     </div>
-    <div style="margin-bottom: 8px">
-      <n-button>Default</n-button>
-      <n-button disabled>Default(disabled)</n-button>
+    <div class="mb-8px">
+      <n-button v-bind="args">Default</n-button>
+      <n-button v-bind="args" disabled>Default(disabled)</n-button>
     </div>
-    <div style="margin-bottom: 8px">
-      <n-button type="dashed">Dashed</n-button>
-      <n-button type="dashed" disabled>Dashed(disabled)</n-button>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="dashed">Dashed</n-button>
+      <n-button v-bind="args" type="dashed" disabled>Dashed(disabled)</n-button>
     </div>
-    <div style="margin-bottom: 8px">
-      <n-button type="text">Text</n-button>
-      <n-button type="text" disabled>Text(disabled)</n-button>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="text">Text</n-button>
+      <n-button v-bind="args" type="text" disabled>Text(disabled)</n-button>
     </div>
-    <div>
-      <n-button type="link">Link</n-button>
-      <n-button type="link" disabled>Link(disabled)</n-button>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="link">Link</n-button>
+      <n-button v-bind="args" type="link" disabled>Link(disabled)</n-button>
+    </div>
+    <div class="mb-8px">
+      <n-button v-bind="args" danger>Danger Default</n-button>
+      <n-button v-bind="args" danger disabled>Danger Default(disabled)</n-button>
+    </div>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="text" danger>Danger Text</n-button>
+      <n-button v-bind="args" type="text" danger disabled>Danger Text(disabled)</n-button>
+    </div>
+    <div class="mb-8px">
+      <n-button v-bind="args" type="link" danger>Danger Link</n-button>
+      <n-button v-bind="args" type="link" danger disabled>Danger Link(disabled)</n-button>
     </div>
   `,
 })

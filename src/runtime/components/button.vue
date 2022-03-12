@@ -1,5 +1,9 @@
 <template>
-  <button :class="classes" :disabled="disabled" @click="onClick">
+  <button
+    :class="classes"
+    :disabled="disabled"
+    @click="onClick"
+  >
     <slot />
   </button>
 </template>
@@ -42,3 +46,5 @@ const onClick = () => {
   emit('click')
 }
 </script>
+
+<style></style>
