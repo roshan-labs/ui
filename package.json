@@ -31,13 +31,6 @@
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
-    "@unocss/core": "^0.27.2",
-    "@unocss/nuxt": "^0.27.2",
-    "@unocss/preset-attributify": "^0.27.2",
-    "@unocss/preset-mini": "^0.27.2",
-    "@unocss/reset": "^0.27.2",
-    "@unocss/transformer-directives": "^0.27.2",
-    "@unocss/transformer-variant-group": "^0.27.2",
     "defu": "^5.0.1",
     "nuxt-windicss": "^2.2.8"
   },
@@ -57,8 +50,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "nuxt3": "latest",
     "prettier": "^2.5.1",
-    "storybook-builder-vite": "^0.1.17",
-    "unocss": "^0.27.2",
+    "storybook-builder-vite": "^0.1.18",
+    "vite-plugin-windicss": "^1.8.3",
     "vue-loader": "^16.8.3"
   }
 }

@@ -1,8 +1,3 @@
 <template>
-  <div>
-    <n-button>Button</n-button>
-    <n-button>Button</n-button>
-  </div>
+  <nuxt-page></nuxt-page>
 </template>
-
-<script lang="ts"></script>
