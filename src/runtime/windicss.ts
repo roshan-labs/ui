@@ -1,5 +1,11 @@
 import { defineConfig } from 'windicss/helpers'
 
+const height = {
+  sm: '24px',
+  base: '32px',
+  lg: '40px',
+}
+
 export default defineConfig({
   preflight: true,
   theme: {
@@ -20,10 +26,9 @@ export default defineConfig({
           bg: '#f5f5f5',
         },
       },
-      height: {
-        sm: '24px',
-        base: '32px',
-        lg: '40px',
+      height,
+      minWidth: {
+        base: height.base,
       },
       fontSize: {
         base: '14px',
@@ -77,7 +82,7 @@ export default defineConfig({
   shortcuts: {
     // Button
     'n-button':
-      'relative inline-block font-normal whitespace-nowrap text-center text-content bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none touch-manipulation h-base px-15px py-xss text-base leading-base rounded bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
+      'relative inline-block font-normal whitespace-nowrap text-center text-content bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none touch-manipulation h-base px-md py-xss text-base leading-base rounded bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
     'n-button-default':
       'disabled:(text-disabled-text bg-disabled-bg border-base shadow-none text-shadow-none cursor-not-allowed) disabled:hover:border-base disabled:hover:text-disabled-text',
     'n-button-primary':
@@ -104,5 +109,13 @@ export default defineConfig({
     'n-button-dashed-ghost': 'n-button-default-ghost',
     'n-button-danger-ghost':
       'text-error-base hover:text-error-hover focus:text-error-hover active:text-error-active',
+    'n-button-large': 'min-w-40px h-lg text-lg',
+    'n-button-small': 'h-sm py-0 px-xs',
+    'n-button-circle': 'min-w-base px-0 rounded-1/2',
+    'n-button-circle-small': 'min-w-24px',
+    'n-button-circle-large': 'min-w-40px',
+    'n-button-round': 'rounded-32px',
+    'n-button-round-small': 'rounded-24px',
+    'n-button-round-large': 'rounded-40px',
   },
 })

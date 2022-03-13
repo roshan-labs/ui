@@ -37,6 +37,19 @@ const meta: Meta = {
       control: { type: 'select' },
       options: ['button', 'submit', 'reset'],
     },
+    shape: {
+      description: '设置按钮形状',
+      control: { type: 'select' },
+      options: ['default', 'circle', 'round'],
+    },
+    size: {
+      description: '设置按钮大小',
+      control: { type: 'select' },
+      options: ['large', 'middle', 'small'],
+    },
+    target: {
+      description: '相当于 a 链接的 target 属性，href 存在时生效',
+    },
   },
 }
 
@@ -100,35 +113,35 @@ export const Disabled: Story = (args) => ({
   components: { NButton: Button },
   setup: () => ({ args }),
   template: `
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="primary">Primary</n-button>
       <n-button v-bind="args" type="primary" disabled>Primary(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args">Default</n-button>
       <n-button v-bind="args" disabled>Default(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="dashed">Dashed</n-button>
       <n-button v-bind="args" type="dashed" disabled>Dashed(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="text">Text</n-button>
       <n-button v-bind="args" type="text" disabled>Text(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="link">Link</n-button>
       <n-button v-bind="args" type="link" disabled>Link(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" danger>Danger Default</n-button>
       <n-button v-bind="args" danger disabled>Danger Default(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="text" danger>Danger Text</n-button>
       <n-button v-bind="args" type="text" danger disabled>Danger Text(disabled)</n-button>
     </div>
-    <div class="mb-8px">
+    <div class="mb-xs">
       <n-button v-bind="args" type="link" danger>Danger Link</n-button>
       <n-button v-bind="args" type="link" danger disabled>Danger Link(disabled)</n-button>
     </div>
@@ -153,16 +166,50 @@ Ghost.args = {
 
 export const Href = Template.bind({})
 Href.args = {
-  default: 'link',
+  default: 'Baidu',
   type: 'link',
   href: 'https://www.baidu.com',
-  target: '_blank',
 }
 
 export const HtmlType = Template.bind({})
 HtmlType.args = {
   ...Primary.args,
   htmlType: 'button',
+}
+
+export const Shape = Template.bind({})
+Shape.args = {
+  ...Primary.args,
+  shape: 'circle',
+  default: 'A',
+}
+
+export const Size: Story = (args) => ({
+  components: { NButton: Button },
+  setup: () => ({ args }),
+  template: `
+    <div class="mb-md">
+      <n-button v-bind="args" type="primary">Button</n-button>
+      <n-button v-bind="args">Button</n-button>
+      <n-button v-bind="args" type="dashed">Button</n-button>
+      <n-button v-bind="args" type="link">Button</n-button>
+    </div>
+    <div>
+      <n-button v-bind="args" type="primary">A</n-button>
+      <n-button v-bind="args" type="primary" shape="circle">A</n-button>
+      <n-button v-bind="args" type="primary" shape="round">A</n-button>
+      <n-button v-bind="args" type="primary" shape="round">Button</n-button>
+    </div>
+  `,
+})
+Size.args = {
+  size: 'large',
+}
+
+export const Target = Template.bind({})
+Target.args = {
+  ...Href.args,
+  target: '_blank',
 }
 
 export { meta as default }
