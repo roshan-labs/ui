@@ -212,4 +212,4 @@ Target.args = {
   target: '_blank',
 }
 
-export { meta as default }
+export default meta
