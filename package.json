@@ -19,7 +19,8 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release": "standard-version"
   },
   "config": {
     "commitizen": {
@@ -50,6 +51,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "nuxt3": "latest",
     "prettier": "^2.5.1",
+    "standard-version": "^9.3.2",
     "storybook-builder-vite": "^0.1.18",
     "vite-plugin-windicss": "^1.8.3",
     "vue-loader": "^16.8.3"
