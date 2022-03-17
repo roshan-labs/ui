@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.0...v0.1.1) (2022-03-17)
+
+
+### Features
+
+* 自动匹配项目下 `windi.config` 配置文件，可以通过 `@roshan-labs/nuxt-ui/windicss` 导出一个合并默认 UI 配置的方法 ([4a4e580](https://github.com/roshan-labs/nuxt-ui/commit/4a4e5804cd9ecbb6af85b14deb2380600710c305))
+
 ## 0.1.0 (2022-03-16)
 
 
