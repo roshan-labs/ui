@@ -14,6 +14,8 @@ import type { FullConfig } from 'windicss/types/interfaces'
 import { name as packageName, version } from '../package.json'
 import { extendUserConfig } from './runtime/windicss'
 
+export { extendUserConfig }
+
 export interface ModuleOptions {
   /** 组件前缀 */
   prefix?: string

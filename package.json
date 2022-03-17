@@ -6,8 +6,7 @@
     ".": {
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
-    },
-    "./windicss": "./dist/runtime/windicss.mjs"
+    }
   },
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
@@ -33,7 +32,8 @@
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
     "defu": "^5.0.1",
-    "nuxt-windicss": "^2.2.8"
+    "nuxt-windicss": "^2.2.8",
+    "windicss": "^3.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
