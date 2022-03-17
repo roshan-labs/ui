@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.1...v0.1.2) (2022-03-17)
+
+
+### Bug Fixes
+
+* 修复模块无法导出 `extendUserConfig` 方法 ([537e690](https://github.com/roshan-labs/nuxt-ui/commit/537e69029a8d9af41034be80315be53529a858f2))
+
 ### [0.1.1](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.0...v0.1.1) (2022-03-17)
 
 
