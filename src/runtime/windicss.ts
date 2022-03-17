@@ -1,4 +1,6 @@
+import type { FullConfig } from 'windicss/types/interfaces'
 import { defineConfig } from 'windicss/helpers'
+import defu from 'defu'
 
 const height = {
   sm: '24px',
@@ -6,7 +8,7 @@ const height = {
   lg: '40px',
 }
 
-export default defineConfig({
+const defultWindiConfig = defineConfig({
   preflight: true,
   theme: {
     extend: {
@@ -119,3 +121,7 @@ export default defineConfig({
     'n-button-round-large': 'rounded-40px',
   },
 })
+
+export function extendUserConfig(userConfig: FullConfig = {}) {
+  return defu(userConfig, defultWindiConfig)
+}

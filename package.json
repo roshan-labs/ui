@@ -6,7 +6,8 @@
     ".": {
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
-    }
+    },
+    "./windicss": "./dist/runtime/windicss.mjs"
   },
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
@@ -17,7 +18,6 @@
     "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version"

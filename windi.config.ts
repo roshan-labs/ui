@@ -1,5 +1,3 @@
-import { defineConfig } from 'windicss/helpers'
+import { extendUserConfig } from './src/runtime/windicss'
 
-import config from './src/runtime/windicss'
-
-export default defineConfig(config)
+export default extendUserConfig()
