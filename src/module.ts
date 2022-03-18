@@ -14,14 +14,12 @@ import type { FullConfig } from 'windicss/types/interfaces'
 import { name as packageName, version } from '../package.json'
 import { extendUserConfig } from './runtime/windicss'
 
-export { extendUserConfig }
-
 export interface ModuleOptions {
   /** 组件前缀 */
   prefix?: string
 }
 
-export default defineNuxtModule<ModuleOptions>({
+const module = defineNuxtModule<ModuleOptions>({
   meta: {
     name: packageName,
     version,
@@ -81,3 +79,5 @@ declare module '@nuxt/schema' {
     nuxtUI?: ModuleOptions
   }
 }
+
+export { module as default }

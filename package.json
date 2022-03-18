@@ -6,11 +6,12 @@
     ".": {
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
-    }
+    },
+    "./dist/runtime/*": "./dist/runtime/*"
   },
   "main": "./dist/module.cjs",
   "module": "./dist/module.mjs",
-  "types": "./dist/module.d.ts",
+  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
