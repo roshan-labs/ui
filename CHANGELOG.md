@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.3...v0.1.4) (2022-03-18)
+
+
+### Features
+
+* 暴露 dist/runtime 文件夹内容 ([fc9c806](https://github.com/roshan-labs/nuxt-ui/commit/fc9c806cbd6f6bf8a83851411f294ec952a647bf))
+
 ### [0.1.3](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.2...v0.1.3) (2022-03-17)
 
 
