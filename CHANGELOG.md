@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.4...v0.1.5) (2022-03-20)
+
+
+### Features
+
+* 新增 `divider` 组件 ([31d4013](https://github.com/roshan-labs/nuxt-ui/commit/31d4013e5a795b374c246e7ae4b22b30ba3993a3))
+
 ### [0.1.4](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.3...v0.1.4) (2022-03-18)
 
 
