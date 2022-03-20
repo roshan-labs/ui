@@ -119,6 +119,23 @@ const defultWindiConfig = defineConfig({
     'n-button-round': 'rounded-32px',
     'n-button-round-small': 'rounded-24px',
     'n-button-round-large': 'rounded-40px',
+
+    // Divider
+    'n-divider':
+      'box-border p-0 m-0 text-content text-base tabular-nums leading-base list-none border-t border-solid',
+    'n-divider-horizontal': 'flex clear-both w-full min-w-full my-lg border-[#0000000f]',
+    'n-divider-vertical':
+      'relative top-[-0.06em] inline-block h-[0.9em] mx-xs align-middle border-t-0 border-l border-[rgba(0,0,0,.06)]',
+    'n-divider-dashed': 'bg-transparent border-[#0000000f] border-dashed',
+    'n-divider-text':
+      'my-md mx-0 text-content font-medium text-lg whitespace-nowrap text-center border-t-0 before:(content-[""] relative top-1/2 w-1/2 border-t border-solid border-[inherit] transform translate-y-1/2) after:(content-[""] relative top-1/2 w-1/2 border-t border-solid border-[inherit] transform translate-y-1/2)',
+    'n-divider-text-dashed': 'before:border-dashed after:border-dashed',
+    'n-divider-text-left': 'before:(top-1/2 w-[5%]) after:(top-1/2 w-[95%])',
+    'n-divider-text-right': 'before:(top-1/2 w-[95%]) after:(top-1/2 w-[5%])',
+    'n-divider-inner-text': 'inline-block px-[1em]',
+    'n-divider-plain': 'font-normal text-base',
+    'n-divider-orientation-left': 'before:w-0',
+    'n-divider-orientation-right': 'after:w-0',
   },
 })
 

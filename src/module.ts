@@ -38,8 +38,6 @@ const module = defineNuxtModule<ModuleOptions>({
       },
     }
 
-    nuxt.options.build.transpile.push(resolver.resolve('./runtime'))
-
     let windiConfig: FullConfig | string | undefined
 
     // 读取 windicss.config 配置
@@ -57,7 +55,7 @@ const module = defineNuxtModule<ModuleOptions>({
     }
 
     // 注册组件
-    await addComponentsDir({
+    addComponentsDir({
       path: componentsPath,
       prefix: options.prefix,
     })

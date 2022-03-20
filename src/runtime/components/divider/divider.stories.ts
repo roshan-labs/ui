@@ -1,6 +1,5 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NButton from '../button/button.vue'
 import NDivider from './divider.vue'
 
 const meta: Meta = {
@@ -8,13 +7,32 @@ const meta: Meta = {
   component: NDivider,
   decorators: [() => ({ template: '<div class="w-420px text-base"><story /></div>' })],
   argTypes: {
+    default: {
+      description: '默认插槽',
+      control: 'text',
+    },
     type: {
       description: '水平还是垂直类型',
-      control: { type: 'select' },
+      control: 'select',
       options: ['horizontal', 'vertical'],
     },
     dashed: {
       description: '是否虚线',
+      control: 'boolean',
+    },
+    orientation: {
+      description: '分割线标题的位置',
+      control: 'select',
+      options: ['left', 'right', 'center'],
+    },
+    orientationMargin: {
+      description:
+        '标题和最近 left/right 边框之间的距离，去除了分割线，同时 orientation 必须为 left 或 right',
+      control: 'number',
+    },
+    plain: {
+      description: '文字是否显示为普通正文样式',
+      control: 'boolean',
     },
   },
 }
@@ -33,16 +51,13 @@ Horizontal.args = {
 }
 
 export const Vertical: Story = (args) => ({
-  components: {
-    NDivider,
-    NButton,
-  },
+  components: { NDivider },
   setup: () => ({ args }),
   template: `
     <span>Text</span>
-    <n-divider v-bind="args">{{ args.default }}</n-divider>
+    <n-divider v-bind="args" />
     <span>Text</span>
-    <n-divider v-bind="args">{{ args.default }}</n-divider>
+    <n-divider v-bind="args" />
     <span>Text</span>
   `,
 })
@@ -54,6 +69,27 @@ export const Dashed = Horizontal.bind({})
 Dashed.args = {
   ...Horizontal.args,
   dashed: true,
+}
+
+export const Orientation = Horizontal.bind({})
+Orientation.args = {
+  ...Horizontal.args,
+  orientation: 'center',
+  default: 'Text',
+}
+
+export const OrientationMargin = Orientation.bind({})
+OrientationMargin.args = {
+  ...Orientation.args,
+  orientation: 'left',
+  orientationMargin: 0,
+}
+
+export const Plain = Horizontal.bind({})
+Plain.args = {
+  ...Horizontal.args,
+  plain: true,
+  default: 'Text',
 }
 
 export default meta

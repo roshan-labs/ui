@@ -81,5 +81,3 @@ const onClick = () => {
   emit('click')
 }
 </script>
-
-<style></style>
