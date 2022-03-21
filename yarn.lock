@@ -13983,7 +13983,7 @@ vite-plugin-mdx@^3.5.6:
     resolve "^1.20.0"
     unified "^9.2.1"
 
-vite-plugin-windicss@^1.8.2, vite-plugin-windicss@^1.8.3:
+vite-plugin-windicss@^1.8.2:
   version "1.8.3"
   resolved "https://registry.npmmirror.com/vite-plugin-windicss/-/vite-plugin-windicss-1.8.3.tgz#d5fe923ad60f5d80f153a4fae5f837d56caa25cb"
   integrity sha512-RIw2GD6H6cKNE8wZXVOBs4L1uTicVS0FaAkeqXvy1oyuXLC4SXmvnzEuoK0+qFuWJjW0ECNwE8eU+ZZhzNQKUg==
