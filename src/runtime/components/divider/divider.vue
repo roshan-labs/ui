@@ -9,7 +9,6 @@
 <script lang="ts" setup>
 import { PropType, StyleValue, computed, useSlots, ref, onBeforeUpdate } from 'vue'
 
-import { VueClass } from '../utils/types'
 import { filterChildren } from '../utils/utils'
 
 const props = defineProps({
@@ -42,7 +41,7 @@ const hasOrientationRight = computed(
     props.orientationMargin !== ''
 )
 
-const classes = computed<VueClass>(() => ({
+const classes = computed(() => ({
   'n-divider': true,
   'n-divider-horizontal': props.type === 'horizontal',
   'n-divider-vertical': props.type === 'vertical',
