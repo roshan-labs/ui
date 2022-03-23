@@ -7,7 +7,7 @@ import {
   resolvePath,
 } from '@nuxt/kit'
 import WindiModule from 'nuxt-windicss'
-import defu from 'defu'
+import { defu } from 'defu'
 import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
 import type { FullConfig } from 'windicss/types/interfaces'
 
