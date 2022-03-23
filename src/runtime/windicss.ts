@@ -1,6 +1,6 @@
 import type { FullConfig } from 'windicss/types/interfaces'
 import { defineConfig } from 'windicss/helpers'
-import defu from 'defu'
+import { defu } from 'defu'
 
 const height = {
   sm: '24px',

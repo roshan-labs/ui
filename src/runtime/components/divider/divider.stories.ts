@@ -9,7 +9,6 @@ const meta: Meta = {
   argTypes: {
     default: {
       description: '默认插槽',
-      control: 'text',
     },
     type: {
       description: '水平还是垂直类型',
