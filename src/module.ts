@@ -1,4 +1,6 @@
 import { existsSync } from 'fs'
+import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
+import type { FullConfig } from 'windicss/types/interfaces'
 import {
   addComponentsDir,
   createResolver,
@@ -7,9 +9,9 @@ import {
   resolvePath,
 } from '@nuxt/kit'
 import WindiModule from 'nuxt-windicss'
+import type { Options as IconModuleOptions } from 'unplugin-icons'
+import IconModule from 'unplugin-icons/nuxt'
 import { defu } from 'defu'
-import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
-import type { FullConfig } from 'windicss/types/interfaces'
 
 import { name as packageName, version } from '../package.json'
 import { extendUserConfig } from './runtime/windicss'
@@ -60,6 +62,11 @@ const module = defineNuxtModule<ModuleOptions>({
       prefix: options.prefix,
     })
 
+    // 安装 icon 模块
+    await installModule(IconModule, {
+      autoInstall: true,
+    } as IconModuleOptions)
+    // 安装 windicss 模块
     await installModule(WindiModule, {
       ...defu(nuxt.options.windicss || {}, defaultWindiOptions),
       config: windiConfig,
