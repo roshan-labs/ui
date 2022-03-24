@@ -31,9 +31,3 @@ const style = computed<StyleValue>(() => {
   return result
 })
 </script>
-
-<style>
-.n-icon {
-  @apply relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em]);
-}
-</style>

@@ -136,6 +136,9 @@ const defultWindiConfig = defineConfig({
     'n-divider-plain': 'font-normal text-base',
     'n-divider-orientation-left': 'before:w-0',
     'n-divider-orientation-right': 'after:w-0',
+
+    // Icon
+    'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
   },
 })
 
