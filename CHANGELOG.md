@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6-alpha.0](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.5...v0.1.6-alpha.0) (2022-03-24)
+
+
+### Features
+
+* 新增 `Icon` 组件，基于 unplugin-icons 按需自动导入图标 ([174d825](https://github.com/roshan-labs/nuxt-ui/commit/174d8254b747df1b7c7428cec0ffc2329f1218fc))
+
+
+### Bug Fixes
+
+* 修复 `Icon` 组件无样式的错误 ([8ab3ed1](https://github.com/roshan-labs/nuxt-ui/commit/8ab3ed192da36ab208dc6e995fac16dfd2760010))
+
 ### [0.1.5](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.4...v0.1.5) (2022-03-20)
 
 
