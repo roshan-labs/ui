@@ -8,6 +8,8 @@
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 
+import { addUnit } from '../utils/utils'
+
 const props = defineProps({
   /** 颜色 */
   color: { type: String, default: '' },
@@ -23,7 +25,7 @@ const style = computed<StyleValue>(() => {
   }
 
   if (props.size) {
-    result.fontSize = props.size
+    result.fontSize = addUnit(props.size)
   }
 
   return result

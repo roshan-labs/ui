@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, StyleValue, computed, useSlots, ref, onBeforeUpdate } from 'vue'
+import type { PropType, StyleValue } from 'vue'
+import { computed, useSlots, ref, onBeforeUpdate } from 'vue'
 
 import { filterChildren } from '../utils/utils'
 
