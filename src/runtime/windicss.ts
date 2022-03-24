@@ -2,7 +2,7 @@ import type { FullConfig } from 'windicss/types/interfaces'
 import { defineConfig } from 'windicss/helpers'
 import { defu } from 'defu'
 
-const height = {
+const size = {
   sm: '24px',
   base: '32px',
   lg: '40px',
@@ -28,9 +28,10 @@ const defultWindiConfig = defineConfig({
           bg: '#f5f5f5',
         },
       },
-      height,
+      width: size,
+      height: size,
       minWidth: {
-        base: height.base,
+        base: size.base,
       },
       fontSize: {
         base: '14px',
