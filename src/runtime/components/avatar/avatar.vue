@@ -1,12 +1,17 @@
 <template>
   <span :class="classes">
     <img v-if="src" :src="src" :srcset="srcSet" :alt="alt" />
+    <n-icon v-if="$slots.icon">
+      <slot name="icon" />
+    </n-icon>
   </span>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed } from 'vue'
+
+import NIcon from '../icon/icon.vue'
 
 const props = defineProps({
   /** 图片类头像的资源地址 */
@@ -22,6 +27,7 @@ const props = defineProps({
 const classes = computed(() => ({
   'n-avatar': true,
   'n-avatar-image': props.src,
+  'n-avatar-square': props.shape === 'square',
 }))
 </script>
 
@@ -32,5 +38,9 @@ const classes = computed(() => ({
 
 .n-avatar-image {
   @apply bg-transparent children:(block w-full h-full object-cover);
+}
+
+.n-avatar-square {
+  @apply rounded;
 }
 </style>

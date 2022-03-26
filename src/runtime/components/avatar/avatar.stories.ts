@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/vue3'
 
 import NAvatar from './avatar.vue'
+import IconUserOutlined from '~icons/ant-design/user-outlined'
 
 const meta: Meta = {
   title: 'design-system/Avatar',
@@ -15,6 +16,11 @@ const meta: Meta = {
     alt: {
       description: '图像无法显示时的替代文本',
     },
+    shape: {
+      description: '指定头像的形状',
+      control: 'select',
+      options: ['circle', 'square'],
+    },
   },
 }
 
@@ -24,10 +30,31 @@ const Template: Story = (args) => ({
   template: '<n-avatar v-bind="args"></n-avatar>',
 })
 
-export const Default = Template.bind({})
-Default.args = {
+export const Image = Template.bind({})
+Image.args = {
   src: 'https://joeschmoe.io/api/v1/random',
   alt: 'User avatar',
+}
+
+export const Icon: Story = (args) => ({
+  components: {
+    NAvatar,
+    IconUserOutlined,
+  },
+  setup: () => ({ args }),
+  template: `
+    <n-avatar v-bind="args">
+      <template #icon>
+        <icon-user-outlined />
+      </template>
+    </n-avatar>
+  `,
+})
+
+export const Shape = Template.bind({})
+Shape.args = {
+  ...Image.args,
+  shape: 'square',
 }
 
 export default meta

@@ -8,12 +8,20 @@
     :disabled="disabled"
     @click="onClick"
   >
-    <slot />
+    <n-icon v-if="$slots.icon">
+      <slot name="icon" />
+    </n-icon>
+    <span v-if="$slots.default" :class="{ 'ml-[8px]': hasIcon }">
+      <slot />
+    </span>
   </component>
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import type { PropType } from 'vue'
+import { ref, computed, useSlots, onBeforeUpdate } from 'vue'
+
+import NIcon from '../icon/icon.vue'
 
 const props = defineProps({
   /** 按钮类型 */
@@ -45,6 +53,12 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
+const slots = useSlots()
+/** 是否包含图标插槽 */
+const hasIcon = ref(!!slots.icon)
+/** 是否包含默认内容插槽 */
+const hasDefault = ref(!!slots.default)
+
 const classes = computed(() => ({
   'n-button': true,
   // type
@@ -75,9 +89,32 @@ const classes = computed(() => ({
   // size
   'n-button-large': props.size === 'large',
   'n-button-small': props.size === 'small',
+  // icon
+  'n-button-icon': hasIcon.value && !hasDefault.value && props.size === 'middle',
+  'n-button-icon-small': hasIcon.value && !hasDefault.value && props.size === 'small',
+  'n-button-icon-large': hasIcon.value && !hasDefault.value && props.size === 'large',
 }))
+
+onBeforeUpdate(() => {
+  hasIcon.value = !!slots.icon
+  hasDefault.value = !!slots.default
+})
 
 const onClick = () => {
   emit('click')
 }
 </script>
+
+<style>
+.n-button-icon {
+  @apply w-base py-[2.4px] text-lg;
+}
+
+.n-button-icon-small {
+  @apply w-sm py-0;
+}
+
+.n-button-icon-large {
+  @apply w-lg text-[18px];
+}
+</style>

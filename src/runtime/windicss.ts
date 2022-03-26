@@ -85,7 +85,7 @@ const defultWindiConfig = defineConfig({
   shortcuts: {
     // Button
     'n-button':
-      'relative inline-block font-normal whitespace-nowrap text-center text-content bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none touch-manipulation h-base px-md py-xss text-base leading-base rounded bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
+      'inline-flex items-center justify-center h-base text-base font-normal text-content py-[4px] px-[15px] whitespace-nowrap align-middle bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none rounded bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
     'n-button-default':
       'disabled:(text-disabled-text bg-disabled-bg border-base shadow-none text-shadow-none cursor-not-allowed) disabled:hover:border-base disabled:hover:text-disabled-text',
     'n-button-primary':
@@ -95,7 +95,7 @@ const defultWindiConfig = defineConfig({
     'n-button-text':
       'border-transparent bg-transparent shadow-transparent hover:(text-content border-transparent bg-[rgba(0,0,0,0.018)]) focus:(text-content border-transparent bg-[rgba(0,0,0,0.018)]) active:(text-content border-transparent bg-[rgba(0,0,0,0.028)]) disabled:(text-disabled-text bg-transparent cursor-not-allowed) disabled:hover:text-disabled-text',
     'n-button-link':
-      'text-primary-6 border-transparent bg-transparent shadow-transparent hover:(border-transparent bg-transparent) focus:(border-transparent bg-transparent) active:(border-transparent bg-transparent) disabled:(text-disabled-text bg-transparent cursor-not-allowed) disabled:hover:text-disabled-text',
+      'text-primary-6 border-transparent bg-transparent shadow-transparent no-underline hover:(border-transparent bg-transparent) focus:(border-transparent bg-transparent) active:(border-transparent bg-transparent) disabled:(text-disabled-text bg-transparent cursor-not-allowed) disabled:hover:text-disabled-text',
     'n-button-block': 'w-full',
     'n-button-default-danger':
       'text-error-base border-error-base hover:(text-error-hover border-error-hover) focus:(text-error-hover border-error-hover) active:(text-error-active border-error-active)',
@@ -139,7 +139,7 @@ const defultWindiConfig = defineConfig({
     'n-divider-orientation-right': 'after:w-0',
 
     // Icon
-    'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
+    // 'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
   },
 })
 

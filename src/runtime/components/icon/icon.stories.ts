@@ -45,7 +45,7 @@ export const Default: Story = (args) => ({
   `,
 })
 Default.args = {
-  size: 80,
+  size: 68,
   color: '#2f54eb',
 }
 
@@ -64,7 +64,7 @@ const Template: Story = (args) => ({
 
 export const Size = Template.bind({})
 Size.args = {
-  size: 80,
+  size: 68,
 }
 
 export const Color = Template.bind({})

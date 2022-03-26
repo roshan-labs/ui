@@ -1,10 +1,11 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import Button from './button.vue'
+import NButton from './button.vue'
+import IconSearchOutlined from '~icons/ant-design/search-outlined'
 
 const meta: Meta = {
   title: 'design-system/Button',
-  component: Button,
+  component: NButton,
   argTypes: {
     // Events
     onClick: {
@@ -54,7 +55,7 @@ const meta: Meta = {
 }
 
 const Template: Story = (args) => ({
-  components: { NButton: Button },
+  components: { NButton },
   setup() {
     return { args }
   },
@@ -98,61 +99,44 @@ Block.args = {
 }
 
 export const Danger: Story = (args) => ({
-  components: { NButton: Button },
+  components: { NButton },
   setup: () => ({ args }),
   template: `
-    <n-button v-bind="args" type="primary" danger>Primary</n-button>
-    <n-button v-bind="args" danger>Default</n-button>
-    <n-button v-bind="args" type="dashed" danger>Dashed</n-button>
-    <n-button v-bind="args" type="text" danger>Text</n-button>
-    <n-button v-bind="args" type="link" danger>Link</n-button>
+    <div class="children:mr-[8px]">
+      <n-button v-bind="args" type="primary" danger>Primary</n-button>
+      <n-button v-bind="args" danger>Default</n-button>
+      <n-button v-bind="args" type="dashed" danger>Dashed</n-button>
+      <n-button v-bind="args" type="text" danger>Text</n-button>
+      <n-button v-bind="args" type="link" danger>Link</n-button>
+    </div>
   `,
 })
 
 export const Disabled: Story = (args) => ({
-  components: { NButton: Button },
+  components: { NButton },
   setup: () => ({ args }),
   template: `
-    <div class="mb-xs">
-      <n-button v-bind="args" type="primary">Primary</n-button>
-      <n-button v-bind="args" type="primary" disabled>Primary(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args">Default</n-button>
-      <n-button v-bind="args" disabled>Default(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" type="dashed">Dashed</n-button>
-      <n-button v-bind="args" type="dashed" disabled>Dashed(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" type="text">Text</n-button>
-      <n-button v-bind="args" type="text" disabled>Text(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" type="link">Link</n-button>
-      <n-button v-bind="args" type="link" disabled>Link(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" danger>Danger Default</n-button>
-      <n-button v-bind="args" danger disabled>Danger Default(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" type="text" danger>Danger Text</n-button>
-      <n-button v-bind="args" type="text" danger disabled>Danger Text(disabled)</n-button>
-    </div>
-    <div class="mb-xs">
-      <n-button v-bind="args" type="link" danger>Danger Link</n-button>
-      <n-button v-bind="args" type="link" danger disabled>Danger Link(disabled)</n-button>
+    <div class="children:(block mb-[8px])">
+      <n-button v-bind="args" type="primary">Primary(disabled)</n-button>
+      <n-button v-bind="args">Default(disabled)</n-button>
+      <n-button v-bind="args" type="dashed">Dashed(disabled)</n-button>
+      <n-button v-bind="args" type="text">Text(disabled)</n-button>
+      <n-button v-bind="args" type="link">Link(disabled)</n-button>
+      <n-button v-bind="args" danger>Danger Default(disabled)</n-button>
+      <n-button v-bind="args" type="text" danger>Danger Text(disabled)</n-button>
+      <n-button v-bind="args" type="link" danger>Danger Link(disabled)</n-button>
     </div>
   `,
 })
+Disabled.args = {
+  disabled: true,
+}
 
 export const Ghost: Story = (args) => ({
-  components: { NButton: Button },
+  components: { NButton },
   setup: () => ({ args }),
   template: `
-    <div class="bg-gray-400 p-md">
+    <div class="bg-gray-400 p-md children:mr-[8px]">
       <n-button v-bind="args" type="primary">Primary Button</n-button>
       <n-button v-bind="args">Default Button</n-button>
       <n-button v-bind="args" type="dashed">Dashed Button</n-button>
@@ -177,24 +161,50 @@ HtmlType.args = {
   htmlType: 'button',
 }
 
-export const Shape = Template.bind({})
+export const Shape: Story = (args) => ({
+  components: {
+    NButton,
+    IconSearchOutlined,
+  },
+  setup: () => ({ args }),
+  template: `
+    <div class="children:mr-[8px]">
+      <n-button v-bind="args" type="primary">A</n-button>
+      <n-button v-bind="args">A</n-button>
+      <n-button v-bind="args" type="dashed">A</n-button>
+      <n-button v-bind="args" type="primary">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
+      </n-button>
+      <n-button v-bind="args">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
+      </n-button>
+      <n-button v-bind="args" type="dashed">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
+      </n-button>
+    </div>
+  `,
+})
 Shape.args = {
-  ...Primary.args,
   shape: 'circle',
-  default: 'A',
 }
 
 export const Size: Story = (args) => ({
-  components: { NButton: Button },
+  components: { NButton },
   setup: () => ({ args }),
   template: `
-    <div class="mb-md">
+    <div class="mb-[16px] children:mr-[8px]">
       <n-button v-bind="args" type="primary">Button</n-button>
       <n-button v-bind="args">Button</n-button>
       <n-button v-bind="args" type="dashed">Button</n-button>
       <n-button v-bind="args" type="link">Button</n-button>
     </div>
-    <div>
+    <div class="children:mr-[8px]">
       <n-button v-bind="args" type="primary">A</n-button>
       <n-button v-bind="args" type="primary" shape="circle">A</n-button>
       <n-button v-bind="args" type="primary" shape="round">A</n-button>
@@ -210,6 +220,27 @@ export const Target = Template.bind({})
 Target.args = {
   ...Href.args,
   target: '_blank',
+}
+
+export const Icon: Story = (args) => ({
+  components: {
+    NButton,
+    IconSearchOutlined,
+  },
+  setup: () => ({ args }),
+  template: `
+    <div>
+      <n-button v-bind="args">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
+        search
+      </n-button>
+    </div>
+  `,
+})
+Icon.args = {
+  type: 'primary',
 }
 
 export default meta
