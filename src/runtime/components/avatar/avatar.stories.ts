@@ -21,13 +21,17 @@ const meta: Meta = {
       control: 'select',
       options: ['circle', 'square'],
     },
+    gap: {
+      description: '字符类型距离左右两侧边界单位像素',
+      control: 'number',
+    },
   },
 }
 
 const Template: Story = (args) => ({
   components: { NAvatar },
   setup: () => ({ args }),
-  template: '<n-avatar v-bind="args"></n-avatar>',
+  template: '<n-avatar v-bind="args">{{ args.default }}</n-avatar>',
 })
 
 export const Image = Template.bind({})
@@ -53,8 +57,25 @@ export const Icon: Story = (args) => ({
 
 export const Shape = Template.bind({})
 Shape.args = {
-  ...Image.args,
   shape: 'square',
+  default: 'U',
+}
+
+export const Text: Story = (args) => ({
+  components: { NAvatar },
+  setup: () => ({ args }),
+  template: `
+    <div class="children:mr-[8px]">
+      <n-avatar>U</n-avatar>
+      <n-avatar>USER</n-avatar>
+    </div>
+  `,
+})
+
+export const Style = Template.bind({})
+Style.args = {
+  style: 'color: #f56a00; background-color: #fde3cf',
+  default: 'U',
 }
 
 export default meta

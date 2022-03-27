@@ -229,12 +229,22 @@ export const Icon: Story = (args) => ({
   },
   setup: () => ({ args }),
   template: `
-    <div>
+    <div class="children:mr-[8px]">
       <n-button v-bind="args">
         <template #icon>
           <icon-search-outlined />
         </template>
         search
+      </n-button>
+      <n-button v-bind="args">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
+      </n-button>
+      <n-button v-bind="args" shape="circle">
+        <template #icon>
+          <icon-search-outlined />
+        </template>
       </n-button>
     </div>
   `,

@@ -104,17 +104,3 @@ const onClick = () => {
   emit('click')
 }
 </script>
-
-<style>
-.n-button-icon {
-  @apply w-base py-[2.4px] text-lg;
-}
-
-.n-button-icon-small {
-  @apply w-sm py-0;
-}
-
-.n-button-icon-large {
-  @apply w-lg text-[18px];
-}
-</style>

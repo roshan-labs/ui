@@ -120,6 +120,9 @@ const defultWindiConfig = defineConfig({
     'n-button-round': 'rounded-32px',
     'n-button-round-small': 'rounded-24px',
     'n-button-round-large': 'rounded-40px',
+    'n-button-icon': 'w-base py-0 px-0 text-lg',
+    'n-button-icon-small': 'w-sm py-0 px-0',
+    'n-button-icon-large': 'w-lg text-[18px]',
 
     // Divider
     'n-divider':
