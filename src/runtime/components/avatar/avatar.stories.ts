@@ -25,6 +25,11 @@ const meta: Meta = {
       description: '字符类型距离左右两侧边界单位像素',
       control: 'number',
     },
+    size: {
+      description: '设置头像的大小',
+      control: 'select',
+      options: ['small', 'default', 'large'],
+    },
   },
 }
 
@@ -77,5 +82,32 @@ Style.args = {
   style: 'color: #f56a00; background-color: #fde3cf',
   default: 'U',
 }
+
+export const Size: Story = (args) => ({
+  components: {
+    NAvatar,
+    IconUserOutlined,
+  },
+  setup: () => ({ args }),
+  template: `
+    <div class="children:mr-[8px]">
+      <n-avatar size="large">
+        <template #icon>
+          <icon-user-outlined />
+        </template>
+      </n-avatar>
+      <n-avatar>
+        <template #icon>
+          <icon-user-outlined />
+        </template>
+      </n-avatar>
+      <n-avatar size="small">
+        <template #icon>
+          <icon-user-outlined />
+        </template>
+      </n-avatar>
+    </div>
+  `,
+})
 
 export default meta

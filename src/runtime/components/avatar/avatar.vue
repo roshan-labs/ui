@@ -27,6 +27,11 @@ const props = defineProps({
   shape: { type: String as PropType<'circle' | 'square'>, default: 'circle' },
   /** 字符类型距离左右两侧边界单位像素 */
   gap: { type: Number, default: 4 },
+  /** 设置头像的大小 */
+  size: {
+    type: [Number, String] as PropType<number | 'large' | 'default' | 'small'>,
+    default: 'default',
+  },
 })
 
 const rootNode = ref<HTMLElement | null>(null)
@@ -39,6 +44,10 @@ const classes = computed(() => ({
   'n-avatar-image': props.src,
   'n-avatar-square': props.shape === 'square',
   'n-avatar-icon': hasIcon.value,
+  'n-avatar-small': props.size === 'small',
+  'n-avatar-large': props.size === 'large',
+  'n-avatar-icon-small': hasIcon.value && props.size === 'small',
+  'n-avatar-icon-large': hasIcon.value && props.size === 'large',
 }))
 
 const textStyle = computed<StyleValue>(() => {
@@ -76,5 +85,21 @@ onBeforeUpdate(() => {
 
 .n-avatar-icon {
   @apply text-[18px];
+}
+
+.n-avatar-small {
+  @apply w-sm h-sm;
+}
+
+.n-avatar-large {
+  @apply w-lg h-lg;
+}
+
+.n-avatar-icon-small {
+  @apply text-[14px];
+}
+
+.n-avatar-icon-large {
+  @apply text-[24px];
 }
 </style>
