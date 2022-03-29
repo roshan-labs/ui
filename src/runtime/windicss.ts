@@ -142,7 +142,7 @@ const defultWindiConfig = defineConfig({
     'n-divider-orientation-right': 'after:w-0',
 
     // Icon
-    // 'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
+    'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
   },
 })
 
