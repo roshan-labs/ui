@@ -16,6 +16,9 @@ const meta: Meta = {
     alt: {
       description: '图像无法显示时的替代文本',
     },
+    icon: {
+      description: '设置头像的自定义图标',
+    },
     shape: {
       description: '指定头像的形状',
       control: 'select',
@@ -29,6 +32,10 @@ const meta: Meta = {
       description: '设置头像的大小',
       control: 'select',
       options: ['small', 'default', 'large'],
+    },
+    onError: {
+      description: '图片加载失败的事件',
+      action: 'error',
     },
   },
 }
@@ -45,7 +52,14 @@ Image.args = {
   alt: 'User avatar',
 }
 
-export const Icon: Story = (args) => ({
+export const Fallback = Template.bind({})
+Fallback.args = {
+  src: 'https://empty',
+  icon: IconUserOutlined,
+  default: 'USER',
+}
+
+export const IconSlot: Story = (args) => ({
   components: {
     NAvatar,
     IconUserOutlined,
@@ -59,6 +73,11 @@ export const Icon: Story = (args) => ({
     </n-avatar>
   `,
 })
+
+export const Icon = Template.bind({})
+Icon.args = {
+  icon: IconUserOutlined,
+}
 
 export const Shape = Template.bind({})
 Shape.args = {

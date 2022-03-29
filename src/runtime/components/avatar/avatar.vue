@@ -1,17 +1,24 @@
 <template>
   <span ref="rootNode" :class="classes">
-    <img v-if="src" :src="src" :srcset="srcSet" :alt="alt" />
-    <n-icon v-if="$slots.icon">
-      <slot name="icon" />
+    <img
+      v-if="(src || srcSet) && !hasImageError"
+      :src="src"
+      :srcset="srcSet"
+      :alt="alt"
+      @error="onError"
+    />
+    <n-icon v-else-if="icon || $slots.icon">
+      <component :is="icon" v-if="icon" />
+      <slot v-else name="icon" />
     </n-icon>
-    <span v-if="$slots.default" ref="textNode" :style="textStyle">
+    <span v-else ref="textNode" :style="textStyle">
       <slot />
     </span>
   </span>
 </template>
 
 <script lang="ts" setup>
-import type { PropType, StyleValue } from 'vue'
+import type { PropType, StyleValue, Component } from 'vue'
 import { ref, computed, useSlots, onBeforeUpdate } from 'vue'
 
 import NIcon from '../icon/icon.vue'
@@ -23,6 +30,8 @@ const props = defineProps({
   srcSet: { type: String, default: '' },
   /** 图像无法显示时的替代文本 */
   alt: { type: String, default: '' },
+  /** 设置头像的自定义图标 */
+  icon: { type: Object as PropType<Component | null>, default: null },
   /** 指定头像的形状 */
   shape: { type: String as PropType<'circle' | 'square'>, default: 'circle' },
   /** 字符类型距离左右两侧边界单位像素 */
@@ -34,16 +43,23 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['error'])
+
 const rootNode = ref<HTMLElement | null>(null)
 const textNode = ref<HTMLElement | null>(null)
 const slots = useSlots()
+/** 是否有 icon 插槽 */
 const hasIcon = ref(!!slots.icon)
+/** 图片是否加载错误 */
+const hasImageError = ref(false)
+
+const hasImage = computed(() => (props.src || props.srcSet) && !hasImageError.value)
 
 const classes = computed(() => ({
   'n-avatar': true,
-  'n-avatar-image': props.src,
+  'n-avatar-image': hasImage.value,
   'n-avatar-square': props.shape === 'square',
-  'n-avatar-icon': hasIcon.value,
+  'n-avatar-icon': hasIcon.value || !!props.icon,
   'n-avatar-small': props.size === 'small',
   'n-avatar-large': props.size === 'large',
   'n-avatar-icon-small': hasIcon.value && props.size === 'small',
@@ -68,6 +84,11 @@ const textStyle = computed<StyleValue>(() => {
 onBeforeUpdate(() => {
   hasIcon.value = !!slots.icon
 })
+
+const onError = (e: Event) => {
+  hasImageError.value = true
+  emit('error', e)
+}
 </script>
 
 <style>
