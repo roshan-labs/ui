@@ -65,6 +65,11 @@ const module = defineNuxtModule<ModuleOptions>({
     // 安装 icon 模块
     await installModule(IconModule, {
       autoInstall: true,
+      iconCustomizer(_collection, _icon, props) {
+        // 重置图标样式
+        props.width = '1em'
+        props.height = '1em'
+      },
     } as IconModuleOptions)
     // 安装 windicss 模块
     await installModule(WindiModule, {
