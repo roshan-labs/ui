@@ -2,8 +2,8 @@ import type { Meta, Story } from '@storybook/vue3'
 
 import NLayout from './layout.vue'
 import NLayoutHeader from './layout-header.vue'
-import NlayoutContent from './layout-content.vue'
-import NlayoutFooter from './layout-footer.vue'
+import NLayoutContent from './layout-content.vue'
+import NLayoutFooter from './layout-footer.vue'
 
 const meta: Meta = {
   title: 'design-system/Layout',
@@ -14,8 +14,8 @@ export const Default: Story = (args) => ({
   components: {
     NLayout,
     NLayoutHeader,
-    NlayoutContent,
-    NlayoutFooter,
+    NLayoutContent,
+    NLayoutFooter,
   },
   setup: () => ({ args }),
   template: `
