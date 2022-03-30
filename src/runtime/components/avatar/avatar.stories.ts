@@ -48,7 +48,7 @@ const Template: Story = (args) => ({
 
 export const Image = Template.bind({})
 Image.args = {
-  src: 'https://joeschmoe.io/api/v1/random',
+  src: 'https://joeschmoe.io/api/v1/jess',
   alt: 'User avatar',
 }
 

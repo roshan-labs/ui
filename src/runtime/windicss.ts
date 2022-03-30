@@ -143,6 +143,17 @@ const defultWindiConfig = defineConfig({
 
     // Icon
     'n-icon': 'relative inline-flex justify-center items-center fill-current svg:(w-[1em] h-[1em])',
+
+    // Avatar
+    'n-avatar':
+      'inline-flex items-center justify-center w-base h-base rounded-1/2 overflow-hidden p-0 text-base text-white whitespace-nowrap align-middle bg-[#ccc]',
+    'n-avatar-image': 'bg-transparent children:(block w-full h-full object-cover)',
+    'n-avatar-square': 'rounded',
+    'n-avatar-icon': 'text-[18px]',
+    'n-avatar-small': 'w-sm h-sm',
+    'n-avatar-large': 'w-lg h-lg',
+    'n-avatar-icon-small': 'text-[14px]',
+    'n-avatar-icon-large': 'text-[24px]',
   },
 })
 
