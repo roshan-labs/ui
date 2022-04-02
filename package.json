@@ -2,6 +2,7 @@
   "name": "@roshan-labs/nuxt-ui",
   "version": "0.1.6-alpha.0",
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
@@ -18,7 +19,7 @@
   "scripts": {
     "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
-    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version"
@@ -33,9 +34,9 @@
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
+    "@roshan-labs/icon-module": "^1.0.1-beta.0",
     "defu": "^6.0.0",
     "nuxt-windicss": "^2.2.8",
-    "unplugin-icons": "^0.14.1",
     "windicss": "^3.5.1"
   },
   "devDependencies": {

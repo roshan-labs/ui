@@ -9,23 +9,23 @@ import {
   resolvePath,
 } from '@nuxt/kit'
 import WindiModule from 'nuxt-windicss'
-import type { Options as IconModuleOptions } from 'unplugin-icons'
-import IconModule from 'unplugin-icons/nuxt'
+import IconModule from '@roshan-labs/icon-module'
 import { defu } from 'defu'
 
 import { name as packageName, version } from '../package.json'
 import { extendUserConfig } from './runtime/windicss'
+import { extendIconConfig } from './icon'
 
 export interface ModuleOptions {
   /** 组件前缀 */
   prefix?: string
 }
 
-const module = defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: packageName,
     version,
-    configKey: 'nuxtUI',
+    configKey: 'ui',
   },
   defaults: {
     prefix: 'n',
@@ -60,17 +60,12 @@ const module = defineNuxtModule<ModuleOptions>({
     addComponentsDir({
       path: componentsPath,
       prefix: options.prefix,
+      extensions: ['vue'],
     })
 
     // 安装 icon 模块
-    await installModule(IconModule, {
-      autoInstall: true,
-      iconCustomizer(_collection, _icon, props) {
-        // 重置图标样式
-        props.width = '1em'
-        props.height = '1em'
-      },
-    } as IconModuleOptions)
+    await installModule(IconModule, extendIconConfig(nuxt.options.icons))
+
     // 安装 windicss 模块
     await installModule(WindiModule, {
       ...defu(nuxt.options.windicss || {}, defaultWindiOptions),
@@ -84,10 +79,4 @@ declare module '@nuxt/schema' {
   interface NuxtOptions {
     windicss?: WindiModuleOptions
   }
-
-  interface NuxtConfig {
-    nuxtUI?: ModuleOptions
-  }
 }
-
-export { module as default }

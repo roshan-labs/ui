@@ -1,15 +1,7 @@
 {
+  "extends": "./playground/.nuxt/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "Node",
-    "strict": true,
-    "noUnusedLocals": true,
-    "resolveJsonModule": true,
     "types": [
-      "node",
       "unplugin-icons/types/vue"
     ]
   }
