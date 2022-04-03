@@ -1,12 +1,15 @@
-const WindiCSS = require('windicss-webpack-plugin')
-const UnpluginIcon = require('unplugin-icons/webpack')
+const WindiCSS = require('vite-plugin-windicss').default
+const UnpluginIcon = require('unplugin-icons/vite')
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   framework: '@storybook/vue3',
-  webpackFinal(config) {
-    config.plugins.push(new WindiCSS())
+  core: {
+    builder: '@storybook/builder-vite',
+  },
+  viteFinal(config) {
+    config.plugins.push(WindiCSS())
     config.plugins.push(
       UnpluginIcon({
         autoInstall: true,

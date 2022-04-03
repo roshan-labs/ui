@@ -14303,6 +14303,16 @@ vite-plugin-windicss@^1.8.2:
     kolorist "^1.5.1"
     windicss "^3.5.1"
 
+vite-plugin-windicss@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-1.8.3.tgz#d5fe923ad60f5d80f153a4fae5f837d56caa25cb"
+  integrity sha512-RIw2GD6H6cKNE8wZXVOBs4L1uTicVS0FaAkeqXvy1oyuXLC4SXmvnzEuoK0+qFuWJjW0ECNwE8eU+ZZhzNQKUg==
+  dependencies:
+    "@windicss/plugin-utils" "1.8.3"
+    debug "^4.3.3"
+    kolorist "^1.5.1"
+    windicss "^3.5.1"
+
 vite@^2.8.6:
   version "2.8.6"
   resolved "https://registry.npmmirror.com/vite/-/vite-2.8.6.tgz#32d50e23c99ca31b26b8ccdc78b1d72d4d7323d3"
