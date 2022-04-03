@@ -1,5 +1,6 @@
 <template>
-  <n-layout>
-    <n-layout-header>Header</n-layout-header>
-  </n-layout>
+  <div>
+    <n-button type="primary">Button</n-button>
+    <n-button>Button</n-button>
+  </div>
 </template>
