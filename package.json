@@ -58,8 +58,8 @@
     "nuxt3": "latest",
     "prettier": "^2.6.1",
     "standard-version": "^9.3.2",
+    "unplugin-icons": "^0.14.1",
     "vite-plugin-windicss": "^1.8.3",
-    "vue-loader": "^16.8.3",
-    "windicss-webpack-plugin": "^1.6.7"
+    "vue-loader": "^16.8.3"
   }
 }
