@@ -163,6 +163,6 @@ const defultWindiConfig = defineConfig({
   },
 })
 
-export function extendUserConfig(userConfig: FullConfig = {}) {
+export function extendWindiConfig(userConfig: FullConfig = {}) {
   return defu(userConfig, defultWindiConfig)
 }

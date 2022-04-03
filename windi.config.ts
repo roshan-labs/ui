@@ -1,3 +1,3 @@
-import { extendUserConfig } from './src/runtime/windicss'
+import { extendWindiConfig } from './src/runtime/windicss'
 
-export default extendUserConfig()
+export default extendWindiConfig()

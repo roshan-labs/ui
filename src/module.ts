@@ -13,7 +13,7 @@ import IconModule from '@roshan-labs/icon-module'
 import { defu } from 'defu'
 
 import { name as packageName, version } from '../package.json'
-import { extendUserConfig } from './runtime/windicss'
+import { extendWindiConfig } from './runtime/windicss'
 import { extendIconConfig } from './icon'
 
 export interface ModuleOptions {
@@ -49,11 +49,11 @@ export default defineNuxtModule<ModuleOptions>({
 
     // 如果上一步读取的配置是对象则与 UI 配置合并
     if (typeof windiConfig === 'object') {
-      windiConfig = extendUserConfig(windiConfig)
+      windiConfig = extendWindiConfig(windiConfig)
     }
 
     if (!windiConfig && !existsSync(windiConfigPath)) {
-      windiConfig = extendUserConfig()
+      windiConfig = extendWindiConfig()
     }
 
     // 注册组件
