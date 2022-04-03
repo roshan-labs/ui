@@ -47,6 +47,7 @@
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-vite": "^0.1.23",
     "@storybook/vue3": "^6.4.19",
     "@types/react": "file:stub/types-react",
     "babel-loader": "^8.2.4",
