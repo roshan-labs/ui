@@ -1,4 +1,12 @@
-import { VNode, Comment, Fragment, Text } from 'vue'
+import { VNode, Comment, Fragment, Text, Component } from 'vue'
+
+/**
+ * 判断 vnode.type 是否为组件
+ * @param node vnode.type
+ */
+export function isComponent(type: VNode['type']): type is Component {
+  return typeof type === 'object' && Object.hasOwn(type, 'render')
+}
 
 /**
  * 是否为空节点

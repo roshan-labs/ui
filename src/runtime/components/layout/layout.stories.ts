@@ -6,7 +6,7 @@ import NLayoutContent from './layout-content.vue'
 import NLayoutFooter from './layout-footer.vue'
 
 const meta: Meta = {
-  title: 'design-system/Layout',
+  title: 'design-system/Layout/Layout',
   component: NLayout,
 }
 
@@ -19,10 +19,10 @@ export const Default: Story = (args) => ({
   },
   setup: () => ({ args }),
   template: `
-    <n-layout>
-      <n-layout-header>Header</n-layout-header>
-      <n-layout-content>Content</n-layout-content>
-      <n-layout-footer>Footer</n-layout-footer>
+    <n-layout class="text-center">
+      <n-layout-header class="text-white bg-primary-6">Header</n-layout-header>
+      <n-layout-content class="min-h-[120px] leading-[120px] text-white bg-primary-7">Content</n-layout-content>
+      <n-layout-footer class="text-white bg-primary-6">Footer</n-layout-footer>
     </n-layout>
   `,
 })

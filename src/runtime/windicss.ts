@@ -157,7 +157,9 @@ const defultWindiConfig = defineConfig({
 
     // Layout
     'n-layout': 'flex flex-auto flex-col min-h-0 bg-[#f0f2f5]',
+    'n-layout-has-sider': 'flex-row',
     'n-layout-header': 'h-[64px] leading-[64px] px-[50px] text-content flex-shrink-0 bg-[#001529]',
+    'n-layout-sider': 'relative bg-[#001529] transition-all duration-200 ease',
     'n-layout-content': 'flex-auto min-h-0',
     'n-layout-footer': 'flex-shrink-0 text-content text-base py-[24px] px-[50px] bg-[#f0f2f5]',
   },

@@ -6,7 +6,6 @@
     ]
   },
   "include": [
-    "./playground/.nuxt/nuxt.d.ts",
     "./playground/**/*",
     "./src/**/*"
   ]
