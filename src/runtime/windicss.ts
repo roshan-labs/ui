@@ -57,8 +57,10 @@ const defultWindiConfig = defineConfig({
       boxShadow: {
         button: '0 2px 0 rgba(0, 0, 0, 0.015)',
         primary: '0 2px 0 rgba(0, 0, 0, 0.045)',
+        input: '0 0 0 2px #d6e4ff',
       },
       transitionTimingFunction: {
+        ease: 'ease',
         'in-out': 'cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
       padding: {

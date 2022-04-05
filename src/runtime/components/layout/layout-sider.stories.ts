@@ -8,7 +8,7 @@ import NLayoutFooter from './layout-footer.vue'
 import IconBars from '~icons/ant-design/bars-outlined'
 
 const meta: Meta = {
-  title: 'design-system/Layout/LayoutSider',
+  title: 'design-system/布局/LayoutSider',
   component: NLayoutSider,
   argTypes: {
     // Events

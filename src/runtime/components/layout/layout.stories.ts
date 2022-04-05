@@ -6,7 +6,7 @@ import NLayoutContent from './layout-content.vue'
 import NLayoutFooter from './layout-footer.vue'
 
 const meta: Meta = {
-  title: 'design-system/Layout/Layout',
+  title: 'design-system/布局/Layout',
   component: NLayout,
 }
 
