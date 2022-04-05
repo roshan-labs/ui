@@ -5,6 +5,7 @@ import NLayoutHeader from './layout-header.vue'
 import NLayoutSider from './layout-sider.vue'
 import NLayoutContent from './layout-content.vue'
 import NLayoutFooter from './layout-footer.vue'
+import IconBars from '~icons/ant-design/bars-outlined'
 
 const meta: Meta = {
   title: 'design-system/Layout/LayoutSider',
@@ -17,14 +18,17 @@ const meta: Meta = {
   },
 }
 
+const components = {
+  NLayout,
+  NLayoutHeader,
+  NLayoutSider,
+  NLayoutContent,
+  NLayoutFooter,
+  IconBars,
+}
+
 export const Default: Story = (args) => ({
-  components: {
-    NLayout,
-    NLayoutHeader,
-    NLayoutSider,
-    NLayoutContent,
-    NLayoutFooter,
-  },
+  components,
   setup: () => ({ args }),
   template: `
     <n-layout class="text-center">
@@ -39,13 +43,7 @@ export const Default: Story = (args) => ({
 })
 
 export const Right: Story = (args) => ({
-  components: {
-    NLayout,
-    NLayoutHeader,
-    NLayoutSider,
-    NLayoutContent,
-    NLayoutFooter,
-  },
+  components,
   setup: () => ({ args }),
   template: `
     <n-layout class="text-center">
@@ -79,6 +77,39 @@ export const ReverseArrow = Right.bind({})
 ReverseArrow.args = {
   collapsible: true,
   reverseArrow: true,
+}
+
+export const CustomTrigger: Story = (args) => ({
+  components,
+  setup: () => ({ args }),
+  template: `
+    <n-layout class="text-center">
+      <n-layout-header class="text-white bg-primary-5">Header</n-layout-header>
+      <n-layout>
+        <n-layout-sider class="text-white bg-primary-6 leading-[120px]" v-bind="args" @update:collapsed="args.onUpdateCollapsed">
+          <template #trigger>
+            <icon-bars />
+          </template>
+          <span>Sider</span>
+        </n-layout-sider>
+        <n-layout-content class="min-h-[120px] leading-[120px] text-white bg-primary-7">Content</n-layout-content>
+      </n-layout>
+      <n-layout-footer class="text-white bg-primary-5">Footer</n-layout-footer>
+    </n-layout>
+  `,
+})
+CustomTrigger.args = {
+  collapsible: true,
+}
+
+export const Breakpoint = Default.bind({})
+Breakpoint.args = {
+  breakpoint: 'lg',
+}
+Breakpoint.parameters = {
+  viewport: {
+    defaultViewport: 'md',
+  },
 }
 
 export default meta

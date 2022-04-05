@@ -160,6 +160,9 @@ const defultWindiConfig = defineConfig({
     'n-layout-has-sider': 'flex-row',
     'n-layout-header': 'h-[64px] leading-[64px] px-[50px] text-content flex-shrink-0 bg-[#001529]',
     'n-layout-sider': 'relative bg-[#001529] transition-all duration-200 ease',
+    'n-layout-sider-children': 'h-full',
+    'n-layout-sider-trigger':
+      'fixed bottom-0 z-1 flex items-center justify-center h-48px text-white bg-[#002140] cursor-pointer transition-all duration-200 ease',
     'n-layout-content': 'flex-auto min-h-0',
     'n-layout-footer': 'flex-shrink-0 text-content text-base py-[24px] px-[50px] bg-[#f0f2f5]',
   },

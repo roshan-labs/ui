@@ -3,18 +3,26 @@
     <div class="n-layout-sider-children">
       <slot />
     </div>
-    <div v-if="collapsible" class="n-layout-sider-trigger" :style="triggerStyle" @click="trigger">
-      <n-icon>
-        <icon-right v-if="reverseArrow ? !_collapsed : _collapsed" />
-        <icon-left v-else />
-      </n-icon>
+    <div
+      v-if="collapsible"
+      class="n-layout-sider-trigger"
+      :style="triggerStyle"
+      @click="trigger(!_collapsed)"
+    >
+      <slot name="trigger">
+        <n-icon>
+          <icon-right v-if="reverseArrow ? !_collapsed : _collapsed" />
+          <icon-left v-else />
+        </n-icon>
+      </slot>
     </div>
   </aside>
 </template>
 
 <script lang="ts" setup>
-import type { StyleValue } from 'vue'
-import { ref, computed, watch } from 'vue'
+import type { PropType, StyleValue } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
+import { breakpointsAntDesign, useBreakpoints } from '@vueuse/core'
 
 import { addUnit } from '../utils/utils'
 import NIcon from '../icon/icon.vue'
@@ -34,6 +42,9 @@ const props = defineProps({
   defaultCollapsed: { type: Boolean, default: false },
   /** 翻转折叠提示箭头的方向，当 Sider 在右边时可以使用 */
   reverseArrow: { type: Boolean, default: false },
+  /** 触发响应式布局的断点 */
+  // eslint-disable-next-line vue/require-default-prop
+  breakpoint: { type: String as PropType<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> },
 })
 
 const emit = defineEmits(['update:collapsed'])
@@ -44,6 +55,14 @@ const _collapsed = ref(
 )
 /** 组件宽度 */
 const size = computed(() => addUnit(_collapsed.value ? props.collapsedWidth : props.width))
+
+const breakpoints = useBreakpoints(breakpointsAntDesign)
+
+watchEffect(() => {
+  if (props.breakpoint) {
+    trigger(!breakpoints[props.breakpoint].value)
+  }
+})
 
 const style = computed<StyleValue>(() => ({
   flex: `0 0 ${size.value}`,
@@ -62,9 +81,9 @@ watch(
   }
 )
 
-const trigger = () => {
-  _collapsed.value = !_collapsed.value
-  emit('update:collapsed', _collapsed.value)
+function trigger(value: boolean) {
+  _collapsed.value = value
+  emit('update:collapsed', value)
 }
 </script>
 
@@ -73,13 +92,3 @@ export default {
   name: 'LayoutSider',
 }
 </script>
-
-<style>
-.n-layout-sider-children {
-  @apply h-full;
-}
-
-.n-layout-sider-trigger {
-  @apply fixed bottom-0 z-1 flex items-center justify-center h-48px text-white bg-[#002140] cursor-pointer transition-all duration-200 ease;
-}
-</style>
