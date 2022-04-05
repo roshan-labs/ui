@@ -47,7 +47,7 @@ const props = defineProps({
   breakpoint: { type: String as PropType<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> },
 })
 
-const emit = defineEmits(['update:collapsed'])
+const emit = defineEmits(['update:collapsed', 'breakpoint'])
 
 /** collapsed 内部同步变量 */
 const _collapsed = ref(
@@ -60,7 +60,10 @@ const breakpoints = useBreakpoints(breakpointsAntDesign)
 
 watchEffect(() => {
   if (props.breakpoint) {
-    trigger(!breakpoints[props.breakpoint].value)
+    const broken = !breakpoints[props.breakpoint].value
+
+    emit('breakpoint', broken)
+    trigger(broken)
   }
 })
 

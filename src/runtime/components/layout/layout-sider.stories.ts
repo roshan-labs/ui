@@ -15,6 +15,10 @@ const meta: Meta = {
     onUpdateCollapsed: {
       action: 'update-collapsed',
     },
+    onBreakpoint: {
+      description: '触发响应式布局断点时的回调',
+      action: 'breakpoint',
+    },
   },
 }
 
