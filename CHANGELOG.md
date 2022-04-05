@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.0](https://github.com/roshan-labs/ui-module/compare/v0.1.6-alpha.0...v1.0.0-beta.0) (2022-04-05)
+
+
+### Features
+
+* `Avatar` 组件新增 icon 属性，error 事件处理图片加载错误回退行为 ([d97e519](https://github.com/roshan-labs/ui-module/commit/d97e519327f2b54a1cf0500d3e48e3208f0b4c6b))
+* 新增 `Layout` 相关组件 ([382caf5](https://github.com/roshan-labs/ui-module/commit/382caf5e49cd05a15affa365100806905143afcd))
+
 ### [0.1.6-alpha.0](https://github.com/roshan-labs/nuxt-ui/compare/v0.1.5...v0.1.6-alpha.0) (2022-03-24)
 
 
