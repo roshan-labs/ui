@@ -1659,30 +1659,6 @@
     unimport "^0.1.9"
     untyped "^0.4.4"
 
-"@nuxt/kit@npm:@nuxt/kit-edge@latest":
-  version "3.0.0-rc.3-27538180.cad4edd"
-  resolved "https://registry.npmmirror.com/@nuxt/kit-edge/-/kit-edge-3.0.0-rc.3-27538180.cad4edd.tgz#c6858d548f8e01e2e19ab04d41ad3ffb2bdf1b8e"
-  integrity sha512-1sTdCK7Xomdao9qZHPce4sxn8+fNDMUNWNGxh7RYpcLXzMiZLy3xLnK8iyZTU8H1bYnNXLn0MkVFKOQPz6SU2w==
-  dependencies:
-    "@nuxt/schema" "npm:@nuxt/schema-edge@3.0.0-rc.3-27538180.cad4edd"
-    c12 "^0.2.7"
-    consola "^2.15.3"
-    defu "^6.0.0"
-    globby "^13.1.1"
-    hash-sum "^2.0.0"
-    ignore "^5.2.0"
-    jiti "^1.13.0"
-    knitwork "^0.1.1"
-    lodash.template "^4.5.0"
-    mlly "^0.5.2"
-    pathe "^0.3.0"
-    pkg-types "^0.3.2"
-    scule "^0.2.1"
-    semver "^7.3.7"
-    unctx "^1.1.4"
-    unimport "^0.2.1"
-    untyped "^0.4.4"
-
 "@nuxt/module-builder@latest":
   version "0.1.7"
   resolved "https://registry.npmmirror.com/@nuxt/module-builder/-/module-builder-0.1.7.tgz#6de83fa24a839265d43abdb5ecf8ec85456ca765"
@@ -1709,22 +1685,6 @@
     std-env "^3.1.1"
     ufo "^0.8.4"
     unimport "^0.1.9"
-
-"@nuxt/schema@npm:@nuxt/schema-edge@3.0.0-rc.3-27538180.cad4edd":
-  version "3.0.0-rc.3-27538180.cad4edd"
-  resolved "https://registry.npmmirror.com/@nuxt/schema-edge/-/schema-edge-3.0.0-rc.3-27538180.cad4edd.tgz#63d5734dff0e1cba312614d4f7520a31838a06ae"
-  integrity sha512-qeIMDb9D96VnsG2diL8vQDjhRzn0x7c7clIawGRv2GKFflNi2tK0+cfYifzYXEaNOpAC+ViiGJKyIyyJKZUH0A==
-  dependencies:
-    c12 "^0.2.7"
-    create-require "^1.1.1"
-    defu "^6.0.0"
-    jiti "^1.13.0"
-    pathe "^0.3.0"
-    postcss-import-resolver "^2.0.0"
-    scule "^0.2.1"
-    std-env "^3.1.1"
-    ufo "^0.8.4"
-    unimport "^0.2.1"
 
 "@nuxt/telemetry@^2.1.3":
   version "2.1.3"
@@ -1924,13 +1884,13 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@roshan-labs/icon-module@^1.0.1-beta.0":
-  version "1.0.1-beta.0"
-  resolved "https://registry.npmmirror.com/@roshan-labs/icon-module/-/icon-module-1.0.1-beta.0.tgz#5489a39f51678b9090c2d1e85b2cfaa14975ae85"
-  integrity sha512-rMHVnf5rUGXpa+rwk1nnh1E5CGlByz+ZaNBKKT0Xj0+mmZatfKp3OWLUnQLLSenFoKj7vItKh/mlJ1XtwqWZ7g==
+"@roshan-labs/icon-module@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmmirror.com/@roshan-labs/icon-module/-/icon-module-0.1.0.tgz#463f6e471477417bf0e79715cd512dac4b8443d3"
+  integrity sha512-+1hFC5eNUhzy0orL+rGVcTL5AlNwnh1a77O3Ziif6dGGJw8L6HgU1YY6BiZVh7mFmL1WplVEzkDaIfkHKFIVdg==
   dependencies:
-    "@nuxt/kit" "npm:@nuxt/kit-edge@latest"
-    unplugin-icons "^0.14.1"
+    "@nuxt/kit" "^3.0.0-rc.3"
+    unplugin-icons "^0.14.3"
 
 "@storybook/addon-actions@6.4.22", "@storybook/addon-actions@^6.4.22":
   version "6.4.22"
@@ -14071,7 +14031,7 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.npmmirror.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
-unplugin-icons@^0.14.1, unplugin-icons@^0.14.3:
+unplugin-icons@^0.14.3:
   version "0.14.3"
   resolved "https://registry.npmmirror.com/unplugin-icons/-/unplugin-icons-0.14.3.tgz#11c49bfbc2f6e34c8b20523af61279ff71090a9c"
   integrity sha512-PyyNMACpZ/EAiG3B6K1wPGZ151VGdlHIEx8/utgP546yVmPpV/xC1k1V2eEebf71fGm3WD6gzPrERNsbMgIVgg==

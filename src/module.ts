@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
   //     })
   //   },
   // },
-  setup(options, nuxt) {
+  async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
     const componentsPath = resolver.resolve('./runtime/components')
     // const windiConfigPath = await resolvePath('windi.config')
@@ -66,7 +66,7 @@ export default defineNuxtModule<ModuleOptions>({
     // }
 
     // 注册组件
-    addComponentsDir({
+    await addComponentsDir({
       path: componentsPath,
       prefix: options.prefix,
       extensions: ['vue'],
