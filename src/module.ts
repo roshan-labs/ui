@@ -12,7 +12,7 @@ import WindiModule from 'nuxt-windicss'
 import IconModule from '@roshan-labs/icon-module'
 import { defu } from 'defu'
 
-import { name as packageName, version } from '../package.json'
+import { name, version } from '../package.json'
 import { extendWindiConfig } from './runtime/windicss'
 import { extendIconConfig } from './icon'
 
@@ -23,38 +23,47 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: packageName,
+    name,
     version,
     configKey: 'ui',
   },
   defaults: {
     prefix: 'n',
   },
-  async setup(options, nuxt) {
+  // hooks: {
+  //   'components:dirs'(dirs) {
+  //     const { resolve } = createResolver(import.meta.url)
+
+  //     dirs.push({
+  //       path: resolve('./runtime/components'),
+  //     })
+  //   },
+  // },
+  setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
     const componentsPath = resolver.resolve('./runtime/components')
-    const windiConfigPath = await resolvePath('windi.config')
-    const defaultWindiOptions: WindiModuleOptions = {
-      scan: {
-        include: [`${componentsPath}/**/*.{vue,tsx}`],
-      },
-    }
+    // const windiConfigPath = await resolvePath('windi.config')
+    // const defaultWindiOptions: WindiModuleOptions = {
+    //   scan: {
+    //     include: [`${componentsPath}/**/*.{vue,tsx}`],
+    //   },
+    // }
 
-    let windiConfig: FullConfig | string | undefined
+    // let windiConfig: FullConfig | string | undefined
 
-    // 读取 windicss.config 配置
-    if (['object', 'string'].includes(typeof nuxt.options.windicss?.config)) {
-      windiConfig = nuxt.options.windicss?.config
-    }
+    // // 读取 windicss.config 配置
+    // if (['object', 'string'].includes(typeof nuxt.options.windicss?.config)) {
+    //   windiConfig = nuxt.options.windicss?.config
+    // }
 
-    // 如果上一步读取的配置是对象则与 UI 配置合并
-    if (typeof windiConfig === 'object') {
-      windiConfig = extendWindiConfig(windiConfig)
-    }
+    // // 如果上一步读取的配置是对象则与 UI 配置合并
+    // if (typeof windiConfig === 'object') {
+    //   windiConfig = extendWindiConfig(windiConfig)
+    // }
 
-    if (!windiConfig && !existsSync(windiConfigPath)) {
-      windiConfig = extendWindiConfig()
-    }
+    // if (!windiConfig && !existsSync(windiConfigPath)) {
+    //   windiConfig = extendWindiConfig()
+    // }
 
     // 注册组件
     addComponentsDir({
@@ -64,13 +73,13 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     // 安装 icon 模块
-    await installModule(IconModule, extendIconConfig(nuxt.options.icons))
+    // await installModule(IconModule, extendIconConfig(nuxt.options.icons))
 
-    // 安装 windicss 模块
-    await installModule(WindiModule, {
-      ...defu(nuxt.options.windicss || {}, defaultWindiOptions),
-      config: windiConfig,
-    } as WindiModuleOptions)
+    // // 安装 windicss 模块
+    // await installModule(WindiModule, {
+    //   ...defu(nuxt.options.windicss || {}, defaultWindiOptions),
+    //   config: windiConfig,
+    // } as WindiModuleOptions)
   },
 })
 

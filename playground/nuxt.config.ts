@@ -1,7 +1,7 @@
-import { defineNuxtConfig } from 'nuxt3'
+import { defineNuxtConfig } from 'nuxt'
 
-import UIModule from '../'
+import Module from '../'
 
 export default defineNuxtConfig({
-  modules: [UIModule],
+  modules: [Module],
 })
