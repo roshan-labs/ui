@@ -1,9 +1,16 @@
 <template>
-  <div class="text-red-600">Nuxt</div>
+  <div>
+    <n-button @click="change">switch</n-button>
+    <n-layout class="h-[200px]">
+      <n-layout-sider v-if="visible"></n-layout-sider>
+    </n-layout>
+  </div>
 </template>
 
 <script lang="ts" setup>
-function onClick() {
-  window.alert('hello world')
+const visible = ref(true)
+
+function change() {
+  visible.value = !visible.value
 }
 </script>
