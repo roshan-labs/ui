@@ -1,5 +1,5 @@
 <template>
-  <n-button @click="onClick">button</n-button>
+  <div class="text-red-600">Nuxt</div>
 </template>
 
 <script lang="ts" setup>
