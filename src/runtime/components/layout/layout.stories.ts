@@ -8,18 +8,20 @@ const meta: Meta = {
   component: NLayout,
 }
 
-export const Default: Story = () => ({
+export const Default: Story = (args) => ({
   components: {
     NLayout,
   },
+  setup: () => ({ args }),
   template: '<n-layout class="h-[200px]"></n-layout>',
 })
 
-export const WithSider: Story = () => ({
+export const WithSider: Story = (args) => ({
   components: {
     NLayout,
     NLayoutSider,
   },
+  setup: () => ({ args }),
   template: `
     <n-layout class="h-[200px] text-center">
       <n-layout-sider class="text-white leading-[200px]">Sider</n-layout-sider>
