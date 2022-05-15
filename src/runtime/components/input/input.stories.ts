@@ -5,6 +5,10 @@ import NInput from './input.vue'
 const meta: Meta = {
   title: 'design-system/Data-Entry/Input',
   component: NInput,
+  decorators: [() => ({ template: '<div class="w-[220px]"><story /></div>' })],
+  argTypes: {
+    'onUpdate:modelValue': { action: 'update:modelValue' },
+  },
 }
 
 const Template: Story = (args) => ({
@@ -14,5 +18,10 @@ const Template: Story = (args) => ({
 })
 
 export const Default = Template.bind({})
+
+export const Placeholder = Template.bind({})
+Placeholder.args = {
+  placeholder: 'Please input',
+}
 
 export default meta
