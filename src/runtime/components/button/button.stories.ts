@@ -7,31 +7,10 @@ const meta: Meta = {
   title: 'design-system/Normal/Button',
   component: NButton,
   argTypes: {
-    // Events
-    onClick: {
-      description: '点击按钮时的回调',
-      action: 'click',
-    },
-    // Props
     type: {
       description: '按钮类型',
       control: { type: 'select' },
       options: ['default', 'primary', 'dashed', 'text', 'link'],
-    },
-    block: {
-      description: '将按钮宽度调整为其父宽度的选项',
-    },
-    danger: {
-      description: '设置危险按钮',
-    },
-    disabled: {
-      description: '按钮失效状态',
-    },
-    ghost: {
-      description: '幽灵属性，使按钮背景透明',
-    },
-    href: {
-      description: '点击跳转的地址，指定此属性 button 的行为和 a 链接一致',
     },
     htmlType: {
       description: '设置 button 原生 type 值',
@@ -48,17 +27,12 @@ const meta: Meta = {
       control: { type: 'select' },
       options: ['large', 'middle', 'small'],
     },
-    target: {
-      description: '相当于 a 链接的 target 属性，href 存在时生效',
-    },
   },
 }
 
 const Template: Story = (args) => ({
   components: { NButton },
-  setup() {
-    return { args }
-  },
+  setup: () => ({ args }),
   template: '<n-button v-bind="args">{{ args.default }}</n-button>',
 })
 

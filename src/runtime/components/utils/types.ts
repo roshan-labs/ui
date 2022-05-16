@@ -1,1 +1,1 @@
-export type VueClass = Partial<Record<string, boolean>>
+export type Size = 'small' | 'default' | 'large'

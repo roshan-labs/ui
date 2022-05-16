@@ -8,6 +8,8 @@ const meta: Meta = {
   decorators: [() => ({ template: '<div class="w-[220px]"><story /></div>' })],
   argTypes: {
     'onUpdate:modelValue': { action: 'update:modelValue' },
+    onFocus: { action: 'focus' },
+    onBlur: { action: 'blur' },
   },
 }
 
@@ -22,6 +24,18 @@ export const Default = Template.bind({})
 export const Placeholder = Template.bind({})
 Placeholder.args = {
   placeholder: 'Please input',
+}
+
+export const Small = Template.bind({})
+Small.args = {
+  size: 'small',
+  placeholder: 'Small size',
+}
+
+export const Large = Template.bind({})
+Large.args = {
+  size: 'large',
+  placeholder: 'Large size',
 }
 
 export default meta

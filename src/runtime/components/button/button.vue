@@ -6,7 +6,6 @@
     :type="typeof href === 'string' ? null : htmlType"
     :target="typeof href === 'string' ? target : null"
     :disabled="disabled"
-    @click="onClick"
   >
     <n-icon v-if="$slots.icon">
       <slot name="icon" />
@@ -51,7 +50,7 @@ const props = defineProps({
   target: { type: String },
 })
 
-const emit = defineEmits(['click'])
+// const emit = defineEmits(['click'])
 
 const slots = useSlots()
 /** 是否包含图标插槽 */
@@ -100,7 +99,7 @@ onBeforeUpdate(() => {
   hasDefault.value = !!slots.default
 })
 
-const onClick = () => {
-  emit('click')
-}
+// const onClick = () => {
+//   emit('click')
+// }
 </script>

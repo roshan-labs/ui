@@ -16,10 +16,7 @@ import { name, version } from '../package.json'
 import { extendWindiConfig } from './runtime/windicss'
 import { extendIconConfig } from './runtime/icon'
 
-export interface ModuleOptions {
-  /** 组件前缀 */
-  prefix?: string
-}
+export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -27,10 +24,7 @@ export default defineNuxtModule<ModuleOptions>({
     version,
     configKey: 'ui',
   },
-  defaults: {
-    prefix: 'n',
-  },
-  async setup(options, nuxt) {
+  async setup(_, nuxt) {
     const resolver = createResolver(import.meta.url)
     const componentsPath = resolver.resolve('./runtime/components')
     const windiConfigPath = await resolvePath('windi.config')
@@ -54,7 +48,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     await addComponentsDir({
       path: componentsPath,
-      prefix: options.prefix,
+      prefix: 'n',
       extensions: ['vue'],
     })
 
@@ -64,7 +58,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Install windicss module
     nuxt.options.windicss = {
-      ...defu(nuxt.options.windicss, windiOptions),
+      ...defu(nuxt.options.windicss ?? {}, windiOptions),
       config: windiConfig,
     }
     await installModule(WindiModule)
