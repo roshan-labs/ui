@@ -38,4 +38,29 @@ Large.args = {
   placeholder: 'Large size',
 }
 
+export const Textarea = Template.bind({})
+Textarea.args = {
+  type: 'textarea',
+  placeholder: 'Please input',
+}
+
+export const Rows = Template.bind({})
+Rows.args = {
+  ...Textarea.args,
+  rows: 5,
+}
+
+export const AllowClear: Story = (args) => ({
+  components: { NInput },
+  setup: () => ({ args }),
+  template: `
+    <n-input class="mb-[8px]" v-bind="args" type="text" />
+    <n-input v-bind="args" type="textarea" />
+  `,
+})
+AllowClear.args = {
+  placeholder: 'Please input',
+  allowClear: true,
+}
+
 export default meta
