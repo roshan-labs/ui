@@ -5,7 +5,7 @@ import NInput from './input.vue'
 const meta: Meta = {
   title: 'design-system/Data-Entry/Input',
   component: NInput,
-  decorators: [() => ({ template: '<div class="w-[220px]"><story /></div>' })],
+  decorators: [() => ({ template: '<div class="w-[260px]"><story /></div>' })],
   argTypes: {
     'onUpdate:modelValue': { action: 'update:modelValue' },
     onFocus: { action: 'focus' },
@@ -38,26 +38,7 @@ Large.args = {
   placeholder: 'Large size',
 }
 
-export const Textarea = Template.bind({})
-Textarea.args = {
-  type: 'textarea',
-  placeholder: 'Please input',
-}
-
-export const Rows = Template.bind({})
-Rows.args = {
-  ...Textarea.args,
-  rows: 5,
-}
-
-export const AllowClear: Story = (args) => ({
-  components: { NInput },
-  setup: () => ({ args }),
-  template: `
-    <n-input class="mb-[8px]" v-bind="args" type="text" />
-    <n-input v-bind="args" type="textarea" />
-  `,
-})
+export const AllowClear = Template.bind({})
 AllowClear.args = {
   modelValue: 'default value',
   placeholder: 'Please input',

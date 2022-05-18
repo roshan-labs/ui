@@ -1,13 +1,10 @@
 <template>
   <div class="w-[280px] p-[16px]">
-    <n-input v-model="value" @input="onKeypress" />
+    <n-input-textarea v-model="value" />
     <div>{{ value }}</div>
   </div>
 </template>
 
 <script lang="ts" setup>
 const value = ref('')
-const onKeypress = (e: any) => {
-  console.log(e)
-}
 </script>
