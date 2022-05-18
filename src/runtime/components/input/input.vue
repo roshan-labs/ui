@@ -19,8 +19,8 @@
         @focus="onFocus"
         @blur="onBlur"
       />
-      <div class="n-input-suffix">
-        <n-icon class="n-input-clear">
+      <div v-if="suffixVisible" class="n-input-suffix">
+        <n-icon class="n-input-clear" @click="$emit('update:modelValue', '')">
           <close-circle />
         </n-icon>
       </div>
@@ -69,6 +69,9 @@ const inputClasses = computed(() => ({
   'n-input-main-small': props.size === 'small',
   'n-input-main-large': props.size === 'large',
 }))
+
+const clearVisible = computed(() => props.allowClear && props.modelValue !== '')
+const suffixVisible = computed(() => clearVisible.value)
 
 const onInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement | HTMLTextAreaElement).value)
@@ -133,6 +136,6 @@ const onBlur = (event: Event) => {
 }
 
 .n-input-clear {
-  @apply text-[#00000040] mx-xss cursor-pointer hover:text-[#00000073];
+  @apply text-[#00000040] mx-xss cursor-pointer transition-all duration-300 ease hover:text-[#00000073];
 }
 </style>

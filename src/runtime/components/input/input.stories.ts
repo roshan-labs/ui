@@ -59,6 +59,7 @@ export const AllowClear: Story = (args) => ({
   `,
 })
 AllowClear.args = {
+  modelValue: 'default value',
   placeholder: 'Please input',
   allowClear: true,
 }
