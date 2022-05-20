@@ -19,10 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, ref } from 'vue'
+import { PropType, computed, ref, toRefs } from 'vue'
 
-import { Size } from '../utils/types'
 import NIcon from '../icon/icon.vue'
+import { Size } from '../utils/types'
+import { useAllowClear } from './composables/use-allow-clear'
 import CloseCircle from '~icons/ant-design/close-circle-filled'
 
 const props = defineProps({
@@ -40,6 +41,9 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
+const propsRef = toRefs(props)
+const { clearVisible } = useAllowClear(propsRef.modelValue, propsRef.allowClear)
+
 const classes = computed(() => ({
   'n-input': true,
   'n-input-large': props.size === 'large',
@@ -52,7 +56,6 @@ const wrapperClasses = computed(() => ({
   'n-input-focus': isFocus.value,
 }))
 
-const clearVisible = computed(() => props.allowClear && props.modelValue !== '')
 const suffixVisible = computed(() => clearVisible.value)
 
 const onInput = (event: Event) => {

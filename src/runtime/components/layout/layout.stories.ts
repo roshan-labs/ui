@@ -4,7 +4,7 @@ import NLayout from './layout.vue'
 import NLayoutSider from './layout-sider.vue'
 
 const meta: Meta = {
-  title: 'design-system/Layout/Layout',
+  title: 'DESIGN-SYSTEM/LAYOUT/Layout',
   component: NLayout,
 }
 

@@ -4,7 +4,7 @@ import NButton from './button.vue'
 import IconSearchOutlined from '~icons/ant-design/search-outlined'
 
 const meta: Meta = {
-  title: 'design-system/Normal/Button',
+  title: 'DESIGN-SYSTEM/NORMAL/Button',
   component: NButton,
   argTypes: {
     type: {

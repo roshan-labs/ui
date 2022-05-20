@@ -6,7 +6,7 @@ import IconSmileTwotone from '~icons/ant-design/smile-twotone'
 import IconCarFilled from '~icons/ant-design/car-filled'
 
 const meta: Meta = {
-  title: 'design-system/Normal/Icon',
+  title: 'DESIGN-SYSTEM/NORMAL/Icon',
   component: NIcon,
   argTypes: {
     color: {

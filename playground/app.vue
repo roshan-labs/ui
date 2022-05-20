@@ -1,7 +1,6 @@
 <template>
-  <div class="w-[280px] p-[16px]">
-    <n-input-textarea v-model="value" />
-    <div>{{ value }}</div>
+  <div class="w-[200px] p-lg">
+    <n-input-textarea v-model="value" auto-size />
   </div>
 </template>
 

@@ -3,7 +3,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import NInput from './input.vue'
 
 const meta: Meta = {
-  title: 'design-system/Data-Entry/Input',
+  title: 'design-system/DATA-ENTRY/Input',
   component: NInput,
   decorators: [() => ({ template: '<div class="w-[260px]"><story /></div>' })],
   argTypes: {
