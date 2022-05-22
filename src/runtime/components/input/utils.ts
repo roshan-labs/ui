@@ -4,7 +4,7 @@ import { isNumber } from '../utils/utils'
 
 let hiddenTextarea: HTMLTextAreaElement | undefined
 
-export type AutoSize =
+export type Autosize =
   | boolean
   | {
       minRows: number

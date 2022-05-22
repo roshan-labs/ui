@@ -30,6 +30,7 @@ const defultWindiConfig = defineConfig({
       },
       width: size,
       height: size,
+      minHeight: size,
       minWidth: {
         base: size.base,
       },
@@ -58,6 +59,7 @@ const defultWindiConfig = defineConfig({
         button: '0 2px 0 rgba(0, 0, 0, 0.015)',
         primary: '0 2px 0 rgba(0, 0, 0, 0.045)',
         input: '0 0 0 2px rgba(47, 84, 235, 0.2)',
+        'input-error': '0 0 0 2px rgba(255, 77, 79, 0.2)',
       },
       transitionProperty: {
         input: 'border-color, box-shadow',

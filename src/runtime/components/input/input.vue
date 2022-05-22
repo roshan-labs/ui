@@ -42,7 +42,9 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
 const propsRef = toRefs(props)
-const { clearVisible } = useAllowClear(propsRef.modelValue, propsRef.allowClear)
+
+// alowClear
+const { clearVisible } = useAllowClear(propsRef.modelValue, propsRef.allowClear, emit)
 
 const classes = computed(() => ({
   'n-input': true,
@@ -62,6 +64,7 @@ const onInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 
+// Focus event
 const isFocus = ref(false)
 
 const onFocus = (event: Event) => {

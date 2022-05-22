@@ -5,11 +5,12 @@ import NInputTextarea from './input-textarea.vue'
 const meta: Meta = {
   title: 'DESIGN-SYSTEM/DATA-ENTRY/InputTextarea',
   component: NInputTextarea,
-  decorators: [() => ({ template: '<div class="w-[260px]"><story /></div>' })],
+  decorators: [() => ({ template: '<div class="w-[320px]"><story /></div>' })],
   argTypes: {
     'onUpdate:modelValue': { action: 'update:modelValue' },
     onFocus: { action: 'focus' },
     onBlur: { action: 'blur' },
+    onEnter: { action: 'enter' },
   },
 }
 
@@ -54,12 +55,25 @@ export const ShowCount = Template.bind({})
 ShowCount.args = {
   maxlength: 10,
   showCount: true,
-  class: 'test',
 }
 
-export const AutoSize = Template.bind({})
-AutoSize.args = {
-  autoSize: true,
+export const Autosize: Story = () => ({
+  components: { NInputTextarea },
+  template: `
+    <div>
+      <n-input-textarea class="mb-md" placeholder="Autosize: true" autosize />
+      <n-input-textarea placeholder="Autosize: { minRows: 2, maxRows: 6 }" :autosize="{ minRows: 2, maxRows: 6 }" />
+    </div>
+  `,
+})
+Autosize.parameters = {
+  controls: { disable: true },
+}
+
+export const Error = Template.bind({})
+Error.args = {
+  status: 'error',
+  placeholder: 'Error textarea',
 }
 
 export default meta

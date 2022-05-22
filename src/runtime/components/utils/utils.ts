@@ -43,3 +43,7 @@ export function addUnit(value: string | number, unit: string = 'px') {
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number'
 }
+
+export function isPlainObject(value: unknown): value is { [key: string]: unknown } {
+  return Object.prototype.toString.call(value) === '[object Object]'
+}
