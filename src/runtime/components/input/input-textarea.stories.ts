@@ -11,6 +11,10 @@ const meta: Meta = {
     onFocus: { action: 'focus' },
     onBlur: { action: 'blur' },
     onEnter: { action: 'enter' },
+    status: {
+      control: { type: 'select' },
+      options: ['error', 'warning'],
+    },
   },
 }
 
@@ -74,6 +78,12 @@ export const Error = Template.bind({})
 Error.args = {
   status: 'error',
   placeholder: 'Error textarea',
+}
+
+export const Warning = Template.bind({})
+Warning.args = {
+  status: 'warning',
+  placeholder: 'Warning textarea',
 }
 
 export default meta

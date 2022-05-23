@@ -79,6 +79,7 @@ const mainClasses = computed(() => ({
   'n-textarea-main': true,
   'n-textarea-borderless': !props.bordered,
   'n-textarea-error': props.status === 'error',
+  'n-textarea-warning': props.status === 'warning',
 }))
 </script>
 
@@ -105,5 +106,9 @@ const mainClasses = computed(() => ({
 
 .n-textarea-error {
   @apply border-error-base hover:border-error-base focus:(border-error-hover shadow-input-error);
+}
+
+.n-textarea-warning {
+  @apply border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-input-warning);
 }
 </style>

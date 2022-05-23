@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[200px] p-lg">
-    <n-input-textarea v-model="value" auto-size />
+  <div class="w-[380px] p-lg">
+    <n-input-textarea v-model="value" autosize show-count allow-clear />
   </div>
 </template>
 

@@ -8,6 +8,19 @@ const size = {
   lg: '40px',
 }
 
+const space = {
+  /** more small */
+  xss: '4px',
+  /** small items */
+  xs: '8px',
+  /** Form controls and items */
+  sm: '12px',
+  /** small containers and buttons */
+  md: '16px',
+  /** containers */
+  lg: '24px',
+}
+
 const defultWindiConfig = defineConfig({
   preflight: true,
   theme: {
@@ -23,6 +36,10 @@ const defultWindiConfig = defineConfig({
           hover: '#ff7875',
           active: '#d9363e',
         },
+        warning: {
+          base: '#faad14',
+          hover: '#ffc53d',
+        },
         disabled: {
           text: '#00000040',
           bg: '#f5f5f5',
@@ -35,8 +52,8 @@ const defultWindiConfig = defineConfig({
         base: size.base,
       },
       fontSize: {
-        base: '14px',
         sm: '12px',
+        base: '14px',
         lg: '16px',
       },
       lineHeight: {
@@ -60,6 +77,7 @@ const defultWindiConfig = defineConfig({
         primary: '0 2px 0 rgba(0, 0, 0, 0.045)',
         input: '0 0 0 2px rgba(47, 84, 235, 0.2)',
         'input-error': '0 0 0 2px rgba(255, 77, 79, 0.2)',
+        'input-warning': '0 0 0 2px rgba(250, 173, 20, 0.2)',
       },
       transitionProperty: {
         input: 'border-color, box-shadow',
@@ -67,25 +85,8 @@ const defultWindiConfig = defineConfig({
       transitionTimingFunction: {
         'in-out': 'cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
-      padding: {
-        /** more small */
-        xss: '4px',
-        /** small items */
-        xs: '8px',
-        /** Form controls and items */
-        sm: '12px',
-        /** small containers and buttons */
-        md: '16px',
-        /** containers */
-        lg: '24px',
-      },
-      margin: {
-        xss: '4px',
-        xs: '8px',
-        sm: '12px',
-        md: '16px',
-        lg: '24px',
-      },
+      padding: space,
+      margin: space,
     },
   },
   shortcuts: {
@@ -171,6 +172,10 @@ const defultWindiConfig = defineConfig({
       'fixed bottom-0 z-1 flex items-center justify-center h-48px text-white bg-[#002140] cursor-pointer transition-all duration-200 ease',
     'n-layout-content': 'flex-auto min-h-0',
     'n-layout-footer': 'flex-shrink-0 text-content text-base py-[24px] px-[50px] bg-[#f0f2f5]',
+
+    // Input
+    'n-input-clear':
+      'text-[#00000040] mx-xss cursor-pointer transition-all duration-300 ease hover:text-[#00000073]',
   },
 })
 

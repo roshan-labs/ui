@@ -110,8 +110,4 @@ const onBlur = (event: Event) => {
 .n-input-suffix {
   @apply flex items-center;
 }
-
-.n-input-clear {
-  @apply text-[#00000040] mx-xss cursor-pointer transition-all duration-300 ease hover:text-[#00000073];
-}
 </style>
