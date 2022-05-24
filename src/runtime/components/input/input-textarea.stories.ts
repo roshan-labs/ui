@@ -46,8 +46,8 @@ AllowClear.args = {
 
 export const Borderless = Template.bind({})
 Borderless.args = {
-  ...Placeholder.args,
   bordered: false,
+  placeholder: 'Borderless',
 }
 
 export const Maxlength = Template.bind({})
@@ -84,6 +84,12 @@ export const Warning = Template.bind({})
 Warning.args = {
   status: 'warning',
   placeholder: 'Warning textarea',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  ...Placeholder.args,
+  disabled: true,
 }
 
 export default meta

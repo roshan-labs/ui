@@ -35,10 +35,12 @@ const defultWindiConfig = defineConfig({
           base: '#ff4d4f',
           hover: '#ff7875',
           active: '#d9363e',
+          outline: 'rgb(255, 77, 79)',
         },
         warning: {
           base: '#faad14',
           hover: '#ffc53d',
+          outline: 'rgb(250, 173, 20)',
         },
         disabled: {
           text: '#00000040',
@@ -67,7 +69,7 @@ const defultWindiConfig = defineConfig({
         base: '#d9d9d9',
       },
       borderRadius: {
-        DEFAULT: '2px',
+        base: '2px',
       },
       textShadow: {
         button: '0 -1px 0 rgba(0, 0, 0, 0.12)',
@@ -92,7 +94,7 @@ const defultWindiConfig = defineConfig({
   shortcuts: {
     // Button
     'n-button':
-      'inline-flex items-center justify-center h-base text-base font-normal text-content py-[4px] px-[15px] whitespace-nowrap align-middle bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none rounded bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
+      'inline-flex items-center justify-center h-base text-base font-normal text-content py-[4px] px-[15px] whitespace-nowrap align-middle bg-none border-1 border-solid border-base shadow-button cursor-pointer transition-all duration-300 ease-in-out select-none rounded-base bg-white outline-none hover:(no-underline bg-white text-primary-5 border-primary-5) active:(outline-none bg-white text-primary-7 border-primary-7) focus:(outline-none bg-white text-primary-5 border-primary-5)',
     'n-button-default':
       'disabled:(text-disabled-text bg-disabled-bg border-base shadow-none text-shadow-none cursor-not-allowed) disabled:hover:border-base disabled:hover:text-disabled-text',
     'n-button-primary':
@@ -155,7 +157,7 @@ const defultWindiConfig = defineConfig({
     'n-avatar':
       'inline-flex items-center justify-center w-base h-base rounded-1/2 overflow-hidden p-0 text-base text-white whitespace-nowrap align-middle bg-[#ccc]',
     'n-avatar-image': 'bg-transparent children:(block w-full h-full object-cover)',
-    'n-avatar-square': 'rounded',
+    'n-avatar-square': 'rounded-base',
     'n-avatar-icon': 'text-[18px]',
     'n-avatar-small': 'w-sm h-sm',
     'n-avatar-large': 'w-lg h-lg',

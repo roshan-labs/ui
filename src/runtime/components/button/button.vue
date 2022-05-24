@@ -98,8 +98,4 @@ onBeforeUpdate(() => {
   hasIcon.value = !!slots.icon
   hasDefault.value = !!slots.default
 })
-
-// const onClick = () => {
-//   emit('click')
-// }
 </script>

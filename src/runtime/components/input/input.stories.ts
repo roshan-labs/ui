@@ -10,6 +10,10 @@ const meta: Meta = {
     'onUpdate:modelValue': { action: 'update:modelValue' },
     onFocus: { action: 'focus' },
     onBlur: { action: 'blur' },
+    status: {
+      control: { type: 'select' },
+      options: ['error', 'warning'],
+    },
   },
 }
 
@@ -43,6 +47,48 @@ AllowClear.args = {
   modelValue: 'default value',
   placeholder: 'Please input',
   allowClear: true,
+}
+
+export const Error: Story = (args) => ({
+  components: { NInput },
+  setup: () => ({ args }),
+  template: `
+    <div>
+      <n-input v-bind="args" />
+    </div>
+  `,
+})
+Error.args = {
+  status: 'error',
+  placeholder: 'Error input',
+}
+
+export const Warning = Error.bind({})
+Warning.args = {
+  status: 'warning',
+  placeholder: 'Warning input',
+}
+
+export const AddonBefore = Template.bind({})
+AddonBefore.args = {
+  addonBefore: 'https://',
+}
+
+export const AddonAfter = Template.bind({})
+AddonAfter.args = {
+  addonAfter: '.com',
+}
+
+export const Borderless = Template.bind({})
+Borderless.args = {
+  bordered: false,
+  placeholder: 'Borderless',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  ...Placeholder.args,
+  disabled: true,
 }
 
 export default meta

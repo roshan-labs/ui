@@ -8,6 +8,7 @@
       :rows="textareaRows"
       :placeholder="placeholder"
       :maxlength="maxlength"
+      :disabled="disabled"
       @focus="$emit('blur', $event)"
       @blur="$emit('blur', $event)"
       @keypress.enter="$emit('enter', $event)"
@@ -47,6 +48,8 @@ const props = defineProps({
   autosize: { type: [Boolean, Object] as PropType<Autosize>, default: false },
   /** 设置校验状态 */
   status: { type: String as PropType<'error' | 'warning'> },
+  /** 是否禁用状态，默认为 false */
+  disabled: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur', 'enter'])
@@ -80,6 +83,7 @@ const mainClasses = computed(() => ({
   'n-textarea-borderless': !props.bordered,
   'n-textarea-error': props.status === 'error',
   'n-textarea-warning': props.status === 'warning',
+  'n-textarea-disabled': props.disabled,
 }))
 </script>
 
@@ -93,7 +97,7 @@ const mainClasses = computed(() => ({
 }
 
 .n-textarea-main {
-  @apply block w-full min-h-base text-content leading-base border border-solid border-base rounded px-[11px] py-[4px] bg-white bg-none outline-none transition-input duration-300 ease hover:border-primary-5 focus:(border-primary-5 shadow-input);
+  @apply block w-full min-h-base text-content leading-base border border-solid border-base rounded-base px-[11px] py-[4px] bg-white bg-none outline-none transition-input duration-300 ease hover:border-primary-5 focus:(border-primary-5 shadow-input);
 }
 
 .n-textarea-clear {
@@ -105,10 +109,14 @@ const mainClasses = computed(() => ({
 }
 
 .n-textarea-error {
-  @apply border-error-base hover:border-error-base focus:(border-error-hover shadow-input-error);
+  @apply border-error-base hover:border-error-base focus:(border-error-hover shadow-error-outline/20);
 }
 
 .n-textarea-warning {
-  @apply border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-input-warning);
+  @apply border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-warning-outline/20);
+}
+
+.n-textarea-disabled {
+  @apply text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base;
 }
 </style>
