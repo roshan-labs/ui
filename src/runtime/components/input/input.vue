@@ -4,6 +4,9 @@
       <slot name="addonBefore">{{ addonBefore }}</slot>
     </div>
     <div :class="wrapperClasses">
+      <div v-if="prefix || $slots.prefix" class="n-input-prefix">
+        <slot name="prefix">{{ prefix }}</slot>
+      </div>
       <input
         :class="mainClasses"
         :value="modelValue"
@@ -56,6 +59,8 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   /** 是否展示字数 */
   showCount: { type: Boolean, default: false },
+  /** 前缀图标 */
+  prefix: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
@@ -149,8 +154,12 @@ const mainClasses = computed(() => ({
   @apply flex-grow leading-base outline-none placeholder-shown:overflow-ellipsis;
 }
 
+.n-input-prefix {
+  @apply flex items-center flex-none mr-xss;
+}
+
 .n-input-suffix {
-  @apply flex flex-none items-center;
+  @apply flex items-center flex-none ml-xss;
 }
 
 .n-input-error {

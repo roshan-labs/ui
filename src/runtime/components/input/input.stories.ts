@@ -91,4 +91,9 @@ Disabled.args = {
   disabled: true,
 }
 
+export const Prefix = Template.bind({})
+Prefix.args = {
+  prefix: 'A',
+}
+
 export default meta
