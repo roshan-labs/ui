@@ -1,6 +1,9 @@
 import type { Meta, Story } from '@storybook/vue3'
 
+import NIcon from '../icon/icon.vue'
 import NInput from './input.vue'
+import UserIcon from '~icons/ant-design/user-outlined'
+import InfoIcon from '~icons/ant-design/info-circle-outlined'
 
 const meta: Meta = {
   title: 'design-system/DATA-ENTRY/Input',
@@ -91,9 +94,26 @@ Disabled.args = {
   disabled: true,
 }
 
-export const Prefix = Template.bind({})
-Prefix.args = {
-  prefix: 'A',
-}
+export const PrefixAndSufix: Story = () => ({
+  components: {
+    NInput,
+    NIcon,
+    UserIcon,
+    InfoIcon,
+  },
+  template: `
+    <div>
+      <n-input class="mb-xs" prefix="¥" sufix="RMB" />
+      <n-input>
+        <template #prefix>
+          <n-icon><user-icon /></n-icon>
+        </template>
+        <template #sufix>
+          <n-icon><info-icon /></n-icon>
+        </template>
+      </n-input>
+    </div>
+  `,
+})
 
 export default meta

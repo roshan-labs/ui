@@ -16,10 +16,11 @@
         @focus="onFocus"
         @blur="onBlur"
       />
-      <div v-if="suffixVisible" class="n-input-suffix">
-        <n-icon class="n-input-clear" @click="$emit('update:modelValue', '')">
+      <div v-if="sufix || $slots.sufix || clearVisible" class="n-input-suffix">
+        <n-icon v-if="clearVisible" class="n-input-clear" @click="$emit('update:modelValue', '')">
           <close-circle />
         </n-icon>
+        <slot name="sufix">{{ sufix }}</slot>
       </div>
     </div>
     <div v-if="addonAfter || $slots.addonAfter" class="n-input-addon">
@@ -59,8 +60,10 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   /** 是否展示字数 */
   showCount: { type: Boolean, default: false },
-  /** 前缀图标 */
+  /** 带有前缀图标的 input */
   prefix: { type: String },
+  /** 带有后缀图标的 input */
+  sufix: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
@@ -69,8 +72,6 @@ const propsRef = toRefs(props)
 
 // alowClear
 const { clearVisible } = useAllowClear(propsRef.modelValue, propsRef.allowClear, emit)
-
-const suffixVisible = computed(() => clearVisible.value)
 
 const onInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
