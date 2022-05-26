@@ -3,7 +3,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import NInputTextarea from './input-textarea.vue'
 
 const meta: Meta = {
-  title: 'DESIGN-SYSTEM/DATA-ENTRY/InputTextarea',
+  title: '设计系统/数据录入/文本域 InputTextarea',
   component: NInputTextarea,
   decorators: [() => ({ template: '<div class="w-[320px]"><story /></div>' })],
   argTypes: {

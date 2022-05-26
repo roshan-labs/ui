@@ -3,7 +3,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import NDivider from './divider.vue'
 
 const meta: Meta = {
-  title: 'design-system/Layout/Divider',
+  title: '设计系统/布局/分割线 Divider',
   component: NDivider,
   decorators: [() => ({ template: '<div class="w-420px text-base"><story /></div>' })],
   argTypes: {

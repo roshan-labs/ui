@@ -6,7 +6,7 @@ import UserIcon from '~icons/ant-design/user-outlined'
 import InfoIcon from '~icons/ant-design/info-circle-outlined'
 
 const meta: Meta = {
-  title: 'design-system/DATA-ENTRY/Input',
+  title: '设计系统/数据录入/输入框 Input',
   component: NInput,
   decorators: [() => ({ template: '<div class="w-[260px]"><story /></div>' })],
   argTypes: {
