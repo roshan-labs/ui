@@ -4,23 +4,37 @@
       <slot name="addonBefore">{{ addonBefore }}</slot>
     </div>
     <div :class="wrapperClasses">
-      <div v-if="prefix || $slots.prefix" class="n-input-prefix">
+      <div v-if="prefix || $slots.prefix" :class="prefixClasses">
         <slot name="prefix">{{ prefix }}</slot>
       </div>
       <input
+        v-model="value"
+        :type="inputType"
         :class="mainClasses"
-        :value="modelValue"
+        :maxlength="maxlength"
         :placeholder="placeholder"
         :disabled="disabled"
-        @input="onInput"
         @focus="onFocus"
         @blur="onBlur"
       />
-      <div v-if="sufix || $slots.sufix || clearVisible" class="n-input-suffix">
-        <n-icon v-if="clearVisible" class="n-input-clear" @click="$emit('update:modelValue', '')">
-          <close-circle />
-        </n-icon>
-        <slot name="sufix">{{ sufix }}</slot>
+      <div
+        v-if="suffix || $slots.suffix || clearVisible || showCount || type === 'password'"
+        class="n-input-suffix"
+      >
+        <n-icon
+          v-if="clearVisible"
+          class="n-input-clear"
+          :component="CloseCircle"
+          @click="onClear"
+        />
+        <span v-if="showCount" class="n-input-show-count">{{ countText }}</span>
+        <n-icon
+          v-if="type === 'password'"
+          class="n-input-password"
+          :component="showPass ? EyeVisible : EyeInvisble"
+          @click="showPass = !showPass"
+        />
+        <slot name="suffix">{{ suffix }}</slot>
       </div>
     </div>
     <div v-if="addonAfter || $slots.addonAfter" class="n-input-addon">
@@ -30,12 +44,17 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, ref, toRefs, useSlots, onUpdated } from 'vue'
+import type { PropType } from 'vue'
+import { computed, ref, toRefs, useSlots, onUpdated } from 'vue'
+import { useVModel } from '@vueuse/core'
 
 import NIcon from '../icon/icon.vue'
 import { Size } from '../utils/types'
 import { useAllowClear } from './composables/use-allow-clear'
+import { useShowCount } from './composables/use-show-count'
 import CloseCircle from '~icons/ant-design/close-circle-filled'
+import EyeInvisble from '~icons/ant-design/eye-invisible-outlined'
+import EyeVisible from '~icons/ant-design/eye-outlined'
 
 const props = defineProps({
   /** 输入框内容 */
@@ -58,24 +77,23 @@ const props = defineProps({
   bordered: { type: Boolean, default: true },
   /** 是否禁用状态，默认为 false */
   disabled: { type: Boolean, default: false },
+  /** 最大输入长度 */
+  maxlength: { type: Number },
   /** 是否展示字数 */
   showCount: { type: Boolean, default: false },
   /** 带有前缀图标的 input */
   prefix: { type: String },
   /** 带有后缀图标的 input */
-  sufix: { type: String },
+  suffix: { type: String },
 })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
 const propsRef = toRefs(props)
+const value = useVModel(props, 'modelValue', emit, { passive: true })
 
 // alowClear
-const { clearVisible } = useAllowClear(propsRef.modelValue, propsRef.allowClear, emit)
-
-const onInput = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
-}
+const { clearVisible, onClear } = useAllowClear(value, propsRef.allowClear)
 
 // Focus event
 const isFocus = ref(false)
@@ -100,6 +118,17 @@ onUpdated(() => {
   hasAddonAfter.value = Boolean(props.addonAfter || slots.addonAfter)
 })
 
+// showCount
+const { countText } = useShowCount(value, propsRef.showCount, propsRef.maxlength!)
+
+// Password
+const showPass = ref(false)
+
+// Type
+const inputType = computed(() =>
+  props.type === 'password' ? (showPass.value ? 'text' : 'password') : props.type
+)
+
 const classes = computed(() => ({
   'n-input': true,
   'n-input-large': props.size === 'large',
@@ -112,9 +141,7 @@ const wrapperClasses = computed(() => ({
   'n-input-wrapper-disabled': props.disabled,
   'n-input-focus': isFocus.value,
   'n-input-error': props.status === 'error',
-  'n-input-error-focus': props.status === 'error' && isFocus.value,
   'n-input-warning': props.status === 'warning',
-  'n-input-warning-focus': props.status === 'warning' && isFocus.value,
   'n-input-addon-before': hasAddonBefore.value,
   'n-input-addon-after': hasAddonAfter.value,
   'n-input-borderless': !props.bordered,
@@ -124,9 +151,18 @@ const mainClasses = computed(() => ({
   'n-input-main': true,
   'n-input-main-disabled': props.disabled,
 }))
+
+const prefixClasses = computed(() => ({
+  'n-input-prefix': true,
+  [`n-input-prefix-${props.status}`]: !!props.status,
+}))
 </script>
 
 <style>
+input::-ms-reveal {
+  display: none;
+}
+
 .n-input {
   @apply inline-flex w-full text-base text-content;
 }
@@ -159,6 +195,14 @@ const mainClasses = computed(() => ({
   @apply flex items-center flex-none mr-xss;
 }
 
+.n-input-prefix-error {
+  @apply text-error-base;
+}
+
+.n-input-prefix-warning {
+  @apply text-warning-base;
+}
+
 .n-input-suffix {
   @apply flex items-center flex-none ml-xss;
 }
@@ -167,16 +211,8 @@ const mainClasses = computed(() => ({
   @apply border-error-base hover:border-error-base shadow-error-outline/20;
 }
 
-.n-input-error-focus {
-  @apply border-error-hover hover:border-error-hover;
-}
-
 .n-input-warning {
   @apply border-warning-base hover:border-warning-base shadow-warning-outline/20;
-}
-
-.n-input-warning-focus {
-  @apply border-warning-hover hover:border-warning-hover;
 }
 
 .n-input-addon {
@@ -201,5 +237,13 @@ const mainClasses = computed(() => ({
 
 .n-input-main-disabled {
   @apply bg-transparent cursor-not-allowed;
+}
+
+.n-input-password {
+  @apply text-[#00000073] transition-all duration-300 cursor-pointer hover:text-content;
+}
+
+.n-input-show-count {
+  @apply text-[#00000073];
 }
 </style>

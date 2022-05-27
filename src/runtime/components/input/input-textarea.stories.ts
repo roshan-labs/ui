@@ -28,7 +28,7 @@ export const Default = Template.bind({})
 
 export const Placeholder = Template.bind({})
 Placeholder.args = {
-  placeholder: 'Please input',
+  placeholder: '请输入',
 }
 
 export const Rows = Template.bind({})
@@ -44,6 +44,24 @@ AllowClear.args = {
   allowClear: true,
 }
 
+export const Error = Template.bind({})
+Error.args = {
+  status: 'error',
+  placeholder: '它出错了',
+}
+
+export const Warning = Template.bind({})
+Warning.args = {
+  status: 'warning',
+  placeholder: '它告警了',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  ...Placeholder.args,
+  disabled: true,
+}
+
 export const Borderless = Template.bind({})
 Borderless.args = {
   bordered: false,
@@ -55,9 +73,16 @@ Maxlength.args = {
   maxlength: 10,
 }
 
-export const ShowCount = Template.bind({})
+export const ShowCount: Story = (args) => ({
+  components: { NInputTextarea },
+  setup: () => ({ args }),
+  template: `
+    <n-input-textarea class="mb-xs" v-bind="args" />
+    <n-input-textarea v-bind="args" :maxlength="50" />
+  `,
+})
 ShowCount.args = {
-  maxlength: 10,
+  ...Placeholder.args,
   showCount: true,
 }
 
@@ -72,24 +97,6 @@ export const Autosize: Story = () => ({
 })
 Autosize.parameters = {
   controls: { disable: true },
-}
-
-export const Error = Template.bind({})
-Error.args = {
-  status: 'error',
-  placeholder: 'Error textarea',
-}
-
-export const Warning = Template.bind({})
-Warning.args = {
-  status: 'warning',
-  placeholder: 'Warning textarea',
-}
-
-export const Disabled = Template.bind({})
-Disabled.args = {
-  ...Placeholder.args,
-  disabled: true,
 }
 
 export default meta

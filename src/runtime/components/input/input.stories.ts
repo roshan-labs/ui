@@ -30,7 +30,7 @@ export const Default = Template.bind({})
 
 export const Placeholder = Template.bind({})
 Placeholder.args = {
-  placeholder: 'Please input',
+  placeholder: '请输入',
 }
 
 export const Small = Template.bind({})
@@ -45,31 +45,17 @@ Large.args = {
   placeholder: 'Large size',
 }
 
+export const Password = Template.bind({})
+Password.args = {
+  type: 'password',
+  modelValue: '123456',
+}
+
 export const AllowClear = Template.bind({})
 AllowClear.args = {
-  modelValue: 'default value',
-  placeholder: 'Please input',
+  ...Placeholder.args,
+  modelValue: '我是可以清空的',
   allowClear: true,
-}
-
-export const Error: Story = (args) => ({
-  components: { NInput },
-  setup: () => ({ args }),
-  template: `
-    <div>
-      <n-input v-bind="args" />
-    </div>
-  `,
-})
-Error.args = {
-  status: 'error',
-  placeholder: 'Error input',
-}
-
-export const Warning = Error.bind({})
-Warning.args = {
-  status: 'warning',
-  placeholder: 'Warning input',
 }
 
 export const AddonBefore = Template.bind({})
@@ -85,7 +71,7 @@ AddonAfter.args = {
 export const Borderless = Template.bind({})
 Borderless.args = {
   bordered: false,
-  placeholder: 'Borderless',
+  placeholder: '无边框',
 }
 
 export const Disabled = Template.bind({})
@@ -94,7 +80,55 @@ Disabled.args = {
   disabled: true,
 }
 
-export const PrefixAndSufix: Story = () => ({
+export const Maxlength = Template.bind({})
+Maxlength.args = {
+  modelValue: '123456',
+  maxlength: 6,
+}
+
+export const ShowCount: Story = (args) => ({
+  components: { NInput },
+  setup: () => ({ args }),
+  template: `
+    <n-input class="mb-xs" v-bind="args" />
+    <n-input v-bind="args" :maxlength="50" />
+  `,
+})
+ShowCount.args = {
+  ...Placeholder.args,
+  showCount: true,
+}
+
+export const Error: Story = (args) => ({
+  components: {
+    NInput,
+    NIcon,
+    UserIcon,
+  },
+  setup: () => ({ args }),
+  template: `
+    <div>
+      <n-input class="mb-xs" v-bind="args" />
+      <n-input v-bind="args">
+        <template #prefix>
+          <n-icon><user-icon /></n-icon>
+        </template>
+      </n-input>
+    </div>
+  `,
+})
+Error.args = {
+  status: 'error',
+  placeholder: 'Error input',
+}
+
+export const Warning = Error.bind({})
+Warning.args = {
+  status: 'warning',
+  placeholder: 'Warning input',
+}
+
+export const PrefixAndSuffix: Story = () => ({
   components: {
     NInput,
     NIcon,
@@ -103,12 +137,12 @@ export const PrefixAndSufix: Story = () => ({
   },
   template: `
     <div>
-      <n-input class="mb-xs" prefix="¥" sufix="RMB" />
+      <n-input class="mb-xs" prefix="¥" suffix="RMB" />
       <n-input>
         <template #prefix>
           <n-icon><user-icon /></n-icon>
         </template>
-        <template #sufix>
+        <template #suffix>
           <n-icon><info-icon /></n-icon>
         </template>
       </n-input>

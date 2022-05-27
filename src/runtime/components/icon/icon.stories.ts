@@ -73,4 +73,14 @@ Color.args = {
   color: '#2f54eb',
 }
 
+export const Component: Story = (args) => ({
+  components: { NIcon },
+  setup: () => ({ args }),
+  template: '<n-icon v-bind="args" />',
+})
+Component.args = {
+  ...Size.args,
+  component: IconSmileTwotone,
+}
+
 export default meta

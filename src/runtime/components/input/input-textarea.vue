@@ -27,6 +27,7 @@ import NIcon from '../icon/icon.vue'
 import { Autosize } from './utils'
 import { useAllowClear } from './composables/use-allow-clear'
 import { useAutoSize } from './composables/use-auto-size'
+import { useShowCount } from './composables/use-show-count'
 import CloseCircle from '~icons/ant-design/close-circle-filled'
 
 const props = defineProps({
@@ -57,20 +58,12 @@ const emit = defineEmits(['update:modelValue', 'focus', 'blur', 'enter'])
 const value = useVModel(props, 'modelValue', emit, { passive: true })
 const propsRef = toRefs(props)
 
-const { clearVisible, onClear } = useAllowClear(value, propsRef.allowClear, emit)
+const { clearVisible, onClear } = useAllowClear(value, propsRef.allowClear)
 const { textarea, textareaStyle } = useAutoSize(value, propsRef.autosize)
 const textareaRows = computed(() => (props.autosize ? undefined : props.rows))
 
 // showCount
-const countText = computed(() => {
-  if (props.showCount) {
-    return typeof props.maxlength === 'number'
-      ? `${value.value.length} / ${props.maxlength}`
-      : value.value.length
-  }
-
-  return ''
-})
+const { countText } = useShowCount(value, propsRef.showCount, propsRef.maxlength!)
 
 // Styles
 const classes = computed(() => ({
@@ -93,7 +86,7 @@ const mainClasses = computed(() => ({
 }
 
 .n-textarea-show-count {
-  @apply after:(content-[attr(data-count)] absolute top-full right-0 text-[#00000073] whitespace-nowrap);
+  @apply after:(content-[attr(data-count)] absolute right-[11px] bottom-[4px] text-[#00000073] whitespace-nowrap);
 }
 
 .n-textarea-main {
@@ -109,7 +102,7 @@ const mainClasses = computed(() => ({
 }
 
 .n-textarea-error {
-  @apply border-error-base hover:border-error-base focus:(border-error-hover shadow-error-outline/20);
+  @apply border-error-base hover:border-error-base focus:shadow-error-outline/20;
 }
 
 .n-textarea-warning {
