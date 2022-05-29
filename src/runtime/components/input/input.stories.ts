@@ -36,19 +36,28 @@ Placeholder.args = {
 export const Small = Template.bind({})
 Small.args = {
   size: 'small',
-  placeholder: 'Small size',
+  placeholder: '小尺寸',
 }
 
 export const Large = Template.bind({})
 Large.args = {
   size: 'large',
-  placeholder: 'Large size',
+  placeholder: '大尺寸',
 }
 
-export const Password = Template.bind({})
+export const Password: Story = (args) => ({
+  components: { NInput },
+  setup: () => ({ args }),
+  template: `
+    <n-input class="mb-xs" v-bind="args" />
+    <n-input class="mb-xs" v-bind="args" show-count />
+    <n-input v-bind="args" :maxlength="50" show-count />
+  `,
+})
 Password.args = {
   type: 'password',
-  modelValue: '123456',
+  modelValue: '7758521',
+  allowClear: true,
 }
 
 export const AllowClear = Template.bind({})
@@ -58,13 +67,9 @@ AllowClear.args = {
   allowClear: true,
 }
 
-export const AddonBefore = Template.bind({})
-AddonBefore.args = {
+export const AddonBeforeAndAfter = Template.bind({})
+AddonBeforeAndAfter.args = {
   addonBefore: 'https://',
-}
-
-export const AddonAfter = Template.bind({})
-AddonAfter.args = {
   addonAfter: '.com',
 }
 
@@ -82,7 +87,7 @@ Disabled.args = {
 
 export const Maxlength = Template.bind({})
 Maxlength.args = {
-  modelValue: '123456',
+  modelValue: '123木头人',
   maxlength: 6,
 }
 

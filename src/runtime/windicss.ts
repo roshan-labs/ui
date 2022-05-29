@@ -177,7 +177,7 @@ const defultWindiConfig = defineConfig({
 
     // Input
     'n-input-clear':
-      'text-[#00000040] mx-xss cursor-pointer transition-all duration-300 ease hover:text-[#00000073]',
+      'text-[#00000040] cursor-pointer transition-all duration-300 ease hover:text-[#00000073]',
   },
 })
 

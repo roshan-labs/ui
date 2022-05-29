@@ -3,19 +3,18 @@
     <div v-if="addonBefore || $slots.addonBefore" class="n-input-addon">
       <slot name="addonBefore">{{ addonBefore }}</slot>
     </div>
-    <div :class="wrapperClasses">
+    <div :class="wrapperClasses" @mousedown="stopBlur">
       <div v-if="prefix || $slots.prefix" :class="prefixClasses">
         <slot name="prefix">{{ prefix }}</slot>
       </div>
       <input
+        ref="inputRef"
         v-model="value"
         :type="inputType"
         :class="mainClasses"
         :maxlength="maxlength"
         :placeholder="placeholder"
         :disabled="disabled"
-        @focus="onFocus"
-        @blur="onBlur"
       />
       <div
         v-if="suffix || $slots.suffix || clearVisible || showCount || type === 'password'"
@@ -23,16 +22,16 @@
       >
         <n-icon
           v-if="clearVisible"
-          class="n-input-clear"
+          class="n-input-suffix-item n-input-clear"
           :component="CloseCircle"
           @click="onClear"
         />
-        <span v-if="showCount" class="n-input-show-count">{{ countText }}</span>
+        <span v-if="showCount" class="n-input-suffix-item n-input-show-count">{{ countText }}</span>
         <n-icon
           v-if="type === 'password'"
-          class="n-input-password"
+          class="n-input-suffix-item n-input-password"
           :component="showPass ? EyeVisible : EyeInvisble"
-          @click="showPass = !showPass"
+          @click="toggleShowPass"
         />
         <slot name="suffix">{{ suffix }}</slot>
       </div>
@@ -89,11 +88,15 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
+const inputRef = ref<HTMLInputElement | null>(null)
 const propsRef = toRefs(props)
 const value = useVModel(props, 'modelValue', emit, { passive: true })
 
 // alowClear
 const { clearVisible, onClear } = useAllowClear(value, propsRef.allowClear)
+
+// showCount
+const { countText } = useShowCount(value, propsRef.showCount, propsRef.maxlength!)
 
 // Focus event
 const isFocus = ref(false)
@@ -118,17 +121,26 @@ onUpdated(() => {
   hasAddonAfter.value = Boolean(props.addonAfter || slots.addonAfter)
 })
 
-// showCount
-const { countText } = useShowCount(value, propsRef.showCount, propsRef.maxlength!)
-
 // Password
 const showPass = ref(false)
+
+const toggleShowPass = () => {
+  showPass.value = !showPass.value
+}
 
 // Type
 const inputType = computed(() =>
   props.type === 'password' ? (showPass.value ? 'text' : 'password') : props.type
 )
 
+const stopBlur = (event: Event) => {
+  if (event.target) {
+    event.preventDefault()
+    inputRef.value?.focus()
+  }
+}
+
+// Classes
 const classes = computed(() => ({
   'n-input': true,
   'n-input-large': props.size === 'large',
@@ -204,7 +216,11 @@ input::-ms-reveal {
 }
 
 .n-input-suffix {
-  @apply flex items-center flex-none ml-xss;
+  @apply flex items-center flex-shrink-0 ml-xss;
+}
+
+.n-input-suffix-item {
+  @apply mr-xs last:mr-0;
 }
 
 .n-input-error {
