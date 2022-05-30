@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/roshan-labs/ui-module/compare/v0.1.6-alpha.0...v0.1.0) (2022-05-30)
+
+
+### Features
+
+* `Avatar` 组件新增 icon 属性，error 事件处理图片加载错误回退行为 ([d97e519](https://github.com/roshan-labs/ui-module/commit/d97e519327f2b54a1cf0500d3e48e3208f0b4c6b))
+* `LayoutSider` 组件响应式变化时触发 breakpoint 事件 ([cf82d2f](https://github.com/roshan-labs/ui-module/commit/cf82d2f6c92ce6739db6aeb4ce9593dddfabab7d))
+* 新增 `Layout` 相关组件 ([382caf5](https://github.com/roshan-labs/ui-module/commit/382caf5e49cd05a15affa365100806905143afcd))
+
 ## [1.0.0-beta.0](https://github.com/roshan-labs/ui-module/compare/v0.1.6-alpha.0...v1.0.0-beta.0) (2022-04-05)
 
 
