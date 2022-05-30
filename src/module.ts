@@ -1,6 +1,4 @@
-import { existsSync } from 'fs'
-import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
-import type { FullConfig } from 'windicss/types/interfaces'
+import { existsSync } from 'node:fs'
 import {
   addComponentsDir,
   createResolver,
@@ -8,46 +6,38 @@ import {
   installModule,
   resolvePath,
 } from '@nuxt/kit'
-import WindiModule from 'nuxt-windicss'
 import IconModule from '@roshan-labs/icon-module'
+import type { FullConfig } from 'windicss/types/interfaces'
+import type { ModuleOptions as WindiModuleOptions } from 'nuxt-windicss'
+import WindiModule from 'nuxt-windicss'
 import { defu } from 'defu'
 
-import { name as packageName, version } from '../package.json'
+import { name, version } from '../package.json'
 import { extendWindiConfig } from './runtime/windicss'
-import { extendIconConfig } from './icon'
+import { extendIconConfig } from './runtime/icon'
 
-export interface ModuleOptions {
-  /** 组件前缀 */
-  prefix?: string
-}
+export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: packageName,
+    name,
     version,
     configKey: 'ui',
   },
-  defaults: {
-    prefix: 'n',
-  },
-  async setup(options, nuxt) {
+  async setup(_, nuxt) {
     const resolver = createResolver(import.meta.url)
     const componentsPath = resolver.resolve('./runtime/components')
     const windiConfigPath = await resolvePath('windi.config')
-    const defaultWindiOptions: WindiModuleOptions = {
-      scan: {
-        include: [`${componentsPath}/**/*.{vue,tsx}`],
-      },
+    const windiOptions: WindiModuleOptions = {
+      scan: { include: [`${componentsPath}/**/*.{vue,tsx}`] },
     }
 
     let windiConfig: FullConfig | string | undefined
 
-    // 读取 windicss.config 配置
-    if (['object', 'string'].includes(typeof nuxt.options.windicss?.config)) {
+    if (nuxt.options.windicss?.config) {
       windiConfig = nuxt.options.windicss?.config
     }
 
-    // 如果上一步读取的配置是对象则与 UI 配置合并
     if (typeof windiConfig === 'object') {
       windiConfig = extendWindiConfig(windiConfig)
     }
@@ -56,26 +46,26 @@ export default defineNuxtModule<ModuleOptions>({
       windiConfig = extendWindiConfig()
     }
 
-    // 注册组件
-    addComponentsDir({
+    await addComponentsDir({
       path: componentsPath,
-      prefix: options.prefix,
+      prefix: 'n',
       extensions: ['vue'],
     })
 
-    // 安装 icon 模块
-    await installModule(IconModule, extendIconConfig(nuxt.options.icons))
+    // Install unplugin-icons module
+    nuxt.options.icons = extendIconConfig(nuxt.options.icons)
+    await installModule(IconModule)
 
-    // 安装 windicss 模块
-    await installModule(WindiModule, {
-      ...defu(nuxt.options.windicss || {}, defaultWindiOptions),
+    // Install windicss module
+    nuxt.options.windicss = {
+      ...defu(nuxt.options.windicss ?? {}, windiOptions),
       config: windiConfig,
-    } as WindiModuleOptions)
+    }
+    await installModule(WindiModule)
   },
 })
 
 declare module '@nuxt/schema' {
-  // 修复 nuxt-windicss 模块未导出类型
   interface NuxtOptions {
     windicss?: WindiModuleOptions
   }

@@ -8,12 +8,16 @@ import NLayoutFooter from './layout-footer.vue'
 import IconBars from '~icons/ant-design/bars-outlined'
 
 const meta: Meta = {
-  title: 'design-system/Layout/LayoutSider',
+  title: '设计系统/布局/布局边栏 LayoutSider',
   component: NLayoutSider,
   argTypes: {
     // Events
     onUpdateCollapsed: {
       action: 'update-collapsed',
+    },
+    onBreakpoint: {
+      description: '触发响应式布局断点时的回调',
+      action: 'breakpoint',
     },
   },
 }

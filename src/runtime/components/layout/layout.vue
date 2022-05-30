@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUpdate, ref, useSlots } from 'vue'
+import { computed, onMounted, onUpdated, ref, useSlots } from 'vue'
 
 import { filterChildren, isComponent } from '../utils/utils'
 
@@ -14,19 +14,30 @@ const props = defineProps({
   hasSider: { type: Boolean, default: false },
 })
 
-const checkSider = () =>
-  filterChildren(useSlots().default()).some(
-    (item) => isComponent(item.type) && item.type.name === 'LayoutSider'
-  )
 /** hasSider 对应私有变量 */
-const _hasSider = ref(checkSider())
+const hasSider = ref(false)
+const slots = useSlots()
+
+function checkSider() {
+  if (slots.default) {
+    return filterChildren(slots.default()).some(
+      (item) => isComponent(item.type) && item.type.name === 'LayoutSider'
+    )
+  }
+
+  return false
+}
 
 const classes = computed(() => ({
   'n-layout': true,
-  'n-layout-has-sider': props.hasSider || _hasSider.value,
+  'n-layout-has-sider': props.hasSider || hasSider.value,
 }))
 
-onBeforeUpdate(() => {
-  _hasSider.value = checkSider()
+onMounted(() => {
+  hasSider.value = checkSider()
+})
+
+onUpdated(() => {
+  hasSider.value = checkSider()
 })
 </script>

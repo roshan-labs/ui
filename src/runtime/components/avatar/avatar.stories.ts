@@ -4,7 +4,7 @@ import NAvatar from './avatar.vue'
 import IconUserOutlined from '~icons/ant-design/user-outlined'
 
 const meta: Meta = {
-  title: 'design-system/Avatar',
+  title: '设计系统/数据展示/头像 Avatar',
   component: NAvatar,
   argTypes: {
     src: {

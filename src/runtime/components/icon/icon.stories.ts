@@ -6,7 +6,7 @@ import IconSmileTwotone from '~icons/ant-design/smile-twotone'
 import IconCarFilled from '~icons/ant-design/car-filled'
 
 const meta: Meta = {
-  title: 'design-system/Icon',
+  title: '设计系统/通用/图标 Icon',
   component: NIcon,
   argTypes: {
     color: {
@@ -71,6 +71,16 @@ export const Color = Template.bind({})
 Color.args = {
   ...Size.args,
   color: '#2f54eb',
+}
+
+export const Component: Story = (args) => ({
+  components: { NIcon },
+  setup: () => ({ args }),
+  template: '<n-icon v-bind="args" />',
+})
+Component.args = {
+  ...Size.args,
+  component: IconSmileTwotone,
 }
 
 export default meta
