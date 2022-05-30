@@ -79,37 +79,3 @@ const mainClasses = computed(() => ({
   'n-textarea-disabled': props.disabled,
 }))
 </script>
-
-<style>
-.n-textarea {
-  @apply relative inline-block w-full text-base align-bottom;
-}
-
-.n-textarea-show-count {
-  @apply after:(content-[attr(data-count)] absolute right-[11px] bottom-[4px] text-[#00000073] whitespace-nowrap);
-}
-
-.n-textarea-main {
-  @apply block w-full min-h-base text-content leading-base border border-solid border-base rounded-base px-[11px] py-[4px] bg-white bg-none outline-none transition-input duration-300 ease hover:border-primary-5 focus:(border-primary-5 shadow-input);
-}
-
-.n-textarea-clear {
-  @apply absolute top-[8px] right-[8px] z-1;
-}
-
-.n-textarea-borderless {
-  @apply border-none focus:shadow-none;
-}
-
-.n-textarea-error {
-  @apply border-error-base hover:border-error-base focus:shadow-error-outline/20;
-}
-
-.n-textarea-warning {
-  @apply border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-warning-outline/20);
-}
-
-.n-textarea-disabled {
-  @apply text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base;
-}
-</style>

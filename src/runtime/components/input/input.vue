@@ -3,7 +3,7 @@
     <div v-if="addonBefore || $slots.addonBefore" class="n-input-addon">
       <slot name="addonBefore">{{ addonBefore }}</slot>
     </div>
-    <div :class="wrapperClasses" @mousedown="stopBlur">
+    <div :class="wrapperClasses">
       <div v-if="prefix || $slots.prefix" :class="prefixClasses">
         <slot name="prefix">{{ prefix }}</slot>
       </div>
@@ -15,6 +15,8 @@
         :maxlength="maxlength"
         :placeholder="placeholder"
         :disabled="disabled"
+        @focus="onFocus"
+        @blur="onBlur"
       />
       <div
         v-if="suffix || $slots.suffix || clearVisible || showCount || type === 'password'"
@@ -133,13 +135,6 @@ const inputType = computed(() =>
   props.type === 'password' ? (showPass.value ? 'text' : 'password') : props.type
 )
 
-const stopBlur = (event: Event) => {
-  if (event.target) {
-    event.preventDefault()
-    inputRef.value?.focus()
-  }
-}
-
 // Classes
 const classes = computed(() => ({
   'n-input': true,
@@ -173,93 +168,5 @@ const prefixClasses = computed(() => ({
 <style>
 input::-ms-reveal {
   display: none;
-}
-
-.n-input {
-  @apply inline-flex w-full text-base text-content;
-}
-
-.n-input-large {
-  @apply text-lg;
-}
-
-.n-input-wrapper {
-  @apply inline-flex flex-grow border-1 border-solid border-base rounded-base px-[11px] py-[4px] transition-all duration-300 ease hover:border-primary-5;
-}
-
-.n-input-wrapper-small {
-  @apply py-0;
-}
-
-.n-input-wrapper-large {
-  @apply py-[6.5px];
-}
-
-.n-input-focus {
-  @apply border-primary-5 shadow-input;
-}
-
-.n-input-main {
-  @apply flex-grow leading-base outline-none placeholder-shown:overflow-ellipsis;
-}
-
-.n-input-prefix {
-  @apply flex items-center flex-none mr-xss;
-}
-
-.n-input-prefix-error {
-  @apply text-error-base;
-}
-
-.n-input-prefix-warning {
-  @apply text-warning-base;
-}
-
-.n-input-suffix {
-  @apply flex items-center flex-shrink-0 ml-xss;
-}
-
-.n-input-suffix-item {
-  @apply mr-xs last:mr-0;
-}
-
-.n-input-error {
-  @apply border-error-base hover:border-error-base shadow-error-outline/20;
-}
-
-.n-input-warning {
-  @apply border-warning-base hover:border-warning-base shadow-warning-outline/20;
-}
-
-.n-input-addon {
-  @apply flex items-center relative text-center border-1 border-solid border-base rounded-base bg-[#fafafa] px-[11px] first:(border-r-0 rounded-tr-none rounded-br-none) last:(border-l-0 rounded-tl-none rounded-bl-none);
-}
-
-.n-input-addon-before {
-  @apply relative z-1 rounded-tl-none rounded-bl-none;
-}
-
-.n-input-addon-after {
-  @apply relative z-1 rounded-tr-none rounded-br-none;
-}
-
-.n-input-borderless {
-  @apply border-none shadow-none;
-}
-
-.n-input-wrapper-disabled {
-  @apply text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base;
-}
-
-.n-input-main-disabled {
-  @apply bg-transparent cursor-not-allowed;
-}
-
-.n-input-password {
-  @apply text-[#00000073] transition-all duration-300 cursor-pointer hover:text-content;
-}
-
-.n-input-show-count {
-  @apply text-[#00000073];
 }
 </style>

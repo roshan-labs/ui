@@ -176,8 +176,47 @@ const defultWindiConfig = defineConfig({
     'n-layout-footer': 'flex-shrink-0 text-content text-base py-[24px] px-[50px] bg-[#f0f2f5]',
 
     // Input
+    'n-input': 'inline-flex w-full text-base text-content',
+    'n-input-large': 'text-lg',
+    'n-input-wrapper':
+      'inline-flex flex-grow border-1 border-solid border-base rounded-base px-[11px] py-[4px] transition-all duration-300 ease hover:border-primary-5',
+    'n-input-wrapper-small': 'py-0',
+    'n-input-wrapper-large': 'py-[6.5px]',
+    'n-input-focus': 'border-primary-5 shadow-input',
+    'n-input-main': 'w-full leading-base outline-none placeholder-shown:overflow-ellipsis',
     'n-input-clear':
       'text-[#00000040] cursor-pointer transition-all duration-300 ease hover:text-[#00000073]',
+    'n-input-prefix': 'flex items-center flex-none mr-xss',
+    'n-input-prefix-error': 'text-error-base',
+    'n-input-prefix-warning': 'text-warning-base',
+    'n-input-suffix': 'flex items-center flex-none ml-xss',
+    'n-input-suffix-item': 'mr-xs last:mr-0',
+    'n-input-error': 'border-error-base hover:border-error-base shadow-error-outline/20',
+    'n-input-warning': 'border-warning-base hover:border-warning-base shadow-warning-outline/20',
+    'n-input-addon':
+      'flex items-center relative text-center border-1 border-solid border-base rounded-base bg-[#fafafa] px-[11px] first:(border-r-0 rounded-tr-none rounded-br-none) last:(border-l-0 rounded-tl-none rounded-bl-none)',
+    'n-input-addon-before': 'relative z-1 rounded-tl-none rounded-bl-none',
+    'n-input-addon-after': 'relative z-1 rounded-tr-none rounded-br-none',
+    'n-input-borderless': 'border-none shadow-none',
+    'n-input-wrapper-disabled':
+      'text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base',
+    'n-input-main-disabled': 'bg-transparent cursor-not-allowed',
+    'n-input-password':
+      'text-[#00000073] transition-all duration-300 cursor-pointer hover:text-content',
+    'n-input-show-count': 'text-[#00000073]',
+
+    // Textarea
+    'n-textarea': 'relative inline-block w-full text-base align-bottom',
+    'n-textarea-show-count':
+      'after:(content-[attr(data-count)] absolute right-[11px] bottom-[4px] text-[#00000073] whitespace-nowrap)',
+    'n-textarea-main':
+      'block w-full min-h-base text-content leading-base border border-solid border-base rounded-base px-[11px] py-[4px] bg-white bg-none outline-none transition-input duration-300 ease hover:border-primary-5 focus:(border-primary-5 shadow-input)',
+    'n-textarea-clear': 'absolute top-[8px] right-[8px] z-1',
+    'n-textarea-borderless': 'border-none focus:shadow-none',
+    'n-textarea-error': 'border-error-base hover:border-error-base focus:shadow-error-outline/20',
+    'n-textarea-warning':
+      'border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-warning-outline/20)',
+    'n-textarea-disabled': 'text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base',
   },
 })
 
