@@ -70,9 +70,12 @@ const style = computed<StyleValue>(() => ({ gap: gap.value }))
 
 const classes = computed(() => ({
   'n-space': true,
-  [`n-space-${props.direction}`]: true,
-  [`n-space-align-${props.align || 'center'}`]:
-    props.direction === 'horizontal' ? true : !!props.align,
+  'n-space-vertical': props.direction === 'vertical',
+  'n-space-horizontal': props.direction === 'horizontal',
+  'n-space-align-start': props.align === 'start',
+  'n-space-align-end': props.align === 'end',
+  'n-space-align-center': props.align === 'center',
+  'n-space-align-baseline': props.align === 'baseline',
   'n-space-wrap': props.wrap,
 }))
 </script>
