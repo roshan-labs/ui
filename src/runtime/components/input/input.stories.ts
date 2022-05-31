@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/vue3'
 
 import NIcon from '../icon/icon.vue'
+import NSpace from '../space/space.vue'
 import NInput from './input.vue'
 import UserIcon from '~icons/ant-design/user-outlined'
 import InfoIcon from '~icons/ant-design/info-circle-outlined'
@@ -46,12 +47,17 @@ Large.args = {
 }
 
 export const Password: Story = (args) => ({
-  components: { NInput },
+  components: {
+    NInput,
+    NSpace,
+  },
   setup: () => ({ args }),
   template: `
-    <n-input class="mb-xs" v-bind="args" />
-    <n-input class="mb-xs" v-bind="args" show-count />
-    <n-input v-bind="args" :maxlength="50" show-count />
+    <n-space direction="vertical">
+      <n-input v-bind="args" />
+      <n-input v-bind="args" show-count />
+      <n-input v-bind="args" :maxlength="50" show-count />
+    </n-space>
   `,
 })
 Password.args = {
@@ -92,11 +98,16 @@ Maxlength.args = {
 }
 
 export const ShowCount: Story = (args) => ({
-  components: { NInput },
+  components: {
+    NInput,
+    NSpace,
+  },
   setup: () => ({ args }),
   template: `
-    <n-input class="mb-xs" v-bind="args" />
-    <n-input v-bind="args" :maxlength="50" />
+    <n-space direction="vertical">
+      <n-input v-bind="args" />
+      <n-input v-bind="args" :maxlength="50" />
+    </n-space>
   `,
 })
 ShowCount.args = {
@@ -108,18 +119,19 @@ export const Error: Story = (args) => ({
   components: {
     NInput,
     NIcon,
+    NSpace,
     UserIcon,
   },
   setup: () => ({ args }),
   template: `
-    <div>
-      <n-input class="mb-xs" v-bind="args" />
+    <n-space direction="vertical">
+      <n-input v-bind="args" />
       <n-input v-bind="args">
         <template #prefix>
           <n-icon><user-icon /></n-icon>
         </template>
       </n-input>
-    </div>
+    </n-space>
   `,
 })
 Error.args = {
@@ -137,12 +149,13 @@ export const PrefixAndSuffix: Story = () => ({
   components: {
     NInput,
     NIcon,
+    NSpace,
     UserIcon,
     InfoIcon,
   },
   template: `
-    <div>
-      <n-input class="mb-xs" prefix="¥" suffix="RMB" />
+    <n-space direction="vertical">
+      <n-input prefix="¥" suffix="RMB" />
       <n-input>
         <template #prefix>
           <n-icon><user-icon /></n-icon>
@@ -151,7 +164,7 @@ export const PrefixAndSuffix: Story = () => ({
           <n-icon><info-icon /></n-icon>
         </template>
       </n-input>
-    </div>
+    </n-space>
   `,
 })
 
