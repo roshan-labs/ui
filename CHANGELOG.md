@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/roshan-labs/ui-module/compare/v0.1.6...v0.1.7) (2022-05-31)
+
+
+### Features
+
+* 新增 `Space` 组件 ([91c7a36](https://github.com/roshan-labs/ui-module/commit/91c7a3631437feb6688f56a624eae81f4ded335b))
+
 ### [0.1.6](https://github.com/roshan-labs/ui-module/compare/v0.1.6-alpha.0...v0.1.6) (2022-05-30)
 
 
