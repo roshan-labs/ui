@@ -1,13 +1,18 @@
 <template>
-  <div class="n-space" :style="style">
-    <div v-for="(child, index) in childs" :key="index">
-      <component :is="child" />
-    </div>
+  <div :class="classes" :style="style">
+    <template v-for="(child, index) in childs" :key="index">
+      <div v-if="(split || $slots.split) && index > 0" class="n-space-item-split">
+        <slot name="split">{{ split }}</slot>
+      </div>
+      <div class="n-space-item">
+        <component :is="child" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { PropType, StyleValue } from 'vue'
+import type { PropType, StyleValue, VNode } from 'vue'
 import { ref, computed, useSlots, onUpdated } from 'vue'
 
 import { filterChildren } from '../utils/utils'
@@ -21,12 +26,17 @@ const props = defineProps({
     default: 'small',
   },
   /** 对齐方式 */
-  align: { type: String as PropType<'start' | 'end' | 'center' | 'baseline'>, default: 'center' },
+  align: { type: String as PropType<'start' | 'end' | 'center' | 'baseline'> },
+  /** 间距方向 */
+  direction: { type: String as PropType<'vertical' | 'horizontal'>, default: 'horizontal' },
+  /** 是否自动换行，仅在 horizontal 时有效 */
+  wrap: { type: Boolean, default: false },
+  /** 分隔符 */
+  split: { type: [String, Object] as PropType<string | VNode> },
 })
 
 // Slot
 const slots = useSlots()
-console.log(slots.default?.())
 const genChilds = () => filterChildren(slots.default?.())
 const childs = ref(genChilds())
 
@@ -56,14 +66,13 @@ const gap = computed(() => {
   return value
 })
 
-const style = computed<StyleValue>(() => ({
-  gap: gap.value,
-  alignItems: props.align,
+const style = computed<StyleValue>(() => ({ gap: gap.value }))
+
+const classes = computed(() => ({
+  'n-space': true,
+  [`n-space-${props.direction}`]: true,
+  [`n-space-align-${props.align || 'center'}`]:
+    props.direction === 'horizontal' ? true : !!props.align,
+  'n-space-wrap': props.wrap,
 }))
 </script>
-
-<style>
-.n-space {
-  @apply inline-flex;
-}
-</style>

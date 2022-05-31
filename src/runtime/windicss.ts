@@ -217,6 +217,16 @@ const defultWindiConfig = defineConfig({
     'n-textarea-warning':
       'border-warning-base hover:border-warning-base focus:(border-warning-hover shadow-warning-outline/20)',
     'n-textarea-disabled': 'text-[#00000040] bg-[#f5f5f5] cursor-not-allowed hover:border-base',
+
+    // Space
+    'n-space': 'inline-flex',
+    'n-space-vertical': 'flex flex-col',
+    'n-space-horizontal': 'flex-row',
+    'n-space-wrap': 'flex-wrap',
+    'n-space-align-start': 'items-start',
+    'n-space-align-end': 'items-end',
+    'n-space-align-center': 'items-center',
+    'n-space-align-baseline': 'items-baseline',
   },
 })
 
