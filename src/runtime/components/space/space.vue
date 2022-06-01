@@ -76,6 +76,6 @@ const classes = computed(() => ({
   'n-space-align-end': props.align === 'end',
   'n-space-align-center': props.align === 'center',
   'n-space-align-baseline': props.align === 'baseline',
-  'n-space-wrap': props.wrap,
+  'n-space-wrap': props.direction === 'horizontal' && props.wrap,
 }))
 </script>
