@@ -1,8 +1,10 @@
 <template>
   <div :class="classes">
     <div v-if="title" class="n-card-head">
-      <div class="n-card-title">
-        <slot name="title">{{ title }}</slot>
+      <div class="n-card-head-wrapper">
+        <div class="n-card-title">
+          <slot name="title">{{ title }}</slot>
+        </div>
       </div>
     </div>
     <div class="n-card-body">
@@ -29,7 +31,7 @@ const classes = computed(() => ({
 
 <style>
 .n-card {
-  @apply bg-white rounded-base;
+  @apply text-base text-content leading-base bg-white rounded-base;
 }
 
 .n-card-bordered {
@@ -38,5 +40,17 @@ const classes = computed(() => ({
 
 .n-card-body {
   @apply p-lg;
+}
+
+.n-card-head {
+  @apply text-lg font-medium px-lg;
+}
+
+.n-card-head-wrapper {
+  @apply flex;
+}
+
+.n-card-title {
+  @apply flex-1 py-md;
 }
 </style>
