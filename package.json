@@ -6,21 +6,20 @@
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
-    },
-    "./dist/runtime/*": "./dist/runtime/*"
+      "require": "./module.cjs"
+    }
   },
-  "main": "./dist/module.cjs",
+  "main": "./module.cjs",
   "module": "./dist/module.mjs",
-  "types": "./dist/types.d.ts",
+  "types": "./dist/module.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "prepack": "nuxt-module-build",
+    "build": "unbuild",
+    "prepack": "npm run build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version"
@@ -44,7 +43,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@iconify-json/ant-design": "^1.1.1",
-    "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
@@ -60,6 +58,7 @@
     "nuxt": "^3.0.0-rc.3",
     "prettier": "^2.6.2",
     "standard-version": "^9.3.2",
+    "unbuild": "^0.7.4",
     "unplugin-icons": "^0.14.3",
     "vite-plugin-windicss": "^1.8.4",
     "vue-loader": "^16.8.3"

@@ -13,9 +13,10 @@ import WindiModule from 'nuxt-windicss'
 import { defu } from 'defu'
 
 import { name, version } from '../package.json'
-import { extendWindiConfig } from './runtime/windicss'
-import { extendIconConfig } from './runtime/icon'
+import { extendWindiConfig } from './windicss'
+import { extendIconConfig } from './icon'
 
+export { extendWindiConfig }
 export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
@@ -26,7 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   async setup(_, nuxt) {
     const resolver = createResolver(import.meta.url)
-    const componentsPath = resolver.resolve('./runtime/components')
+    const componentsPath = resolver.resolve('./components')
     const windiConfigPath = await resolvePath('windi.config')
     const windiOptions: WindiModuleOptions = {
       scan: { include: [`${componentsPath}/**/*.{vue,tsx}`] },

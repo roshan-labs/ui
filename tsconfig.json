@@ -4,8 +4,9 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "jsx": "preserve",
-    "strict": true
+    "strict": true,
+    "noUnusedLocals": true
   }
 }
