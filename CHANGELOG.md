@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/roshan-labs/ui-module/compare/v0.1.7...v0.1.8) (2022-06-05)
+
+
+### Bug Fixes
+
+* `Space` wrap 不能在水平状态下生效 ([b6d7f0b](https://github.com/roshan-labs/ui-module/commit/b6d7f0b35380aba14535b7533f18110178b9f570))
+
 ### [0.1.7](https://github.com/roshan-labs/ui-module/compare/v0.1.6...v0.1.7) (2022-05-31)
 
 
