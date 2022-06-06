@@ -25,7 +25,7 @@ import { ref, computed, watch, watchEffect } from 'vue'
 import { breakpointsAntDesign, useBreakpoints } from '@vueuse/core'
 
 import { addUnit } from '../utils/utils'
-import NIcon from '../icon/icon.vue'
+import NIcon from '../icon/n-icon.vue'
 import IconLeft from '~icons/ant-design/left-outlined'
 import IconRight from '~icons/ant-design/right-outlined'
 

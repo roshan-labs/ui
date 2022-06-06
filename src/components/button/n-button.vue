@@ -20,7 +20,7 @@
 import type { PropType } from 'vue'
 import { ref, computed, useSlots, onBeforeUpdate } from 'vue'
 
-import NIcon from '../icon/icon.vue'
+import NIcon from '../icon/n-icon.vue'
 
 const props = defineProps({
   /** 按钮类型 */

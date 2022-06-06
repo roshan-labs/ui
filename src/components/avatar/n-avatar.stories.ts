@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NAvatar from './avatar.vue'
+import NAvatar from './n-avatar.vue'
 import IconUserOutlined from '~icons/ant-design/user-outlined'
 
 const meta: Meta = {

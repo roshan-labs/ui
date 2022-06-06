@@ -49,7 +49,7 @@ import type { PropType } from 'vue'
 import { computed, ref, toRefs, useSlots, onUpdated } from 'vue'
 import { useVModel } from '@vueuse/core'
 
-import NIcon from '../icon/icon.vue'
+import NIcon from '../icon/n-icon.vue'
 import { Size } from '../utils/types'
 import { useAllowClear } from './composables/use-allow-clear'
 import { useShowCount } from './composables/use-show-count'

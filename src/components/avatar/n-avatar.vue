@@ -21,7 +21,7 @@
 import type { PropType, StyleValue, Component } from 'vue'
 import { ref, computed, useSlots, onBeforeUpdate } from 'vue'
 
-import NIcon from '../icon/icon.vue'
+import NIcon from '../icon/n-icon.vue'
 
 const props = defineProps({
   /** 图片类头像的资源地址 */

@@ -1,8 +1,8 @@
 import type { Meta, Story } from '@storybook/vue3'
 
 import NButton from '../button/n-button.vue'
-import NDivider from '../divider/divider.vue'
-import NSpace from './space.vue'
+import NDivider from '../divider/n-divider.vue'
+import NSpace from './n-space.vue'
 
 const meta: Meta = {
   title: '设计系统/布局/间距 Space',

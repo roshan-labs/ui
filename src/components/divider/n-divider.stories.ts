@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NDivider from './divider.vue'
+import NDivider from './n-divider.vue'
 
 const meta: Meta = {
   title: '设计系统/布局/分割线 Divider',

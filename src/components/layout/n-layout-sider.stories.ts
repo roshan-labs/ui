@@ -1,10 +1,10 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NLayout from './layout.vue'
-import NLayoutHeader from './layout-header.vue'
-import NLayoutSider from './layout-sider.vue'
-import NLayoutContent from './layout-content.vue'
-import NLayoutFooter from './layout-footer.vue'
+import NLayout from './n-layout.vue'
+import NLayoutHeader from './n-layout-header.vue'
+import NLayoutSider from './n-layout-sider.vue'
+import NLayoutContent from './n-layout-content.vue'
+import NLayoutFooter from './n-layout-footer.vue'
 import IconBars from '~icons/ant-design/bars-outlined'
 
 const meta: Meta = {

@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NCard from './card.vue'
+import NCard from './n-card.vue'
 
 const meta: Meta = {
   title: '设计系统/数据展示/卡片 Card',

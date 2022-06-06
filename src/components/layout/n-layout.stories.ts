@@ -1,7 +1,7 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NLayout from './layout.vue'
-import NLayoutSider from './layout-sider.vue'
+import NLayout from './n-layout.vue'
+import NLayoutSider from './n-layout-sider.vue'
 
 const meta: Meta = {
   title: '设计系统/布局/布局 Layout',

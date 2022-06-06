@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NIcon from './icon.vue'
+import NIcon from './n-icon.vue'
 import IconAntDesign from '~icons/ant-design/ant-design-outlined'
 import IconSmileTwotone from '~icons/ant-design/smile-twotone'
 import IconCarFilled from '~icons/ant-design/car-filled'

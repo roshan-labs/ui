@@ -23,7 +23,7 @@
 import { toRefs, computed, PropType } from 'vue'
 import { useVModel } from '@vueuse/core'
 
-import NIcon from '../icon/icon.vue'
+import NIcon from '../icon/n-icon.vue'
 import { Autosize } from './utils'
 import { useAllowClear } from './composables/use-allow-clear'
 import { useAutoSize } from './composables/use-auto-size'
