@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/roshan-labs/ui-module/compare/v0.1.11...v0.1.12) (2022-06-06)
+
+
+### Bug Fixes
+
+* 路径错误 ([4ed5b81](https://github.com/roshan-labs/ui-module/commit/4ed5b81673af9ec2c4b9d2cac544564423b96db3))
+
 ### [0.1.11](https://github.com/roshan-labs/ui-module/compare/v0.1.10...v0.1.11) (2022-06-06)
 
 
