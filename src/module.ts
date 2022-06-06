@@ -17,17 +17,15 @@ import { extendWindiConfig } from './windicss'
 import { extendIconConfig } from './icon'
 
 export { extendWindiConfig }
-export interface ModuleOptions {}
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule({
   meta: {
     name,
     version,
-    configKey: 'ui',
   },
   async setup(_, nuxt) {
     const resolver = createResolver(import.meta.url)
-    const componentsPath = resolver.resolve('./components')
+    const componentsPath = resolver.resolve('./runtime/components')
     const windiConfigPath = await resolvePath('windi.config')
     const windiOptions: WindiModuleOptions = {
       scan: { include: [`${componentsPath}/**/*.{vue,tsx}`] },
@@ -49,8 +47,8 @@ export default defineNuxtModule<ModuleOptions>({
 
     await addComponentsDir({
       path: componentsPath,
-      prefix: 'n',
       extensions: ['vue'],
+      prefix: 'n',
     })
 
     // Install unplugin-icons module
