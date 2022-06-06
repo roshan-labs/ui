@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NButton from '../button/button.vue'
+import NButton from '../button/n-button.vue'
 import NDivider from '../divider/divider.vue'
 import NSpace from './space.vue'
 

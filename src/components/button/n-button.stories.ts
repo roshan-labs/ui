@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NButton from './button.vue'
+import NButton from './n-button.vue'
 import IconSearchOutlined from '~icons/ant-design/search-outlined'
 
 const meta: Meta = {

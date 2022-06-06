@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import NInputTextarea from './input-textarea.vue'
+import NInputTextarea from './n-input-textarea.vue'
 
 const meta: Meta = {
   title: '设计系统/数据录入/文本域 InputTextarea',

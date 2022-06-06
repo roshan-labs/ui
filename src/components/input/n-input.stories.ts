@@ -2,7 +2,7 @@ import type { Meta, Story } from '@storybook/vue3'
 
 import NIcon from '../icon/icon.vue'
 import NSpace from '../space/space.vue'
-import NInput from './input.vue'
+import NInput from './n-input.vue'
 import UserIcon from '~icons/ant-design/user-outlined'
 import InfoIcon from '~icons/ant-design/info-circle-outlined'
 

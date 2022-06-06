@@ -25,7 +25,7 @@ export default defineNuxtModule({
   },
   async setup(_, nuxt) {
     const resolver = createResolver(import.meta.url)
-    const componentsPath = resolver.resolve('./runtime/components')
+    const componentsPath = resolver.resolve('./components')
     const windiConfigPath = await resolvePath('windi.config')
     const windiOptions: WindiModuleOptions = {
       scan: { include: [`${componentsPath}/**/*.{vue,tsx}`] },
