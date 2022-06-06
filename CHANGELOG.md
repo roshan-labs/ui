@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/roshan-labs/ui-module/compare/v0.1.10...v0.1.11) (2022-06-06)
+
+
+### Bug Fixes
+
+* 无法注册组件 ([131a4f1](https://github.com/roshan-labs/ui-module/commit/131a4f1236134012679e01d2d131194a69acd50e))
+
 ### [0.1.10](https://github.com/roshan-labs/ui-module/compare/v0.1.9...v0.1.10) (2022-06-06)
 
 
