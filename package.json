@@ -13,7 +13,8 @@
   "module": "./dist/module.mjs",
   "types": "./dist/module.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "*.cjs"
   ],
   "scripts": {
     "build": "unbuild",
