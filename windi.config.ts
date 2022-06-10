@@ -1,3 +1,3 @@
 import { extendWindiConfig } from './src/windicss'
 
-export default extendWindiConfig()
+export default extendWindiConfig({})

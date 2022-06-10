@@ -4,4 +4,7 @@ import UIModule from '../src/module'
 
 export default defineNuxtConfig({
   modules: [UIModule],
+  windicss: {
+    analyze: true,
+  },
 })

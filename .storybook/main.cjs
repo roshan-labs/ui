@@ -9,8 +9,8 @@ module.exports = {
     builder: '@storybook/builder-vite',
   },
   viteFinal(config) {
-    config.plugins.push(WindiCSS())
     config.plugins.push(
+      WindiCSS(),
       UnpluginIcon({
         autoInstall: true,
         iconCustomizer(_collection, _icon, props) {
