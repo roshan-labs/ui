@@ -9,7 +9,7 @@
       "require": "./module.cjs"
     },
     "./windicss": {
-      "import": "./dist/windicss.mjs",
+      "default": "./dist/windicss.mjs",
       "types": "./dist/windicss.d.ts"
     }
   },
