@@ -25,4 +25,43 @@ Title.args = {
   title: '卡片标题',
 }
 
+export const BodyStyle = Default.bind({})
+BodyStyle.args = {
+  ...Default.args,
+  bodyStyle: 'font-size: 20px; color: #2f54eb',
+}
+
+export const Cover: Story = (args) => ({
+  components: {
+    NCard,
+  },
+  setup: () => ({ args }),
+  template: `
+    <n-card v-bind="args">
+      <template #cover>
+        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt="example" />
+      </template>
+      <span>带封面的卡片</span>
+    </n-card>
+  `,
+})
+
+export const Extra: Story = (args) => ({
+  components: {
+    NCard,
+  },
+  setup: () => ({ args }),
+  template: `
+    <n-card v-bind="args">
+      <template #extra>
+        <a href="#">更多</a>
+      </template>
+      {{ args.default }}
+    </n-card>
+  `,
+})
+Extra.args = {
+  ...Title.args,
+}
+
 export default meta

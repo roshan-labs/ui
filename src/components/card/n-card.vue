@@ -1,56 +1,43 @@
 <template>
-  <div :class="classes">
-    <div v-if="title" class="n-card-head">
-      <div class="n-card-head-wrapper">
-        <div class="n-card-title">
-          <slot name="title">{{ title }}</slot>
-        </div>
+  <div
+    :class="[
+      'text-base text-content leading-base bg-white rounded-base',
+      bordered ? 'border-1 border-solid border-[rgba(0,0,0,0.06)]' : '',
+    ]"
+  >
+    <div
+      v-if="title || $slots.title"
+      class="text-lg font-medium px-lg border-b border-solid border-[rgba(0,0,0,0.06)]"
+    >
+      <div class="flex-1 py-md">
+        <slot name="title">{{ title }}</slot>
       </div>
     </div>
-    <div class="n-card-body">
+    <div
+      v-if="$slots.cover"
+      class="mt-[-1px] mr-[-1px] ml-[-1px] overflow-hidden rounded-tr-base rounded-tl-base children:(block w-full)"
+    >
+      <slot name="cover" />
+    </div>
+    <div class="p-lg" :style="bodyStyle">
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import type { StyleValue } from 'vue'
 
-const props = defineProps({
+interface Props {
   /** 卡片标题 */
-  title: { type: String },
+  title?: string
   /** 是否有边框 */
-  bordered: { type: Boolean, default: true },
+  bordered: boolean
+  /** 内容区域自定义样式 */
+  bodyStyle?: StyleValue
+}
+
+withDefaults(defineProps<Props>(), {
+  bordered: true,
 })
-
-const classes = computed(() => ({
-  'n-card': true,
-  'n-card-bordered': props.bordered,
-}))
 </script>
-
-<style>
-.n-card {
-  @apply text-base text-content leading-base bg-white rounded-base;
-}
-
-.n-card-bordered {
-  @apply border-1 border-solid border-[rgba(0,0,0,0.06)];
-}
-
-.n-card-body {
-  @apply p-lg;
-}
-
-.n-card-head {
-  @apply text-lg font-medium px-lg;
-}
-
-.n-card-head-wrapper {
-  @apply flex;
-}
-
-.n-card-title {
-  @apply flex-1 py-md;
-}
-</style>
