@@ -8,7 +8,10 @@
       "import": "./dist/module.mjs",
       "require": "./module.cjs"
     },
-    "./windicss": "./dist/windicss.mjs"
+    "./windicss": {
+      "import": "./dist/windicss.mjs",
+      "types": "./dist/windicss.d.ts"
+    }
   },
   "main": "./module.cjs",
   "module": "./dist/module.mjs",
