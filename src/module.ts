@@ -16,8 +16,6 @@ import { name, version } from '../package.json'
 import { extendWindiConfig } from './windicss'
 import { extendIconConfig } from './icon'
 
-export { extendWindiConfig }
-
 export default defineNuxtModule({
   meta: {
     name,
@@ -51,15 +49,13 @@ export default defineNuxtModule({
       prefix: 'n',
     })
 
-    // Install unplugin-icons module
     nuxt.options.icons = extendIconConfig(nuxt.options.icons)
-    await installModule(IconModule)
-
-    // Install windicss module
     nuxt.options.windicss = {
       ...defu(nuxt.options.windicss ?? {}, windiOptions),
       config: windiConfig,
     }
+
+    await installModule(IconModule)
     await installModule(WindiModule)
   },
 })
