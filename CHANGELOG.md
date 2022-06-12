@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.16](https://github.com/roshan-labs/ui-module/compare/v0.1.15...v0.1.16) (2022-06-12)
+
+
+### Bug Fixes
+
+* `windicss` 无类型文件 ([d5ee70c](https://github.com/roshan-labs/ui-module/commit/d5ee70cd5114519489cefbd5f1c98d03c572acc9))
+
 ### [0.1.15](https://github.com/roshan-labs/ui-module/compare/v0.1.14...v0.1.15) (2022-06-12)
 
 
