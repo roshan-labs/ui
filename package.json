@@ -1,33 +1,27 @@
 {
-  "name": "@roshan-labs/ui-module",
-  "version": "0.1.18",
+  "name": "@roshan-labs/ui",
+  "version": "0.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
-      "require": "./module.cjs"
-    },
-    "./dist/windicss": {
-      "default": "./dist/windicss.mjs",
-      "types": "./dist/windicss.d.ts"
+      "require": "./dist/module.cjs"
     }
   },
-  "main": "./module.cjs",
-  "module": "./dist/module.mjs",
-  "types": "./dist/module.d.ts",
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
   "files": [
-    "dist",
-    "*.cjs"
+    "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "prepack": "npm run build",
+    "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "release": "standard-version"
+    "release": "release-it"
   },
   "config": {
     "commitizen": {
@@ -39,35 +33,29 @@
     "access": "public"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0-rc.3",
-    "@roshan-labs/icon-module": "^0.1.0",
-    "@vueuse/core": "^8.4.2",
-    "defu": "^6.0.0",
-    "nuxt-windicss": "^2.3.1",
-    "windicss": "^3.5.3"
+    "@nuxt/kit": "^3.0.0",
+    "defu": "^6.1.1",
+    "element-plus": "^2.2.28",
+    "nuxt-windicss": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@iconify-json/ant-design": "^1.1.1",
-    "@nuxtjs/eslint-config-typescript": "latest",
+    "@babel/core": "^7.20.12",
+    "@nuxt/module-builder": "^0.2.1",
+    "@nuxt/schema": "^3.0.0",
+    "@release-it/conventional-changelog": "^5.1.1",
+    "@roshan-labs/eslint-config": "^1.2.0",
     "@storybook/addon-actions": "^6.5.8",
     "@storybook/addon-essentials": "^6.5.8",
     "@storybook/addon-interactions": "^6.5.8",
     "@storybook/addon-links": "^6.5.8",
     "@storybook/builder-vite": "^0.1.36",
     "@storybook/vue3": "^6.5.8",
-    "@types/react": "file:stub/types-react",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^8.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.17.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "nuxt": "^3.0.0-rc.3",
-    "prettier": "^2.6.2",
-    "standard-version": "^9.5.0",
-    "unbuild": "^0.7.4",
-    "unplugin-icons": "^0.14.3",
-    "vite-plugin-windicss": "^1.8.4",
+    "eslint": "^8.31.0",
+    "nuxt": "^3.0.0",
+    "release-it": "^15.6.0",
+    "vite-plugin-windicss": "^1.8.10",
     "vue-loader": "^16.8.3"
   }
 }
