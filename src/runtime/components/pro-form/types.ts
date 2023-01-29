@@ -17,12 +17,19 @@ import type { RadioOption, RadioType } from '../pro-radio/types'
 import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
 
 type SlotProp = string | Slot
+type Slots<T extends string> = Partial<Record<T, SlotProp>>
 
 interface FormBaseOption {
   prop: string
   label?: string
   value?: unknown
   slots?: Partial<Record<string, SlotProp>>
+}
+
+interface FormAutocomplete extends FormBaseOption {
+  type: 'autocomplete'
+  props?: Record<string, unknown>
+  slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
 interface FormInputOption extends FormBaseOption {
@@ -41,7 +48,7 @@ interface RadioProps extends Omit<Partial<RadioGroupProps>, 'modelValue'> {
   onChange?: (value: string | number | boolean) => void
 }
 
-export interface FormRadioOption extends FormBaseOption {
+interface FormRadioOption extends FormBaseOption {
   type: 'radio'
   props?: RadioProps
 }
@@ -84,29 +91,22 @@ interface FormTimePickerOption extends FormBaseOption {
 interface FormTransferOption extends FormBaseOption {
   type: 'transfer'
   props?: Omit<Partial<TransferProps>, 'modelValue'>
-  slots?: {
-    'left-footer'?: SlotProp
-    'right-footer'?: SlotProp
-  }
+  slots?: Slots<'left-footer' | 'right-footer'>
 }
 
 interface FormUploadOption extends FormBaseOption {
   type: 'upload'
   props?: Omit<Partial<UploadProps>, 'file-list'>
-  slots?: {
-    default?: SlotProp
-    trigger?: SlotProp
-    tip?: SlotProp
-    file?: SlotProp
-  }
+  slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
 }
 
 interface FormOtherOption extends FormBaseOption {
-  type: 'autocomplete' | 'cascader' | 'select' | 'date' | 'time-select'
+  type: 'cascader' | 'select' | 'date' | 'time-select'
   props?: Record<string, unknown>
 }
 
 export type FormOption =
+  | FormAutocomplete
   | FormInputOption
   | FormInputNumberOption
   | FormRadioOption

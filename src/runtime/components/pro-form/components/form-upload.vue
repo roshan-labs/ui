@@ -16,6 +16,9 @@
 </template>
 
 <script lang="ts" setup>
+/**
+ * 这个组件用来转化 v-model:file-list 到 v-model
+ */
 import type { PropType } from 'vue'
 import type { UploadUserFile } from 'element-plus'
 import { computed } from 'vue'
