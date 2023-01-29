@@ -91,3 +91,11 @@ export const components = [
   'ElTooltip',
   'ElDivider',
 ]
+
+export const proComponents = [
+  { dirname: 'pro-checkbox', name: 'ProCheckbox' },
+  { dirname: 'pro-dialog', name: 'ProDialog' },
+  { dirname: 'pro-form', name: 'ProForm' },
+  { dirname: 'pro-radio', name: 'ProRadio' },
+  { dirname: 'pro-table', name: 'ProTable' },
+]

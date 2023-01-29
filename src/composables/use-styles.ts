@@ -9,6 +9,7 @@ export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveR
 
   nuxt.options.css.unshift(
     'element-plus/dist/index.css',
+    // 定制主题文件
     // resolveRuntime('./assets/style.css'),
     'virtual:windi.css'
   )

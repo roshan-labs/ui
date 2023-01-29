@@ -3,14 +3,21 @@
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
     }
   },
-  "main": "./dist/module.cjs",
-  "types": "./dist/types.d.ts",
+  "typesVersions": {
+    "*": {
+      "type": [
+        "./dist/runtime/types.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
@@ -44,15 +51,15 @@
     "@nuxt/schema": "^3.0.0",
     "@release-it/conventional-changelog": "^5.1.1",
     "@roshan-labs/eslint-config": "^1.2.0",
-    "@storybook/addon-actions": "^6.5.8",
-    "@storybook/addon-essentials": "^6.5.8",
-    "@storybook/addon-interactions": "^6.5.8",
-    "@storybook/addon-links": "^6.5.8",
-    "@storybook/builder-vite": "^0.1.36",
-    "@storybook/vue3": "^6.5.8",
-    "babel-loader": "^8.3.0",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-vite": "^0.3.0",
+    "@storybook/vue3": "^6.5.15",
+    "babel-loader": "^9.1.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "nuxt": "^3.0.0",
     "release-it": "^15.6.0",
     "vite-plugin-windicss": "^1.8.10",

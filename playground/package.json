@@ -1,5 +1,4 @@
 {
-  "name": "playground",
   "private": true,
   "dependencies": {
     "@roshan-labs/ui": "link:.."
