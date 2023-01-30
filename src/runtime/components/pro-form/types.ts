@@ -1,9 +1,10 @@
 import type { Slot } from 'vue'
 import type {
-  RadioGroupProps,
   InputProps,
   InputEmits,
   InputNumberProps,
+  InputNumberEmits,
+  RadioGroupProps,
   CheckboxGroupProps,
   RateProps,
   ColorPickerProps,
@@ -19,6 +20,9 @@ import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
 
 type SlotProp = string | Slot
 type Slots<T extends string> = Partial<Record<T, SlotProp>>
+type SetPrefixEvent<T> = {
+  [K in keyof T as K extends string ? `on${Capitalize<K>}` : never]?: T[K]
+}
 
 interface FormBaseOption {
   prop: string
@@ -33,7 +37,8 @@ interface FormAutocomplete extends FormBaseOption {
   slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
-interface FormInputProps extends Omit<Partial<InputProps>, 'modelValue'> {}
+type FormInputProps = Omit<Partial<InputProps>, 'modelValue'> &
+  SetPrefixEvent<Omit<InputEmits, 'update:modelValue'>>
 
 interface FormInputOption extends FormBaseOption {
   type: 'input'
@@ -41,9 +46,12 @@ interface FormInputOption extends FormBaseOption {
   slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
+type FormInputNumberProps = Omit<Partial<InputNumberProps>, 'modelValue'> &
+  SetPrefixEvent<Omit<InputNumberEmits, 'update:modelValue'>>
+
 interface FormInputNumberOption extends FormBaseOption {
   type: 'number'
-  props?: Omit<Partial<InputNumberProps>, 'modelValue'>
+  props?: FormInputNumberProps
 }
 
 interface RadioProps extends Omit<Partial<RadioGroupProps>, 'modelValue'> {
