@@ -2,6 +2,7 @@ import type { Slot } from 'vue'
 import type {
   RadioGroupProps,
   InputProps,
+  InputEmits,
   InputNumberProps,
   CheckboxGroupProps,
   RateProps,
@@ -32,9 +33,12 @@ interface FormAutocomplete extends FormBaseOption {
   slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
+interface FormInputProps extends Omit<Partial<InputProps>, 'modelValue'> {}
+
 interface FormInputOption extends FormBaseOption {
   type: 'input'
-  props?: Omit<Partial<InputProps>, 'modelValue'>
+  props?: FormInputProps
+  slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
 interface FormInputNumberOption extends FormBaseOption {
