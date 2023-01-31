@@ -5,11 +5,17 @@ import type {
   InputNumberProps,
   InputNumberEmits,
   RadioGroupProps,
+  RadioGroupEmits,
   CheckboxGroupProps,
+  CheckboxGroupEmits,
   RateProps,
+  RateEmits,
   ColorPickerProps,
+  ColorPickerEmits,
   SliderProps,
+  SliderEmits,
   SwitchProps,
+  SwitchEmits,
   TimePickerDefaultProps,
   TransferProps,
   UploadProps,
@@ -21,8 +27,11 @@ import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
 type SlotProp = string | Slot
 type Slots<T extends string> = Partial<Record<T, SlotProp>>
 type SetPrefixEvent<T> = {
-  [K in keyof T as K extends string ? `on${Capitalize<K>}` : never]?: T[K]
+  [K in keyof Omit<T, 'update:modelValue'> as K extends string
+    ? `on${Capitalize<K>}`
+    : never]?: T[K]
 }
+type FormItemProps<T> = Omit<Partial<T>, 'modelValue'>
 
 interface FormBaseOption {
   prop: string
@@ -31,14 +40,21 @@ interface FormBaseOption {
   slots?: Partial<Record<string, SlotProp>>
 }
 
+/**
+ * Autocomplete
+ */
+
 interface FormAutocomplete extends FormBaseOption {
   type: 'autocomplete'
   props?: Record<string, unknown>
   slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
-type FormInputProps = Omit<Partial<InputProps>, 'modelValue'> &
-  SetPrefixEvent<Omit<InputEmits, 'update:modelValue'>>
+/**
+ * Input
+ */
+
+type FormInputProps = FormItemProps<InputProps> & SetPrefixEvent<InputEmits>
 
 interface FormInputOption extends FormBaseOption {
   type: 'input'
@@ -46,53 +62,79 @@ interface FormInputOption extends FormBaseOption {
   slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
 }
 
-type FormInputNumberProps = Omit<Partial<InputNumberProps>, 'modelValue'> &
-  SetPrefixEvent<Omit<InputNumberEmits, 'update:modelValue'>>
+/**
+ * InputNumber
+ */
 
 interface FormInputNumberOption extends FormBaseOption {
   type: 'number'
-  props?: FormInputNumberProps
+  props?: FormItemProps<InputNumberProps> & SetPrefixEvent<InputNumberEmits>
 }
 
-interface RadioProps extends Omit<Partial<RadioGroupProps>, 'modelValue'> {
-  options?: RadioOption[]
-  type?: RadioType
-  onChange?: (value: string | number | boolean) => void
-}
+/**
+ * Radio
+ */
+
+type FormRadioProps = FormItemProps<RadioGroupProps> &
+  SetPrefixEvent<RadioGroupEmits> & {
+    type?: RadioType
+    options?: RadioOption[]
+  }
 
 interface FormRadioOption extends FormBaseOption {
   type: 'radio'
-  props?: RadioProps
+  props?: FormRadioProps
 }
 
-interface CheckboxProps extends Omit<Partial<CheckboxGroupProps>, 'modelValue'> {
-  options?: CheckboxOption[]
-  type?: CheckboxType
-}
+/**
+ * Checkbox
+ */
+
+type FormCheckboxProps = FormItemProps<CheckboxGroupProps> &
+  SetPrefixEvent<CheckboxGroupEmits> & {
+    type?: CheckboxType
+    options?: CheckboxOption[]
+  }
 
 interface FormCheckboxOption extends FormBaseOption {
   type: 'checkbox'
-  props?: CheckboxProps
+  props?: FormCheckboxProps
 }
+
+/**
+ * Rate
+ */
 
 interface FormRateOption extends FormBaseOption {
   type: 'rate'
-  props?: Omit<Partial<RateProps>, 'modelValue'>
+  props?: FormItemProps<RateProps> & SetPrefixEvent<RateEmits>
 }
+
+/**
+ * Color
+ */
 
 interface FormColorOption extends FormBaseOption {
   type: 'color'
-  props?: Omit<Partial<ColorPickerProps>, 'modelValue'>
+  props?: FormItemProps<ColorPickerProps> & SetPrefixEvent<ColorPickerEmits>
 }
+
+/**
+ * Slider
+ */
 
 interface FormSliderOption extends FormBaseOption {
   type: 'slider'
-  props?: Omit<Partial<SliderProps>, 'modelValue'>
+  props?: FormItemProps<SliderProps> & SetPrefixEvent<SliderEmits>
 }
+
+/**
+ * Switch
+ */
 
 interface FormSwitchOption extends FormBaseOption {
   type: 'switch'
-  props?: Omit<Partial<SwitchProps>, 'modelValue'>
+  props?: FormItemProps<SwitchProps> & SetPrefixEvent<SwitchEmits>
 }
 
 interface FormTimePickerOption extends FormBaseOption {
