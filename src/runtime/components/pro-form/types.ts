@@ -69,11 +69,15 @@ interface FormCascaderOption extends FormBaseOption {
  * CascaderPanel
  */
 
-type FormCascaderPanelProps = Record<string, unknown>
+type FormCascaderPanelProps = Record<string, unknown> & {
+  onChange?: CascaderEmits['change']
+  expandChange?: CascaderEmits['expandChange']
+}
 
 interface FormCascaderPanelOption extends FormBaseOption {
   type: 'cascader-panel'
   props?: FormCascaderPanelProps
+  slots?: Slots<'default'>
 }
 
 /**
@@ -221,11 +225,30 @@ interface FormUploadOption extends FormBaseOption {
 }
 
 /**
+ * Select
+ */
+
+type FormSelectProps = Record<string, unknown> & {
+  onChange?: (value: unknown) => void
+  onVisibleChange?: (value: boolean) => void
+  onRemoveTag?: (value: unknown) => void
+  onClear?: () => void
+  onBlur?: (e: FocusEvent) => void
+  onFocus?: (e: FocusEvent) => void
+}
+
+interface FormSelectOption extends FormBaseOption {
+  type: 'select'
+  props?: FormSelectProps
+  slots?: Slots<'default' | 'empty' | 'prefix'>
+}
+
+/**
  * Gobal
  */
 
 interface FormOtherOption extends FormBaseOption {
-  type: 'select' | 'date' | 'time-select'
+  type: 'date' | 'time-select'
   props?: Record<string, unknown>
 }
 
@@ -245,6 +268,7 @@ export type FormOption =
   | FormTimeSelectOption
   | FormTransferOption
   | FormUploadOption
+  | FormSelectOption
   | FormOtherOption
 
 export interface FormAction {
