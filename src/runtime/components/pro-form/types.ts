@@ -1,5 +1,7 @@
 import type { Slot } from 'vue'
 import type {
+  CascaderProps,
+  CascaderEmits,
   InputProps,
   InputEmits,
   InputNumberProps,
@@ -18,6 +20,7 @@ import type {
   SwitchEmits,
   TimePickerDefaultProps,
   TransferProps,
+  TransferEmits,
   UploadProps,
 } from 'element-plus'
 
@@ -31,7 +34,7 @@ type SetPrefixEvent<T> = {
     ? `on${Capitalize<K>}`
     : never]?: T[K]
 }
-type FormItemProps<T> = Omit<Partial<T>, 'modelValue'>
+type FormItemProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
 
 interface FormBaseOption {
   prop: string
@@ -44,10 +47,33 @@ interface FormBaseOption {
  * Autocomplete
  */
 
-interface FormAutocomplete extends FormBaseOption {
+interface FormAutocompleteOption extends FormBaseOption {
   type: 'autocomplete'
   props?: Record<string, unknown>
   slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
+}
+
+/**
+ * Cascader
+ */
+
+type FormCascaderProps = FormItemProps<CascaderProps> & SetPrefixEvent<CascaderEmits>
+
+interface FormCascaderOption extends FormBaseOption {
+  type: 'cascader'
+  props?: FormCascaderProps
+  slots?: Slots<'default' | 'empty'>
+}
+
+/**
+ * CascaderPanel
+ */
+
+type FormCascaderPanelProps = Record<string, unknown>
+
+interface FormCascaderPanelOption extends FormBaseOption {
+  type: 'cascader-panel'
+  props?: FormCascaderPanelProps
 }
 
 /**
@@ -137,30 +163,76 @@ interface FormSwitchOption extends FormBaseOption {
   props?: FormItemProps<SwitchProps> & SetPrefixEvent<SwitchEmits>
 }
 
+/**
+ * TimePicker
+ */
+
+type FormTimePickerProps = FormItemProps<TimePickerDefaultProps> & {
+  onChange?: (value: TimePickerDefaultProps['modelValue']) => void
+  onBlur?: (e: FocusEvent) => void
+  onFocus?: (e: FocusEvent) => void
+  onVisibleChange?: (visibility: boolean) => void
+}
+
 interface FormTimePickerOption extends FormBaseOption {
   type: 'time-picker'
-  props?: Omit<Partial<TimePickerDefaultProps>, 'modelValue'>
+  props?: FormTimePickerProps
+}
+
+/**
+ * TimeSelect
+ */
+
+type FormTimeSelectProps = Record<string, unknown> & {
+  onChange?: (value: string) => void
+  onBlur?: (e: FocusEvent) => void
+  onFocus?: (e: FocusEvent) => void
+}
+
+interface FormTimeSelectOption extends FormBaseOption {
+  type: 'time-select'
+  props?: FormTimeSelectProps
+}
+
+/**
+ * Transfer
+ */
+
+type FormTransferProps = FormItemProps<TransferProps> & {
+  onChange?: TransferEmits['change']
+  onLeftCheckChange?: TransferEmits['left-check-change']
+  onRightCheckChange?: TransferEmits['right-check-change']
 }
 
 interface FormTransferOption extends FormBaseOption {
   type: 'transfer'
-  props?: Omit<Partial<TransferProps>, 'modelValue'>
-  slots?: Slots<'left-footer' | 'right-footer'>
+  props?: FormTransferProps
+  slots?: Slots<'default' | 'left-footer' | 'right-footer'>
 }
+
+/**
+ * Upload
+ */
 
 interface FormUploadOption extends FormBaseOption {
   type: 'upload'
-  props?: Omit<Partial<UploadProps>, 'file-list'>
+  props?: FormItemProps<UploadProps, 'fileList'>
   slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
 }
 
+/**
+ * Gobal
+ */
+
 interface FormOtherOption extends FormBaseOption {
-  type: 'cascader' | 'select' | 'date' | 'time-select'
+  type: 'select' | 'date' | 'time-select'
   props?: Record<string, unknown>
 }
 
 export type FormOption =
-  | FormAutocomplete
+  | FormAutocompleteOption
+  | FormCascaderOption
+  | FormCascaderPanelOption
   | FormInputOption
   | FormInputNumberOption
   | FormRadioOption
@@ -170,6 +242,7 @@ export type FormOption =
   | FormSliderOption
   | FormSwitchOption
   | FormTimePickerOption
+  | FormTimeSelectOption
   | FormTransferOption
   | FormUploadOption
   | FormOtherOption
