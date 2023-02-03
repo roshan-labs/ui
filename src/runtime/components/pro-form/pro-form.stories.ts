@@ -68,131 +68,133 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({})
 Default.args = {
   options: [
-    { prop: 'name', label: 'Name', type: 'input', props: { class: 'w-[220px]' } },
-    {
-      prop: 'age',
-      label: 'Age',
-      type: 'number',
-      props: { class: 'w-[220px]', controlsPosition: 'right' },
-    },
-    {
-      prop: 'search',
-      label: 'Autocomplete',
-      type: 'autocomplete',
-      props: { class: 'w-[220px]', fetchSuggestions: querySearch, clearable: true },
-    },
-    {
-      prop: 'select',
-      label: 'Select',
-      type: 'select',
-      props: {
-        class: 'w-[220px]',
-        options: [
-          { value: 'Online', label: 'Online' },
-          { value: 'Promotion', label: 'Promotion' },
-          { value: 'Offline', label: 'Offline' },
-        ],
-      },
-    },
-    {
-      prop: 'resources',
-      label: 'Resources',
-      type: 'radio',
-      props: {
-        options: [
-          { value: 'sponsor', label: 'Sponsor' },
-          { value: 'venue', label: 'Venue' },
-        ],
-      },
-    },
-    {
-      prop: 'checkbox',
-      label: 'Checkbox',
-      type: 'checkbox',
-      props: {
-        options: [
-          { value: 'Online', label: 'Online' },
-          { value: 'Promotion', label: 'Promotion' },
-          { value: 'Offline', label: 'Offline' },
-        ],
-      },
-    },
-    { prop: 'rate', label: 'Rate', type: 'rate' },
-    { prop: 'color', label: 'Color', type: 'color' },
-    {
-      prop: 'cascader',
-      label: 'Cascader',
-      type: 'cascader',
-      props: {
-        class: 'w-[220px]',
-        options: [
-          {
-            value: 'guide',
-            label: 'Guide',
-            children: [
-              {
-                value: 'consistency',
-                label: 'Consistency',
-              },
-              {
-                value: 'feedback',
-                label: 'Feedback',
-              },
-            ],
-          },
-          {
-            value: 'navigation',
-            label: 'Navigation',
-            children: [
-              {
-                value: 'side nav',
-                label: 'Side Navigation',
-              },
-              {
-                value: 'top nav',
-                label: 'Top Navigation',
-              },
-            ],
-          },
-        ],
-      },
-    },
-    { prop: 'date', label: 'Date', type: 'date', props: { class: 'w-[220px]' } },
-    {
-      prop: 'datetime',
-      label: 'Date Time',
-      type: 'date',
-      props: { type: 'datetime', class: 'w-[220px]' },
-    },
-    {
-      prop: 'time-picker',
-      label: 'Time Picker',
-      type: 'time-picker',
-      props: { class: 'w-[220px]' },
-    },
-    {
-      prop: 'time-select',
-      label: 'Time Select',
-      type: 'time-select',
-      props: { class: 'w-[220px]' },
-    },
-    {
-      prop: 'transfer',
-      label: 'Transfer',
-      type: 'transfer',
-      props: { data: generateTransferData() },
-    },
-    { prop: 'switch', label: 'Switch', type: 'switch' },
-    { prop: 'slider', label: 'Slider', type: 'slider' },
-    {
-      prop: 'upload',
-      label: 'Upload',
-      type: 'upload',
-      slots: {
-        default: () => h(ElButton, { type: 'primary' }, () => 'Upload'),
-        tip: 'upload-tip',
-      },
-    },
+    { prop: 'input', label: 'Input', type: 'input', component: { class: 'w-[220px]' } },
+    // {
+    //   prop: 'age',
+    //   label: 'Age',
+    //   type: 'number',
+    //   props: { class: 'w-[220px]', controlsPosition: 'right' },
+    // },
+    // {
+    //   prop: 'search',
+    //   label: 'Autocomplete',
+    //   type: 'autocomplete',
+    //   props: { class: 'w-[220px]', fetchSuggestions: querySearch, clearable: true },
+    // },
+    // {
+    //   prop: 'select',
+    //   label: 'Select',
+    //   type: 'select',
+    //   props: {
+    //     class: 'w-[220px]',
+    //     options: [
+    //       { value: 'Online', label: 'Online' },
+    //       { value: 'Promotion', label: 'Promotion' },
+    //       { value: 'Offline', label: 'Offline' },
+    //     ],
+    //   },
+    // },
+    // {
+    //   prop: 'resources',
+    //   label: 'Resources',
+    //   type: 'radio',
+    //   props: {
+    //     options: [
+    //       { value: 'sponsor', label: 'Sponsor' },
+    //       { value: 'venue', label: 'Venue' },
+    //     ],
+    //   },
+    // },
+    // {
+    //   prop: 'checkbox',
+    //   label: 'Checkbox',
+    //   type: 'checkbox',
+    //   props: {
+    //     options: [
+    //       { value: 'Online', label: 'Online' },
+    //       { value: 'Promotion', label: 'Promotion' },
+    //       { value: 'Offline', label: 'Offline' },
+    //     ],
+    //   },
+    // },
+    // { prop: 'rate', label: 'Rate', type: 'rate' },
+    // { prop: 'color', label: 'Color', type: 'color' },
+    // {
+    //   prop: 'cascader',
+    //   label: 'Cascader',
+    //   type: 'cascader',
+    //   props: {
+    //     class: 'w-[220px]',
+    //     options: [
+    //       {
+    //         value: 'guide',
+    //         label: 'Guide',
+    //         children: [
+    //           {
+    //             value: 'consistency',
+    //             label: 'Consistency',
+    //           },
+    //           {
+    //             value: 'feedback',
+    //             label: 'Feedback',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         value: 'navigation',
+    //         label: 'Navigation',
+    //         children: [
+    //           {
+    //             value: 'side nav',
+    //             label: 'Side Navigation',
+    //           },
+    //           {
+    //             value: 'top nav',
+    //             label: 'Top Navigation',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // },
+    // { prop: 'date', label: 'Date', type: 'date', props: { class: 'w-[220px]' } },
+    // {
+    //   prop: 'datetime',
+    //   label: 'Date Time',
+    //   type: 'date',
+    //   props: { type: 'datetime', class: 'w-[220px]' },
+    // },
+    // {
+    //   prop: 'time-picker',
+    //   label: 'Time Picker',
+    //   type: 'time-picker',
+    //   props: { class: 'w-[220px]' },
+    // },
+    // {
+    //   prop: 'time-select',
+    //   label: 'Time Select',
+    //   type: 'time-select',
+    //   props: { class: 'w-[220px]' },
+    // },
+    // {
+    //   prop: 'transfer',
+    //   label: 'Transfer',
+    //   type: 'transfer',
+    //   props: { data: generateTransferData() },
+    // },
+    // { prop: 'switch', label: 'Switch', type: 'switch' },
+    // { prop: 'slider', label: 'Slider', type: 'slider' },
+    // {
+    //   prop: 'upload',
+    //   label: 'Upload',
+    //   type: 'upload',
+    //   component: {
+    //     slots: {
+    //       default: () => h(ElButton, { type: 'primary' }, () => 'Upload'),
+    //       tip: 'upload-tip',
+    //     },
+    //   },
+    // },
   ] as FormOption[],
   labelWidth: 100,
 }
@@ -209,5 +211,8 @@ Inline.args = {
 export const CustomAction = Template.bind({})
 CustomAction.args = {
   ...Default.args,
-  action: {} as FormAction,
+  action: {
+    resetText: '重置表单',
+    submitText: '确认',
+  } as FormAction,
 }

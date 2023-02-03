@@ -1,5 +1,6 @@
 import type { Slot } from 'vue'
 import type {
+  FormItemProps,
   CascaderProps,
   CascaderEmits,
   InputProps,
@@ -34,35 +35,39 @@ type SetPrefixEvent<T> = {
     ? `on${Capitalize<K>}`
     : never]?: T[K]
 }
-type FormItemProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
+type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
 
-interface FormBaseOption {
+interface FormBaseOption extends Partial<FormItemProps> {
   prop: string
-  label?: string
   value?: unknown
-  slots?: Partial<Record<string, SlotProp>>
+  slots?: Slots<'default' | 'label' | 'error'>
 }
 
 /**
  * Autocomplete
  */
 
+type FormAutocompleteProps = Record<string, unknown> & {
+  slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
+}
+
 interface FormAutocompleteOption extends FormBaseOption {
   type: 'autocomplete'
-  props?: Record<string, unknown>
-  slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
+  component: FormAutocompleteProps
 }
 
 /**
  * Cascader
  */
 
-type FormCascaderProps = FormItemProps<CascaderProps> & SetPrefixEvent<CascaderEmits>
+type FormCascaderProps = PickProps<CascaderProps> &
+  SetPrefixEvent<CascaderEmits> & {
+    slots?: Slots<'default' | 'empty'>
+  }
 
 interface FormCascaderOption extends FormBaseOption {
   type: 'cascader'
-  props?: FormCascaderProps
-  slots?: Slots<'default' | 'empty'>
+  component: FormCascaderProps
 }
 
 /**
@@ -72,24 +77,27 @@ interface FormCascaderOption extends FormBaseOption {
 type FormCascaderPanelProps = Record<string, unknown> & {
   onChange?: CascaderEmits['change']
   expandChange?: CascaderEmits['expandChange']
+  slots?: Slots<'default'>
 }
 
 interface FormCascaderPanelOption extends FormBaseOption {
   type: 'cascader-panel'
-  props?: FormCascaderPanelProps
-  slots?: Slots<'default'>
+  component: FormCascaderPanelProps
 }
 
 /**
  * Input
  */
 
-type FormInputProps = FormItemProps<InputProps> & SetPrefixEvent<InputEmits>
+type FormInputProps = Record<string, unknown> &
+  PickProps<InputProps> &
+  SetPrefixEvent<InputEmits> & {
+    slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
+  }
 
 interface FormInputOption extends FormBaseOption {
   type: 'input'
-  props?: FormInputProps
-  slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
+  component?: FormInputProps
 }
 
 /**
@@ -98,14 +106,14 @@ interface FormInputOption extends FormBaseOption {
 
 interface FormInputNumberOption extends FormBaseOption {
   type: 'number'
-  props?: FormItemProps<InputNumberProps> & SetPrefixEvent<InputNumberEmits>
+  component: PickProps<InputNumberProps> & SetPrefixEvent<InputNumberEmits>
 }
 
 /**
  * Radio
  */
 
-type FormRadioProps = FormItemProps<RadioGroupProps> &
+type FormRadioProps = PickProps<RadioGroupProps> &
   SetPrefixEvent<RadioGroupEmits> & {
     type?: RadioType
     options?: RadioOption[]
@@ -113,14 +121,14 @@ type FormRadioProps = FormItemProps<RadioGroupProps> &
 
 interface FormRadioOption extends FormBaseOption {
   type: 'radio'
-  props?: FormRadioProps
+  component: FormRadioProps
 }
 
 /**
  * Checkbox
  */
 
-type FormCheckboxProps = FormItemProps<CheckboxGroupProps> &
+type FormCheckboxProps = PickProps<CheckboxGroupProps> &
   SetPrefixEvent<CheckboxGroupEmits> & {
     type?: CheckboxType
     options?: CheckboxOption[]
@@ -128,7 +136,7 @@ type FormCheckboxProps = FormItemProps<CheckboxGroupProps> &
 
 interface FormCheckboxOption extends FormBaseOption {
   type: 'checkbox'
-  props?: FormCheckboxProps
+  component: FormCheckboxProps
 }
 
 /**
@@ -137,7 +145,7 @@ interface FormCheckboxOption extends FormBaseOption {
 
 interface FormRateOption extends FormBaseOption {
   type: 'rate'
-  props?: FormItemProps<RateProps> & SetPrefixEvent<RateEmits>
+  component: PickProps<RateProps> & SetPrefixEvent<RateEmits>
 }
 
 /**
@@ -146,7 +154,20 @@ interface FormRateOption extends FormBaseOption {
 
 interface FormColorOption extends FormBaseOption {
   type: 'color'
-  props?: FormItemProps<ColorPickerProps> & SetPrefixEvent<ColorPickerEmits>
+  component: PickProps<ColorPickerProps> & SetPrefixEvent<ColorPickerEmits>
+}
+
+/**
+ * DatePicker
+ */
+
+type FormDatePickerProps = Record<string, unknown> & {
+  slots?: Slots<'default' | 'range-separator'>
+}
+
+interface FormDatePickerOption extends FormBaseOption {
+  type: 'date-picker'
+  component: FormDatePickerProps
 }
 
 /**
@@ -155,7 +176,7 @@ interface FormColorOption extends FormBaseOption {
 
 interface FormSliderOption extends FormBaseOption {
   type: 'slider'
-  props?: FormItemProps<SliderProps> & SetPrefixEvent<SliderEmits>
+  component: PickProps<SliderProps> & SetPrefixEvent<SliderEmits>
 }
 
 /**
@@ -164,14 +185,14 @@ interface FormSliderOption extends FormBaseOption {
 
 interface FormSwitchOption extends FormBaseOption {
   type: 'switch'
-  props?: FormItemProps<SwitchProps> & SetPrefixEvent<SwitchEmits>
+  component: PickProps<SwitchProps> & SetPrefixEvent<SwitchEmits>
 }
 
 /**
  * TimePicker
  */
 
-type FormTimePickerProps = FormItemProps<TimePickerDefaultProps> & {
+type FormTimePickerProps = PickProps<TimePickerDefaultProps> & {
   onChange?: (value: TimePickerDefaultProps['modelValue']) => void
   onBlur?: (e: FocusEvent) => void
   onFocus?: (e: FocusEvent) => void
@@ -180,7 +201,7 @@ type FormTimePickerProps = FormItemProps<TimePickerDefaultProps> & {
 
 interface FormTimePickerOption extends FormBaseOption {
   type: 'time-picker'
-  props?: FormTimePickerProps
+  component: FormTimePickerProps
 }
 
 /**
@@ -195,33 +216,36 @@ type FormTimeSelectProps = Record<string, unknown> & {
 
 interface FormTimeSelectOption extends FormBaseOption {
   type: 'time-select'
-  props?: FormTimeSelectProps
+  component: FormTimeSelectProps
 }
 
 /**
  * Transfer
  */
 
-type FormTransferProps = FormItemProps<TransferProps> & {
+type FormTransferProps = PickProps<TransferProps> & {
   onChange?: TransferEmits['change']
   onLeftCheckChange?: TransferEmits['left-check-change']
   onRightCheckChange?: TransferEmits['right-check-change']
+  slots?: Slots<'default' | 'left-footer' | 'right-footer'>
 }
 
 interface FormTransferOption extends FormBaseOption {
   type: 'transfer'
-  props?: FormTransferProps
-  slots?: Slots<'default' | 'left-footer' | 'right-footer'>
+  component: FormTransferProps
 }
 
 /**
  * Upload
  */
 
+type FormUploadProps = PickProps<UploadProps, 'fileList'> & {
+  slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
+}
+
 interface FormUploadOption extends FormBaseOption {
   type: 'upload'
-  props?: FormItemProps<UploadProps, 'fileList'>
-  slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
+  component: FormUploadProps
 }
 
 /**
@@ -235,21 +259,12 @@ type FormSelectProps = Record<string, unknown> & {
   onClear?: () => void
   onBlur?: (e: FocusEvent) => void
   onFocus?: (e: FocusEvent) => void
+  slots?: Slots<'default' | 'empty' | 'prefix'>
 }
 
 interface FormSelectOption extends FormBaseOption {
   type: 'select'
-  props?: FormSelectProps
-  slots?: Slots<'default' | 'empty' | 'prefix'>
-}
-
-/**
- * Gobal
- */
-
-interface FormOtherOption extends FormBaseOption {
-  type: 'date' | 'time-select'
-  props?: Record<string, unknown>
+  component: FormSelectProps
 }
 
 export type FormOption =
@@ -262,6 +277,7 @@ export type FormOption =
   | FormCheckboxOption
   | FormRateOption
   | FormColorOption
+  | FormDatePickerOption
   | FormSliderOption
   | FormSwitchOption
   | FormTimePickerOption
@@ -269,7 +285,6 @@ export type FormOption =
   | FormTransferOption
   | FormUploadOption
   | FormSelectOption
-  | FormOtherOption
 
 export interface FormAction {
   submit?: boolean

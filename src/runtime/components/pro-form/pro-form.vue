@@ -1,7 +1,7 @@
 <template>
   <el-form ref="formRef" v-bind="$attrs" :model="model">
     <el-form-item v-for="item in options" :key="item.prop" :prop="item.prop" :label="item.label">
-      <component :is="getComponent(item.type)" v-bind="item.props" v-model="model[item.prop]">
+      <component :is="getComponent(item.type)" v-bind="item.component" v-model="model[item.prop]">
         <template v-for="(slot, name) in item.slots" :key="name" #[name]="slotProps">
           <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
           <component :is="slot(slotProps)" v-else-if="typeof slot === 'function'" />
@@ -9,8 +9,8 @@
       </component>
     </el-form-item>
     <el-form-item>
-      <el-button @click="reset">重置</el-button>
-      <el-button type="primary">提交</el-button>
+      <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
+      <el-button v-if="submitVisible" type="primary">{{ submitText }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
-import { ref, watchEffect, defineAsyncComponent } from 'vue'
+import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 
 import type { FormOption, FormAction } from './types'
@@ -34,6 +34,15 @@ const emit = defineEmits(['reset'])
 
 const model = ref<Record<string, unknown>>({})
 const formRef = ref<FormInstance | null>(null)
+
+const resetVisible = computed(() =>
+  typeof props.action?.reset === 'boolean' ? props.action?.reset : true
+)
+const resetText = computed(() => props.action?.resetText ?? '重置')
+const submitVisible = computed(() =>
+  typeof props.action?.submit === 'boolean' ? props.action.submit : true
+)
+const submitText = computed(() => props.action?.submitText ?? '提交')
 
 const Input = defineAsyncComponent(() => import('./components/input'))
 const InputNumber = defineAsyncComponent(() => import('./components/input-number'))
@@ -72,7 +81,7 @@ const getComponent = (type: FormOption['type']) => {
       return ColorPicker
     case 'select':
       return Select
-    case 'date':
+    case 'date-picker':
       return DatePicker
     case 'slider':
       return Slider
