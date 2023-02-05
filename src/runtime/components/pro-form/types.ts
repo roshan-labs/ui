@@ -1,4 +1,4 @@
-import type { Slot } from 'vue'
+import type { VNode } from 'vue'
 import type {
   FormItemProps,
   CascaderProps,
@@ -28,61 +28,107 @@ import type {
 import type { RadioOption, RadioType } from '../pro-radio/types'
 import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
 
+type Slot = (...args: any[]) => VNode
 type SlotProp = string | Slot
-type Slots<T extends string> = Partial<Record<T, SlotProp>>
+export type Slots<T extends string> = Partial<Record<T, SlotProp>>
 type SetPrefixEvent<T> = {
   [K in keyof Omit<T, 'update:modelValue'> as K extends string
     ? `on${Capitalize<K>}`
     : never]?: T[K]
 }
+type MakeProps<T> = T & Record<string, unknown>
 type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
 
 interface FormBaseOption extends Partial<FormItemProps> {
   prop: string
   value?: unknown
   slots?: Slots<'default' | 'label' | 'error'>
+  span?: number
 }
 
 /**
  * Autocomplete
  */
 
-type FormAutocompleteProps = Record<string, unknown> & {
+type FormAutocompleteProps = MakeProps<{
   slots?: Slots<'default' | 'prefix' | 'suffix' | 'prepend' | 'append'>
-}
+}>
 
 interface FormAutocompleteOption extends FormBaseOption {
   type: 'autocomplete'
-  component: FormAutocompleteProps
+  component?: FormAutocompleteProps
 }
 
 /**
  * Cascader
  */
 
-type FormCascaderProps = PickProps<CascaderProps> &
-  SetPrefixEvent<CascaderEmits> & {
-    slots?: Slots<'default' | 'empty'>
-  }
+type FormCascaderProps = MakeProps<
+  PickProps<CascaderProps> &
+    SetPrefixEvent<CascaderEmits> & {
+      slots?: Slots<'default' | 'empty'>
+    }
+>
 
 interface FormCascaderOption extends FormBaseOption {
   type: 'cascader'
-  component: FormCascaderProps
+  component?: FormCascaderProps
 }
 
 /**
  * CascaderPanel
  */
 
-type FormCascaderPanelProps = Record<string, unknown> & {
-  onChange?: CascaderEmits['change']
-  expandChange?: CascaderEmits['expandChange']
-  slots?: Slots<'default'>
-}
+type FormCascaderPanelProps = MakeProps<
+  Record<string, unknown> & {
+    onChange?: CascaderEmits['change']
+    expandChange?: CascaderEmits['expandChange']
+    slots?: Slots<'default'>
+  }
+>
 
 interface FormCascaderPanelOption extends FormBaseOption {
   type: 'cascader-panel'
-  component: FormCascaderPanelProps
+  component?: FormCascaderPanelProps
+}
+
+/**
+ * Checkbox
+ */
+
+type FormCheckboxProps = MakeProps<
+  PickProps<CheckboxGroupProps> &
+    SetPrefixEvent<CheckboxGroupEmits> & {
+      type?: CheckboxType
+      options?: CheckboxOption[]
+    }
+>
+
+interface FormCheckboxOption extends FormBaseOption {
+  type: 'checkbox'
+  component?: FormCheckboxProps
+}
+
+/**
+ * ColorPicker
+ */
+
+interface FormColorPickerOption extends FormBaseOption {
+  type: 'color-picker'
+  component?: MakeProps<PickProps<ColorPickerProps> & SetPrefixEvent<ColorPickerEmits>>
+}
+
+/**
+ * DatePicker
+ */
+
+type FormDatePickerProps = MakeProps<{
+  slots?: Slots<'default' | 'range-separator'>
+}>
+
+interface FormDatePickerOption extends FormBaseOption {
+  type: 'date-picker'
+  component?: FormDatePickerProps
 }
 
 /**
@@ -105,38 +151,25 @@ interface FormInputOption extends FormBaseOption {
  */
 
 interface FormInputNumberOption extends FormBaseOption {
-  type: 'number'
-  component: PickProps<InputNumberProps> & SetPrefixEvent<InputNumberEmits>
+  type: 'input-number'
+  component?: MakeProps<PickProps<InputNumberProps> & SetPrefixEvent<InputNumberEmits>>
 }
 
 /**
  * Radio
  */
 
-type FormRadioProps = PickProps<RadioGroupProps> &
-  SetPrefixEvent<RadioGroupEmits> & {
-    type?: RadioType
-    options?: RadioOption[]
-  }
+type FormRadioProps = MakeProps<
+  PickProps<RadioGroupProps> &
+    SetPrefixEvent<RadioGroupEmits> & {
+      type?: RadioType
+      options?: RadioOption[]
+    }
+>
 
 interface FormRadioOption extends FormBaseOption {
   type: 'radio'
-  component: FormRadioProps
-}
-
-/**
- * Checkbox
- */
-
-type FormCheckboxProps = PickProps<CheckboxGroupProps> &
-  SetPrefixEvent<CheckboxGroupEmits> & {
-    type?: CheckboxType
-    options?: CheckboxOption[]
-  }
-
-interface FormCheckboxOption extends FormBaseOption {
-  type: 'checkbox'
-  component: FormCheckboxProps
+  component?: FormRadioProps
 }
 
 /**
@@ -145,29 +178,7 @@ interface FormCheckboxOption extends FormBaseOption {
 
 interface FormRateOption extends FormBaseOption {
   type: 'rate'
-  component: PickProps<RateProps> & SetPrefixEvent<RateEmits>
-}
-
-/**
- * Color
- */
-
-interface FormColorOption extends FormBaseOption {
-  type: 'color'
-  component: PickProps<ColorPickerProps> & SetPrefixEvent<ColorPickerEmits>
-}
-
-/**
- * DatePicker
- */
-
-type FormDatePickerProps = Record<string, unknown> & {
-  slots?: Slots<'default' | 'range-separator'>
-}
-
-interface FormDatePickerOption extends FormBaseOption {
-  type: 'date-picker'
-  component: FormDatePickerProps
+  component?: MakeProps<PickProps<RateProps> & SetPrefixEvent<RateEmits>>
 }
 
 /**
@@ -176,7 +187,7 @@ interface FormDatePickerOption extends FormBaseOption {
 
 interface FormSliderOption extends FormBaseOption {
   type: 'slider'
-  component: PickProps<SliderProps> & SetPrefixEvent<SliderEmits>
+  component?: MakeProps<PickProps<SliderProps> & SetPrefixEvent<SliderEmits>>
 }
 
 /**
@@ -185,67 +196,73 @@ interface FormSliderOption extends FormBaseOption {
 
 interface FormSwitchOption extends FormBaseOption {
   type: 'switch'
-  component: PickProps<SwitchProps> & SetPrefixEvent<SwitchEmits>
+  component?: MakeProps<PickProps<SwitchProps> & SetPrefixEvent<SwitchEmits>>
 }
 
 /**
  * TimePicker
  */
 
-type FormTimePickerProps = PickProps<TimePickerDefaultProps> & {
-  onChange?: (value: TimePickerDefaultProps['modelValue']) => void
-  onBlur?: (e: FocusEvent) => void
-  onFocus?: (e: FocusEvent) => void
-  onVisibleChange?: (visibility: boolean) => void
-}
+type FormTimePickerProps = MakeProps<
+  PickProps<TimePickerDefaultProps> & {
+    onChange?: (value: TimePickerDefaultProps['modelValue']) => void
+    onBlur?: (e: FocusEvent) => void
+    onFocus?: (e: FocusEvent) => void
+    onVisibleChange?: (visibility: boolean) => void
+  }
+>
 
 interface FormTimePickerOption extends FormBaseOption {
   type: 'time-picker'
-  component: FormTimePickerProps
+  component?: FormTimePickerProps
 }
 
 /**
  * TimeSelect
  */
 
-type FormTimeSelectProps = Record<string, unknown> & {
+type FormTimeSelectProps = MakeProps<{
   onChange?: (value: string) => void
   onBlur?: (e: FocusEvent) => void
   onFocus?: (e: FocusEvent) => void
-}
+}>
 
 interface FormTimeSelectOption extends FormBaseOption {
   type: 'time-select'
-  component: FormTimeSelectProps
+  component?: FormTimeSelectProps
 }
 
 /**
  * Transfer
  */
 
-type FormTransferProps = PickProps<TransferProps> & {
-  onChange?: TransferEmits['change']
-  onLeftCheckChange?: TransferEmits['left-check-change']
-  onRightCheckChange?: TransferEmits['right-check-change']
-  slots?: Slots<'default' | 'left-footer' | 'right-footer'>
-}
+type FormTransferProps = MakeProps<
+  PickProps<TransferProps> & {
+    onChange?: TransferEmits['change']
+    onLeftCheckChange?: TransferEmits['left-check-change']
+    onRightCheckChange?: TransferEmits['right-check-change']
+    slots?: Slots<'default' | 'left-footer' | 'right-footer'>
+  }
+>
 
 interface FormTransferOption extends FormBaseOption {
   type: 'transfer'
-  component: FormTransferProps
+  component?: FormTransferProps
 }
 
 /**
  * Upload
  */
 
-type FormUploadProps = PickProps<UploadProps, 'fileList'> & {
-  slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
-}
+type FormUploadProps = MakeProps<
+  PickProps<UploadProps, 'fileList'> & {
+    slots?: Slots<'default' | 'trigger' | 'tip' | 'file'>
+  }
+>
 
 interface FormUploadOption extends FormBaseOption {
   type: 'upload'
-  component: FormUploadProps
+  component?: FormUploadProps
 }
 
 /**
@@ -264,7 +281,7 @@ type FormSelectProps = Record<string, unknown> & {
 
 interface FormSelectOption extends FormBaseOption {
   type: 'select'
-  component: FormSelectProps
+  component?: FormSelectProps
 }
 
 export type FormOption =
@@ -276,7 +293,7 @@ export type FormOption =
   | FormRadioOption
   | FormCheckboxOption
   | FormRateOption
-  | FormColorOption
+  | FormColorPickerOption
   | FormDatePickerOption
   | FormSliderOption
   | FormSwitchOption

@@ -1,16 +1,22 @@
 <template>
   <el-form ref="formRef" v-bind="$attrs" :model="model">
-    <el-form-item v-for="item in options" :key="item.prop" :prop="item.prop" :label="item.label">
+    <el-form-item v-for="item in options" :key="item.prop" v-bind="item">
       <component :is="getComponent(item.type)" v-bind="item.component" v-model="model[item.prop]">
-        <template v-for="(slot, name) in item.slots" :key="name" #[name]="slotProps">
+        <template
+          v-for="(slot, name) in (item.component?.slots as Slots<string>)"
+          :key="name"
+          #[name]="slotProps"
+        >
           <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
-          <component :is="slot(slotProps)" v-else-if="typeof slot === 'function'" />
+          <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
         </template>
       </component>
     </el-form-item>
     <el-form-item>
       <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-      <el-button v-if="submitVisible" type="primary">{{ submitText }}</el-button>
+      <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
+        submitText
+      }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -21,7 +27,7 @@ import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 
-import type { FormOption, FormAction } from './types'
+import type { FormOption, FormAction, Slots } from './types'
 
 const props = defineProps({
   /** 表单项配置 */
@@ -30,10 +36,11 @@ const props = defineProps({
   action: { type: Object as PropType<FormAction> },
 })
 
-const emit = defineEmits(['reset'])
+const emit = defineEmits(['reset', 'submit'])
 
 const model = ref<Record<string, unknown>>({})
 const formRef = ref<FormInstance | null>(null)
+const loading = ref(false)
 
 const resetVisible = computed(() =>
   typeof props.action?.reset === 'boolean' ? props.action?.reset : true
@@ -51,6 +58,7 @@ const Checkbox = defineAsyncComponent(() => import('./components/checkbox'))
 const Rate = defineAsyncComponent(() => import('./components/rate'))
 const Autocomplete = defineAsyncComponent(() => import('./components/autocomplete'))
 const Cascader = defineAsyncComponent(() => import('./components/cascader'))
+const CascaderPanel = defineAsyncComponent(() => import('./components/cascader-panel'))
 const ColorPicker = defineAsyncComponent(() => import('./components/color-picker'))
 const Select = defineAsyncComponent(() => import('./components/select'))
 const DatePicker = defineAsyncComponent(() => import('./components/date-picker'))
@@ -65,7 +73,7 @@ const getComponent = (type: FormOption['type']) => {
   switch (type) {
     case 'input':
       return Input
-    case 'number':
+    case 'input-number':
       return InputNumber
     case 'radio':
       return Radio
@@ -77,7 +85,9 @@ const getComponent = (type: FormOption['type']) => {
       return Autocomplete
     case 'cascader':
       return Cascader
-    case 'color':
+    case 'cascader-panel':
+      return CascaderPanel
+    case 'color-picker':
       return ColorPicker
     case 'select':
       return Select
@@ -100,24 +110,20 @@ const getComponent = (type: FormOption['type']) => {
   }
 }
 
-const reset = () => {
-  formRef.value?.resetFields()
-  emit('reset')
-}
-
 // 给表单项赋予初始值
 watchEffect(() => {
   props.options.forEach((item) => {
     let value: unknown = ''
 
     switch (item.type) {
-      case 'number':
+      case 'input-number':
       case 'rate':
       case 'slider':
         value = 0
         break
       case 'checkbox':
       case 'cascader':
+      case 'cascader-panel':
       case 'transfer':
       case 'upload':
         value = []
@@ -132,5 +138,35 @@ watchEffect(() => {
 
     model.value[item.prop] = item.value ?? value
   })
+})
+
+const reset = () => {
+  if (formRef.value) {
+    formRef.value.resetFields()
+    emit('reset')
+  }
+}
+
+const done = () => {
+  loading.value = false
+}
+
+const submit = () => {
+  if (formRef.value) {
+    formRef.value.validate((isValid) => {
+      emit('submit', done, isValid)
+    })
+  }
+}
+
+defineExpose({
+  validate: ((...args) => formRef.value!.validate(...args)) as FormInstance['validate'],
+  validateField: ((...args) =>
+    formRef.value!.validateField(...args)) as FormInstance['validateField'],
+  resetFields: ((...args) => formRef.value!.resetFields(...args)) as FormInstance['resetFields'],
+  scrollToField: ((...args) =>
+    formRef.value!.scrollToField(...args)) as FormInstance['scrollToField'],
+  clearValidate: ((...args) =>
+    formRef.value!.clearValidate(...args)) as FormInstance['clearValidate'],
 })
 </script>
