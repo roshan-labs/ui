@@ -4,7 +4,7 @@ import type { RadioOption } from './types'
 import { ProRadio } from '.'
 
 export default {
-  title: '高级组件/ProRadio',
+  title: '高级组件/单选框 ProRadio',
   component: ProRadio,
   argTypes: {
     onInput: { action: 'input' },

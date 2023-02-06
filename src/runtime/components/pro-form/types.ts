@@ -23,6 +23,7 @@ import type {
   TransferProps,
   TransferEmits,
   UploadProps,
+  ColProps,
 } from 'element-plus'
 
 import type { RadioOption, RadioType } from '../pro-radio/types'
@@ -38,13 +39,15 @@ type SetPrefixEvent<T> = {
 }
 type MakeProps<T> = T & Record<string, unknown>
 type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
+type LayoutColProps = Partial<Omit<ColProps, 'tag'>>
 
-interface FormBaseOption extends Partial<FormItemProps> {
-  prop: string
-  value?: unknown
-  slots?: Slots<'default' | 'label' | 'error'>
-  span?: number
-}
+type FormBaseOption = Partial<FormItemProps> &
+  LayoutColProps & {
+    prop: string
+    value?: unknown
+    slots?: Slots<'default' | 'label' | 'error'>
+    span?: number
+  }
 
 /**
  * Autocomplete
@@ -303,9 +306,11 @@ export type FormOption =
   | FormUploadOption
   | FormSelectOption
 
-export interface FormAction {
+export interface FormAction extends LayoutColProps {
   submit?: boolean
   submitText?: string
   reset?: boolean
   resetText?: string
 }
+
+export type FormSubmit<T = any> = (done: () => void, isValid: boolean, fields: T) => void

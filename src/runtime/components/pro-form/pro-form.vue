@@ -1,23 +1,55 @@
 <template>
   <el-form ref="formRef" v-bind="$attrs" :model="model">
-    <el-form-item v-for="item in options" :key="item.prop" v-bind="item">
-      <component :is="getComponent(item.type)" v-bind="item.component" v-model="model[item.prop]">
-        <template
-          v-for="(slot, name) in (item.component?.slots as Slots<string>)"
-          :key="name"
-          #[name]="slotProps"
-        >
-          <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
-          <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
-        </template>
-      </component>
-    </el-form-item>
-    <el-form-item>
-      <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-      <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
-        submitText
-      }}</el-button>
-    </el-form-item>
+    <!-- Layout -->
+    <el-row v-if="isLayout">
+      <el-col v-for="item in options" :key="item.prop" v-bind="item">
+        <el-form-item v-bind="item">
+          <component
+            :is="getComponent(item.type)"
+            v-bind="item.component"
+            v-model="model[item.prop]"
+          >
+            <template
+              v-for="(slot, name) in (item.component?.slots as Slots<string>)"
+              :key="name"
+              #[name]="slotProps"
+            >
+              <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
+              <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
+            </template>
+          </component>
+        </el-form-item>
+      </el-col>
+      <el-col v-bind="action">
+        <el-form-item>
+          <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
+          <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
+            submitText
+          }}</el-button>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <!-- Default -->
+    <template v-else>
+      <el-form-item v-for="item in options" :key="item.prop" v-bind="item">
+        <component :is="getComponent(item.type)" v-bind="item.component" v-model="model[item.prop]">
+          <template
+            v-for="(slot, name) in (item.component?.slots as Slots<string>)"
+            :key="name"
+            #[name]="slotProps"
+          >
+            <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
+            <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
+          </template>
+        </component>
+      </el-form-item>
+      <el-form-item>
+        <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
+        <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
+          submitText
+        }}</el-button>
+      </el-form-item>
+    </template>
   </el-form>
 </template>
 
@@ -25,20 +57,21 @@
 import type { PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
-import { ElForm, ElFormItem, ElButton } from 'element-plus'
+import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
 import type { FormOption, FormAction, Slots } from './types'
+import { isUndefined } from './utils'
 
 const props = defineProps({
-  /** 表单项配置 */
+  /** 表单项配置数组 */
   options: { type: Array as PropType<FormOption[]>, default: () => [] },
   /** 表单按钮配置 */
-  action: { type: Object as PropType<FormAction> },
+  action: { type: Object as PropType<FormAction>, default: () => ({}) },
 })
 
 const emit = defineEmits(['reset', 'submit'])
 
-const model = ref<Record<string, unknown>>({})
+const model = ref<Record<string, any>>({})
 const formRef = ref<FormInstance | null>(null)
 const loading = ref(false)
 
@@ -50,6 +83,10 @@ const submitVisible = computed(() =>
   typeof props.action?.submit === 'boolean' ? props.action.submit : true
 )
 const submitText = computed(() => props.action?.submitText ?? '提交')
+const isLayout = computed(
+  () =>
+    props.options.some((option) => !isUndefined(option.span)) || !isUndefined(props.action?.span)
+)
 
 const Input = defineAsyncComponent(() => import('./components/input'))
 const InputNumber = defineAsyncComponent(() => import('./components/input-number'))
@@ -153,8 +190,10 @@ const done = () => {
 
 const submit = () => {
   if (formRef.value) {
+    loading.value = true
+
     formRef.value.validate((isValid) => {
-      emit('submit', done, isValid)
+      emit('submit', done, isValid, model.value)
     })
   }
 }

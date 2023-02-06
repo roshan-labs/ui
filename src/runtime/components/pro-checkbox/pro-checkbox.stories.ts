@@ -4,7 +4,7 @@ import type { CheckboxOption } from './types'
 import { ProCheckbox } from './index'
 
 export default {
-  title: '高级组件/ProCheckbox',
+  title: '高级组件/多选框 ProCheckbox',
   component: ProCheckbox,
   argTypes: {
     onChange: { action: 'change' },

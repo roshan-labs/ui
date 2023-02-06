@@ -3,7 +3,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import { ProDialog } from './index'
 
 export default {
-  title: '高级组件/ProDialog',
+  title: '高级组件/对话框 ProDialog',
   component: ProDialog,
   argTypes: {
     onOpen: { action: 'open' },

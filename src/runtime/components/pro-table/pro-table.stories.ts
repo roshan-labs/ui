@@ -4,7 +4,7 @@ import type { DataTableColumn, DataTablePagination } from './types'
 import { ProTable } from './index'
 
 export default {
-  title: '高级组件/ProTable',
+  title: '高级组件/表格 ProTable',
   component: ProTable,
   excludeStories: ['data', 'columns'],
 } as Meta

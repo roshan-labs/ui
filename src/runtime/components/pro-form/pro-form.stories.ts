@@ -2,7 +2,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 import { ElButton } from 'element-plus'
 
-import type { FormOption, FormAction } from './types'
+import type { FormOption, FormAction, FormSubmit } from './types'
 import { ProForm } from './'
 
 export default {
@@ -56,9 +56,18 @@ const generateTransferData = () => {
 
 const Template: Story = (args) => ({
   components: { ProForm },
-  setup: () => ({ args }),
+  setup: () => {
+    const onSubmit: FormSubmit = (done) => {
+      setTimeout(done, 1000)
+    }
+
+    return {
+      args,
+      onSubmit,
+    }
+  },
   template: `
-    <pro-form v-bind="args">
+    <pro-form @submit="onSubmit" v-bind="args">
       <template #upload-tip>
         <div class="el-upload__tip">文件上传提示</div>
       </template>
@@ -397,7 +406,17 @@ Validate.storyName = '验证表单'
 export const Layout = Template.bind({})
 Layout.args = {
   options: [
-    { type: 'input', prop: '选项1' },
-    { type: 'input', prop: '选项2' },
+    { type: 'input', prop: 'input1', label: '文本', span: 24 },
+    { type: 'input', prop: 'input2', label: '文本', span: 12 },
+    { type: 'input', prop: 'input3', label: '文本', span: 12 },
+    { type: 'input', prop: 'input4', label: '文本', span: 6 },
+    { type: 'input', prop: 'input5', label: '文本', span: 6 },
+    { type: 'input', prop: 'input6', label: '文本', span: 6 },
+    { type: 'input', prop: 'input7', label: '文本', span: 6 },
   ] as FormOption[],
+  action: {
+    span: 24,
+  } as FormAction,
+  labelWidth: 60,
 }
+Layout.storyName = '布局表单'
