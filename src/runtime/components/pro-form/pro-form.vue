@@ -59,7 +59,8 @@ import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
-import type { FormOption, FormAction, Slots } from './types'
+import type { Slots } from '../../utils'
+import type { FormOption, FormAction } from './types'
 import { isUndefined } from './utils'
 
 const props = defineProps({

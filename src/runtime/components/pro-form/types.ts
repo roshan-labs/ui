@@ -1,4 +1,3 @@
-import type { VNode } from 'vue'
 import type {
   FormItemProps,
   CascaderProps,
@@ -28,10 +27,8 @@ import type {
 
 import type { RadioOption, RadioType } from '../pro-radio/types'
 import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
+import type { Slots } from '../../utils'
 
-type Slot = (...args: any[]) => VNode
-type SlotProp = string | Slot
-export type Slots<T extends string> = Partial<Record<T, SlotProp>>
 type SetPrefixEvent<T> = {
   [K in keyof Omit<T, 'update:modelValue'> as K extends string
     ? `on${Capitalize<K>}`

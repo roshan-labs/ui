@@ -94,6 +94,7 @@ export const components = [
 
 export const proComponents = [
   { dirname: 'pro-checkbox', name: 'ProCheckbox' },
+  { dirname: 'pro-crud', name: 'ProCrud' },
   { dirname: 'pro-dialog', name: 'ProDialog' },
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
