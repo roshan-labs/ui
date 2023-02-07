@@ -88,12 +88,21 @@ Default.args = {
   columns,
   data,
 }
+Default.storyName = '默认'
+
+export const Border = Template.bind({})
+Border.args = {
+  ...Default.args,
+  border: true,
+}
+Border.storyName = '带边框'
 
 export const Loading = Template.bind({})
 Loading.args = {
   ...Default.args,
   loading: true,
 }
+Loading.storyName = '加载'
 
 export const ColumnSlot: Story = (args) => ({
   components: { ProTable },
@@ -113,6 +122,7 @@ ColumnSlot.args = {
   ] as DataTableColumn[],
   data,
 }
+ColumnSlot.storyName = '列插槽'
 
 export const HeaderSlot: Story = (args) => ({
   components: { ProTable },
@@ -132,6 +142,7 @@ HeaderSlot.args = {
   ] as DataTableColumn[],
   data,
 }
+HeaderSlot.storyName = '列头插槽'
 
 export const Pagination = Template.bind({})
 Pagination.args = {
@@ -141,3 +152,4 @@ Pagination.args = {
     total: 4,
   } as DataTablePagination,
 }
+Pagination.storyName = '分页'
