@@ -13,13 +13,13 @@ import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { ElRadioGroup, ElRadio, ElRadioButton } from 'element-plus'
 
-import type { RadioOption, RadioType } from './types'
+import type { ProRadioOption, ProRadioType } from './types'
 
 const props = defineProps({
   /** 选项配置 */
-  options: { type: Array as PropType<RadioOption[]>, default: () => [] },
+  options: { type: Array as PropType<ProRadioOption[]>, default: () => [] },
   /** 类型：默认、按钮、带边框 */
-  type: { type: String as PropType<RadioType>, default: 'default' },
+  type: { type: String as PropType<ProRadioType>, default: 'default' },
 })
 
 const radio = computed(() => (['default', 'border'].includes(props.type) ? ElRadio : ElRadioButton))

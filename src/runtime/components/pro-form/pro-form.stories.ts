@@ -2,7 +2,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 import { ElButton } from 'element-plus'
 
-import type { FormOption, FormAction, FormSubmit } from './types'
+import type { ProFormOption, ProFormAction, ProFormSubmit } from './types'
 import { ProForm } from './'
 
 export default {
@@ -57,7 +57,7 @@ const generateTransferData = () => {
 const Template: Story = (args) => ({
   components: { ProForm },
   setup: () => {
-    const onSubmit: FormSubmit = (done) => {
+    const onSubmit: ProFormSubmit = (done) => {
       setTimeout(done, 1000)
     }
 
@@ -117,7 +117,7 @@ Default.args = {
       type: 'input',
       component: { class: width, type: 'password' },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 60,
 }
 Default.storyName = '默认'
@@ -131,7 +131,7 @@ Autocomplete.args = {
       type: 'autocomplete',
       component: { class: width, fetchSuggestions: querySearch, clearable: true },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Autocomplete.storyName = '自动补全'
@@ -148,7 +148,7 @@ Cascader.args = {
         options: cascader,
       },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Cascader.storyName = '级联选择器'
@@ -162,7 +162,7 @@ CascaderPanel.args = {
       label: '级联面板',
       component: { options: cascader },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 CascaderPanel.storyName = '级联面板'
@@ -182,14 +182,14 @@ Checkbox.args = {
         ],
       },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Checkbox.storyName = '多选框'
 
 export const ColorPicker = Template.bind({})
 ColorPicker.args = {
-  options: [{ prop: 'color-picker', label: '取色器', type: 'color-picker' }] as FormOption[],
+  options: [{ prop: 'color-picker', label: '取色器', type: 'color-picker' }] as ProFormOption[],
   labelWidth: 90,
 }
 ColorPicker.storyName = '取色器'
@@ -198,7 +198,7 @@ export const DatePicker = Template.bind({})
 DatePicker.args = {
   options: [
     { prop: 'date-picker', label: '日期选择器', type: 'date-picker', component: { class: width } },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 DatePicker.storyName = '日期选择器'
@@ -212,7 +212,7 @@ DateTimePicker.args = {
       label: '日期时间选择器',
       component: { class: width, type: 'datetime' },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 110,
 }
 DateTimePicker.storyName = '日期时间选择器'
@@ -226,7 +226,7 @@ Input.args = {
       label: '文本输入',
       component: { class: width, placeholder: '请输入' },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Input.storyName = '文本输入'
@@ -235,7 +235,7 @@ export const InputNumber = Template.bind({})
 InputNumber.args = {
   options: [
     { type: 'input-number', prop: 'input-number', label: '数字输入', component: { class: width } },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 InputNumber.storyName = '数字输入'
@@ -254,14 +254,14 @@ Radio.args = {
         ],
       },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 60,
 }
 Radio.storyName = '单选'
 
 export const Rate = Template.bind({})
 Rate.args = {
-  options: [{ prop: 'rate', label: '评分', type: 'rate' }] as FormOption[],
+  options: [{ prop: 'rate', label: '评分', type: 'rate' }] as ProFormOption[],
   labelWidth: 60,
 }
 Rate.storyName = '评分'
@@ -282,7 +282,7 @@ Select.args = {
         ],
       },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 60,
 }
 Select.storyName = '选择器'
@@ -291,14 +291,14 @@ export const Slider = Template.bind({})
 Slider.args = {
   options: [
     { prop: 'slider', label: '滑块', type: 'slider', component: { class: width } },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 60,
 }
 Slider.storyName = '滑块'
 
 export const Switch = Template.bind({})
 Switch.args = {
-  options: [{ prop: 'switch', label: '开关', type: 'switch' }] as FormOption[],
+  options: [{ prop: 'switch', label: '开关', type: 'switch' }] as ProFormOption[],
   labelWidth: 60,
 }
 Switch.storyName = '开关'
@@ -312,7 +312,7 @@ TimePicker.args = {
       label: '时间选择器',
       component: { class: width },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 TimePicker.storyName = '时间选择器'
@@ -326,7 +326,7 @@ TimeSelect.args = {
       label: '时间选择',
       component: { class: width },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 TimeSelect.storyName = '时间选择'
@@ -340,7 +340,7 @@ Transfer.args = {
       label: '穿梭框',
       component: { data: generateTransferData() },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Transfer.storyName = '穿梭框'
@@ -359,7 +359,7 @@ Upload.args = {
         },
       },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 90,
 }
 Upload.storyName = '上传'
@@ -370,7 +370,7 @@ CustomAction.args = {
   action: {
     resetText: '重置表单',
     submitText: '确认',
-  } as FormAction,
+  } as ProFormAction,
 }
 CustomAction.storyName = '自定义按钮'
 
@@ -398,7 +398,7 @@ Validate.args = {
       rules: { required: true, message: '不能为空' },
       component: { class: width },
     },
-  ] as FormOption[],
+  ] as ProFormOption[],
   labelWidth: 80,
 }
 Validate.storyName = '验证表单'
@@ -413,10 +413,10 @@ Layout.args = {
     { type: 'input', prop: 'input5', label: '文本', span: 6 },
     { type: 'input', prop: 'input6', label: '文本', span: 6 },
     { type: 'input', prop: 'input7', label: '文本', span: 6 },
-  ] as FormOption[],
+  ] as ProFormOption[],
   action: {
     span: 24,
-  } as FormAction,
+  } as ProFormAction,
   labelWidth: 60,
 }
 Layout.storyName = '布局表单'

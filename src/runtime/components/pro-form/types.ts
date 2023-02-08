@@ -25,7 +25,7 @@ import type {
   ColProps,
 } from 'element-plus'
 
-import type { RadioOption, RadioType } from '../pro-radio/types'
+import type { ProRadioOption, ProRadioType } from '../pro-radio/types'
 import type { ProCheckboxOption, ProCheckboxType } from '../pro-checkbox/types'
 import type { Slots } from '../../utils'
 
@@ -34,16 +34,15 @@ type SetPrefixEvent<T> = {
     ? `on${Capitalize<K>}`
     : never]?: T[K]
 }
-type MakeProps<T> = T & Record<string, unknown>
+type MakeProps<T> = T & Record<string, any>
 type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
 type LayoutColProps = Partial<Omit<ColProps, 'tag'>>
 
 type FormBaseOption = Partial<FormItemProps> &
   LayoutColProps & {
     prop: string
-    value?: unknown
+    value?: any
     slots?: Slots<'default' | 'label' | 'error'>
-    span?: number
   }
 
 /**
@@ -80,7 +79,7 @@ interface FormCascaderOption extends FormBaseOption {
  */
 
 type FormCascaderPanelProps = MakeProps<
-  Record<string, unknown> & {
+  Record<string, any> & {
     onChange?: CascaderEmits['change']
     expandChange?: CascaderEmits['expandChange']
     slots?: Slots<'default'>
@@ -135,7 +134,7 @@ interface FormDatePickerOption extends FormBaseOption {
  * Input
  */
 
-type FormInputProps = Record<string, unknown> &
+type FormInputProps = Record<string, any> &
   PickProps<InputProps> &
   SetPrefixEvent<InputEmits> & {
     slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
@@ -162,8 +161,8 @@ interface FormInputNumberOption extends FormBaseOption {
 type FormRadioProps = MakeProps<
   PickProps<RadioGroupProps> &
     SetPrefixEvent<RadioGroupEmits> & {
-      type?: RadioType
-      options?: RadioOption[]
+      type?: ProRadioType
+      options?: ProRadioOption[]
     }
 >
 
@@ -269,10 +268,10 @@ interface FormUploadOption extends FormBaseOption {
  * Select
  */
 
-type FormSelectProps = Record<string, unknown> & {
-  onChange?: (value: unknown) => void
+type FormSelectProps = Record<string, any> & {
+  onChange?: (value: any) => void
   onVisibleChange?: (value: boolean) => void
-  onRemoveTag?: (value: unknown) => void
+  onRemoveTag?: (value: any) => void
   onClear?: () => void
   onBlur?: (e: FocusEvent) => void
   onFocus?: (e: FocusEvent) => void
@@ -284,7 +283,7 @@ interface FormSelectOption extends FormBaseOption {
   component?: FormSelectProps
 }
 
-export type FormOption =
+export type ProFormOption =
   | FormAutocompleteOption
   | FormCascaderOption
   | FormCascaderPanelOption
@@ -303,11 +302,11 @@ export type FormOption =
   | FormUploadOption
   | FormSelectOption
 
-export interface FormAction extends LayoutColProps {
+export interface ProFormAction extends LayoutColProps {
   submit?: boolean
   submitText?: string
   reset?: boolean
   resetText?: string
 }
 
-export type FormSubmit<T = any> = (done: () => void, isValid: boolean, fields: T) => void
+export type ProFormSubmit<T = any> = (done: () => void, isValid: boolean, fields: T) => void

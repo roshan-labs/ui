@@ -1,4 +1,5 @@
 export * from 'element-plus'
 export { ProCheckboxOption, ProCheckboxType } from './components/pro-checkbox/types'
-export {} from './components/pro-form/types'
-export { ProTableColumn, ProTablePagination } from './components/pro-table/types'
+export { ProFormOption, ProFormAction, ProFormSubmit } from './components/pro-form/types'
+export { ProRadioOption, ProRadioType } from './components/pro-radio/types'
+export { ProTableData, ProTableColumn, ProTablePagination } from './components/pro-table/types'

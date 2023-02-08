@@ -60,14 +60,14 @@ import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
 import type { Slots } from '../../utils'
-import type { FormOption, FormAction } from './types'
+import type { ProFormOption, ProFormAction } from './types'
 import { isUndefined } from './utils'
 
 const props = defineProps({
   /** 表单项配置数组 */
-  options: { type: Array as PropType<FormOption[]>, default: () => [] },
+  options: { type: Array as PropType<ProFormOption[]>, default: () => [] },
   /** 表单按钮配置 */
-  action: { type: Object as PropType<FormAction>, default: () => ({}) },
+  action: { type: Object as PropType<ProFormAction>, default: () => ({}) },
 })
 
 const emit = defineEmits(['reset', 'submit'])
@@ -107,7 +107,7 @@ const TimeSelect = defineAsyncComponent(() => import('./components/time-select')
 const Transfer = defineAsyncComponent(() => import('./components/transfer'))
 const Upload = defineAsyncComponent(() => import('./components/form-upload.vue'))
 
-const getComponent = (type: FormOption['type']) => {
+const getComponent = (type: ProFormOption['type']) => {
   switch (type) {
     case 'input':
       return Input

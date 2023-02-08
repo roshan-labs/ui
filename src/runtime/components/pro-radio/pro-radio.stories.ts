@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import type { RadioOption } from './types'
+import type { ProRadioOption } from './types'
 import { ProRadio } from '.'
 
 export default {
@@ -26,7 +26,7 @@ Default.args = {
   options: [
     { value: '0', label: 'Option1' },
     { value: '1', label: 'Option2' },
-  ] as RadioOption[],
+  ] as ProRadioOption[],
 }
 
 export const Disabled = Template.bind({})
@@ -40,7 +40,7 @@ OptionDisabled.args = {
   options: [
     { value: '0', label: 'Option1', disabled: true },
     { value: '1', label: 'Option2' },
-  ] as RadioOption[],
+  ] as ProRadioOption[],
 }
 
 export const Selected = Template.bind({})

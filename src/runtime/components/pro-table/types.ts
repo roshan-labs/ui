@@ -3,6 +3,8 @@ import type { PaginationProps, PaginationEmits } from 'element-plus'
 
 import type { Slots } from '../../utils'
 
+export type ProTableData<T = any> = T[]
+
 type ColumnProps<T> = Partial<Omit<TableColumnCtx<T>, 'id' | 'realWidth'>>
 
 export interface ProTableColumn<T = any> extends ColumnProps<T> {
