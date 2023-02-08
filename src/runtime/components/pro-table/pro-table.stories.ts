@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import type { DataTableColumn, DataTablePagination } from './types'
+import type { ProTableColumn, ProTablePagination } from './types'
 import { ProTable } from './index'
 
 export default {
@@ -48,7 +48,7 @@ export const data = [
   },
 ]
 
-export const columns: DataTableColumn[] = [
+export const columns: ProTableColumn[] = [
   { prop: 'date', label: 'Date' },
   {
     prop: 'name',
@@ -118,8 +118,8 @@ export const ColumnSlot: Story = (args) => ({
 ColumnSlot.args = {
   columns: [
     { prop: 'date', label: 'Date' },
-    { prop: 'name', label: 'Name', slot: 'name' },
-  ] as DataTableColumn[],
+    { prop: 'name', label: 'Name', slots: { default: 'name' } },
+  ] as ProTableColumn[],
   data,
 }
 ColumnSlot.storyName = '列插槽'
@@ -129,7 +129,7 @@ export const HeaderSlot: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <pro-table v-bind="args">
-      <template #headerName>
+      <template #name-header>
         Custom Header
       </template>
     </pro-table>
@@ -138,18 +138,23 @@ export const HeaderSlot: Story = (args) => ({
 HeaderSlot.args = {
   columns: [
     { prop: 'date', label: 'Date' },
-    { prop: 'name', label: 'Name', headerSlot: 'headerName' },
-  ] as DataTableColumn[],
+    { prop: 'name', label: 'Name', slots: { header: 'name-header' } },
+  ] as ProTableColumn[],
   data,
 }
 HeaderSlot.storyName = '列头插槽'
+
+let page = 1
 
 export const Pagination = Template.bind({})
 Pagination.args = {
   ...Default.args,
   pagination: {
-    currentPage: 1,
+    currentPage: page,
     total: 4,
-  } as DataTablePagination,
+    'onUpdate:currentPage'(value) {
+      page = value
+    },
+  } as ProTablePagination,
 }
 Pagination.storyName = '分页'

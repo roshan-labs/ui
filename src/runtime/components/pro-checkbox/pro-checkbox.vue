@@ -13,13 +13,13 @@ import type { PropType } from 'vue'
 import { ElCheckboxGroup, ElCheckbox, ElCheckboxButton } from 'element-plus'
 import { computed } from 'vue'
 
-import type { CheckboxOption, CheckboxType } from './types'
+import type { ProCheckboxOption, ProCheckboxType } from './types'
 
 const props = defineProps({
   /** 选项配置 */
-  options: { type: Array as PropType<CheckboxOption[]>, default: () => [] },
+  options: { type: Array as PropType<ProCheckboxOption[]>, default: () => [] },
   /** 类型：默认、按钮、带边框 */
-  type: { type: String as PropType<CheckboxType>, default: 'default' },
+  type: { type: String as PropType<ProCheckboxType>, default: 'default' },
 })
 
 const checkbox = computed(() =>

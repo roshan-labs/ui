@@ -26,7 +26,7 @@ import type {
 } from 'element-plus'
 
 import type { RadioOption, RadioType } from '../pro-radio/types'
-import type { CheckboxOption, CheckboxType } from '../pro-checkbox/types'
+import type { ProCheckboxOption, ProCheckboxType } from '../pro-checkbox/types'
 import type { Slots } from '../../utils'
 
 type SetPrefixEvent<T> = {
@@ -99,8 +99,8 @@ interface FormCascaderPanelOption extends FormBaseOption {
 type FormCheckboxProps = MakeProps<
   PickProps<CheckboxGroupProps> &
     SetPrefixEvent<CheckboxGroupEmits> & {
-      type?: CheckboxType
-      options?: CheckboxOption[]
+      type?: ProCheckboxType
+      options?: ProCheckboxOption[]
     }
 >
 

@@ -1,21 +1,39 @@
 <template>
   <div v-loading="loading">
     <el-table v-bind="$attrs">
-      <el-table-column v-for="item in columns" :key="item.prop" v-bind="item">
-        <template v-if="item.slots?.header" #header>
-          <slot :name="item.headerSlot" />
+      <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
+        <template v-if="column.slots?.header" #header="slotProps">
+          <slot
+            v-if="typeof column.slots?.header === 'string'"
+            :name="column.slots?.header"
+            v-bind="slotProps"
+          />
+          <component
+            :is="column.slots?.header(slotProps)"
+            v-if="typeof column.slots?.header === 'function'"
+          />
         </template>
-        <template v-if="item.slot" #default="slotProps">
-          <slot :name="item.slot" v-bind="slotProps" />
+        <template v-if="column.slots?.default" #default="slotProps">
+          <slot
+            v-if="typeof column.slots?.default === 'string'"
+            :name="column.slots?.default"
+            v-bind="slotProps"
+          />
+          <component
+            :is="column.slots?.default(slotProps)"
+            v-if="typeof column.slots?.default === 'function'"
+          />
         </template>
       </el-table-column>
+      <template v-if="$slots.append" #append>
+        <slot name="append" />
+      </template>
+      <template v-if="$slots.empty" #empty>
+        <slot name="empty" />
+      </template>
     </el-table>
-    <div v-if="defaultPagination" class="pagination">
-      <el-pagination
-        v-bind="defaultPagination"
-        @update:current-page="updateCurrentPage"
-        @update:page-size="updatePageSize"
-      />
+    <div v-if="paginationProps" class="pagination">
+      <el-pagination v-bind="paginationProps" />
     </div>
   </div>
 </template>
@@ -25,37 +43,20 @@ import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
-import type { DataTableColumn, DataTablePagination } from './types'
+import type { ProTableColumn, ProTablePagination } from './types'
 
 const props = defineProps({
   /** 表格列配置 */
-  columns: { type: Array as PropType<DataTableColumn[]>, default: () => [] },
+  columns: { type: Array as PropType<ProTableColumn[]>, default: () => [] },
   /** 分页配置 */
-  pagination: { type: [Boolean, Object] as PropType<false | DataTablePagination>, default: false },
+  pagination: { type: [Boolean, Object] as PropType<false | ProTablePagination>, default: false },
   /** 加载状态 */
   loading: { type: Boolean },
 })
 
-const defaultPagination = computed(() =>
-  !props.pagination
-    ? false
-    : {
-        ...props.pagination,
-        layout: 'total, prev, pager, next',
-      }
+const paginationProps = computed(() =>
+  props.pagination ? { layout: 'total, prev, pager, next', ...props.pagination } : false
 )
-
-const updateCurrentPage = (value: number) => {
-  if (defaultPagination.value) {
-    defaultPagination.value.updateCurrentPage?.(value)
-  }
-}
-
-const updatePageSize = (value: number) => {
-  if (defaultPagination.value) {
-    defaultPagination.value.updatePageSize?.(value)
-  }
-}
 </script>
 
 <style scoped>

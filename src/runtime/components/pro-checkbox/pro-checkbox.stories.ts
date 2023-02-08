@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
-import type { CheckboxOption } from './types'
+import type { ProCheckboxOption } from './types'
 import { ProCheckbox } from './index'
 
 export default {
@@ -28,7 +28,7 @@ Default.args = {
     { value: '0', label: '选项1' },
     { value: '1', label: '选项2' },
     { value: '2', label: '选项3' },
-  ] as CheckboxOption[],
+  ] as ProCheckboxOption[],
 }
 
 export const Checked = Template.bind({})
@@ -48,7 +48,7 @@ OptionDisabled.args = {
   options: [
     { value: '0', label: '选项1', disabled: true },
     { value: '1', label: '选项2' },
-  ] as CheckboxOption[],
+  ] as ProCheckboxOption[],
 }
 
 export const CheckboxButton = Template.bind({})
