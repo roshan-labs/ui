@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading">
-    <el-table v-bind="$attrs">
+    <el-table v-bind="$attrs" :data="data">
       <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
           <slot
@@ -43,9 +43,11 @@ import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
-import type { ProTableColumn, ProTablePagination } from './types'
+import type { ProTableData, ProTableColumn, ProTablePagination } from './types'
 
 const props = defineProps({
+  /** 数据集 */
+  data: { type: Array as PropType<ProTableData>, default: () => [] },
   /** 表格列配置 */
   columns: { type: Array as PropType<ProTableColumn[]>, default: () => [] },
   /** 分页配置 */

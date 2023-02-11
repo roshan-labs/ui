@@ -12,7 +12,7 @@ export default {
 const Template: Story = (args) => ({
   components: { ProCrud },
   setup: () => ({ args }),
-  template: '<pro-crud class="test" v-bind="args" />',
+  template: '<pro-crud v-bind="args" />',
 })
 
 export const Default = Template.bind({})
@@ -24,6 +24,27 @@ Default.args = {
     { prop: 'state', label: '州' },
     { prop: 'city', label: '城市' },
     { prop: 'address', label: '地区' },
+    { prop: 'zip', label: '邮编' },
+    { prop: 'tag', label: '标签' },
   ] as ProCrudColumn[],
-  border: true,
 }
+Default.storyName = '默认'
+
+export const TableSlot: Story = (args) => ({
+  components: { ProCrud },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #date-column="{ row }">插槽：{{ row.date }}</template>
+      <template #name-header="{ column }">插槽：{{ column.label }}</template>
+    </pro-crud>
+  `,
+})
+TableSlot.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', slots: { default: 'date-column' } },
+    { prop: 'name', label: '姓名', slots: { header: 'name-header' } },
+  ] as ProCrudColumn[],
+}
+TableSlot.storyName = '插槽'
