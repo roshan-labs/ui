@@ -78,13 +78,11 @@ interface FormCascaderOption extends FormBaseOption {
  * CascaderPanel
  */
 
-type FormCascaderPanelProps = MakeProps<
-  Record<string, any> & {
-    onChange?: CascaderEmits['change']
-    expandChange?: CascaderEmits['expandChange']
-    slots?: Slots<'default'>
-  }
->
+type FormCascaderPanelProps = MakeProps<{
+  onChange?: CascaderEmits['change']
+  expandChange?: CascaderEmits['expandChange']
+  slots?: Slots<'default'>
+}>
 
 interface FormCascaderPanelOption extends FormBaseOption {
   type: 'cascader-panel'
@@ -134,11 +132,12 @@ interface FormDatePickerOption extends FormBaseOption {
  * Input
  */
 
-type FormInputProps = Record<string, any> &
+type FormInputProps = MakeProps<
   PickProps<InputProps> &
-  SetPrefixEvent<InputEmits> & {
-    slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
-  }
+    SetPrefixEvent<InputEmits> & {
+      slots?: Slots<'prefix' | 'suffix' | 'prepend' | 'append'>
+    }
+>
 
 interface FormInputOption extends FormBaseOption {
   type: 'input'
@@ -268,7 +267,7 @@ interface FormUploadOption extends FormBaseOption {
  * Select
  */
 
-type FormSelectProps = Record<string, any> & {
+type FormSelectProps = MakeProps<{
   onChange?: (value: any) => void
   onVisibleChange?: (value: boolean) => void
   onRemoveTag?: (value: any) => void
@@ -276,7 +275,7 @@ type FormSelectProps = Record<string, any> & {
   onBlur?: (e: FocusEvent) => void
   onFocus?: (e: FocusEvent) => void
   slots?: Slots<'default' | 'empty' | 'prefix'>
-}
+}>
 
 interface FormSelectOption extends FormBaseOption {
   type: 'select'
