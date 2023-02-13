@@ -56,7 +56,7 @@ TableSlot.args = {
     },
   ] as ProCrudColumn[],
 }
-TableSlot.storyName = '插槽'
+TableSlot.storyName = '表格插槽'
 
 export const Search = Template.bind({})
 Search.args = {
@@ -65,12 +65,12 @@ Search.args = {
     {
       prop: 'date',
       label: '日期',
-      search: { type: 'date-picker', span: 6, component: { style: 'width: 100%' } },
+      search: { type: 'date-picker', component: { style: 'width: 100%' } },
     },
     { prop: 'name', label: '姓名', search: true },
     { prop: 'state', label: '州', search: true },
     { prop: 'city', label: '城市', search: true },
   ] as ProCrudColumn[],
-  search: { labelWidth: 60 } as ProCrudSearch,
+  search: { inline: true } as ProCrudSearch,
 }
 Search.storyName = '支持查询'

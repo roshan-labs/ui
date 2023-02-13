@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch } from '../types'
-import type { ProFormOption } from '../../pro-form/types'
+import type { ProFormOption, ProForm } from '../../pro-form/types'
 
 export const useRenderSearch = (columns: Ref<ProCrudColumn[]>, search: Ref<ProCrudSearch>) => {
   const searchOptions = computed(() =>
@@ -10,7 +10,7 @@ export const useRenderSearch = (columns: Ref<ProCrudColumn[]>, search: Ref<ProCr
       const { search } = column
 
       if (typeof search === 'boolean' && search) {
-        prev.push({ type: 'input', prop: column.prop ?? '', label: column.label ?? '', span: 6 })
+        prev.push({ type: 'input', prop: column.prop ?? '', label: column.label ?? '' })
       } else if (search) {
         prev.push({ label: column.label, ...search, prop: column.prop ?? '' })
       }
@@ -30,15 +30,22 @@ export const useRenderSearch = (columns: Ref<ProCrudColumn[]>, search: Ref<ProCr
       submitText: action.submitText ?? '查询',
       reset: action.reset ?? true,
       resetText: action.resetText ?? '重置',
-      span: action.span ?? 6,
     }
   })
 
-  const searchProps = computed(() => ({
-    ...search.value,
-    options: searchOptions.value,
-    action: searchAction.value,
-  }))
+  const searchProps = computed(() => {
+    const result: ProForm = {
+      ...search.value,
+      options: searchOptions.value,
+      action: searchAction.value,
+    }
+
+    if (!search.value.inline && typeof search.value.labelWidth === 'undefined') {
+      result.labelWidth = 60
+    }
+
+    return result
+  })
 
   return {
     searchVisible,

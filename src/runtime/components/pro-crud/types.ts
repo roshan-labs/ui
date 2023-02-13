@@ -1,7 +1,5 @@
-import type { FormProps } from 'element-plus'
-
-import type { ProTableColumn, ProTableData } from '../pro-table/types'
-import type { ProFormOption, ProFormAction } from '../pro-form/types'
+import type { ProTableColumn, ProTableData, ProTablePagination } from '../pro-table/types'
+import type { ProFormOption, ProFormAction, ProForm } from '../pro-form/types'
 
 export type ProCrudData = ProTableData
 
@@ -10,6 +8,8 @@ export type ProCrudColumn = ProTableColumn & {
   search?: boolean | ProFormOption
 }
 
-export interface ProCrudSearch extends Partial<Omit<FormProps, 'model'>> {
+export interface ProCrudSearch extends Omit<ProForm, 'options'> {
   action?: ProFormAction
 }
+
+export type ProCrudPagination = ProTablePagination

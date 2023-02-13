@@ -8,4 +8,6 @@ export type SetPrefixEvent<T> = {
   [K in keyof T as K extends string ? `on-${K}` : never]?: T[K]
 }
 
+export type Writable<T> = { -readonly [K in keyof T]: T[K] }
+
 export const genComponentExpose = () => {}

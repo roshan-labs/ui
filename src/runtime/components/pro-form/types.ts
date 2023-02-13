@@ -1,4 +1,6 @@
 import type {
+  FormProps,
+  FormEmits,
   FormItemProps,
   CascaderProps,
   CascaderEmits,
@@ -27,7 +29,7 @@ import type {
 
 import type { ProRadioOption, ProRadioType } from '../pro-radio/types'
 import type { ProCheckboxOption, ProCheckboxType } from '../pro-checkbox/types'
-import type { Slots } from '../../utils'
+import type { Slots, Writable } from '../../utils'
 
 type SetPrefixEvent<T> = {
   [K in keyof Omit<T, 'update:modelValue'> as K extends string
@@ -309,3 +311,12 @@ export interface ProFormAction extends LayoutColProps {
 }
 
 export type ProFormSubmit<T = any> = (done: () => void, isValid: boolean, fields: T) => void
+
+/** ProForm 组件属性 */
+export type ProForm = Partial<Omit<Writable<FormProps>, 'model'>> &
+  SetPrefixEvent<FormEmits> & {
+    options?: ProFormOption[]
+    action?: ProFormAction
+    onReset?: () => void
+    onSubmit?: ProFormSubmit
+  }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <pro-form v-if="searchVisible" v-bind="searchProps" />
-    <pro-table v-bind="$attrs" :data="data" :columns="columns">
+    <pro-table v-bind="$attrs" :data="data" :columns="columns" :pagination="pagination">
       <template v-for="slotName in columnSlots" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps" />
       </template>
@@ -15,6 +15,7 @@ import { computed, toRef } from 'vue'
 
 import ProForm from '../pro-form/pro-form.vue'
 import ProTable from '../pro-table/pro-table.vue'
+import type { ProTablePagination } from '../pro-table/types'
 import type { ProCrudData, ProCrudColumn, ProCrudSearch } from './types'
 import { useRenderSearch } from './composables/use-render-search'
 
@@ -25,6 +26,8 @@ const props = defineProps({
   columns: { type: Array as PropType<ProCrudColumn[]>, default: () => [] },
   /** 查询表单操作配置 */
   search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
+  /** 分页配置 */
+  pagination: { type: [Boolean, Object] as PropType<ProTablePagination>, default: false },
 })
 
 const { searchVisible, searchProps } = useRenderSearch(
