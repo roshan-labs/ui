@@ -1,22 +1,55 @@
 <template>
   <div>
     <pro-form v-if="searchVisible" v-bind="searchProps" />
-    <pro-table v-bind="$attrs" :data="data" :columns="columns" :pagination="pagination">
-      <template v-for="slotName in columnSlots" #[slotName]="slotProps">
-        <slot :name="slotName" v-bind="slotProps" />
+    <el-table v-loading="loading" v-bind="$attrs" :data="data">
+      <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
+        <template v-if="column.slots?.header" #header="slotProps">
+          <slot
+            v-if="typeof column.slots?.header === 'string'"
+            :name="column.slots?.header"
+            v-bind="slotProps"
+          />
+          <component
+            :is="column.slots?.header(slotProps)"
+            v-if="typeof column.slots?.header === 'function'"
+          />
+        </template>
+        <template v-if="column.slots?.default" #default="slotProps">
+          <slot
+            v-if="typeof column.slots?.default === 'string'"
+            :name="column.slots?.default"
+            v-bind="slotProps"
+          />
+          <component
+            :is="column.slots?.default(slotProps)"
+            v-if="typeof column.slots?.default === 'function'"
+          />
+        </template>
+      </el-table-column>
+      <template v-if="$slots.append" #append>
+        <slot name="append" />
       </template>
-    </pro-table>
+      <template v-if="$slots.empty" #empty>
+        <slot name="empty" />
+      </template>
+    </el-table>
+    <div v-if="paginationProps" class="pagination">
+      <el-pagination
+        v-bind="paginationProps"
+        :current-page="currentPage"
+        @update:current-page="updateCurrentPage"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, toRef } from 'vue'
+import { toRef, ref, computed, watchEffect } from 'vue'
+import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
 import ProForm from '../pro-form/pro-form.vue'
-import ProTable from '../pro-table/pro-table.vue'
-import type { ProTablePagination } from '../pro-table/types'
-import type { ProCrudData, ProCrudColumn, ProCrudSearch } from './types'
+import type { ProCrudData, ProCrudColumn, ProCrudSearch, ProCrudPagination } from './types'
 import { useRenderSearch } from './composables/use-render-search'
 
 const props = defineProps({
@@ -27,7 +60,9 @@ const props = defineProps({
   /** 查询表单操作配置 */
   search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
   /** 分页配置 */
-  pagination: { type: [Boolean, Object] as PropType<ProTablePagination>, default: false },
+  pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
+  /** 加载状态 */
+  loading: { type: Boolean },
 })
 
 const { searchVisible, searchProps } = useRenderSearch(
@@ -35,15 +70,34 @@ const { searchVisible, searchProps } = useRenderSearch(
   toRef(props, 'search')
 )
 
-const columnSlots = computed(() =>
-  props.columns.reduce<string[]>(
-    (prev, column) =>
-      column.slots
-        ? prev.concat(
-            Object.values(column.slots).filter((item) => typeof item === 'string') as string[]
-          )
-        : [],
-    []
-  )
+const currentPage = ref(1)
+const pageSize = ref(10)
+
+const paginationProps = computed(() =>
+  props.pagination ? { layout: 'total, prev, pager, next', ...props.pagination } : false
 )
+
+const updateCurrentPage = (value: number) => {
+  currentPage.value = value
+}
+
+watchEffect(() => {
+  if (props.pagination) {
+    if (typeof props.pagination.currentPage !== 'undefined') {
+      currentPage.value = props.pagination.currentPage
+    }
+
+    if (typeof props.pagination.pageSize !== 'undefined') {
+      pageSize.value = props.pagination.pageSize
+    }
+  }
+})
 </script>
+
+<style scoped>
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+</style>

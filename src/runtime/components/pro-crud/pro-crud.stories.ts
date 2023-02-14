@@ -1,14 +1,23 @@
 import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 
-import { data } from '../pro-table/pro-table.stories'
-import type { ProCrudColumn, ProCrudSearch } from './types'
+import type { ProCrudColumn, ProCrudSearch, ProCrudPagination } from './types'
 import { ProCrud } from '.'
 
 export default {
-  title: '高级组件/增删改查 Crud',
+  title: '高级组件/增删改查 ProCrud',
   component: ProCrud,
 } as Meta
+
+const data = Array.from({ length: 10 }).map(() => ({
+  date: '2016-05-03',
+  name: 'Tom',
+  state: 'California',
+  city: 'Los Angeles',
+  address: 'No. 189, Grove St, Los Angeles',
+  zip: 'CA 90036',
+  tag: 'Home',
+}))
 
 const Template: Story = (args) => ({
   components: { ProCrud },
@@ -30,6 +39,31 @@ Default.args = {
   ] as ProCrudColumn[],
 }
 Default.storyName = '默认'
+
+export const Border = Template.bind({})
+Border.args = {
+  ...Default.args,
+  border: true,
+}
+Border.storyName = '带边框'
+
+export const Pagination = Template.bind({})
+Pagination.args = {
+  ...Default.args,
+  pagination: {
+    currentPage: 1,
+    // pageSize: 10,
+    total: 10,
+  } as ProCrudPagination,
+}
+Pagination.storyName = '带分页'
+
+export const Loading = Template.bind({})
+Loading.args = {
+  ...Default.args,
+  loading: true,
+}
+Loading.storyName = '加载中'
 
 export const TableSlot: Story = (args) => ({
   components: { ProCrud },
@@ -73,4 +107,4 @@ Search.args = {
   ] as ProCrudColumn[],
   search: { inline: true } as ProCrudSearch,
 }
-Search.storyName = '支持查询'
+Search.storyName = '带查询'
