@@ -33,14 +33,18 @@
       </template>
     </el-table>
     <div v-if="paginationProps" class="pagination">
-      <el-pagination v-bind="paginationProps" />
+      <el-pagination
+        v-bind="paginationProps"
+        :current-page="currentPage"
+        @update:current-page="updateCurrentPage"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
 import type { ProTableData, ProTableColumn, ProTablePagination } from './types'
@@ -59,6 +63,18 @@ const props = defineProps({
 const paginationProps = computed(() =>
   props.pagination ? { layout: 'total, prev, pager, next', ...props.pagination } : false
 )
+
+const currentPage = ref(1)
+
+const updateCurrentPage = (value: number) => {
+  currentPage.value = value
+}
+
+watchEffect(() => {
+  if (paginationProps.value) {
+    currentPage.value = paginationProps.value.currentPage ?? 1
+  }
+})
 </script>
 
 <style scoped>

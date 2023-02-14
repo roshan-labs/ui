@@ -144,17 +144,11 @@ HeaderSlot.args = {
 }
 HeaderSlot.storyName = '列头插槽'
 
-let page = 1
+const pagination: ProTablePagination = false
 
 export const Pagination = Template.bind({})
 Pagination.args = {
   ...Default.args,
-  pagination: {
-    currentPage: page,
-    total: 4,
-    'onUpdate:currentPage'(value) {
-      page = value
-    },
-  } as ProTablePagination,
+  pagination,
 }
 Pagination.storyName = '分页'
