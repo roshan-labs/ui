@@ -43,6 +43,13 @@ Default.args = {
 }
 Default.storyName = '默认'
 
+export const Loading = Template.bind({})
+Loading.args = {
+  ...Default.args,
+  loading: true,
+}
+Loading.storyName = '加载中'
+
 export const Border = Template.bind({})
 Border.args = {
   ...Default.args,
@@ -70,12 +77,16 @@ PagerCount.args = {
 }
 PagerCount.storyName = '最大页码'
 
-export const Loading = Template.bind({})
-Loading.args = {
+export const PageBackground = Template.bind({})
+PageBackground.args = {
   ...Default.args,
-  loading: true,
+  pagination: {
+    currentPage: 1,
+    total: 1000,
+    background: true,
+  } as ProCrudPagination,
 }
-Loading.storyName = '加载中'
+PageBackground.storyName = '分页带背景'
 
 export const TableSlot: Story = (args) => ({
   components: { ProCrud },
@@ -104,6 +115,17 @@ TableSlot.args = {
 }
 TableSlot.storyName = '表格插槽'
 
+export const SearchAction = Template.bind({})
+SearchAction.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: true },
+    { prop: 'name', label: '姓名', search: true },
+  ] as ProCrudColumn[],
+  search: { action: { resetText: '清空', submitText: '搜索' } } as ProCrudSearch,
+}
+SearchAction.storyName = '查询按钮配置'
+
 export const Search = Template.bind({})
 Search.args = {
   data,
@@ -116,7 +138,28 @@ Search.args = {
     { prop: 'name', label: '姓名', search: true },
     { prop: 'state', label: '州', search: true },
     { prop: 'city', label: '城市', search: true },
+    { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
+  ] as ProCrudColumn[],
+}
+Search.storyName = '带查询'
+
+export const InlineSearch = Template.bind({})
+InlineSearch.args = {
+  data,
+  columns: [
+    {
+      prop: 'date',
+      label: '日期',
+      search: { type: 'date-picker', component: { style: 'width: 100%' } },
+    },
+    { prop: 'name', label: '姓名', search: true },
   ] as ProCrudColumn[],
   search: { inline: true } as ProCrudSearch,
 }
-Search.storyName = '带查询'
+InlineSearch.storyName = '行内布局查询'
+
+export const SearchMethod = Template.bind({})
+SearchMethod.args = {
+  ...Search.args,
+}
+SearchMethod.storyName = '查询请求'

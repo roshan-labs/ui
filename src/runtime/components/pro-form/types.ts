@@ -38,7 +38,7 @@ type SetPrefixEvent<T> = {
 }
 type MakeProps<T> = T & Record<string, any>
 type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
-type LayoutColProps = Partial<Omit<ColProps, 'tag'>>
+type LayoutColProps = Partial<Omit<Writable<ColProps>, 'tag'>>
 
 type FormBaseOption = Partial<FormItemProps> &
   LayoutColProps & {

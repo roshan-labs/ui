@@ -60,8 +60,8 @@ import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
 import type { Slots } from '../../utils'
+import { isUndefined } from '../../utils'
 import type { ProFormOption, ProFormAction } from './types'
-import { isUndefined } from './utils'
 
 const props = defineProps({
   /** 表单项配置数组 */
@@ -191,9 +191,11 @@ const done = () => {
 
 const submit = () => {
   if (formRef.value) {
-    loading.value = true
-
     formRef.value.validate((isValid) => {
+      if (isValid) {
+        loading.value = true
+      }
+
       emit('submit', done, isValid, model.value)
     })
   }

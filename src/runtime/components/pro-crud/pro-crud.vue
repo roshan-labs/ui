@@ -45,7 +45,13 @@ import { toRef } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
 import ProForm from '../pro-form/pro-form.vue'
-import type { ProCrudData, ProCrudColumn, ProCrudSearch, ProCrudPagination } from './types'
+import type {
+  ProCrudData,
+  ProCrudColumn,
+  ProCrudSearch,
+  ProCrudPagination,
+  ProCrudSearchRequest,
+} from './types'
 import { useRenderSearch } from './composables/use-render-search'
 import { useRenderPagination } from './composables/use-render-pagination'
 
@@ -54,8 +60,10 @@ const props = defineProps({
   data: { type: Array as PropType<ProCrudData>, default: () => [] },
   /** 表格列配置 */
   columns: { type: Array as PropType<ProCrudColumn[]>, default: () => [] },
-  /** 查询表单操作配置 */
+  /** 查询表单配置 */
   search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
+  /** 查询表单请求 */
+  searchRequest: { type: Function as PropType<ProCrudSearchRequest> },
   /** 分页配置 */
   pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
   /** 加载状态 */
@@ -66,7 +74,8 @@ const emit = defineEmits(['update:current-page', 'update:page-size'])
 
 const { searchVisible, searchProps } = useRenderSearch(
   toRef(props, 'columns'),
-  toRef(props, 'search')
+  toRef(props, 'search'),
+  props.searchRequest
 )
 
 const { paginationProps } = useRenderPagination(toRef(props, 'pagination'), emit)

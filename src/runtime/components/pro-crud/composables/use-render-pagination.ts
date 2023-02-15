@@ -2,11 +2,12 @@ import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProCrudPagination } from '../types'
+import { isUndefined } from '../../../utils'
 
-export function useRenderPagination(
+export const useRenderPagination = (
   pagination: Ref<ProCrudPagination | false>,
-  emit: (event: any, ...args: any[]) => void
-) {
+  emit: (event: 'update:current-page' | 'update:page-size', ...args: any[]) => void
+) => {
   const currentPage = ref(1)
   const pageSize = ref(10)
 
@@ -16,12 +17,12 @@ export function useRenderPagination(
     if (pagination.value) {
       result = { layout: 'total, prev, pager, next', ...pagination.value }
 
-      if (typeof pagination.value.currentPage !== 'undefined') {
+      if (!isUndefined(pagination.value.currentPage)) {
         result.currentPage = currentPage.value
         result['onUpdate:currentPage'] = updateCurrentPage
       }
 
-      if (typeof pagination.value.pageSize !== 'undefined') {
+      if (!isUndefined(pagination.value.pageSize)) {
         result.pageSize = pageSize.value
         result['onUpdate:pageSize'] = updatePageSize
       }
