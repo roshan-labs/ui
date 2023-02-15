@@ -33,24 +33,21 @@
         <slot name="empty" />
       </template>
     </el-table>
-    <div v-if="paginationProps" class="pagination">
-      <el-pagination
-        v-bind="paginationProps"
-        :current-page="currentPage"
-        @update:current-page="updateCurrentPage"
-      />
+    <div v-if="pagination" class="pagination">
+      <el-pagination v-bind="paginationProps" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { toRef, ref, computed, watchEffect } from 'vue'
+import { toRef } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
 
 import ProForm from '../pro-form/pro-form.vue'
 import type { ProCrudData, ProCrudColumn, ProCrudSearch, ProCrudPagination } from './types'
 import { useRenderSearch } from './composables/use-render-search'
+import { useRenderPagination } from './composables/use-render-pagination'
 
 const props = defineProps({
   /** 数据集 */
@@ -65,33 +62,14 @@ const props = defineProps({
   loading: { type: Boolean },
 })
 
+const emit = defineEmits(['update:current-page', 'update:page-size'])
+
 const { searchVisible, searchProps } = useRenderSearch(
   toRef(props, 'columns'),
   toRef(props, 'search')
 )
 
-const currentPage = ref(1)
-const pageSize = ref(10)
-
-const paginationProps = computed(() =>
-  props.pagination ? { layout: 'total, prev, pager, next', ...props.pagination } : false
-)
-
-const updateCurrentPage = (value: number) => {
-  currentPage.value = value
-}
-
-watchEffect(() => {
-  if (props.pagination) {
-    if (typeof props.pagination.currentPage !== 'undefined') {
-      currentPage.value = props.pagination.currentPage
-    }
-
-    if (typeof props.pagination.pageSize !== 'undefined') {
-      pageSize.value = props.pagination.pageSize
-    }
-  }
-})
+const { paginationProps } = useRenderPagination(toRef(props, 'pagination'), emit)
 </script>
 
 <style scoped>

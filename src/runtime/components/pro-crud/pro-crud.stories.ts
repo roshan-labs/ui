@@ -7,6 +7,9 @@ import { ProCrud } from '.'
 export default {
   title: '高级组件/增删改查 ProCrud',
   component: ProCrud,
+  argTypes: {
+    'onUpdate:currentPage': { action: 'update:current-page' },
+  },
 } as Meta
 
 const data = Array.from({ length: 10 }).map(() => ({
@@ -52,11 +55,20 @@ Pagination.args = {
   ...Default.args,
   pagination: {
     currentPage: 1,
-    // pageSize: 10,
-    total: 10,
+    total: 1000,
   } as ProCrudPagination,
 }
 Pagination.storyName = '带分页'
+
+export const PagerCount = Template.bind({})
+PagerCount.args = {
+  ...Default.args,
+  pagination: {
+    pagerCount: 11,
+    total: 1000,
+  } as ProCrudPagination,
+}
+PagerCount.storyName = '最大页码'
 
 export const Loading = Template.bind({})
 Loading.args = {

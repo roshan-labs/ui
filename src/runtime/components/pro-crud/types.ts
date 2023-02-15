@@ -1,7 +1,7 @@
-import type { TableColumnCtx, PaginationProps, PaginationEmits } from 'element-plus'
+import type { TableColumnCtx, PaginationProps } from 'element-plus'
 
 import type { ProFormOption, ProFormAction, ProForm } from '../pro-form/types'
-import type { Slots } from '../../utils'
+import type { Slots, Writable } from '../../utils'
 
 export type ProCrudData<T = any> = T[]
 
@@ -14,12 +14,7 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
   search?: boolean | ProFormOption
 }
 
-export type ProCrudPagination = Partial<PaginationProps> & {
-  onSizeChange?: PaginationEmits['size-change']
-  onCurrentChange?: PaginationEmits['current-change']
-  onPrevClick?: PaginationEmits['prev-click']
-  onNextClick?: PaginationEmits['next-click']
-}
+export type ProCrudPagination = Partial<Writable<PaginationProps>>
 
 export interface ProCrudSearch extends Omit<ProForm, 'options'> {
   action?: ProFormAction
