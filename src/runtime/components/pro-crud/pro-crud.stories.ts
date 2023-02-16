@@ -1,7 +1,7 @@
 import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 
-import type { ProCrudColumn, ProCrudSearch, ProCrudPagination } from './types'
+import type { ProCrudColumn, ProCrudSearch, ProCrudPagination, ProCrudSearchRequest } from './types'
 import { ProCrud } from '.'
 
 export default {
@@ -161,5 +161,60 @@ InlineSearch.storyName = '行内布局查询'
 export const SearchMethod = Template.bind({})
 SearchMethod.args = {
   ...Search.args,
+  searchRequest: (({ done }) => {
+    setTimeout(() => {
+      done()
+    }, Math.floor(Math.random() * 3) * 1000)
+  }) as ProCrudSearchRequest,
 }
 SearchMethod.storyName = '查询请求'
+
+export const SearchLabelWidth = Template.bind({})
+SearchLabelWidth.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: true },
+    { prop: 'name', label: '姓名', search: { labelWidth: 80 } },
+  ] as ProCrudColumn[],
+  search: { labelWidth: 120 } as ProCrudSearch,
+}
+SearchLabelWidth.storyName = '查询字段标题宽度'
+
+export const SearchValidate = Template.bind({})
+SearchValidate.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: { rules: [{ required: true, message: '不能为空' }] } },
+    { prop: 'name', label: '姓名', search: true },
+  ] as ProCrudColumn[],
+  search: {
+    rules: {
+      name: [{ required: true, message: '不能为空' }],
+    },
+  } as ProCrudSearch,
+}
+SearchValidate.storyName = '查询验证'
+
+export const SearchLayout = Template.bind({})
+SearchLayout.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: { span: 8 } },
+    { prop: 'name', label: '姓名', search: true },
+  ] as ProCrudColumn[],
+}
+SearchLayout.storyName = '查询布局'
+
+export const SearchDefaultValue = Template.bind({})
+SearchDefaultValue.args = {
+  data,
+  columns: [
+    {
+      prop: 'date',
+      label: '日期',
+      search: { type: 'date-picker', value: new Date(), component: { style: 'width: 100%' } },
+    },
+    { prop: 'name', label: '姓名', search: true },
+  ] as ProCrudColumn[],
+}
+SearchDefaultValue.storyName = '查询默认值'
