@@ -22,10 +22,12 @@
       </el-col>
       <el-col v-bind="action">
         <el-form-item>
-          <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-          <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
-            submitText
-          }}</el-button>
+          <slot name="action" v-bind="actionProps">
+            <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
+            <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
+              submitText
+            }}</el-button>
+          </slot>
         </el-form-item>
       </el-col>
     </el-row>
@@ -44,10 +46,12 @@
         </component>
       </el-form-item>
       <el-form-item>
-        <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-        <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
-          submitText
-        }}</el-button>
+        <slot name="action" v-bind="actionProps">
+          <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
+          <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
+            submitText
+          }}</el-button>
+        </slot>
       </el-form-item>
     </template>
   </el-form>
@@ -88,6 +92,15 @@ const isLayout = computed(
   () =>
     props.options.some((option) => !isUndefined(option.span)) || !isUndefined(props.action?.span)
 )
+const actionProps = computed(() => ({
+  loading: loading.value,
+  resetVisible: resetVisible.value,
+  resetText: resetText.value,
+  reset,
+  submitVisible: submitVisible.value,
+  submitText: submitText.value,
+  submit,
+}))
 
 const Input = defineAsyncComponent(() => import('./components/input'))
 const InputNumber = defineAsyncComponent(() => import('./components/input-number'))

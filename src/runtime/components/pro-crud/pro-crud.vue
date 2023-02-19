@@ -1,6 +1,22 @@
 <template>
   <div>
-    <pro-form v-if="searchVisible" v-bind="searchProps" />
+    <pro-form v-if="searchVisible" v-bind="searchProps">
+      <template #action="slotProps">
+        <el-button :icon="Refresh" @click="slotProps.reset">{{ slotProps.resetText }}</el-button>
+        <el-button type="primary" :icon="Search" @click="slotProps.submit">{{
+          slotProps.submitText
+        }}</el-button>
+        <el-button
+          v-if="searchCollapse"
+          type="primary"
+          :icon="collapse ? ArrowDown : ArrowUp"
+          text
+          @click="changeCollapse"
+        >
+          {{ collapse ? '展开' : '收起' }}
+        </el-button>
+      </template>
+    </pro-form>
     <el-table v-loading="loading" v-bind="$attrs" :data="data">
       <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
@@ -42,7 +58,8 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { toRef } from 'vue'
-import { ElTable, ElTableColumn, ElPagination, vLoading } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination, ElButton, vLoading } from 'element-plus'
+import { Search, Refresh, ArrowUp, ArrowDown } from '@element-plus/icons-vue'
 
 import ProForm from '../pro-form/pro-form.vue'
 import type {
@@ -72,7 +89,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:current-page', 'update:page-size'])
 
-const { searchVisible, searchProps } = useRenderSearch(
+const { collapse, searchVisible, searchCollapse, searchProps, changeCollapse } = useRenderSearch(
   toRef(props, 'columns'),
   toRef(props, 'search'),
   props.searchRequest

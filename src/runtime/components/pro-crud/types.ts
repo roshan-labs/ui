@@ -17,7 +17,15 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
 export type ProCrudPagination = Partial<Writable<PaginationProps>>
 
 export interface ProCrudSearch extends Omit<ProForm, 'options'> {
-  action?: ProFormAction
+  /** 查询按钮配置 */
+  action?: ProFormAction & {
+    /** 展开状态所占空间 */
+    showSpan?: number
+    /** 折叠状态所占空间 */
+    hideSpan?: number
+  }
+  /** 折叠状态保留的表单项个数 */
+  collapseCount?: number
 }
 
 /** 查询表单请求 */

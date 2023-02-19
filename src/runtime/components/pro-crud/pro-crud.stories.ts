@@ -130,11 +130,7 @@ export const Search = Template.bind({})
 Search.args = {
   data,
   columns: [
-    {
-      prop: 'date',
-      label: '日期',
-      search: { type: 'date-picker', component: { style: 'width: 100%' } },
-    },
+    { prop: 'date', label: '日期', search: true },
     { prop: 'name', label: '姓名', search: true },
     { prop: 'state', label: '州', search: true },
     { prop: 'city', label: '城市', search: true },
@@ -147,11 +143,7 @@ export const InlineSearch = Template.bind({})
 InlineSearch.args = {
   data,
   columns: [
-    {
-      prop: 'date',
-      label: '日期',
-      search: { type: 'date-picker', component: { style: 'width: 100%' } },
-    },
+    { prop: 'date', label: '日期', search: true },
     { prop: 'name', label: '姓名', search: true },
   ] as ProCrudColumn[],
   search: { inline: true } as ProCrudSearch,
@@ -218,3 +210,16 @@ SearchDefaultValue.args = {
   ] as ProCrudColumn[],
 }
 SearchDefaultValue.storyName = '查询默认值'
+
+export const SearchCollapse = Template.bind({})
+SearchCollapse.args = {
+  ...Search.args,
+  search: {
+    collapseCount: 2,
+    action: {
+      hideSpan: 8,
+      showSpan: 20,
+    },
+  } as ProCrudSearch,
+}
+SearchCollapse.storyName = '查询展开折叠'

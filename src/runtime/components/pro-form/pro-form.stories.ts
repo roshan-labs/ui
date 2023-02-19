@@ -403,6 +403,23 @@ Validate.args = {
 }
 Validate.storyName = '验证表单'
 
+export const ActionSlot: Story = (args) => ({
+  components: { ProForm, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-form v-bind="args">
+      <template #action="slotProps">
+        <el-button @click="slotProps.reset">自定义重置</el-button>
+        <el-button type="primary" @click="slotProps.submit">自定义提交</el-button>
+      </template>
+    </pro-form>
+  `,
+})
+ActionSlot.args = {
+  ...Default.args,
+}
+ActionSlot.storyName = '操作按钮插槽'
+
 export const Layout = Template.bind({})
 Layout.args = {
   options: [

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest } from '../types'
 import type { ProFormOption, ProForm } from '../../pro-form/types'
@@ -10,7 +10,10 @@ export const useRenderSearch = (
   search: Ref<ProCrudSearch>,
   searchRequest?: ProCrudSearchRequest
 ) => {
-  const searchOptions = computed(() =>
+  /** 展开收起状态 */
+  const collapse = ref(true)
+
+  const searchOriginOptions = computed(() =>
     columns.value.reduce<ProFormOption[]>((prev, column) => {
       const { search: searchProp } = column
 
@@ -21,6 +24,7 @@ export const useRenderSearch = (
           label: column.label ?? '',
         }
 
+        // 非行内表单默认删格布局占位 6
         if (!search.value.inline) {
           config.span = 6
         }
@@ -33,6 +37,7 @@ export const useRenderSearch = (
           prop: column.prop ?? '',
         }
 
+        // 非行内表单并且未设置占位默认 6
         if (!search.value.inline && isUndefined(searchProp.span)) {
           config.span = 6
         }
@@ -42,6 +47,18 @@ export const useRenderSearch = (
 
       return prev
     }, [])
+  )
+
+  const searchCollapse = computed(() => {
+    const { collapseCount } = search.value
+
+    return !isUndefined(collapseCount) && searchOriginOptions.value.length > collapseCount
+  })
+
+  const searchOptions = computed(() =>
+    searchCollapse.value && collapse.value
+      ? searchOriginOptions.value.slice(0, search.value.collapseCount)
+      : searchOriginOptions.value
   )
 
   const searchVisible = computed(() => searchOptions.value.length > 0)
@@ -91,8 +108,15 @@ export const useRenderSearch = (
     }
   }
 
+  const changeCollapse = () => {
+    collapse.value = !collapse.value
+  }
+
   return {
+    collapse,
     searchVisible,
+    searchCollapse,
     searchProps,
+    changeCollapse,
   }
 }
