@@ -3,9 +3,13 @@
     <pro-form v-if="searchVisible" v-bind="searchProps">
       <template #action="slotProps">
         <el-button :icon="Refresh" @click="slotProps.reset">{{ slotProps.resetText }}</el-button>
-        <el-button type="primary" :icon="Search" @click="slotProps.submit">{{
-          slotProps.submitText
-        }}</el-button>
+        <el-button
+          type="primary"
+          :icon="Search"
+          :loading="slotProps.loading"
+          @click="slotProps.submit"
+          >{{ slotProps.submitText }}</el-button
+        >
         <el-button
           v-if="searchCollapse"
           type="primary"

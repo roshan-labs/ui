@@ -28,18 +28,29 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({})
 Default.args = {
   modelValue: true,
-  title: '标题',
-  default: '这是一个对话框',
+  default: '这是一个高级对话框',
 }
+Default.storyName = '默认'
 
-export const CancelText = Template.bind({})
-CancelText.args = {
+export const Title = Template.bind({})
+Title.args = {
   ...Default.args,
-  cancelText: '关闭',
+  title: '我是一个对话框标题',
 }
+Title.storyName = '带标题对话框'
 
-export const ConfirmText = Template.bind({})
-ConfirmText.args = {
+export const CustomAction = Template.bind({})
+CustomAction.args = {
   ...Default.args,
   confirmText: '提交',
+  cancelText: '关闭',
 }
+CustomAction.storyName = '自定义按钮'
+
+export const Fullscreen = Template.bind({})
+Fullscreen.args = {
+  ...Default.args,
+  title: '我是一个全屏对话框',
+  fullscreen: true,
+}
+Fullscreen.storyName = '全屏'
