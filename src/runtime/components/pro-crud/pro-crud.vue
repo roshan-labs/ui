@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pro-crud">
     <pro-form v-if="searchVisible" v-bind="searchProps">
       <template #action="slotProps">
         <el-button :icon="Refresh" @click="slotProps.reset">{{ slotProps.resetText }}</el-button>
@@ -21,6 +21,9 @@
         </el-button>
       </template>
     </pro-form>
+    <div v-if="toolbarVisible" class="pro-crud__toolbar">
+      <div v-if="title" class="pro-crud__toolbar-title">{{ title }}</div>
+    </div>
     <el-table v-loading="loading" v-bind="$attrs" :data="data">
       <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
@@ -53,7 +56,7 @@
         <slot name="empty" />
       </template>
     </el-table>
-    <div v-if="pagination" class="pagination">
+    <div v-if="pagination" class="pro-crud__pagination">
       <el-pagination v-bind="paginationProps" />
     </div>
   </div>
@@ -75,6 +78,7 @@ import type {
 } from './types'
 import { useRenderSearch } from './composables/use-render-search'
 import { useRenderPagination } from './composables/use-render-pagination'
+import { useToolbar } from './composables/use-toolbar'
 
 const props = defineProps({
   /** 数据集 */
@@ -89,6 +93,8 @@ const props = defineProps({
   pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
   /** 加载状态 */
   loading: { type: Boolean },
+  /** 表格标题 */
+  title: { type: String, default: '' },
 })
 
 const emit = defineEmits(['update:current-page', 'update:page-size'])
@@ -98,12 +104,24 @@ const { collapse, searchVisible, searchCollapse, searchProps, changeCollapse } =
   toRef(props, 'search'),
   props.searchRequest
 )
-
 const { paginationProps } = useRenderPagination(toRef(props, 'pagination'), emit)
+const { toolbarVisible } = useToolbar(toRef(props, 'title'))
 </script>
 
 <style scoped>
-.pagination {
+.pro-crud__toolbar {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin-bottom: 16px;
+}
+
+.pro-crud__toolbar-title {
+  font-size: 16px;
+  color: #000000;
+}
+
+.pro-crud__pagination {
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;

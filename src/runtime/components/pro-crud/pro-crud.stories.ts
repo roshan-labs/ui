@@ -57,6 +57,13 @@ Border.args = {
 }
 Border.storyName = '带边框'
 
+export const Title = Template.bind({})
+Title.args = {
+  ...Default.args,
+  title: '我是一个带标题的高级表格',
+}
+Title.storyName = '带标题'
+
 export const Pagination = Template.bind({})
 Pagination.args = {
   ...Default.args,
