@@ -122,17 +122,6 @@ TableSlot.args = {
 }
 TableSlot.storyName = '表格插槽'
 
-export const SearchAction = Template.bind({})
-SearchAction.args = {
-  data,
-  columns: [
-    { prop: 'date', label: '日期', search: true },
-    { prop: 'name', label: '姓名', search: true },
-  ] as ProCrudColumn[],
-  search: { action: { resetText: '清空', submitText: '搜索' } } as ProCrudSearch,
-}
-SearchAction.storyName = '查询按钮配置'
-
 export const Search = Template.bind({})
 Search.args = {
   data,
@@ -145,6 +134,17 @@ Search.args = {
   ] as ProCrudColumn[],
 }
 Search.storyName = '带查询'
+
+export const SearchAction = Template.bind({})
+SearchAction.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: true },
+    { prop: 'name', label: '姓名', search: true },
+  ] as ProCrudColumn[],
+  search: { action: { resetText: '清空', submitText: '搜索' } } as ProCrudSearch,
+}
+SearchAction.storyName = '查询按钮配置'
 
 export const InlineSearch = Template.bind({})
 InlineSearch.args = {
@@ -230,3 +230,35 @@ SearchCollapse.args = {
   } as ProCrudSearch,
 }
 SearchCollapse.storyName = '查询展开折叠'
+
+export const AddData = Template.bind({})
+AddData.args = {
+  data,
+  columns: [
+    { prop: 'date', label: '日期', create: true },
+    { prop: 'name', label: '姓名', create: true },
+  ] as ProCrudColumn[],
+}
+AddData.storyName = '新增数据'
+
+export const AddDataValidate = Template.bind({})
+AddDataValidate.args = {
+  data,
+  columns: [
+    {
+      prop: 'date',
+      label: '日期',
+      create: {
+        rules: [{ required: true, message: '不能为空' }],
+      },
+    },
+    {
+      prop: 'name',
+      label: '姓名',
+      create: {
+        rules: [{ required: true, message: '不能为空' }],
+      },
+    },
+  ] as ProCrudColumn[],
+}
+AddDataValidate.storyName = '新增数据带验证'

@@ -20,7 +20,7 @@
           </component>
         </el-form-item>
       </el-col>
-      <el-col v-bind="action">
+      <el-col v-if="action" v-bind="action">
         <el-form-item>
           <slot name="action" v-bind="actionProps">
             <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
@@ -45,7 +45,7 @@
           </template>
         </component>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-if="action">
         <slot name="action" v-bind="actionProps">
           <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
           <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
@@ -63,15 +63,15 @@ import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
-import type { Slots } from '../../utils'
 import { isUndefined } from '../../utils'
+import type { Slots } from '../../utils'
 import type { ProFormOption, ProFormAction } from './types'
 
 const props = defineProps({
   /** 表单项配置数组 */
   options: { type: Array as PropType<ProFormOption[]>, default: () => [] },
   /** 表单按钮配置 */
-  action: { type: Object as PropType<ProFormAction>, default: () => ({}) },
+  action: { type: [Object, Boolean] as PropType<ProFormAction | false>, default: () => ({}) },
 })
 
 const emit = defineEmits(['reset', 'submit'])
@@ -80,17 +80,14 @@ const model = ref<Record<string, any>>({})
 const formRef = ref<FormInstance | null>(null)
 const loading = ref(false)
 
-const resetVisible = computed(() =>
-  typeof props.action?.reset === 'boolean' ? props.action?.reset : true
-)
-const resetText = computed(() => props.action?.resetText ?? '重置')
-const submitVisible = computed(() =>
-  typeof props.action?.submit === 'boolean' ? props.action.submit : true
-)
-const submitText = computed(() => props.action?.submitText ?? '提交')
+const resetVisible = computed(() => (props.action ? props.action.reset ?? true : true))
+const resetText = computed(() => (props.action ? props.action.resetText ?? '重置' : ''))
+const submitVisible = computed(() => (props.action ? props.action.submit ?? true : true))
+const submitText = computed(() => (props.action ? props.action.submitText ?? '提交' : ''))
 const isLayout = computed(
   () =>
-    props.options.some((option) => !isUndefined(option.span)) || !isUndefined(props.action?.span)
+    props.options.some((option) => !isUndefined(option.span)) ||
+    (props.action ? !isUndefined(props.action.span) : false)
 )
 const actionProps = computed(() => ({
   loading: loading.value,
@@ -223,5 +220,6 @@ defineExpose({
     formRef.value!.scrollToField(...args)) as FormInstance['scrollToField'],
   clearValidate: ((...args) =>
     formRef.value!.clearValidate(...args)) as FormInstance['clearValidate'],
+  submit,
 })
 </script>

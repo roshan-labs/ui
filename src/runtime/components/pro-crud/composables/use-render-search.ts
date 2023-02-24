@@ -2,8 +2,8 @@ import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest } from '../types'
-import type { ProFormOption, ProForm } from '../../pro-form/types'
-import { isUndefined } from '../../../utils'
+import type { ProFormOption, ProFormProps } from '../../pro-form/types'
+import { isUndefined, isBoolean } from '../../../utils'
 
 export const useRenderSearch = (
   columns: Ref<ProCrudColumn[]>,
@@ -17,10 +17,10 @@ export const useRenderSearch = (
     columns.value.reduce<ProFormOption[]>((prev, column) => {
       const { search: searchProp } = column
 
-      if (typeof searchProp === 'boolean' && searchProp) {
+      if (isBoolean(searchProp) && searchProp) {
         const config: ProFormOption = {
           type: 'input',
-          prop: column.prop ?? '',
+          prop: column.prop,
           label: column.label ?? '',
         }
 
@@ -80,7 +80,7 @@ export const useRenderSearch = (
   })
 
   const searchProps = computed(() => {
-    const result: ProForm = {
+    const result: ProFormProps = {
       ...search.value,
       options: searchOptions.value,
       action: searchAction.value,
@@ -94,7 +94,7 @@ export const useRenderSearch = (
     return result
   })
 
-  const searchSubmit: ProForm['onSubmit'] = (done, isValid, fields) => {
+  const searchSubmit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
     if (search.value.onSubmit) {
       search.value.onSubmit(done, isValid, fields)
     }

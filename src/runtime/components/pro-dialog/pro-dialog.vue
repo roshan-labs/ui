@@ -1,8 +1,8 @@
 <template>
-  <el-dialog v-bind="$attrs" class="pro-dialog" :fullscreen="fullscreenCollapse">
+  <el-dialog v-bind="$attrs" class="pro-dialog" :fullscreen="fullscreen">
     <template #header="{ titleId, titleClass }">
       <span :id="titleId" :class="titleClass" role="heading">{{ title }}</span>
-      <button class="fullscreen" @click="changeFullscreen">
+      <button class="fullscreen" @click="$emit('update:fullscreen', !fullscreen)">
         <el-icon :size="16" color="var(--el-color-info)"><full-screen /></el-icon>
       </button>
     </template>
@@ -17,11 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, toRef } from 'vue'
+import { computed } from 'vue'
 import { ElDialog, ElButton, ElIcon } from 'element-plus'
 import { FullScreen } from '@element-plus/icons-vue'
-
-import { useFullscreen } from './composables/use-fullscreen'
 
 const props = defineProps({
   /** 对话框标题 */
@@ -34,9 +32,7 @@ const props = defineProps({
   fullscreen: { type: Boolean },
 })
 
-const emit = defineEmits(['cancel', 'confirm'])
-
-const { fullscreenCollapse, changeFullscreen } = useFullscreen(toRef(props, 'fullscreen'))
+const emit = defineEmits(['cancel', 'confirm', 'update:fullscreen'])
 
 const footProps = computed(() => ({
   confirmText: props.confirmText,

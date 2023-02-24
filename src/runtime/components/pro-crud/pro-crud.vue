@@ -1,5 +1,6 @@
 <template>
   <div class="pro-crud">
+    <!-- SEARCH -->
     <pro-form v-if="searchVisible" v-bind="searchProps">
       <template #action="slotProps">
         <el-button :icon="Refresh" @click="slotProps.reset">{{ slotProps.resetText }}</el-button>
@@ -21,9 +22,16 @@
         </el-button>
       </template>
     </pro-form>
+    <!-- TOOLBAR -->
     <div v-if="toolbarVisible" class="pro-crud__toolbar">
       <div v-if="title" class="pro-crud__toolbar-title">{{ title }}</div>
+      <div class="pro-crud__toolbar-actions">
+        <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
+          {{ createText }}
+        </el-button>
+      </div>
     </div>
+    <!-- TABLE -->
     <el-table v-loading="loading" v-bind="$attrs" :data="data">
       <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
@@ -56,9 +64,12 @@
         <slot name="empty" />
       </template>
     </el-table>
+    <!-- PAGINATION -->
     <div v-if="pagination" class="pro-crud__pagination">
       <el-pagination v-bind="paginationProps" />
     </div>
+    <!-- CREATE -->
+    <create-dialog v-model="createDialogVisible" :form-props="createFormProps"></create-dialog>
   </div>
 </template>
 
@@ -66,19 +77,23 @@
 import type { PropType } from 'vue'
 import { toRef } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, ElButton, vLoading } from 'element-plus'
-import { Search, Refresh, ArrowUp, ArrowDown } from '@element-plus/icons-vue'
+import { Search, Refresh, ArrowUp, ArrowDown, Plus } from '@element-plus/icons-vue'
 
 import ProForm from '../pro-form/pro-form.vue'
+import CreateDialog from './components/create-dialog.vue'
 import type {
   ProCrudData,
   ProCrudColumn,
   ProCrudSearch,
   ProCrudPagination,
   ProCrudSearchRequest,
+  ProCrudCreate,
+  ProCrudCreateRequest,
 } from './types'
 import { useRenderSearch } from './composables/use-render-search'
 import { useRenderPagination } from './composables/use-render-pagination'
 import { useToolbar } from './composables/use-toolbar'
+import { useCreate } from './composables/use-create'
 
 const props = defineProps({
   /** 数据集 */
@@ -95,17 +110,25 @@ const props = defineProps({
   loading: { type: Boolean },
   /** 表格标题 */
   title: { type: String, default: '' },
+  /** 新增表单配置 */
+  create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
+  /** 新增提交请求 */
+  createRequest: { type: Function as PropType<ProCrudCreateRequest> },
 })
 
 const emit = defineEmits(['update:current-page', 'update:page-size'])
 
+const columnsRef = toRef(props, 'columns')
+
 const { collapse, searchVisible, searchCollapse, searchProps, changeCollapse } = useRenderSearch(
-  toRef(props, 'columns'),
+  columnsRef,
   toRef(props, 'search'),
   props.searchRequest
 )
 const { paginationProps } = useRenderPagination(toRef(props, 'pagination'), emit)
-const { toolbarVisible } = useToolbar(toRef(props, 'title'))
+const { createDialogVisible, createVisible, createText, createFormProps, openCreateDialog } =
+  useCreate(toRef(props, 'create'), columnsRef)
+const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible)
 </script>
 
 <style scoped>
@@ -119,6 +142,13 @@ const { toolbarVisible } = useToolbar(toRef(props, 'title'))
 .pro-crud__toolbar-title {
   font-size: 16px;
   color: #000000;
+}
+
+.pro-crud__toolbar-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  overflow: auto;
 }
 
 .pro-crud__pagination {

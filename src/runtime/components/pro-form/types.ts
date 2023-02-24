@@ -310,13 +310,15 @@ export interface ProFormAction extends LayoutColProps {
   resetText?: string
 }
 
-export type ProFormSubmit<T = any> = (done: () => void, isValid: boolean, fields: T) => void
+export type ProFormDone = () => void
+
+export type ProFormSubmit<T = any> = (done: ProFormDone, isValid: boolean, fields: T) => void
 
 /** ProForm 组件属性 */
-export type ProForm = Partial<Omit<Writable<FormProps>, 'model'>> &
+export type ProFormProps = Partial<Omit<Writable<FormProps>, 'model'>> &
   SetPrefixEvent<FormEmits> & {
     options?: ProFormOption[]
-    action?: ProFormAction
+    action?: false | ProFormAction
     onReset?: () => void
     onSubmit?: ProFormSubmit
   }

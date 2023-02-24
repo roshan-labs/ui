@@ -437,3 +437,10 @@ Layout.args = {
   labelWidth: 60,
 }
 Layout.storyName = '布局表单'
+
+export const HideAction = Template.bind({})
+HideAction.args = {
+  ...Default.args,
+  action: false,
+}
+HideAction.storyName = '隐藏按钮'
