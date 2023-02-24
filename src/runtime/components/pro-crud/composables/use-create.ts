@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudCreate, ProCrudCreateRequest } from '../types'
-import type { ProFormProps, ProFormOption, ProFormSubmit } from '../../pro-form/types'
+import type { ProFormProps, ProFormOption, ProFormSubmit, ProFormDone } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
 
 /**
@@ -20,7 +20,10 @@ export const useCreate = (
   const createVisible = computed(() => columns.value.some((column) => !isUndefined(column.create)))
 
   /** 新增按钮文本 */
-  const createText = computed(() => create.value.createText ?? '新增')
+  const createButtonText = computed(() => create.value.buttonText ?? '新增')
+
+  /** 新增对话框标题 */
+  const createTitle = computed(() => create.value.title ?? '新增')
 
   /** ProForm options */
   const options = computed(() =>
@@ -48,23 +51,44 @@ export const useCreate = (
   )
 
   /** 新增表单属性 */
-  const createFormProps = computed<ProFormProps>(() => ({
-    ...create.value,
-    options: options.value,
-    action: false,
-    onSubmit: submit,
-  }))
+  const createFormProps = computed<ProFormProps>(() => {
+    const config: ProFormProps = {
+      ...create.value,
+      options: options.value,
+      action: false,
+      onSubmit: submit,
+    }
+
+    if (!create.value.inline && isUndefined(create.value.labelWidth)) {
+      config.labelWidth = 60
+    }
+
+    return config
+  })
 
   const openCreateDialog = () => {
     createDialogVisible.value = true
   }
 
+  /**
+   * 代理表单 done 方法
+   * 同时关闭对话框
+   */
+  const createDone = (done: ProFormDone) => {
+    return () => {
+      done()
+      createDialogVisible.value = false
+    }
+  }
+
   const submit: ProFormSubmit = (done, isValid, fields) => {
     if (isValid) {
+      const doneFunc = createDone(done)
+
       if (createRequest) {
-        createRequest({ params: fields, done })
+        createRequest({ params: fields, done: doneFunc })
       } else {
-        done()
+        doneFunc()
       }
     }
   }
@@ -72,7 +96,8 @@ export const useCreate = (
   return {
     createDialogVisible,
     createVisible,
-    createText,
+    createTitle,
+    createButtonText,
     createFormProps,
     openCreateDialog,
   }

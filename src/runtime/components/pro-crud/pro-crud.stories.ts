@@ -1,7 +1,13 @@
 import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 
-import type { ProCrudColumn, ProCrudSearch, ProCrudPagination, ProCrudSearchRequest } from './types'
+import type {
+  ProCrudColumn,
+  ProCrudSearch,
+  ProCrudPagination,
+  ProCrudSearchRequest,
+  ProCrudActions,
+} from './types'
 import { ProCrud } from '.'
 
 export default {
@@ -42,13 +48,6 @@ Default.args = {
   ] as ProCrudColumn[],
 }
 Default.storyName = '默认'
-
-export const Loading = Template.bind({})
-Loading.args = {
-  ...Default.args,
-  loading: true,
-}
-Loading.storyName = '加载中'
 
 export const Border = Template.bind({})
 Border.args = {
@@ -163,10 +162,17 @@ SearchMethod.args = {
   searchRequest: (({ done }) => {
     setTimeout(() => {
       done()
-    }, Math.floor(Math.random() * 3) * 1000)
+    }, 2000)
   }) as ProCrudSearchRequest,
 }
 SearchMethod.storyName = '查询请求'
+
+export const RefreshAction = Template.bind({})
+RefreshAction.args = {
+  ...SearchMethod.args,
+  actions: { refresh: true } as ProCrudActions,
+}
+RefreshAction.storyName = '可刷新'
 
 export const SearchLabelWidth = Template.bind({})
 SearchLabelWidth.args = {
@@ -238,6 +244,7 @@ AddData.args = {
     { prop: 'date', label: '日期', create: true },
     { prop: 'name', label: '姓名', create: true },
   ] as ProCrudColumn[],
+  title: '我是一个可新增数据表格',
 }
 AddData.storyName = '新增数据'
 
@@ -260,5 +267,31 @@ AddDataValidate.args = {
       },
     },
   ] as ProCrudColumn[],
+  title: '我是一个可新增数据表格',
 }
 AddDataValidate.storyName = '新增数据带验证'
+
+export const AllUse = Template.bind({})
+AllUse.args = {
+  title: '一个综合使用的 CRUD 查询表格',
+  data,
+  columns: [
+    { prop: 'date', label: '日期', search: true, create: true },
+    { prop: 'name', label: '姓名', search: true, create: true },
+    { prop: 'state', label: '州', search: true, create: true },
+    { prop: 'city', label: '城市', search: true },
+    { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
+  ] as ProCrudColumn[],
+  pagination: {
+    currentPage: 1,
+    total: 1000,
+  } as ProCrudPagination,
+  searchRequest: (({ done }) => {
+    setTimeout(() => {
+      done()
+    }, 2000)
+  }) as ProCrudSearchRequest,
+  search: { collapseCount: 3 } as ProCrudSearch,
+  actions: { refresh: true } as ProCrudActions,
+}
+AllUse.storyName = '综合使用'

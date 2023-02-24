@@ -2,17 +2,25 @@ import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest } from '../types'
-import type { ProFormOption, ProFormProps } from '../../pro-form/types'
+import type { ProFormOption, ProFormProps, ProFormDone } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
+import { ProForm } from '../../pro-form'
 
-export const useRenderSearch = (
+export const useSearch = (
   columns: Ref<ProCrudColumn[]>,
   search: Ref<ProCrudSearch>,
   searchRequest?: ProCrudSearchRequest
 ) => {
+  /** 查询表单组件实例 */
+  const searchFormRef = ref<InstanceType<typeof ProForm> | null>(null)
+
   /** 展开收起状态 */
   const collapse = ref(true)
 
+  /** 查询加载状态 */
+  const searchLoading = ref(false)
+
+  /** 查询表单原始选项配置 */
   const searchOriginOptions = computed(() =>
     columns.value.reduce<ProFormOption[]>((prev, column) => {
       const { search: searchProp } = column
@@ -55,6 +63,7 @@ export const useRenderSearch = (
     return !isUndefined(collapseCount) && searchOriginOptions.value.length > collapseCount
   })
 
+  /** 当前状态查询表单选项配置 */
   const searchOptions = computed(() =>
     searchCollapse.value && collapse.value
       ? searchOriginOptions.value.slice(0, search.value.collapseCount)
@@ -87,24 +96,41 @@ export const useRenderSearch = (
       onSubmit: searchSubmit,
     }
 
-    if (!search.value.inline && typeof search.value.labelWidth === 'undefined') {
+    if (!search.value.inline && isUndefined(search.value.labelWidth)) {
       result.labelWidth = 60
     }
 
     return result
   })
 
-  const searchSubmit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
-    if (search.value.onSubmit) {
-      search.value.onSubmit(done, isValid, fields)
+  /**
+   * 绑定表单 done 函数
+   * 停止加载状态
+   */
+  const createDone = (done: ProFormDone) => {
+    return () => {
+      done()
+      searchLoading.value = false
     }
+  }
 
+  const searchSubmit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
     if (isValid) {
+      const searchDone = createDone(done)
+
       if (searchRequest) {
-        searchRequest({ search: fields, done })
+        searchLoading.value = true
+        searchRequest({ params: fields, done: searchDone })
       } else {
         done()
       }
+    }
+  }
+
+  /** 刷新查询请求 */
+  const refreshRequest = () => {
+    if (searchRequest) {
+      searchFormRef.value?.submit()
     }
   }
 
@@ -113,10 +139,13 @@ export const useRenderSearch = (
   }
 
   return {
+    searchFormRef,
     collapse,
+    searchLoading,
     searchVisible,
     searchCollapse,
     searchProps,
+    refreshRequest,
     changeCollapse,
   }
 }

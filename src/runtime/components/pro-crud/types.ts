@@ -3,8 +3,10 @@ import type { TableColumnCtx, PaginationProps } from 'element-plus'
 import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '../pro-form/types'
 import type { Slots, Writable } from '../../utils'
 
+/** Crud 数据 */
 export type ProCrudData<T = any> = T[]
 
+/** Crud 选项配置 */
 export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'realWidth'>> & {
   /** TableColumn prop 必填 */
   prop: string
@@ -16,6 +18,13 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
   create?: boolean | ProFormOption
 }
 
+/** Crud 控件配置 */
+export interface ProCrudActions {
+  /** 是否可刷新并显示刷新控件 */
+  refresh?: boolean
+}
+
+/** 分页配置 */
 export type ProCrudPagination = Partial<Writable<PaginationProps>>
 
 /** 查询表单配置 */
@@ -42,7 +51,9 @@ export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
   /** 按钮配置 */
   action?: ProFormAction
   /** 新增按钮文本 */
-  createText?: string
+  buttonText?: string
+  /** 新增对话框标题 */
+  title?: string
 }
 
 /** 新增提交请求 */
