@@ -2,6 +2,10 @@ import type { TableColumnCtx, PaginationProps } from 'element-plus'
 
 import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '../pro-form/types'
 import type { Slots, Writable } from '../../utils'
+import { ProForm } from '../pro-form'
+
+/** ProForm 实例 */
+export type ProFormInstance = InstanceType<typeof ProForm>
 
 /** Crud 数据 */
 export type ProCrudData<T = any> = T[]
@@ -44,6 +48,8 @@ export interface ProCrudSearch extends Omit<ProFormProps, 'options'> {
 export type ProCrudSearchRequest = (payload: {
   params: Record<string, any>
   done: ProFormDone
+  currentPage: number
+  pageSize: number
 }) => void
 
 /** 新增表单配置 */

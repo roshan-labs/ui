@@ -164,6 +164,10 @@ SearchMethod.args = {
       done()
     }, 2000)
   }) as ProCrudSearchRequest,
+  pagination: {
+    currentPage: 1,
+    total: 1000,
+  } as ProCrudPagination,
 }
 SearchMethod.storyName = '查询请求'
 

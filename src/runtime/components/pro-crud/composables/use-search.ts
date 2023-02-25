@@ -1,24 +1,21 @@
 import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
-import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest } from '../types'
+import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest, ProFormInstance } from '../types'
 import type { ProFormOption, ProFormProps, ProFormDone } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
-import { ProForm } from '../../pro-form'
 
 export const useSearch = (
+  searchRef: Ref<ProFormInstance | null>,
+  searchLoading: Ref<boolean>,
   columns: Ref<ProCrudColumn[]>,
   search: Ref<ProCrudSearch>,
+  currentPage: Ref<number>,
+  pageSize: Ref<number>,
   searchRequest?: ProCrudSearchRequest
 ) => {
-  /** 查询表单组件实例 */
-  const searchFormRef = ref<InstanceType<typeof ProForm> | null>(null)
-
   /** 展开收起状态 */
   const collapse = ref(true)
-
-  /** 查询加载状态 */
-  const searchLoading = ref(false)
 
   /** 查询表单原始选项配置 */
   const searchOriginOptions = computed(() =>
@@ -120,17 +117,31 @@ export const useSearch = (
 
       if (searchRequest) {
         searchLoading.value = true
-        searchRequest({ params: fields, done: searchDone })
+        searchRequest({
+          params: fields,
+          done: searchDone,
+          currentPage: currentPage.value,
+          pageSize: pageSize.value,
+        })
       } else {
         done()
       }
     }
   }
 
+  /**
+   * 点击查询按钮
+   * 这里重置分页到第一页
+   */
+  const clickSearch = (submit: () => void) => {
+    currentPage.value = 1
+    submit()
+  }
+
   /** 刷新查询请求 */
   const refreshRequest = () => {
-    if (searchRequest) {
-      searchFormRef.value?.submit()
+    if (searchRequest && !searchLoading.value) {
+      searchRef.value?.submit()
     }
   }
 
@@ -139,7 +150,7 @@ export const useSearch = (
   }
 
   return {
-    searchFormRef,
+    searchRef,
     collapse,
     searchLoading,
     searchVisible,
@@ -147,5 +158,6 @@ export const useSearch = (
     searchProps,
     refreshRequest,
     changeCollapse,
+    clickSearch,
   }
 }

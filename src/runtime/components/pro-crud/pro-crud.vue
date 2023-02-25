@@ -1,7 +1,7 @@
 <template>
   <div class="pro-crud">
     <!-- SEARCH -->
-    <pro-form v-if="searchVisible" ref="searchFormRef" v-bind="searchProps">
+    <pro-form v-if="searchVisible" ref="searchRef" v-bind="searchProps">
       <template #action="slotProps">
         <el-space>
           <el-button :icon="RefreshRight" @click="slotProps.reset">{{
@@ -11,7 +11,7 @@
             type="primary"
             :icon="Search"
             :loading="slotProps.loading"
-            @click="slotProps.submit"
+            @click="clickSearch(slotProps.submit)"
             >{{ slotProps.submitText }}</el-button
           >
           <el-button
@@ -30,11 +30,11 @@
     <div v-if="toolbarVisible" class="pro-crud__toolbar">
       <div v-if="title" class="pro-crud__toolbar-title">{{ title }}</div>
       <div class="pro-crud__toolbar-actions">
-        <el-space size="large">
+        <el-space class="pro-crud__toolbar-items" size="large">
           <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
             {{ createButtonText }}
           </el-button>
-          <el-space size="default">
+          <el-space class="pro-crud__toolbar-items" size="default">
             <el-tooltip v-if="actions.refresh" content="刷新" placement="top">
               <el-icon
                 class="pro-crud__toolbar-action"
@@ -102,7 +102,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { toRef } from 'vue'
+import { ref, toRef } from 'vue'
 import {
   ElTable,
   ElTableColumn,
@@ -134,9 +134,10 @@ import type {
   ProCrudCreate,
   ProCrudCreateRequest,
   ProCrudActions,
+  ProFormInstance,
 } from './types'
 import { useSearch } from './composables/use-search'
-import { useRenderPagination } from './composables/use-render-pagination'
+import { usePagination } from './composables/use-pagination'
 import { useToolbar } from './composables/use-toolbar'
 import { useCreate } from './composables/use-create'
 
@@ -163,20 +164,36 @@ const props = defineProps({
 
 const emit = defineEmits(['update:current-page', 'update:page-size'])
 
+const searchRef = ref<ProFormInstance | null>(null)
+const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
 
-const {
-  searchFormRef,
-  collapse,
+const { paginationProps, currentPage, pageSize } = usePagination(
+  searchRef,
   searchLoading,
+  toRef(props, 'pagination'),
+  emit
+)
+
+const {
+  collapse,
   searchVisible,
   searchCollapse,
   searchProps,
   changeCollapse,
   refreshRequest,
-} = useSearch(columnsRef, toRef(props, 'search'), props.searchRequest)
-const { paginationProps } = useRenderPagination(toRef(props, 'pagination'), emit)
+  clickSearch,
+} = useSearch(
+  searchRef,
+  searchLoading,
+  columnsRef,
+  toRef(props, 'search'),
+  currentPage,
+  pageSize,
+  props.searchRequest
+)
+
 const {
   createDialogVisible,
   createVisible,
@@ -185,6 +202,7 @@ const {
   createFormProps,
   openCreateDialog,
 } = useCreate(toRef(props, 'create'), columnsRef)
+
 const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, actionsRef)
 </script>
 
@@ -206,6 +224,10 @@ const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, acti
   display: flex;
   justify-content: flex-end;
   overflow: auto;
+}
+
+.pro-crud__toolbar-items >>> .el-space__item:last-child {
+  margin-right: 0 !important;
 }
 
 .pro-crud__toolbar-action {
