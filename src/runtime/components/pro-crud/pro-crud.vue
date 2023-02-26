@@ -34,7 +34,7 @@
           <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
             {{ createButtonText }}
           </el-button>
-          <el-space class="pro-crud__toolbar-items" size="default">
+          <el-space size="default">
             <el-tooltip v-if="actions.refresh" content="刷新" placement="top">
               <el-icon
                 class="pro-crud__toolbar-action"
@@ -45,8 +45,31 @@
                 <Refresh />
               </el-icon>
             </el-tooltip>
-            <el-tooltip content="列设置" placement="top">
-              <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
+            <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
+              <div>
+                <el-tooltip content="刷新" placement="top">
+                  <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
+                    <DCaret />
+                  </el-icon>
+                </el-tooltip>
+              </div>
+              <template #dropdown>
+                <el-dropdown-item
+                  v-for="option in sizeOptions"
+                  :key="option.value"
+                  :class="{ 'pro-crud__toolbar-size-active': size === option.value }"
+                  :command="option.value"
+                  >{{ option.label }}</el-dropdown-item
+                >
+              </template>
+            </el-dropdown>
+            <el-tooltip v-if="actions.setting" content="列设置" placement="top">
+              <el-icon
+                class="pro-crud__toolbar-action"
+                :size="18"
+                color="#000000"
+                @click="settingVisible = true"
+              >
                 <Setting />
               </el-icon>
             </el-tooltip>
@@ -55,8 +78,8 @@
       </div>
     </div>
     <!-- TABLE -->
-    <el-table v-loading="searchLoading" v-bind="$attrs" :data="data">
-      <el-table-column v-for="column in columns" :key="column.prop" v-bind="column">
+    <el-table v-loading="searchLoading" v-bind="$attrs" :data="data" :size="size">
+      <el-table-column v-for="column in filterColumns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
           <slot
             v-if="typeof column.slots?.header === 'string'"
@@ -91,16 +114,19 @@
     <div v-if="pagination" class="pro-crud__pagination">
       <el-pagination v-bind="paginationProps" />
     </div>
-    <!-- CREATE -->
+    <!-- CREATE DIALOG -->
     <create-dialog
       v-model="createDialogVisible"
       :title="createTitle"
       :form-props="createFormProps"
     />
+    <!-- SETTING DIALOG -->
+    <show-setting v-model="settingVisible" :columns="filterColumns" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { ComponentSize } from 'element-plus'
 import type { PropType } from 'vue'
 import { ref, toRef } from 'vue'
 import {
@@ -111,6 +137,8 @@ import {
   ElSpace,
   ElIcon,
   ElTooltip,
+  ElDropdown,
+  ElDropdownItem,
   vLoading,
 } from 'element-plus'
 import {
@@ -121,10 +149,12 @@ import {
   Plus,
   Refresh,
   Setting,
+  DCaret,
 } from '@element-plus/icons-vue'
 
 import ProForm from '../pro-form/pro-form.vue'
 import CreateDialog from './components/create-dialog.vue'
+import ShowSetting from './components/show-setting.vue'
 import type {
   ProCrudData,
   ProCrudColumn,
@@ -140,12 +170,17 @@ import { useSearch } from './composables/use-search'
 import { usePagination } from './composables/use-pagination'
 import { useToolbar } from './composables/use-toolbar'
 import { useCreate } from './composables/use-create'
+import { useSetting } from './composables/use-setting'
+import { useSize } from './composables/use-size'
+import { useTable } from './composables/use-table'
 
 const props = defineProps({
   /** 数据集 */
   data: { type: Array as PropType<ProCrudData>, default: () => [] },
   /** 表格列配置 */
   columns: { type: Array as PropType<ProCrudColumn[]>, default: () => [] },
+  /** 密度 */
+  size: { type: String as PropType<ComponentSize>, default: 'default' },
   /** 分页配置 */
   pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
   /** 控件配置 */
@@ -168,6 +203,8 @@ const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
+
+const { filterColumns } = useTable(columnsRef)
 
 const { paginationProps, currentPage, pageSize } = usePagination(
   searchRef,
@@ -204,9 +241,13 @@ const {
 } = useCreate(toRef(props, 'create'), columnsRef)
 
 const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, actionsRef)
+
+const { settingVisible } = useSetting()
+
+const { size, sizeOptions, changeSize } = useSize(toRef(props, 'size'))
 </script>
 
-<style scoped>
+<style>
 .pro-crud__toolbar {
   display: flex;
   align-items: center;
@@ -226,11 +267,16 @@ const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, acti
   overflow: auto;
 }
 
-.pro-crud__toolbar-items >>> .el-space__item:last-child {
+.pro-crud__toolbar-items .el-space__item:last-child {
   margin-right: 0 !important;
 }
 
+.pro-crud__toolbar-size-active {
+  color: var(--el-color-primary);
+}
+
 .pro-crud__toolbar-action {
+  vertical-align: middle;
   cursor: pointer;
 }
 

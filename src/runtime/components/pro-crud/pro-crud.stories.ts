@@ -131,34 +131,6 @@ Search.args = {
     { prop: 'city', label: '城市', search: true },
     { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
   ] as ProCrudColumn[],
-}
-Search.storyName = '带查询'
-
-export const SearchAction = Template.bind({})
-SearchAction.args = {
-  data,
-  columns: [
-    { prop: 'date', label: '日期', search: true },
-    { prop: 'name', label: '姓名', search: true },
-  ] as ProCrudColumn[],
-  search: { action: { resetText: '清空', submitText: '搜索' } } as ProCrudSearch,
-}
-SearchAction.storyName = '查询按钮配置'
-
-export const InlineSearch = Template.bind({})
-InlineSearch.args = {
-  data,
-  columns: [
-    { prop: 'date', label: '日期', search: true },
-    { prop: 'name', label: '姓名', search: true },
-  ] as ProCrudColumn[],
-  search: { inline: true } as ProCrudSearch,
-}
-InlineSearch.storyName = '行内布局查询'
-
-export const SearchMethod = Template.bind({})
-SearchMethod.args = {
-  ...Search.args,
   searchRequest: (({ done }) => {
     setTimeout(() => {
       done()
@@ -169,14 +141,55 @@ SearchMethod.args = {
     total: 1000,
   } as ProCrudPagination,
 }
-SearchMethod.storyName = '查询请求'
+Search.storyName = '带查询'
+
+export const SearchAction = Template.bind({})
+SearchAction.args = {
+  ...Search.args,
+  search: { action: { resetText: '清空', submitText: '搜索' } } as ProCrudSearch,
+}
+SearchAction.storyName = '查询按钮配置'
+
+export const InlineSearch = Template.bind({})
+InlineSearch.args = {
+  ...Search.args,
+  search: { inline: true } as ProCrudSearch,
+}
+InlineSearch.storyName = '行内布局查询'
 
 export const RefreshAction = Template.bind({})
 RefreshAction.args = {
-  ...SearchMethod.args,
+  ...Search.args,
   actions: { refresh: true } as ProCrudActions,
 }
 RefreshAction.storyName = '可刷新'
+
+export const SettingAction = Template.bind({})
+SettingAction.args = {
+  ...Search.args,
+  actions: { setting: true } as ProCrudActions,
+}
+SettingAction.storyName = '列设置'
+
+export const SizeAction = Template.bind({})
+SizeAction.args = {
+  ...Search.args,
+  actions: { size: true, refresh: true } as ProCrudActions,
+}
+SizeAction.storyName = '密度'
+
+export const HideColumn = Template.bind({})
+HideColumn.args = {
+  ...Search.args,
+  columns: [
+    { prop: 'date', label: '日期', search: true, hide: true },
+    { prop: 'name', label: '姓名', search: true },
+    { prop: 'state', label: '州', search: true },
+    { prop: 'city', label: '城市', search: true },
+    { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
+  ] as ProCrudColumn[],
+}
+HideColumn.storyName = '列隐藏'
 
 export const SearchLabelWidth = Template.bind({})
 SearchLabelWidth.args = {
@@ -296,6 +309,6 @@ AllUse.args = {
     }, 2000)
   }) as ProCrudSearchRequest,
   search: { collapseCount: 3 } as ProCrudSearch,
-  actions: { refresh: true } as ProCrudActions,
+  actions: { refresh: true, setting: true } as ProCrudActions,
 }
 AllUse.storyName = '综合使用'

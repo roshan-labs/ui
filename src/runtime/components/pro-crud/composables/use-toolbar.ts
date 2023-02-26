@@ -11,13 +11,22 @@ export const useToolbar = (
   createVisible: ComputedRef<boolean>,
   actions: Ref<ProCrudActions>
 ) => {
+  /** 工具栏是否可见 */
   const toolbarVisible = computed(() => {
-    const { refresh } = actions.value
+    const { refresh, setting, size } = actions.value
 
-    return title.value.trim() !== '' || createVisible.value || !!refresh
+    return title.value.trim() !== '' || createVisible.value || !!refresh || !!setting || !!size
+  })
+
+  /** 工具栏控件是否可见 */
+  const actionsVisible = computed(() => {
+    const { refresh, setting, size } = actions.value
+
+    return !!refresh || !!setting || !!size
   })
 
   return {
     toolbarVisible,
+    actionsVisible,
   }
 }

@@ -16,6 +16,8 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
   prop: string
   /** TableColumn 插槽 */
   slots?: Slots<'default' | 'header'>
+  /** 是否隐藏此列 */
+  hide?: boolean
   /** 查询表单项配置 */
   search?: boolean | ProFormOption
   /** 新增表单项配置 */
@@ -26,6 +28,10 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
 export interface ProCrudActions {
   /** 是否可刷新并显示刷新控件 */
   refresh?: boolean
+  /** 是否可以配置列 */
+  setting?: boolean
+  /** 是否可以切换表格尺寸 */
+  size?: boolean
 }
 
 /** 分页配置 */
