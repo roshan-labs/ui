@@ -11,9 +11,8 @@ export type ProFormInstance = InstanceType<typeof ProForm>
 export type ProCrudData<T = any> = T[]
 
 /** Crud 选项配置 */
-export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'realWidth'>> & {
-  /** TableColumn prop 必填 */
-  prop: string
+export interface ProCrudColumn<T = any>
+  extends Partial<Omit<TableColumnCtx<T>, 'id' | 'realWidth'>> {
   /** TableColumn 插槽 */
   slots?: Slots<'default' | 'header'>
   /** 是否隐藏此列 */
@@ -22,6 +21,18 @@ export type ProCrudColumn<T = any> = Partial<Omit<TableColumnCtx<T>, 'id' | 'rea
   search?: boolean | ProFormOption
   /** 新增表单项配置 */
   create?: boolean | ProFormOption
+}
+
+/** Crud 操作列配置 */
+export interface ProCrudActionsColumn {
+  /** 是否隐藏 */
+  hide?: boolean
+  /** 标题 */
+  title?: string
+  /** 是否查看表格行详情 */
+  view?: boolean
+  /** 查看文本 */
+  viewText?: string
 }
 
 /** Crud 控件配置 */

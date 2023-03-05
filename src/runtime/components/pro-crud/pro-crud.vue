@@ -103,6 +103,13 @@
           />
         </template>
       </el-table-column>
+      <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
+        <template #default>
+          <el-button v-if="actionsColumnConfig.view" type="primary" :size="size" link>{{
+            actionsColumnConfig.viewText
+          }}</el-button>
+        </template>
+      </el-table-column>
       <template v-if="$slots.append" #append>
         <slot name="append" />
       </template>
@@ -164,8 +171,10 @@ import type {
   ProCrudCreate,
   ProCrudCreateRequest,
   ProCrudActions,
+  ProCrudActionsColumn,
   ProFormInstance,
 } from './types'
+import { useActionsColumn } from './composables/use-actions-column'
 import { useSearch } from './composables/use-search'
 import { usePagination } from './composables/use-pagination'
 import { useToolbar } from './composables/use-toolbar'
@@ -179,6 +188,8 @@ const props = defineProps({
   data: { type: Array as PropType<ProCrudData>, default: () => [] },
   /** 表格列配置 */
   columns: { type: Array as PropType<ProCrudColumn[]>, default: () => [] },
+  /** 表格操作列配置 */
+  actionsColumn: { type: Object as PropType<ProCrudActionsColumn>, default: () => ({}) },
   /** 密度 */
   size: { type: String as PropType<ComponentSize>, default: 'default' },
   /** 分页配置 */
@@ -203,6 +214,10 @@ const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
+
+const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } = useActionsColumn(
+  toRef(props, 'actionsColumn')
+)
 
 const { filterColumns } = useTable(columnsRef)
 

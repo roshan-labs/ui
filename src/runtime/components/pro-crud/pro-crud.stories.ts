@@ -7,6 +7,7 @@ import type {
   ProCrudPagination,
   ProCrudSearchRequest,
   ProCrudActions,
+  ProCrudActionsColumn,
 } from './types'
 import { ProCrud } from '.'
 
@@ -174,7 +175,8 @@ SettingAction.storyName = '列设置'
 export const SizeAction = Template.bind({})
 SizeAction.args = {
   ...Search.args,
-  actions: { size: true, refresh: true } as ProCrudActions,
+  actions: { size: true } as ProCrudActions,
+  size: 'small',
 }
 SizeAction.storyName = '密度'
 
@@ -190,6 +192,13 @@ HideColumn.args = {
   ] as ProCrudColumn[],
 }
 HideColumn.storyName = '列隐藏'
+
+export const ActionsColumn = Template.bind({})
+ActionsColumn.args = {
+  ...Default.args,
+  actionsColumn: { hide: true } as ProCrudActionsColumn,
+}
+ActionsColumn.storyName = '操作列隐藏'
 
 export const SearchLabelWidth = Template.bind({})
 SearchLabelWidth.args = {

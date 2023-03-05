@@ -33,13 +33,13 @@ export const useCreate = (
       if (isBoolean(createProps) && createProps) {
         prev.push({
           type: 'input',
-          prop: column.prop,
+          prop: column.prop ?? '',
           label: column.label ?? '',
         })
       } else if (createProps) {
         const option: ProFormOption = {
           ...createProps,
-          prop: column.prop,
+          prop: column.prop ?? '',
           label: column.label,
         }
 

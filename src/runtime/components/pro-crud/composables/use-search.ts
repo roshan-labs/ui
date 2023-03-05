@@ -25,7 +25,7 @@ export const useSearch = (
       if (isBoolean(searchProp) && searchProp) {
         const config: ProFormOption = {
           type: 'input',
-          prop: column.prop,
+          prop: column.prop ?? '',
           label: column.label ?? '',
         }
 
