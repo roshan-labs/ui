@@ -46,18 +46,18 @@
               </el-icon>
             </el-tooltip>
             <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
-              <div>
+              <span>
                 <el-tooltip content="刷新" placement="top">
                   <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
                     <DCaret />
                   </el-icon>
                 </el-tooltip>
-              </div>
+              </span>
               <template #dropdown>
                 <el-dropdown-item
                   v-for="option in sizeOptions"
                   :key="option.value"
-                  :class="{ 'pro-crud__toolbar-size-active': size === option.value }"
+                  :class="{ 'pro-crud__toolbar-size-active': sizeModel === option.value }"
                   :command="option.value"
                   >{{ option.label }}</el-dropdown-item
                 >
@@ -78,7 +78,7 @@
       </div>
     </div>
     <!-- TABLE -->
-    <el-table v-loading="searchLoading" v-bind="$attrs" :data="data" :size="size">
+    <el-table v-loading="searchLoading" v-bind="$attrs" :data="data" :size="sizeModel">
       <el-table-column v-for="column in filterColumns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
           <slot
@@ -105,9 +105,14 @@
       </el-table-column>
       <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
         <template #default>
-          <el-button v-if="actionsColumnConfig.view" type="primary" :size="size" link>{{
-            actionsColumnConfig.viewText
-          }}</el-button>
+          <el-button
+            v-if="actionsColumnConfig.view"
+            type="primary"
+            :size="sizeModel"
+            link
+            @click="viewVisible = true"
+            >{{ actionsColumnConfig.viewText }}</el-button
+          >
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
@@ -129,13 +134,15 @@
     />
     <!-- SETTING DIALOG -->
     <show-setting v-model="settingVisible" :columns="filterColumns" />
+    <!-- VIEW DIALOG -->
+    <view-dialog v-model="viewVisible" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { ComponentSize } from 'element-plus'
 import type { PropType } from 'vue'
-import { ref, toRef } from 'vue'
+import { ref, toRef, defineAsyncComponent } from 'vue'
 import {
   ElTable,
   ElTableColumn,
@@ -160,8 +167,6 @@ import {
 } from '@element-plus/icons-vue'
 
 import ProForm from '../pro-form/pro-form.vue'
-import CreateDialog from './components/create-dialog.vue'
-import ShowSetting from './components/show-setting.vue'
 import type {
   ProCrudData,
   ProCrudColumn,
@@ -182,6 +187,11 @@ import { useCreate } from './composables/use-create'
 import { useSetting } from './composables/use-setting'
 import { useSize } from './composables/use-size'
 import { useTable } from './composables/use-table'
+import { useView } from './composables/use-view'
+
+const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
+const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
+const ViewDialog = defineAsyncComponent(() => import('./components/view-dialog.vue'))
 
 const props = defineProps({
   /** 数据集 */
@@ -208,7 +218,7 @@ const props = defineProps({
   createRequest: { type: Function as PropType<ProCrudCreateRequest> },
 })
 
-const emit = defineEmits(['update:current-page', 'update:page-size'])
+const emit = defineEmits(['update:current-page', 'update:page-size', 'update:size'])
 
 const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)
@@ -259,7 +269,9 @@ const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, acti
 
 const { settingVisible } = useSetting()
 
-const { size, sizeOptions, changeSize } = useSize(toRef(props, 'size'))
+const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emit)
+
+const { viewVisible } = useView()
 </script>
 
 <style>

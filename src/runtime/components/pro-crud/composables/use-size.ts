@@ -1,13 +1,19 @@
 import type { ComponentSize } from 'element-plus'
 import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 
 /**
  * Crud 密度
  */
-export const useSize = (sizeProp: Ref<ComponentSize>) => {
+export const useSize = (
+  sizeProp: Ref<ComponentSize>,
+  emit: (event: 'update:size', ...args: any[]) => void
+) => {
   /** 密度尺寸 */
-  const size = ref<ComponentSize>('')
+  const sizeModel = computed({
+    get: () => sizeProp.value,
+    set: (value) => emit('update:size', value),
+  })
 
   /** 密度选项 */
   const sizeOptions = [
@@ -16,20 +22,12 @@ export const useSize = (sizeProp: Ref<ComponentSize>) => {
     { value: 'large', label: '宽松' },
   ]
 
-  watch(
-    sizeProp,
-    (value) => {
-      size.value = value
-    },
-    { immediate: true }
-  )
-
   const changeSize = (value: ComponentSize) => {
-    size.value = value
+    sizeModel.value = value
   }
 
   return {
-    size,
+    sizeModel,
     sizeOptions,
     changeSize,
   }

@@ -16,6 +16,12 @@ export default {
   component: ProCrud,
   argTypes: {
     'onUpdate:currentPage': { action: 'update:current-page' },
+    'onUpdate:pageSize': { action: 'update:page-size' },
+    'onUpdate:size': { action: 'update:size' },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'default', 'large'],
+    },
   },
 } as Meta
 
@@ -199,6 +205,15 @@ ActionsColumn.args = {
   actionsColumn: { hide: true } as ProCrudActionsColumn,
 }
 ActionsColumn.storyName = '操作列隐藏'
+
+export const ViewRow = Template.bind({})
+ViewRow.args = {
+  ...Default.args,
+  actionsColumn: {
+    view: true,
+  } as ProCrudActionsColumn,
+}
+ViewRow.storyName = '查看数据'
 
 export const SearchLabelWidth = Template.bind({})
 SearchLabelWidth.args = {
