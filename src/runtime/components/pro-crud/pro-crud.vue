@@ -104,13 +104,13 @@
         </template>
       </el-table-column>
       <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
-        <template #default>
+        <template #default="{ $index }">
           <el-button
             v-if="actionsColumnConfig.view"
             type="primary"
             :size="sizeModel"
             link
-            @click="viewVisible = true"
+            @click="viewRow($index)"
             >{{ actionsColumnConfig.viewText }}</el-button
           >
         </template>
@@ -271,7 +271,7 @@ const { settingVisible } = useSetting()
 
 const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emit)
 
-const { viewVisible } = useView()
+const { viewVisible, viewRow } = useView(toRef(props, 'data'))
 </script>
 
 <style>
