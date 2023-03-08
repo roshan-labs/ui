@@ -333,6 +333,6 @@ AllUse.args = {
     }, 2000)
   }) as ProCrudSearchRequest,
   search: { collapseCount: 3 } as ProCrudSearch,
-  actions: { refresh: true, setting: true } as ProCrudActions,
+  actions: { refresh: true, size: true, setting: true } as ProCrudActions,
 }
 AllUse.storyName = '综合使用'

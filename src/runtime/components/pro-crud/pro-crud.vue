@@ -47,7 +47,7 @@
             </el-tooltip>
             <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
               <span>
-                <el-tooltip content="刷新" placement="top">
+                <el-tooltip content="密度" placement="top">
                   <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
                     <DCaret />
                   </el-icon>
@@ -113,6 +113,14 @@
             @click="viewRow($index)"
             >{{ actionsColumnConfig.viewText }}</el-button
           >
+          <el-button
+            v-if="actionsColumnConfig.remove"
+            type="primary"
+            :size="sizeModel"
+            link
+            @click="selectRemoveRow($index)"
+            >{{ actionsColumnConfig.removeText }}</el-button
+          >
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
@@ -135,7 +143,7 @@
     <!-- SETTING DIALOG -->
     <show-setting v-model="settingVisible" :columns="filterColumns" />
     <!-- VIEW DIALOG -->
-    <view-dialog v-model="viewVisible" />
+    <view-dialog v-model="viewVisible" :options="viewOptions" />
   </div>
 </template>
 
@@ -188,6 +196,7 @@ import { useSetting } from './composables/use-setting'
 import { useSize } from './composables/use-size'
 import { useTable } from './composables/use-table'
 import { useView } from './composables/use-view'
+import { useRemove } from './composables/use-remove'
 
 const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
 const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
@@ -218,12 +227,13 @@ const props = defineProps({
   createRequest: { type: Function as PropType<ProCrudCreateRequest> },
 })
 
-const emit = defineEmits(['update:current-page', 'update:page-size', 'update:size'])
+const emit = defineEmits(['update:current-page', 'update:page-size', 'update:size', 'remove'])
 
 const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
+const dataRef = toRef(props, 'data')
 
 const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } = useActionsColumn(
   toRef(props, 'actionsColumn')
@@ -271,7 +281,9 @@ const { settingVisible } = useSetting()
 
 const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emit)
 
-const { viewVisible, viewRow } = useView(toRef(props, 'data'))
+const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
+
+const { selectRemoveRow } = useRemove()
 </script>
 
 <style>

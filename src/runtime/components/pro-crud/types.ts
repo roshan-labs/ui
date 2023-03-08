@@ -7,8 +7,11 @@ import { ProForm } from '../pro-form'
 /** ProForm 实例 */
 export type ProFormInstance = InstanceType<typeof ProForm>
 
-/** Crud 数据 */
-export type ProCrudData<T = any> = T[]
+/** Crud 单条数据 */
+export type Data = Record<string, any>
+
+/** Crud 数据集合 */
+export type ProCrudData<T = Data> = T[]
 
 /** Crud 选项配置 */
 export interface ProCrudColumn<T = any>
@@ -33,6 +36,10 @@ export interface ProCrudActionsColumn {
   view?: boolean
   /** 查看文本 */
   viewText?: string
+  /** 是否删除单条数据 */
+  remove?: boolean
+  /** 删除单条数据按钮文本 */
+  removeText?: string
 }
 
 /** Crud 控件配置 */
@@ -84,3 +91,14 @@ export type ProCrudCreateRequest = (payload: {
   params: Record<string, any>
   done: ProFormDone
 }) => void
+
+/** 数据查看选项 */
+export interface ProCrudViewOption {
+  /** 标题 */
+  label: string
+  /** 值 */
+  value: string
+}
+
+/** 删除数据事件 */
+export type ProCrudRemoveEvent = <T = any>(payload: { row: T; done: () => void }) => Promise<void>
