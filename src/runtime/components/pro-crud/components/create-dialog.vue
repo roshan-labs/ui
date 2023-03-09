@@ -3,6 +3,7 @@
     v-model="visible"
     v-model:fullscreen="fullscreen"
     :title="title"
+    width="30%"
     @cancel="closeDialog"
     @closed="onClosed"
     @confirm="onConfirm"

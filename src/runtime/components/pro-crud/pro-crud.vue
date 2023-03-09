@@ -45,24 +45,22 @@
                 <Refresh />
               </el-icon>
             </el-tooltip>
-            <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
-              <span>
-                <el-tooltip content="密度" placement="top">
-                  <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
-                    <DCaret />
-                  </el-icon>
-                </el-tooltip>
-              </span>
-              <template #dropdown>
-                <el-dropdown-item
-                  v-for="option in sizeOptions"
-                  :key="option.value"
-                  :class="{ 'pro-crud__toolbar-size-active': sizeModel === option.value }"
-                  :command="option.value"
-                  >{{ option.label }}</el-dropdown-item
-                >
-              </template>
-            </el-dropdown>
+            <el-tooltip content="密度" placement="top">
+              <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
+                <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
+                  <DCaret />
+                </el-icon>
+                <template #dropdown>
+                  <el-dropdown-item
+                    v-for="option in sizeOptions"
+                    :key="option.value"
+                    :class="{ 'pro-crud__toolbar-size-active': sizeModel === option.value }"
+                    :command="option.value"
+                    >{{ option.label }}</el-dropdown-item
+                  >
+                </template>
+              </el-dropdown>
+            </el-tooltip>
             <el-tooltip v-if="actions.setting" content="列设置" placement="top">
               <el-icon
                 class="pro-crud__toolbar-action"
@@ -118,9 +116,12 @@
             type="primary"
             :size="sizeModel"
             link
-            @click="selectRemoveRow($index)"
+            @click="removeRow($index)"
             >{{ actionsColumnConfig.removeText }}</el-button
           >
+          <el-button v-if="actionsColumnConfig.edit" type="primary" :size="sizeModel" link>{{
+            actionsColumnConfig.editText
+          }}</el-button>
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
@@ -180,9 +181,7 @@ import type {
   ProCrudColumn,
   ProCrudSearch,
   ProCrudPagination,
-  ProCrudSearchRequest,
   ProCrudCreate,
-  ProCrudCreateRequest,
   ProCrudActions,
   ProCrudActionsColumn,
   ProFormInstance,
@@ -217,17 +216,20 @@ const props = defineProps({
   actions: { type: Object as PropType<ProCrudActions>, default: () => ({}) },
   /** 查询表单配置 */
   search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
-  /** 查询表单请求 */
-  searchRequest: { type: Function as PropType<ProCrudSearchRequest> },
   /** 表格标题 */
   title: { type: String, default: '' },
   /** 新增表单配置 */
   create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
-  /** 新增提交请求 */
-  createRequest: { type: Function as PropType<ProCrudCreateRequest> },
 })
 
-const emit = defineEmits(['update:current-page', 'update:page-size', 'update:size', 'remove'])
+const emit = defineEmits([
+  'update:current-page',
+  'update:page-size',
+  'update:size',
+  'create',
+  'search',
+  'remove',
+])
 
 const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)
@@ -263,7 +265,7 @@ const {
   toRef(props, 'search'),
   currentPage,
   pageSize,
-  props.searchRequest
+  emit
 )
 
 const {
@@ -273,7 +275,7 @@ const {
   createTitle,
   createFormProps,
   openCreateDialog,
-} = useCreate(toRef(props, 'create'), columnsRef)
+} = useCreate(toRef(props, 'create'), columnsRef, emit, refreshRequest)
 
 const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, actionsRef)
 
@@ -283,7 +285,7 @@ const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emi
 
 const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
-const { selectRemoveRow } = useRemove()
+const { removeRow } = useRemove(dataRef, emit, refreshRequest)
 </script>
 
 <style>

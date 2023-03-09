@@ -36,10 +36,14 @@ export interface ProCrudActionsColumn {
   view?: boolean
   /** 查看文本 */
   viewText?: string
-  /** 是否删除单条数据 */
+  /** 是否删除数据 */
   remove?: boolean
-  /** 删除单条数据按钮文本 */
+  /** 删除数据按钮文本 */
   removeText?: string
+  /** 是否编辑数据 */
+  edit?: boolean
+  /** 编辑数据按钮文本 */
+  editText?: string
 }
 
 /** Crud 控件配置 */
@@ -68,13 +72,13 @@ export interface ProCrudSearch extends Omit<ProFormProps, 'options'> {
   collapseCount?: number
 }
 
-/** 查询表单请求 */
-export type ProCrudSearchRequest = (payload: {
+/** 查询数据事件 */
+export type ProCrudSearchEvent = (payload: {
   params: Record<string, any>
   done: ProFormDone
   currentPage: number
   pageSize: number
-}) => void
+}) => Promise<void> | void
 
 /** 新增表单配置 */
 export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
@@ -86,11 +90,11 @@ export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
   title?: string
 }
 
-/** 新增提交请求 */
-export type ProCrudCreateRequest = (payload: {
+/** 新增数据事件 */
+export type ProCrudCreateEvent = (payload: {
   params: Record<string, any>
   done: ProFormDone
-}) => void
+}) => Promise<void> | void
 
 /** 数据查看选项 */
 export interface ProCrudViewOption {
@@ -101,4 +105,7 @@ export interface ProCrudViewOption {
 }
 
 /** 删除数据事件 */
-export type ProCrudRemoveEvent = <T = any>(payload: { row: T; done: () => void }) => Promise<void>
+export type ProCrudRemoveEvent = <T = any>(payload: {
+  row: T
+  done: () => void
+}) => Promise<void> | void

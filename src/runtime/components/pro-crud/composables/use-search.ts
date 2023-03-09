@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
-import type { ProCrudColumn, ProCrudSearch, ProCrudSearchRequest, ProFormInstance } from '../types'
+import type { ProCrudColumn, ProCrudSearch, ProFormInstance } from '../types'
 import type { ProFormOption, ProFormProps, ProFormDone } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
 
@@ -12,7 +12,7 @@ export const useSearch = (
   search: Ref<ProCrudSearch>,
   currentPage: Ref<number>,
   pageSize: Ref<number>,
-  searchRequest?: ProCrudSearchRequest
+  emit: (event: 'search', ...args: any[]) => void
 ) => {
   /** 展开收起状态 */
   const collapse = ref(true)
@@ -90,7 +90,7 @@ export const useSearch = (
       ...search.value,
       options: searchOptions.value,
       action: searchAction.value,
-      onSubmit: searchSubmit,
+      onSubmit: submit,
     }
 
     if (!search.value.inline && isUndefined(search.value.labelWidth)) {
@@ -111,21 +111,17 @@ export const useSearch = (
     }
   }
 
-  const searchSubmit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
+  const submit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
     if (isValid) {
-      const searchDone = createDone(done)
+      const doneFunc = createDone(done)
 
-      if (searchRequest) {
-        searchLoading.value = true
-        searchRequest({
-          params: fields,
-          done: searchDone,
-          currentPage: currentPage.value,
-          pageSize: pageSize.value,
-        })
-      } else {
-        done()
-      }
+      searchLoading.value = true
+      emit('search', {
+        params: fields,
+        currentPage: currentPage.value,
+        pageSize: pageSize.value,
+        done: doneFunc,
+      })
     }
   }
 
@@ -140,7 +136,7 @@ export const useSearch = (
 
   /** 刷新查询请求 */
   const refreshRequest = () => {
-    if (searchRequest && !searchLoading.value) {
+    if (!searchLoading.value) {
       searchRef.value?.submit()
     }
   }

@@ -1,21 +1,49 @@
 import type { Ref } from 'vue'
-import { ref } from 'vue'
 
-import type { Data } from '../types'
-import { useElMessageBox } from '../../../composables'
+import type { ProCrudData } from '../types'
+import { useElMessageBox, useElMessage } from '../../../composables'
 
 /**
  * 删除数据操作
  */
-export const useRemove = () => {
-  /** 选择删除的数据 */
-  // const selectedRow = ref<Data | null>(null)
+export const useRemove = (
+  data: Ref<ProCrudData>,
+  emit: (event: 'remove', ...args: any[]) => void,
+  refreshRequest: () => void
+) => {
+  /** 确认删除数据 */
+  const removeRow = (index: number) => {
+    const row = data.value[index]
 
-  const selectRemoveRow = () => {
-    useElMessageBox().confirm('确定删除这条数据吗？')
+    if (row) {
+      useElMessageBox()
+        .confirm('确定删除这条数据吗？', '确认删除', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          beforeClose(action, instance, done) {
+            if (action === 'confirm') {
+              const createDone = () => () => {
+                done()
+                instance.confirmButtonLoading = false
+                refreshRequest()
+              }
+
+              instance.confirmButtonLoading = true
+              emit('remove', { row, done: createDone() })
+            } else {
+              done()
+            }
+          },
+        })
+        .then(() => {
+          useElMessage().success('删除成功！')
+        })
+        .catch(() => {})
+    }
   }
 
   return {
-    selectRemoveRow,
+    removeRow,
   }
 }

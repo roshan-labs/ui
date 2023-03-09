@@ -5,9 +5,11 @@ import type {
   ProCrudColumn,
   ProCrudSearch,
   ProCrudPagination,
-  ProCrudSearchRequest,
   ProCrudActions,
   ProCrudActionsColumn,
+  ProCrudSearchEvent,
+  ProCrudCreateEvent,
+  ProCrudRemoveEvent,
 } from './types'
 import { ProCrud } from '.'
 
@@ -18,6 +20,8 @@ export default {
     'onUpdate:currentPage': { action: 'update:current-page' },
     'onUpdate:pageSize': { action: 'update:page-size' },
     'onUpdate:size': { action: 'update:size' },
+    onSearch: { action: 'search' },
+    onRemove: { action: 'remove' },
     size: {
       control: { type: 'select' },
       options: ['small', 'default', 'large'],
@@ -128,6 +132,64 @@ TableSlot.args = {
 }
 TableSlot.storyName = '表格插槽'
 
+export const RefreshAction = Template.bind({})
+RefreshAction.args = {
+  ...Default.args,
+  actions: { refresh: true } as ProCrudActions,
+}
+RefreshAction.storyName = '可刷新'
+
+export const SettingAction = Template.bind({})
+SettingAction.args = {
+  ...Default.args,
+  actions: { setting: true } as ProCrudActions,
+}
+SettingAction.storyName = '列设置'
+
+export const SizeAction = Template.bind({})
+SizeAction.args = {
+  ...Default.args,
+  actions: { size: true } as ProCrudActions,
+  size: 'small',
+}
+SizeAction.storyName = '密度'
+
+export const HideColumn = Template.bind({})
+HideColumn.args = {
+  ...Default.args,
+  columns: [
+    { prop: 'date', label: '日期', search: true, hide: true },
+    { prop: 'name', label: '姓名', search: true },
+    { prop: 'state', label: '州', search: true },
+    { prop: 'city', label: '城市', search: true },
+    { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
+  ] as ProCrudColumn[],
+}
+HideColumn.storyName = '列隐藏'
+
+export const ViewRow = Template.bind({})
+ViewRow.args = {
+  ...Default.args,
+  actionsColumn: {
+    view: true,
+    remove: false,
+  } as ProCrudActionsColumn,
+}
+ViewRow.storyName = '查看数据'
+
+export const RemoveRow = Template.bind({})
+RemoveRow.args = {
+  ...Default.args,
+  actionsColumn: {
+    view: false,
+    remove: true,
+  } as ProCrudActionsColumn,
+  onRemove: (({ done }) => {
+    window.setTimeout(done, 2000)
+  }) as ProCrudRemoveEvent,
+}
+RemoveRow.storyName = '删除数据'
+
 export const Search = Template.bind({})
 Search.args = {
   data,
@@ -138,17 +200,15 @@ Search.args = {
     { prop: 'city', label: '城市', search: true },
     { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
   ] as ProCrudColumn[],
-  searchRequest: (({ done }) => {
-    setTimeout(() => {
-      done()
-    }, 2000)
-  }) as ProCrudSearchRequest,
+  onSearch: (({ done }) => {
+    window.setTimeout(done, 2000)
+  }) as ProCrudSearchEvent,
   pagination: {
     currentPage: 1,
     total: 1000,
   } as ProCrudPagination,
 }
-Search.storyName = '带查询'
+Search.storyName = '查询条件'
 
 export const SearchAction = Template.bind({})
 SearchAction.args = {
@@ -163,57 +223,6 @@ InlineSearch.args = {
   search: { inline: true } as ProCrudSearch,
 }
 InlineSearch.storyName = '行内布局查询'
-
-export const RefreshAction = Template.bind({})
-RefreshAction.args = {
-  ...Search.args,
-  actions: { refresh: true } as ProCrudActions,
-}
-RefreshAction.storyName = '可刷新'
-
-export const SettingAction = Template.bind({})
-SettingAction.args = {
-  ...Search.args,
-  actions: { setting: true } as ProCrudActions,
-}
-SettingAction.storyName = '列设置'
-
-export const SizeAction = Template.bind({})
-SizeAction.args = {
-  ...Search.args,
-  actions: { size: true } as ProCrudActions,
-  size: 'small',
-}
-SizeAction.storyName = '密度'
-
-export const HideColumn = Template.bind({})
-HideColumn.args = {
-  ...Search.args,
-  columns: [
-    { prop: 'date', label: '日期', search: true, hide: true },
-    { prop: 'name', label: '姓名', search: true },
-    { prop: 'state', label: '州', search: true },
-    { prop: 'city', label: '城市', search: true },
-    { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
-  ] as ProCrudColumn[],
-}
-HideColumn.storyName = '列隐藏'
-
-export const ActionsColumn = Template.bind({})
-ActionsColumn.args = {
-  ...Default.args,
-  actionsColumn: { hide: true } as ProCrudActionsColumn,
-}
-ActionsColumn.storyName = '操作列隐藏'
-
-export const ViewRow = Template.bind({})
-ViewRow.args = {
-  ...Default.args,
-  actionsColumn: {
-    view: true,
-  } as ProCrudActionsColumn,
-}
-ViewRow.storyName = '查看数据'
 
 export const SearchLabelWidth = Template.bind({})
 SearchLabelWidth.args = {
@@ -286,12 +295,15 @@ AddData.args = {
     { prop: 'name', label: '姓名', create: true },
   ] as ProCrudColumn[],
   title: '我是一个可新增数据表格',
+  onCreate: (({ done }) => {
+    window.setTimeout(done, 2000)
+  }) as ProCrudCreateEvent,
 }
 AddData.storyName = '新增数据'
 
 export const AddDataValidate = Template.bind({})
 AddDataValidate.args = {
-  data,
+  ...AddData.args,
   columns: [
     {
       prop: 'date',
@@ -308,9 +320,15 @@ AddDataValidate.args = {
       },
     },
   ] as ProCrudColumn[],
-  title: '我是一个可新增数据表格',
 }
 AddDataValidate.storyName = '新增数据带验证'
+
+export const EditData = Template.bind({})
+EditData.args = {
+  ...Search.args,
+  actionsColumn: { edit: true } as ProCrudActionsColumn,
+}
+EditData.storyName = '编辑数据'
 
 export const AllUse = Template.bind({})
 AllUse.args = {
@@ -323,16 +341,10 @@ AllUse.args = {
     { prop: 'city', label: '城市', search: true },
     { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
   ] as ProCrudColumn[],
-  pagination: {
-    currentPage: 1,
-    total: 1000,
-  } as ProCrudPagination,
-  searchRequest: (({ done }) => {
-    setTimeout(() => {
-      done()
-    }, 2000)
-  }) as ProCrudSearchRequest,
   search: { collapseCount: 3 } as ProCrudSearch,
   actions: { refresh: true, size: true, setting: true } as ProCrudActions,
+  pagination: Search.args.pagination,
+  onSearch: Search.args.onSearch,
+  onRemove: RemoveRow.args.onRemove,
 }
 AllUse.storyName = '综合使用'

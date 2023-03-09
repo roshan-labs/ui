@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
-import type { ProCrudColumn, ProCrudCreate, ProCrudCreateRequest } from '../types'
+import type { ProCrudColumn, ProCrudCreate } from '../types'
 import type { ProFormProps, ProFormOption, ProFormSubmit, ProFormDone } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
 
@@ -11,7 +11,8 @@ import { isUndefined, isBoolean } from '../../../utils'
 export const useCreate = (
   create: Ref<ProCrudCreate>,
   columns: Ref<ProCrudColumn[]>,
-  createRequest?: ProCrudCreateRequest
+  emit: (event: 'create', ...args: any[]) => void,
+  refreshRequest: () => void
 ) => {
   /** 新增数据对话框是否显示 */
   const createDialogVisible = ref(false)
@@ -78,6 +79,7 @@ export const useCreate = (
     return () => {
       done()
       createDialogVisible.value = false
+      refreshRequest()
     }
   }
 
@@ -85,11 +87,7 @@ export const useCreate = (
     if (isValid) {
       const doneFunc = createDone(done)
 
-      if (createRequest) {
-        createRequest({ params: fields, done: doneFunc })
-      } else {
-        doneFunc()
-      }
+      emit('create', { params: fields, done: doneFunc })
     }
   }
 
