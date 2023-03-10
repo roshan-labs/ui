@@ -119,9 +119,14 @@
             @click="removeRow($index)"
             >{{ actionsColumnConfig.removeText }}</el-button
           >
-          <el-button v-if="actionsColumnConfig.edit" type="primary" :size="sizeModel" link>{{
-            actionsColumnConfig.editText
-          }}</el-button>
+          <el-button
+            v-if="editVisible"
+            type="primary"
+            :size="sizeModel"
+            link
+            @click="editRow($index)"
+            >{{ actionsColumnConfig.editText }}</el-button
+          >
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
@@ -145,6 +150,8 @@
     <show-setting v-model="settingVisible" :columns="filterColumns" />
     <!-- VIEW DIALOG -->
     <view-dialog v-model="viewVisible" :options="viewOptions" />
+    <!-- EDIT DIALOG -->
+    <edit-dialog v-model="editDialogVisible" :title="editDialogTitle" :form-props="editFormProps" />
   </div>
 </template>
 
@@ -185,6 +192,7 @@ import type {
   ProCrudActions,
   ProCrudActionsColumn,
   ProFormInstance,
+  ProCrudEdit,
 } from './types'
 import { useActionsColumn } from './composables/use-actions-column'
 import { useSearch } from './composables/use-search'
@@ -196,10 +204,12 @@ import { useSize } from './composables/use-size'
 import { useTable } from './composables/use-table'
 import { useView } from './composables/use-view'
 import { useRemove } from './composables/use-remove'
+import { useEdit } from './composables/use-edit'
 
 const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
 const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
 const ViewDialog = defineAsyncComponent(() => import('./components/view-dialog.vue'))
+const EditDialog = defineAsyncComponent(() => import('./components/edit-dialog.vue'))
 
 const props = defineProps({
   /** 数据集 */
@@ -214,12 +224,14 @@ const props = defineProps({
   pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
   /** 控件配置 */
   actions: { type: Object as PropType<ProCrudActions>, default: () => ({}) },
-  /** 查询表单配置 */
-  search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
   /** 表格标题 */
   title: { type: String, default: '' },
+  /** 查询表单配置 */
+  search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
   /** 新增表单配置 */
   create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
+  /** 编辑表单配置 */
+  edit: { type: Object as PropType<ProCrudEdit>, default: () => ({}) },
 })
 
 const emit = defineEmits([
@@ -236,10 +248,10 @@ const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
 const dataRef = toRef(props, 'data')
+const actionsColumnRef = toRef(props, 'actionsColumn')
 
-const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } = useActionsColumn(
-  toRef(props, 'actionsColumn')
-)
+const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } =
+  useActionsColumn(actionsColumnRef)
 
 const { filterColumns } = useTable(columnsRef)
 
@@ -286,6 +298,12 @@ const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emi
 const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
 const { removeRow } = useRemove(dataRef, emit, refreshRequest)
+
+const { editDialogVisible, editDialogTitle, editVisible, editFormProps, editRow } = useEdit(
+  toRef(props, 'edit'),
+  dataRef,
+  columnsRef
+)
 </script>
 
 <style>

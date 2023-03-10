@@ -24,6 +24,8 @@ export interface ProCrudColumn<T = any>
   search?: boolean | ProFormOption
   /** 新增表单项配置 */
   create?: boolean | ProFormOption
+  /** 编辑表单项配置 */
+  edit?: boolean | ProFormOption
 }
 
 /** Crud 操作列配置 */
@@ -40,8 +42,6 @@ export interface ProCrudActionsColumn {
   remove?: boolean
   /** 删除数据按钮文本 */
   removeText?: string
-  /** 是否编辑数据 */
-  edit?: boolean
   /** 编辑数据按钮文本 */
   editText?: string
 }
@@ -109,3 +109,11 @@ export type ProCrudRemoveEvent = <T = any>(payload: {
   row: T
   done: () => void
 }) => Promise<void> | void
+
+/** 编辑表单配置 */
+export interface ProCrudEdit extends Omit<ProFormProps, 'options'> {
+  /** 编辑按钮文本 */
+  buttonText?: string
+  /** 编辑对话框标题 */
+  title?: string
+}

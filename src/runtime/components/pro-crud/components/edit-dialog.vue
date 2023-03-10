@@ -2,11 +2,10 @@
   <pro-dialog
     v-model="visible"
     v-model:fullscreen="fullscreen"
-    :title="title"
     width="30%"
-    @cancel="closeDialog"
+    :title="title"
     @closed="onClosed"
-    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <pro-form ref="formRef" v-bind="formProps" />
   </pro-dialog>
@@ -23,7 +22,7 @@ import ProForm from '../../pro-form/pro-form.vue'
 const props = defineProps({
   /** 是否显示对话框 v-model */
   modelValue: { type: Boolean },
-  /** 新增对话框标题 */
+  /** 标题 */
   title: { type: String, default: '' },
   /** ProForm props */
   formProps: { type: Object as PropType<ProFormProps>, default: () => ({}) },
@@ -34,25 +33,19 @@ const emit = defineEmits(['update:modelValue'])
 const fullscreen = ref(false)
 const formRef = ref<InstanceType<typeof ProForm> | null>(null)
 
-/** 对话框是否显示 */
+/** 是否显示对话框 */
 const visible = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 })
 
 const onClosed = () => {
-  // 关闭对话框需要取消全屏
   fullscreen.value = false
   formRef.value?.resetFields()
 }
 
-/** 关闭对话框需要做清理工作 */
-const closeDialog = () => {
+const onCancel = () => {
   visible.value = false
   formRef.value?.resetFields()
-}
-
-const onConfirm = () => {
-  formRef.value?.submit()
 }
 </script>

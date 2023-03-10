@@ -325,8 +325,15 @@ AddDataValidate.storyName = '新增数据带验证'
 
 export const EditData = Template.bind({})
 EditData.args = {
-  ...Search.args,
-  actionsColumn: { edit: true } as ProCrudActionsColumn,
+  ...Default.args,
+  columns: [
+    { prop: 'date', label: '日期', edit: true },
+    {
+      prop: 'name',
+      label: '姓名',
+      edit: true,
+    },
+  ] as ProCrudColumn[],
 }
 EditData.storyName = '编辑数据'
 
