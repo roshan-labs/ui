@@ -8,8 +8,8 @@ import type {
   ProCrudActions,
   ProCrudActionsColumn,
   ProCrudSearchEvent,
-  ProCrudCreateEvent,
   ProCrudRemoveEvent,
+  ProCrudCreateEvent,
 } from './types'
 import { ProCrud } from '.'
 
@@ -22,6 +22,8 @@ export default {
     'onUpdate:size': { action: 'update:size' },
     onSearch: { action: 'search' },
     onRemove: { action: 'remove' },
+    onCreate: { action: 'create' },
+    onEdit: { action: 'edit' },
     size: {
       control: { type: 'select' },
       options: ['small', 'default', 'large'],
@@ -289,15 +291,11 @@ SearchCollapse.storyName = '查询展开折叠'
 
 export const AddData = Template.bind({})
 AddData.args = {
-  data,
+  ...Default.args,
   columns: [
     { prop: 'date', label: '日期', create: true },
     { prop: 'name', label: '姓名', create: true },
   ] as ProCrudColumn[],
-  title: '我是一个可新增数据表格',
-  onCreate: (({ done }) => {
-    window.setTimeout(done, 2000)
-  }) as ProCrudCreateEvent,
 }
 AddData.storyName = '新增数据'
 
@@ -331,11 +329,23 @@ EditData.args = {
     {
       prop: 'name',
       label: '姓名',
-      edit: true,
+      edit: {
+        type: 'input',
+      },
     },
   ] as ProCrudColumn[],
 }
 EditData.storyName = '编辑数据'
+
+export const EditDataValidate = Template.bind({})
+EditDataValidate.args = {
+  ...Default.args,
+  columns: [
+    { prop: 'date', label: '日期', edit: { rules: [{ required: true, message: '日期不能为空' }] } },
+    { prop: 'name', label: '姓名', edit: { rules: [{ required: true, message: '姓名不能为空' }] } },
+  ] as ProCrudColumn[],
+}
+EditDataValidate.storyName = '编辑数据带验证'
 
 export const AllUse = Template.bind({})
 AllUse.args = {
@@ -353,5 +363,12 @@ AllUse.args = {
   pagination: Search.args.pagination,
   onSearch: Search.args.onSearch,
   onRemove: RemoveRow.args.onRemove,
+  onCreate: (({ loading, done }) => {
+    loading.value = true
+    window.setTimeout(() => {
+      loading.value = false
+      done()
+    }, 2000)
+  }) as ProCrudCreateEvent,
 }
 AllUse.storyName = '综合使用'

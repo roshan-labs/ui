@@ -2,7 +2,12 @@ import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProFormInstance } from '../types'
-import type { ProFormOption, ProFormProps, ProFormDone } from '../../pro-form/types'
+import type {
+  ProFormOption,
+  ProFormProps,
+  ProFormDone,
+  ProFormBeforeSubmit,
+} from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
 
 export const useSearch = (
@@ -90,7 +95,7 @@ export const useSearch = (
       ...search.value,
       options: searchOptions.value,
       action: searchAction.value,
-      onSubmit: submit,
+      beforeSubmit,
     }
 
     if (!search.value.inline && isUndefined(search.value.labelWidth)) {
@@ -111,7 +116,7 @@ export const useSearch = (
     }
   }
 
-  const submit: ProFormProps['onSubmit'] = (done, isValid, fields) => {
+  const beforeSubmit: ProFormBeforeSubmit = (fields, isValid, done) => {
     if (isValid) {
       const doneFunc = createDone(done)
 

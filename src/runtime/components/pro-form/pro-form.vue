@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="formRef" v-bind="$attrs" :model="model">
+  <el-form ref="formRef" v-bind="$attrs" :model="fields">
     <!-- Layout -->
     <el-row v-if="isLayout">
       <el-col v-for="item in options" :key="item.prop" v-bind="item">
@@ -7,7 +7,7 @@
           <component
             :is="getComponent(item.type)"
             v-bind="item.component"
-            v-model="model[item.prop]"
+            v-model="fields[item.prop]"
           >
             <template
               v-for="(slot, name) in (item.component?.slots as Slots<string>)"
@@ -34,7 +34,11 @@
     <!-- Default -->
     <template v-else>
       <el-form-item v-for="item in options" :key="item.prop" v-bind="item">
-        <component :is="getComponent(item.type)" v-bind="item.component" v-model="model[item.prop]">
+        <component
+          :is="getComponent(item.type)"
+          v-bind="item.component"
+          v-model="fields[item.prop]"
+        >
           <template
             v-for="(slot, name) in (item.component?.slots as Slots<string>)"
             :key="name"
@@ -65,20 +69,28 @@ import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 
 import { isUndefined } from '../../utils'
 import type { Slots } from '../../utils'
-import type { ProFormOption, ProFormAction } from './types'
+import type { ProFormOption, ProFormAction, ProFormBeforeSubmit, ProFormModelValue } from './types'
 
 const props = defineProps({
+  /** 表单绑定值 v-model */
+  modelValue: { type: Object as PropType<ProFormModelValue>, default: () => ({}) },
   /** 表单项配置数组 */
   options: { type: Array as PropType<ProFormOption[]>, default: () => [] },
   /** 表单按钮配置 */
   action: { type: [Object, Boolean] as PropType<ProFormAction | false>, default: () => ({}) },
+  /** 表单提交前的回调 */
+  beforeSubmit: { type: Function as PropType<ProFormBeforeSubmit> },
 })
 
-const emit = defineEmits(['reset', 'submit'])
+const emit = defineEmits(['update:modelValue', 'reset', 'submit'])
 
-const model = ref<Record<string, any>>({})
 const formRef = ref<FormInstance | null>(null)
 const loading = ref(false)
+
+const fields = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+})
 
 const resetVisible = computed(() => (props.action ? props.action.reset ?? true : true))
 const resetText = computed(() => (props.action ? props.action.resetText ?? '重置' : ''))
@@ -161,7 +173,7 @@ const getComponent = (type: ProFormOption['type']) => {
 // 给表单项赋予初始值
 watchEffect(() => {
   props.options.forEach((item) => {
-    let value: unknown = ''
+    let value: any = ''
 
     switch (item.type) {
       case 'input-number':
@@ -184,7 +196,7 @@ watchEffect(() => {
         break
     }
 
-    model.value[item.prop] = item.value ?? value
+    fields.value[item.prop] = item.value ?? value
   })
 })
 
@@ -195,18 +207,18 @@ const reset = () => {
   }
 }
 
-const done = () => {
-  loading.value = false
-}
-
 const submit = () => {
   if (formRef.value) {
     formRef.value.validate((isValid) => {
-      if (isValid) {
-        loading.value = true
+      const done = () => {
+        emit('submit', fields.value, isValid)
       }
 
-      emit('submit', done, isValid, model.value)
+      if (props.beforeSubmit) {
+        props.beforeSubmit(fields.value, isValid, done, loading)
+      } else {
+        done()
+      }
     })
   }
 }

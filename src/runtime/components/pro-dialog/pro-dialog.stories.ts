@@ -1,5 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 
+import type { ProDialogBeforeConfirm } from './types'
 import { ProDialog } from './index'
 
 export default {
@@ -54,3 +55,17 @@ Fullscreen.args = {
   fullscreen: true,
 }
 Fullscreen.storyName = '全屏'
+
+export const BeforeConfirm = Template.bind({})
+BeforeConfirm.args = {
+  ...Default.args,
+  beforeConfirm: ((loading, done) => {
+    loading.value = true
+
+    window.setTimeout(() => {
+      loading.value = false
+      done()
+    }, 2000)
+  }) as ProDialogBeforeConfirm,
+}
+BeforeConfirm.storyName = '提交前的回调'

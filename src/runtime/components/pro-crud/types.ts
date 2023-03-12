@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import type { TableColumnCtx, PaginationProps } from 'element-plus'
 
 import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '../pro-form/types'
@@ -91,8 +92,9 @@ export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
 }
 
 /** 新增数据事件 */
-export type ProCrudCreateEvent = (payload: {
-  params: Record<string, any>
+export type ProCrudCreateEvent<T = any> = (payload: {
+  params: T
+  loading: Ref<boolean>
   done: ProFormDone
 }) => Promise<void> | void
 
@@ -117,3 +119,10 @@ export interface ProCrudEdit extends Omit<ProFormProps, 'options'> {
   /** 编辑对话框标题 */
   title?: string
 }
+
+/** 编辑数据事件 */
+export type ProCrudEditEvent = <T = any>(payload: {
+  params: T
+  loading: Ref<boolean>
+  done: () => void
+}) => Promise<void> | void

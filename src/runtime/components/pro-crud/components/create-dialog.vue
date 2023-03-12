@@ -3,10 +3,9 @@
     v-model="visible"
     v-model:fullscreen="fullscreen"
     :title="title"
-    width="30%"
+    :before-confirm="beforeConfirm"
     @cancel="closeDialog"
     @closed="onClosed"
-    @confirm="onConfirm"
   >
     <pro-form ref="formRef" v-bind="formProps" />
   </pro-dialog>
@@ -17,6 +16,8 @@ import type { PropType } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProFormProps } from '../../pro-form/types'
+import type { ProDialogBeforeConfirm } from '../../pro-dialog/types'
+import type { ProCrudCreateEvent } from '../types'
 import ProDialog from '../../pro-dialog/pro-dialog.vue'
 import ProForm from '../../pro-form/pro-form.vue'
 
@@ -27,6 +28,10 @@ const props = defineProps({
   title: { type: String, default: '' },
   /** ProForm props */
   formProps: { type: Object as PropType<ProFormProps>, default: () => ({}) },
+  /** 新增数据回调方法 */
+  createRequest: { type: Function as PropType<ProCrudCreateEvent>, default: () => {} },
+  /** 刷新 Crud */
+  refreshRequest: { type: Function as PropType<() => void>, default: () => {} },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -52,7 +57,18 @@ const closeDialog = () => {
   formRef.value?.resetFields()
 }
 
-const onConfirm = () => {
-  formRef.value?.submit()
+const beforeConfirm: ProDialogBeforeConfirm = (loading, done) => {
+  if (formRef.value) {
+    formRef.value.validate((isValid) => {
+      if (isValid) {
+        const doneFunc = () => {
+          done()
+          props.refreshRequest()
+        }
+
+        props.createRequest({ params: props.formProps.modelValue, loading, done: doneFunc })
+      }
+    })
+  }
 }
 </script>

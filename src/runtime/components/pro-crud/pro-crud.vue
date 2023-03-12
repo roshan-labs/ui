@@ -145,13 +145,20 @@
       v-model="createDialogVisible"
       :title="createTitle"
       :form-props="createFormProps"
+      :create-request="createRequest"
+      :refresh-request="refreshRequest"
     />
     <!-- SETTING DIALOG -->
     <show-setting v-model="settingVisible" :columns="filterColumns" />
     <!-- VIEW DIALOG -->
     <view-dialog v-model="viewVisible" :options="viewOptions" />
     <!-- EDIT DIALOG -->
-    <edit-dialog v-model="editDialogVisible" :title="editDialogTitle" :form-props="editFormProps" />
+    <edit-dialog
+      v-model="editDialogVisible"
+      :title="editDialogTitle"
+      :form-props="editFormProps"
+      :edit-request="editRequest"
+    />
   </div>
 </template>
 
@@ -241,6 +248,7 @@ const emit = defineEmits([
   'create',
   'search',
   'remove',
+  'edit',
 ])
 
 const searchRef = ref<ProFormInstance | null>(null)
@@ -287,7 +295,8 @@ const {
   createTitle,
   createFormProps,
   openCreateDialog,
-} = useCreate(toRef(props, 'create'), columnsRef, emit, refreshRequest)
+  createRequest,
+} = useCreate(toRef(props, 'create'), columnsRef, emit)
 
 const { toolbarVisible } = useToolbar(toRef(props, 'title'), createVisible, actionsRef)
 
@@ -299,11 +308,8 @@ const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
 const { removeRow } = useRemove(dataRef, emit, refreshRequest)
 
-const { editDialogVisible, editDialogTitle, editVisible, editFormProps, editRow } = useEdit(
-  toRef(props, 'edit'),
-  dataRef,
-  columnsRef
-)
+const { editDialogVisible, editDialogTitle, editVisible, editFormProps, editRow, editRequest } =
+  useEdit(toRef(props, 'edit'), dataRef, columnsRef, emit)
 </script>
 
 <style>

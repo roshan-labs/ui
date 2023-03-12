@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import type {
   FormProps,
   FormEmits,
@@ -312,13 +313,31 @@ export interface ProFormAction extends LayoutColProps {
 
 export type ProFormDone = () => void
 
-export type ProFormSubmit<T = any> = (done: ProFormDone, isValid: boolean, fields: T) => void
+/** 表单提交前的方法 */
+export type ProFormBeforeSubmit<F = any> = (
+  /** 表单提交字段 */
+  fields: F,
+  /** 验证是否通过 */
+  isValid: boolean,
+  /** 触发 submit 事件 */
+  done: ProFormDone,
+  /** 表单提交加载状态 */
+  loading: Ref<boolean>
+) => Promise<void> | void
+
+/** 表单提交 */
+export type ProFormSubmit<F = any> = (fields: F, isValid: boolean) => void
+
+export type ProFormModelValue = Record<string, any>
 
 /** ProForm 组件属性 */
 export type ProFormProps = Partial<Omit<Writable<FormProps>, 'model'>> &
   SetPrefixEvent<FormEmits> & {
+    modelValue?: ProFormModelValue
     options?: ProFormOption[]
     action?: false | ProFormAction
+    beforeSubmit?: ProFormBeforeSubmit
+    'onUpdate:modelValue'?: (value: ProFormModelValue) => void
     onReset?: () => void
     onSubmit?: ProFormSubmit
   }

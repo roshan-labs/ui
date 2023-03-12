@@ -2,7 +2,7 @@ import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
 import { ElButton } from 'element-plus'
 
-import type { ProFormOption, ProFormAction, ProFormSubmit } from './types'
+import type { ProFormOption, ProFormAction, ProFormBeforeSubmit } from './types'
 import { ProForm } from './'
 
 export default {
@@ -56,18 +56,9 @@ const generateTransferData = () => {
 
 const Template: Story = (args) => ({
   components: { ProForm },
-  setup: () => {
-    const onSubmit: ProFormSubmit = (done) => {
-      setTimeout(done, 1000)
-    }
-
-    return {
-      args,
-      onSubmit,
-    }
-  },
+  setup: () => ({ args }),
   template: `
-    <pro-form @submit="onSubmit" v-bind="args">
+    <pro-form v-bind="args">
       <template #upload-tip>
         <div class="el-upload__tip">文件上传提示</div>
       </template>
@@ -444,3 +435,16 @@ HideAction.args = {
   action: false,
 }
 HideAction.storyName = '隐藏按钮'
+
+export const BeforeSubmit = Template.bind({})
+BeforeSubmit.args = {
+  ...Default.args,
+  beforeSubmit: ((_fields, _isValid, done, loading) => {
+    loading.value = true
+    window.setTimeout(() => {
+      loading.value = false
+      done()
+    }, 2000)
+  }) as ProFormBeforeSubmit,
+}
+BeforeSubmit.storyName = '表单提交前方法'

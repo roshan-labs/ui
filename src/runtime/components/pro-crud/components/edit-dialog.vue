@@ -2,8 +2,8 @@
   <pro-dialog
     v-model="visible"
     v-model:fullscreen="fullscreen"
-    width="30%"
     :title="title"
+    :before-confirm="beforeConfirm"
     @closed="onClosed"
     @cancel="onCancel"
   >
@@ -16,6 +16,8 @@ import type { PropType } from 'vue'
 import { ref, computed } from 'vue'
 
 import type { ProFormProps } from '../../pro-form/types'
+import type { ProDialogBeforeConfirm } from '../../pro-dialog/types'
+import type { ProCrudEditEvent } from '../types'
 import ProDialog from '../../pro-dialog/pro-dialog.vue'
 import ProForm from '../../pro-form/pro-form.vue'
 
@@ -26,6 +28,8 @@ const props = defineProps({
   title: { type: String, default: '' },
   /** ProForm props */
   formProps: { type: Object as PropType<ProFormProps>, default: () => ({}) },
+  /** 编辑数据回调方法 */
+  editRequest: { type: Function as PropType<ProCrudEditEvent>, default: () => {} },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -47,5 +51,15 @@ const onClosed = () => {
 const onCancel = () => {
   visible.value = false
   formRef.value?.resetFields()
+}
+
+const beforeConfirm: ProDialogBeforeConfirm = (loading, done) => {
+  if (formRef.value) {
+    formRef.value.validate((isValid) => {
+      if (isValid) {
+        props.editRequest({ params: props.formProps.modelValue, loading, done })
+      }
+    })
+  }
 }
 </script>
