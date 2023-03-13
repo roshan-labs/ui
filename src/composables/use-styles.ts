@@ -1,32 +1,28 @@
 import type { ModuleOptions as WindiOptions } from 'nuxt-windicss'
 import { installModule, resolvePath, useNuxt } from '@nuxt/kit'
-import { defu } from 'defu'
 
 import type { ModuleOptions, ResolveRuntime } from '../types'
 
 export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveRuntime) => {
   const nuxt = useNuxt()
 
-  nuxt.options.css.unshift(
-    'element-plus/dist/index.css',
-    // 定制主题文件
-    // resolveRuntime('./assets/style.css'),
-    'virtual:windi.css'
-  )
+  nuxt.options.css.push('element-plus/dist/index.css')
 
+  // 开启 windicss
   if (options.windicss) {
-    const componentsPath = resolveRuntime('./components')
+    const proComponentsPath = resolveRuntime('components')
 
-    // 忽略 element-plus index.css 文件规则
-    nuxt.options.windicss = defu<WindiOptions, WindiOptions[]>(
-      {
-        scan: {
-          include: [`${componentsPath}/**/*.{vue,tsx}`],
-          exclude: [await resolvePath('element-plus/dist/index.css')],
-        },
+    // 忽略 element-plus 组件 class
+    // 并且解析模块包内组件 windicss class
+    nuxt.options.windicss = {
+      scan: {
+        include: [`${proComponentsPath}/**/*.{vue,tsx}`],
+        exclude: [await resolvePath('element-plus/dist/index.css')],
       },
-      nuxt.options.windicss || {}
-    )
+      ...(nuxt.options.windicss || {}),
+    }
+
+    nuxt.options.css.push('virtual:windi.css')
 
     await installModule('nuxt-windicss')
   }

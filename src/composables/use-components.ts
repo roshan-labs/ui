@@ -1,14 +1,19 @@
 import { addComponent } from '@nuxt/kit'
 
 import type { ResolveRuntime } from '../types'
-import { components, proComponents } from '../config'
+import { baseComponents, proComponents } from '../config'
+import { hyphenate } from '../utils'
 
 export const useComponents = (resolveRuntime: ResolveRuntime) => {
+  const components = new Set([...baseComponents])
+
   components.forEach((name) => {
+    const dir = hyphenate(name.slice(2))
+
     addComponent({
-      filePath: 'element-plus',
-      export: name,
       name,
+      export: name,
+      filePath: `element-plus/es/components/${dir}/index`,
     })
   })
 
@@ -19,4 +24,6 @@ export const useComponents = (resolveRuntime: ResolveRuntime) => {
       name,
     })
   })
+
+  // await installModule('@element-plus/nuxt')
 }

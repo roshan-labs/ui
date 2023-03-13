@@ -40,8 +40,10 @@
     "access": "public"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@nuxt/kit": "^3.2.3",
     "defu": "^6.1.2",
+    "element-plus": "^2.3.0",
     "nuxt-windicss": "^2.6.0"
   },
   "devDependencies": {

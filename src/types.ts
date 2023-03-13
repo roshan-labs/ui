@@ -1,5 +1,6 @@
 export interface ModuleOptions {
-  windicss?: boolean
+  /** 是否开启 windicss */
+  windicss: boolean
 }
 
 export type ResolveRuntime = (path: string) => string

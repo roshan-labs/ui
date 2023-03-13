@@ -1,10 +1,10 @@
 import { createResolver, defineNuxtModule } from '@nuxt/kit'
 
 import type { ModuleOptions } from './types'
-import { useStyles } from './composables/use-styles'
 import { useComponents } from './composables/use-components'
 import { useComposables } from './composables/use-composables'
 import { usePlugin } from './composables/use-plugin'
+import { useStyles } from './composables/use-styles'
 
 export { ModuleOptions }
 
@@ -13,16 +13,13 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@roshan-labs/ui',
     configKey: 'ui',
   },
-  defaults: {
-    windicss: true,
-  },
-  setup(options) {
+  async setup(options) {
     const { resolve } = createResolver(import.meta.url)
-    const resolveRuntime = (path: string) => resolve('./runtime', path)
+    const resolveRuntime = (filePath: string) => resolve('./runtime', filePath)
 
-    useStyles(options, resolveRuntime)
-    useComponents(resolveRuntime)
+    await useStyles(options, resolveRuntime)
     useComposables(resolveRuntime)
+    useComponents(resolveRuntime)
     usePlugin(resolveRuntime)
   },
 })
