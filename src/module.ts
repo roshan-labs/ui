@@ -13,9 +13,11 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@roshan-labs/ui',
     configKey: 'ui',
   },
-  async setup(options) {
+  async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     const resolveRuntime = (filePath: string) => resolve('./runtime', filePath)
+
+    nuxt.options.build.transpile.push(resolve('./runtime'))
 
     await useStyles(options, resolveRuntime)
     useComposables(resolveRuntime)
