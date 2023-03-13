@@ -9,5 +9,4 @@ export const proComponents = [
   { dirname: 'pro-dialog', name: 'ProDialog' },
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
-  { dirname: 'pro-table', name: 'ProTable' },
 ]
