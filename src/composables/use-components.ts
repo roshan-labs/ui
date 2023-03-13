@@ -1,10 +1,10 @@
 import { addComponent } from '@nuxt/kit'
 
-import type { ResolveRuntime } from '../types'
-import { baseComponents, subComponents, proComponents } from '../config'
+// import type { ResolveRuntime } from '../types'
+import { baseComponents, subComponents } from '../config'
 import { hyphenate } from '../utils'
 
-export const useComponents = (resolveRuntime: ResolveRuntime) => {
+export const useComponents = () => {
   const components = new Set([...baseComponents])
 
   const subComponentsMap = Object.fromEntries<string>(
@@ -27,11 +27,11 @@ export const useComponents = (resolveRuntime: ResolveRuntime) => {
     })
   })
 
-  proComponents.forEach(({ dirname, name }) => {
-    addComponent({
-      filePath: resolveRuntime(`components/${dirname}`),
-      export: name,
-      name,
-    })
-  })
+  // proComponents.forEach(({ dirname, name }) => {
+  //   addComponent({
+  //     filePath: resolveRuntime(`components/${dirname}`),
+  //     export: name,
+  //     name,
+  //   })
+  // })
 }
