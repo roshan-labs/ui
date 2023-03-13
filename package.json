@@ -40,18 +40,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.0.10",
-    "@nuxt/kit": "^3.0.0",
-    "defu": "^6.1.1",
-    "element-plus": "^2.2.31",
-    "nuxt-windicss": "^2.3.1"
+    "@nuxt/kit": "^3.2.3",
+    "defu": "^6.1.2",
+    "nuxt-windicss": "^2.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.21.0",
     "@nuxt/module-builder": "^0.2.1",
-    "@nuxt/schema": "^3.0.0",
+    "@nuxt/schema": "^3.2.3",
     "@release-it/conventional-changelog": "^5.1.1",
-    "@roshan-labs/eslint-config": "^1.2.0",
+    "@roshan-labs/eslint-config": "^1.2.1",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
@@ -60,9 +58,9 @@
     "@storybook/vue3": "^6.5.15",
     "babel-loader": "^9.1.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.32.0",
-    "nuxt": "^3.0.0",
-    "release-it": "^15.6.0",
+    "eslint": "^8.36.0",
+    "nuxt": "^3.2.3",
+    "release-it": "^15.8.0",
     "vite-plugin-windicss": "^1.8.10",
     "vue-loader": "^16.8.3"
   }
