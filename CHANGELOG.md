@@ -1,5 +1,12 @@
 
 
+### [0.2.1](https://github.com/roshan-labs/ui/compare/v0.2.0...v0.2.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* 子组件类型导入错误 ([7b04106](https://github.com/roshan-labs/ui/commit/7b04106ec20562c1da3dcb6729a554b0cba54eeb))
+
 ## [0.2.0](https://github.com/roshan-labs/ui/compare/v0.1.0...v0.2.0) (2023-03-13)
 
 
