@@ -1,5 +1,12 @@
 
 
+### [0.2.2](https://github.com/roshan-labs/ui/compare/v0.2.1...v0.2.2) (2023-03-13)
+
+
+### Bug Fixes
+
+* 移除 ProComponents ([1de5d70](https://github.com/roshan-labs/ui/commit/1de5d70b2efc5f57613160150be4a5d7b7da0f6b))
+
 ### [0.2.1](https://github.com/roshan-labs/ui/compare/v0.2.0...v0.2.1) (2023-03-13)
 
 
