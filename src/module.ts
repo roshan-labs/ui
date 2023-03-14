@@ -1,6 +1,7 @@
 import { createResolver, defineNuxtModule } from '@nuxt/kit'
 
 import type { ModuleOptions } from './types'
+import { useTranspile } from './composables/use-transpile'
 import { useComponents } from './composables/use-components'
 import { useComposables } from './composables/use-composables'
 import { useInjection } from './composables/use-injection'
@@ -21,6 +22,8 @@ export default defineNuxtModule<ModuleOptions>({
   async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     const resolveRuntime = (filePath: string) => resolve('./runtime', filePath)
+
+    useTranspile()
 
     if (nuxt.options.ssr) {
       useInjection()
