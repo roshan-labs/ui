@@ -1,5 +1,7 @@
 # @roshan-labs/ui
 
+![npm](https://img.shields.io/npm/v/@roshan-labs/ui?color=%2342b883)
+
 封装 `element-plus` 组件库自动导入 `Nuxt`
 
 ## 安装
