@@ -3,7 +3,7 @@ import { createResolver, defineNuxtModule } from '@nuxt/kit'
 import type { ModuleOptions } from './types'
 import { useComponents } from './composables/use-components'
 import { useComposables } from './composables/use-composables'
-import { usePlugin } from './composables/use-plugin'
+// import { usePlugin } from './composables/use-plugin'
 import { useStyles } from './composables/use-styles'
 
 export { ModuleOptions }
@@ -22,6 +22,6 @@ export default defineNuxtModule<ModuleOptions>({
     await useStyles(options, resolveRuntime)
     useComposables(resolveRuntime)
     useComponents()
-    usePlugin(resolveRuntime)
+    // usePlugin(resolveRuntime)
   },
 })
