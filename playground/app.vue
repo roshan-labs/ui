@@ -1,13 +1,9 @@
 <template>
-  <div class="p-[10px]">
+  <div v-infinite-scroll class="p-[10px]">
     {{ loading }}
     <div>
       <el-button type="primary" @click="loading = !loading">Button</el-button>
     </div>
-    <el-radio-group>
-      <el-radio label="1">1</el-radio>
-      <el-radio label="2">2</el-radio>
-    </el-radio-group>
   </div>
 </template>
 

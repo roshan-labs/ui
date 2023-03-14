@@ -1,13 +1,21 @@
-import { createUnplugin } from 'unplugin'
 import { useNuxt } from '@nuxt/kit'
+import { createUnplugin } from 'unplugin'
+import MagicString from 'magic-string'
 
 import { libraryName } from '../config'
+
+const directivesRegExp = /(?<=[ (])_?resolveDirective\(\s*["']([^'"]*?)["'][\s,]*[^)]*\)/g
 
 const plugin = createUnplugin(() => {
   return {
     name: `${libraryName}-transform`,
-    transform() {
-      // console.log(code)
+    transform(code) {
+      const s = new MagicString(code)
+
+      s.replaceAll(directivesRegExp, (match, name) => {
+        console.log(name)
+        return match
+      })
 
       return null
     },
