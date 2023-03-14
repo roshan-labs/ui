@@ -2,11 +2,13 @@ import type { ModuleOptions as WindiOptions } from 'nuxt-windicss'
 import { installModule, resolvePath, useNuxt } from '@nuxt/kit'
 
 import type { ModuleOptions, ResolveRuntime } from '../types'
+import { libraryName } from '../config'
 
 export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveRuntime) => {
   const nuxt = useNuxt()
+  const cssPath = `${libraryName}/dist/index.css`
 
-  nuxt.options.css.push('element-plus/dist/index.css')
+  nuxt.options.css.push(cssPath)
 
   // 开启 windicss
   if (options.windicss) {
@@ -17,7 +19,7 @@ export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveR
     nuxt.options.windicss = {
       scan: {
         include: [`${proComponentsPath}/**/*.{vue,tsx}`],
-        exclude: [await resolvePath('element-plus/dist/index.css')],
+        exclude: [await resolvePath(cssPath)],
       },
       ...(nuxt.options.windicss || {}),
     }
