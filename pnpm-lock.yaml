@@ -16,21 +16,21 @@ specifiers:
   '@storybook/vue3': ^6.5.15
   babel-loader: ^9.1.2
   cz-conventional-changelog: ^3.3.0
-  defu: ^6.1.2
   element-plus: ^2.3.0
   eslint: ^8.36.0
   nuxt: ^3.2.3
   nuxt-windicss: ^2.6.0
   release-it: ^15.8.0
+  unplugin: ^1.3.0
   vite-plugin-windicss: ^1.8.10
   vue-loader: ^16.8.3
 
 dependencies:
   '@element-plus/icons-vue': 2.1.0
   '@nuxt/kit': 3.2.3
-  defu: 6.1.2
   element-plus: 2.3.0
   nuxt-windicss: 2.6.0
+  unplugin: 1.3.0
 
 devDependencies:
   '@babel/core': 7.21.0
@@ -5925,12 +5925,6 @@ packages:
 
   /acorn/7.4.1:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-    dev: true
-
-  /acorn/8.8.1:
-    resolution: {integrity: sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -12815,7 +12809,7 @@ packages:
   /mlly/1.1.0:
     resolution: {integrity: sha512-cwzBrBfwGC1gYJyfcy8TcZU1f+dbH/T+TuOhtYP2wLv/Fb51/uV7HJQfBPtEupZ2ORLRU1EKFS/QfS3eo9+kBQ==}
     dependencies:
-      acorn: 8.8.1
+      acorn: 8.8.2
       pathe: 1.0.0
       pkg-types: 1.0.1
       ufo: 1.0.1

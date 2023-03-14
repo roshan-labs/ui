@@ -7,6 +7,7 @@ import { useComposables } from './composables/use-composables'
 import { useInjection } from './composables/use-injection'
 import { useTeleport } from './composables/use-teleport'
 import { useStyles } from './composables/use-styles'
+import { useTransform } from './composables/use-transform'
 
 export { ModuleOptions }
 
@@ -33,5 +34,6 @@ export default defineNuxtModule<ModuleOptions>({
     await useStyles(options, resolveRuntime)
     useComposables(resolveRuntime)
     useComponents()
+    useTransform()
   },
 })
