@@ -1,5 +1,12 @@
 
 
+### [0.2.3](https://github.com/roshan-labs/ui/compare/v0.2.2...v0.2.3) (2023-03-14)
+
+
+### Bug Fixes
+
+* 去除 plugin ([785de3a](https://github.com/roshan-labs/ui/commit/785de3a14c61a68e86937fe140b6644f9697d4e3))
+
 ### [0.2.2](https://github.com/roshan-labs/ui/compare/v0.2.1...v0.2.2) (2023-03-13)
 
 
