@@ -1,5 +1,13 @@
 
 
+### [0.2.4](https://github.com/roshan-labs/ui/compare/v0.2.3...v0.2.4) (2023-03-14)
+
+
+### Bug Fixes
+
+* 未转化 element-plus 包 ([b9e411d](https://github.com/roshan-labs/ui/commit/b9e411d4d3b0083094f3fe7fc3b38b162b41609f))
+* 修复内部依赖 dayjs 报错 ([1224dd7](https://github.com/roshan-labs/ui/commit/1224dd753cb173b780cc02ac276a4609de24fa47))
+
 ### [0.2.3](https://github.com/roshan-labs/ui/compare/v0.2.2...v0.2.3) (2023-03-14)
 
 
