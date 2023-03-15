@@ -6,3 +6,5 @@ export interface ModuleOptions {
 }
 
 export type ResolveRuntime = (path: string) => string
+
+export type PresetImport = string | [name: string, as?: string, from?: string]

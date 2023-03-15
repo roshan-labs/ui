@@ -43,8 +43,8 @@ export const proComponents = [
 ]
 
 /** element-plus 指令 */
-export const directtives = {
+export const directives: Record<string, string[]> = {
   Loading: ['ElLoadingDirective', 'ElLoading'],
   Popover: ['ElPopoverDirective', 'ElPopover'],
-  InfiniteScroll: 'ElInfiniteScroll',
+  InfiniteScroll: ['ElInfiniteScroll'],
 }

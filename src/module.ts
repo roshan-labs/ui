@@ -33,7 +33,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     await useStyles(options, resolveRuntime)
     useComposables(resolveRuntime)
-    useComponents()
+    useComponents(resolveRuntime)
     useTransform()
   },
 })
