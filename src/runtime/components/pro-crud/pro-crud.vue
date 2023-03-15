@@ -45,8 +45,8 @@
                 <Refresh />
               </el-icon>
             </el-tooltip>
-            <el-tooltip content="密度" placement="top">
-              <el-dropdown v-if="actions.size" trigger="click" @command="changeSize">
+            <el-tooltip v-if="actions.size" content="密度" placement="top">
+              <el-dropdown trigger="click" @command="changeSize">
                 <el-icon class="pro-crud__toolbar-action" :size="18" color="#000000">
                   <DCaret />
                 </el-icon>
