@@ -1,5 +1,12 @@
 
 
+### [0.2.8](https://github.com/roshan-labs/ui/compare/v0.2.7...v0.2.8) (2023-03-15)
+
+
+### Bug Fixes
+
+* proCrud 报 [ElOnlyChild] no valid child node found 错误 ([3d921aa](https://github.com/roshan-labs/ui/commit/3d921aac4e85f0e16f7c5026bd0c4bc48d958f0d))
+
 ### [0.2.7](https://github.com/roshan-labs/ui/compare/v0.2.6...v0.2.7) (2023-03-15)
 
 
