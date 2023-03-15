@@ -8,8 +8,6 @@ export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveR
   const nuxt = useNuxt()
   const cssPath = `${libraryName}/dist/index.css`
 
-  nuxt.options.css.push(cssPath)
-
   // 开启 windicss
   if (options.windicss) {
     const proComponentsPath = resolveRuntime('components')
@@ -24,10 +22,12 @@ export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveR
       ...(nuxt.options.windicss || {}),
     }
 
-    nuxt.options.css.push('virtual:windi.css')
+    nuxt.options.css.unshift('virtual:windi.css')
 
     await installModule('nuxt-windicss')
   }
+
+  nuxt.options.css.unshift(cssPath)
 }
 
 declare module '@nuxt/schema' {
