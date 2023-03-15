@@ -1,5 +1,12 @@
 
 
+### [0.2.7](https://github.com/roshan-labs/ui/compare/v0.2.6...v0.2.7) (2023-03-15)
+
+
+### Bug Fixes
+
+* 未导出 ProCrud 工具类型 ([181bc60](https://github.com/roshan-labs/ui/commit/181bc602a1622dd93fc3f9f12638d2b352d17a5d))
+
 ### [0.2.6](https://github.com/roshan-labs/ui/compare/v0.2.5...v0.2.6) (2023-03-15)
 
 
