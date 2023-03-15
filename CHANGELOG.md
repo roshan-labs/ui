@@ -1,5 +1,12 @@
 
 
+### [0.2.6](https://github.com/roshan-labs/ui/compare/v0.2.5...v0.2.6) (2023-03-15)
+
+
+### Bug Fixes
+
+* css 加载顺序不正确 ([1470b5f](https://github.com/roshan-labs/ui/commit/1470b5ff7cf45bf342da2f4bc9bf7c7a3e7b0ce4))
+
 ### [0.2.5](https://github.com/roshan-labs/ui/compare/v0.2.4...v0.2.5) (2023-03-15)
 
 
