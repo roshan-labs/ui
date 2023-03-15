@@ -1,5 +1,12 @@
 
 
+### [0.2.5](https://github.com/roshan-labs/ui/compare/v0.2.4...v0.2.5) (2023-03-15)
+
+
+### Bug Fixes
+
+* 无法自动导入 element-plus 指令 ([957c1e0](https://github.com/roshan-labs/ui/commit/957c1e0bf611c27351dbaaf1cfa85be1a77707a5))
+
 ### [0.2.4](https://github.com/roshan-labs/ui/compare/v0.2.3...v0.2.4) (2023-03-14)
 
 
