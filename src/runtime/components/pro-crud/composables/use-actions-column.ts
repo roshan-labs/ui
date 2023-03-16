@@ -19,7 +19,6 @@ export const useActionsColumn = (actionsColumn: Ref<ProCrudActionsColumn>) => {
     viewText: actionsColumn.value.viewText ?? '查看',
     remove: actionsColumn.value.remove ?? false,
     removeText: actionsColumn.value.removeText ?? '删除',
-    edit: actionsColumn.value.edit ?? false,
     editText: actionsColumn.value.editText ?? '编辑',
   }))
 

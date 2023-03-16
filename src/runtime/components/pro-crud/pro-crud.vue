@@ -228,7 +228,7 @@ const props = defineProps({
   /** 密度 */
   size: { type: String as PropType<ComponentSize>, default: 'default' },
   /** 分页配置 */
-  pagination: { type: [Boolean, Object] as PropType<false | ProCrudPagination>, default: false },
+  pagination: { type: Object as PropType<ProCrudPagination> },
   /** 控件配置 */
   actions: { type: Object as PropType<ProCrudActions>, default: () => ({}) },
   /** 表格标题 */
@@ -241,15 +241,7 @@ const props = defineProps({
   edit: { type: Object as PropType<ProCrudEdit>, default: () => ({}) },
 })
 
-const emit = defineEmits([
-  'update:current-page',
-  'update:page-size',
-  'update:size',
-  'create',
-  'search',
-  'remove',
-  'edit',
-])
+const emit = defineEmits(['update:pagination', 'update:size', 'create', 'search', 'remove', 'edit'])
 
 const searchRef = ref<ProFormInstance | null>(null)
 const searchLoading = ref(false)

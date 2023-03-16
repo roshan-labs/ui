@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 import type { ProCrudPagination, ProFormInstance } from '../types'
 import { isUndefined } from '../../../utils'
@@ -7,11 +7,50 @@ import { isUndefined } from '../../../utils'
 export const usePagination = (
   searchRef: Ref<ProFormInstance | null>,
   searchLoading: Ref<boolean>,
-  pagination: Ref<ProCrudPagination | false>,
-  emit: (event: 'update:current-page' | 'update:page-size', ...args: any[]) => void
+  pagination: Ref<ProCrudPagination | undefined>,
+  emit: (event: 'update:pagination', ...args: any[]) => void
 ) => {
   const currentPage = ref(1)
-  const pageSize = ref(10)
+
+  watch(
+    pagination,
+    (value) => {
+      if (typeof value?.currentPage === 'number') {
+        currentPage.value = value.currentPage
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(currentPage, (value) => {
+    const payload: ProCrudPagination = {
+      ...pagination.value,
+      currentPage: value,
+    }
+
+    emit('update:pagination', payload)
+  })
+
+  const pageSize = ref(30)
+
+  watch(
+    pagination,
+    (value) => {
+      if (typeof value?.pageSize === 'number') {
+        pageSize.value = value.pageSize
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(pageSize, (value) => {
+    const payload: ProCrudPagination = {
+      ...pagination.value,
+      pageSize: value,
+    }
+
+    emit('update:pagination', payload)
+  })
 
   const paginationProps = computed<ProCrudPagination>(() => {
     let config: ProCrudPagination = {}
@@ -40,13 +79,11 @@ export const usePagination = (
   const updateCurrentPage = (value: number) => {
     currentPage.value = value
     searchRef.value?.submit()
-    emit('update:current-page', value)
   }
 
   const updatePageSize = (value: number) => {
     pageSize.value = value
     searchRef.value?.submit()
-    emit('update:page-size', value)
   }
 
   return {

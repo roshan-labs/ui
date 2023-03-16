@@ -17,8 +17,7 @@ export default {
   title: '高级组件/增删改查 ProCrud',
   component: ProCrud,
   argTypes: {
-    'onUpdate:currentPage': { action: 'update:current-page' },
-    'onUpdate:pageSize': { action: 'update:page-size' },
+    'onUpdate:pagination': { action: 'update:pagination' },
     'onUpdate:size': { action: 'update:size' },
     onSearch: { action: 'search' },
     onRemove: { action: 'remove' },
@@ -85,6 +84,18 @@ Pagination.args = {
   } as ProCrudPagination,
 }
 Pagination.storyName = '带分页'
+
+export const PageSize = Template.bind({})
+PageSize.args = {
+  ...Default.args,
+  pagination: {
+    currentPage: 1,
+    pageSize: 30,
+    total: 1000,
+    layout: 'sizes, prev, pager, next',
+  } as ProCrudPagination,
+}
+PageSize.storyName = '每页个数'
 
 export const PagerCount = Template.bind({})
 PagerCount.args = {
