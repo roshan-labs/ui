@@ -1,5 +1,12 @@
 
 
+## [0.3.0](https://github.com/roshan-labs/ui/compare/v0.2.8...v0.3.0) (2023-03-16)
+
+
+### Features
+
+* pro-crud pagination 属性支持事件更新 ([84391e6](https://github.com/roshan-labs/ui/commit/84391e62a724aafc982c8fb846a3b7e96036369f))
+
 ### [0.2.8](https://github.com/roshan-labs/ui/compare/v0.2.7...v0.2.8) (2023-03-15)
 
 
