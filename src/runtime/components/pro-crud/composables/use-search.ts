@@ -22,6 +22,11 @@ export const useSearch = (
   /** 展开收起状态 */
   const collapse = ref(true)
 
+  const searchFields = ref({})
+  const updateSearchFields: ProFormProps['onUpdate:modelValue'] = (value) => {
+    searchFields.value = value
+  }
+
   /** 查询表单原始选项配置 */
   const searchOriginOptions = computed(() =>
     columns.value.reduce<ProFormOption[]>((prev, column) => {
@@ -93,8 +98,10 @@ export const useSearch = (
   const searchProps = computed(() => {
     const result: ProFormProps = {
       ...search.value,
+      modelValue: searchFields.value,
       options: searchOptions.value,
       action: searchAction.value,
+      'onUpdate:modelValue': updateSearchFields,
       beforeSubmit,
     }
 
