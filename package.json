@@ -1,6 +1,10 @@
 {
   "name": "@roshan-labs/ui",
   "version": "0.3.1",
+  "author": {
+    "name": "James Gao",
+    "email": "gxmari007@gmail.com"
+  },
   "license": "MIT",
   "type": "module",
   "main": "./dist/module.cjs",
@@ -30,6 +34,7 @@
     "build-storybook": "npm run dev:prepare && build-storybook",
     "release": "release-it"
   },
+  "homepage": "https://github.com/roshan-labs/ui",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
