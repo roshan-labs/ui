@@ -1,5 +1,12 @@
 
 
+### [0.3.1](https://github.com/roshan-labs/ui/compare/v0.3.0...v0.3.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* pro-crud 在初始化时未调用查询方法 ([7fbed1d](https://github.com/roshan-labs/ui/commit/7fbed1d25ed3cd3ef4cc66c2a69096d154f99706))
+
 ## [0.3.0](https://github.com/roshan-labs/ui/compare/v0.2.8...v0.3.0) (2023-03-16)
 
 
