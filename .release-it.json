@@ -3,8 +3,10 @@
     "commitMessage": "chore: release v${version}"
   },
   "github": {
-    "release": true,
-    "web": true
+    "release": true
+  },
+  "npm": {
+    "publish": true
   },
   "plugins": {
     "@release-it/conventional-changelog": {

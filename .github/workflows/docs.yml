@@ -1,4 +1,4 @@
-name: doc
+name: Docs
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build doc
+    name: Build docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
           path: storybook-static
 
   deploy:
-    name: Deploy doc
+    name: Deploy docs
 
     needs: build
 
