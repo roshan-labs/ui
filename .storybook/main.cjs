@@ -11,7 +11,11 @@ module.exports = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  viteFinal(config) {
+  viteFinal(config, { configType }) {
+    if (configType === 'PRODUCTION') {
+      config.base = '/ui/'
+    }
+
     config.plugins.push(WindiCSS())
     return config
   },
