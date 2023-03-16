@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProFormInstance } from '../types'
 import type {
@@ -103,6 +103,13 @@ export const useSearch = (
     }
 
     return result
+  })
+
+  onMounted(() => {
+    // 初始化状态需要调用查询方法
+    if (searchVisible.value) {
+      refreshRequest()
+    }
   })
 
   /**
