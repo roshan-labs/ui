@@ -26,8 +26,8 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "storybook": "npm run dev:prepare & start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "storybook": "npm run dev:prepare && start-storybook -p 6006",
+    "build-storybook": "npm run dev:prepare && build-storybook",
     "release": "release-it"
   },
   "config": {
