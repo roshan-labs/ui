@@ -1,4 +1,7 @@
 {
+  "hooks": {
+    "before:init": ["npm run dev:prepare"]
+  },
   "git": {
     "commitMessage": "chore: release v${version}"
   },
