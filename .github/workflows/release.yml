@@ -25,9 +25,13 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "392041299@qq.com"
 
+      - name: Npm config
+        run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - run: pnpm install
       - run: pnpm release --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
