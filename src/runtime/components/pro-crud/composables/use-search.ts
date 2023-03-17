@@ -30,8 +30,8 @@ export const useSearch = (
       if (isBoolean(searchProp) && searchProp) {
         const config: ProFormOption = {
           type: 'input',
-          prop: column.prop ?? '',
-          label: column.label ?? '',
+          prop: column.prop || '',
+          label: column.label || '',
         }
 
         // 非行内表单默认删格布局占位 6
@@ -43,8 +43,8 @@ export const useSearch = (
       } else if (searchProp) {
         const config: ProFormOption = {
           label: column.label,
+          prop: column.prop || '',
           ...searchProp,
-          prop: column.prop ?? '',
         }
 
         // 非行内表单并且未设置占位默认 6

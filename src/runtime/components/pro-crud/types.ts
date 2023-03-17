@@ -22,11 +22,11 @@ export interface ProCrudColumn<T = any>
   /** 是否隐藏此列 */
   hide?: boolean
   /** 查询表单项配置 */
-  search?: boolean | ProFormOption
+  search?: boolean | Partial<ProFormOption>
   /** 新增表单项配置 */
-  create?: boolean | ProFormOption
+  create?: boolean | Partial<ProFormOption>
   /** 编辑表单项配置 */
-  edit?: boolean | ProFormOption
+  edit?: boolean | Partial<ProFormOption>
 }
 
 /** Crud 操作列配置 */
