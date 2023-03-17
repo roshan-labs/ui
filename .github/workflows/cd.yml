@@ -1,9 +1,9 @@
-name: Release
+name: CD
 
 on: workflow_dispatch
 
 jobs:
-  release:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

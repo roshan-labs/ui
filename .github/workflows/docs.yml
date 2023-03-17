@@ -1,9 +1,12 @@
 name: Docs
 
 on:
-  push:
-    tags:
-      - v*
+  workflow_run:
+    workflows: [CD]
+    types:
+      - completed
+    branches:
+      - releases/**
 
 jobs:
   build:
