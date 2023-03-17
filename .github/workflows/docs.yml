@@ -5,8 +5,8 @@ on:
     workflows: [CD]
     types:
       - completed
-    branches:
-      - releases/**
+    tags:
+      - v*
 
 jobs:
   build:

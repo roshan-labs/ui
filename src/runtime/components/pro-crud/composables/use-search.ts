@@ -2,12 +2,7 @@ import type { Ref } from 'vue'
 import { ref, computed, onMounted } from 'vue'
 
 import type { ProCrudColumn, ProCrudSearch, ProFormInstance } from '../types'
-import type {
-  ProFormOption,
-  ProFormProps,
-  ProFormDone,
-  ProFormBeforeSubmit,
-} from '../../pro-form/types'
+import type { ProFormOption, ProFormProps, ProFormBeforeSubmit } from '../../pro-form/types'
 import { isUndefined, isBoolean } from '../../../utils'
 
 export const useSearch = (
@@ -119,22 +114,17 @@ export const useSearch = (
     }
   })
 
-  /**
-   * 绑定表单 done 函数
-   * 停止加载状态
-   */
-  const createDone = (done: ProFormDone) => {
-    return () => {
-      done()
-      searchLoading.value = false
-    }
-  }
-
-  const beforeSubmit: ProFormBeforeSubmit = (fields, isValid, done) => {
+  const beforeSubmit: ProFormBeforeSubmit = (fields, isValid, done, loading) => {
     if (isValid) {
-      const doneFunc = createDone(done)
+      const doneFunc = () => {
+        searchLoading.value = false
+        loading.value = false
+        done()
+      }
 
       searchLoading.value = true
+      loading.value = true
+
       emit('search', {
         params: fields,
         currentPage: currentPage.value,
