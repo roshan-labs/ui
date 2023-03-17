@@ -1,5 +1,12 @@
 
 
+### [0.3.2](https://github.com/roshan-labs/ui/compare/v0.3.1...v0.3.2) (2023-03-17)
+
+
+### Bug Fixes
+
+* pro-crud 查询表单无法输入 ([513ef89](https://github.com/roshan-labs/ui/commit/513ef8997bf328c3968f1e18b2aae7a8eb6a5c6f))
+
 ### [0.3.1](https://github.com/roshan-labs/ui/compare/v0.3.0...v0.3.1) (2023-03-16)
 
 
