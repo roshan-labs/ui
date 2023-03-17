@@ -1,5 +1,12 @@
 
 
+### 0.3.8 (2023-03-17)
+
+
+### Bug Fixes
+
+* pro-crud 表单配置非强制传入 prop ([91ad203](https://github.com/roshan-labs/ui/commit/91ad203011cbfae2b29e775baef3a08b1a4d80c5))
+
 ### 0.3.7 (2023-03-17)
 
 ### 0.3.6 (2023-03-17)
