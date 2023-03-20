@@ -32,6 +32,7 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "storybook": "npm run dev:prepare && start-storybook -p 6006",
     "build-storybook": "npm run dev:prepare && build-storybook",
+    "lint": "eslint src",
     "release": "release-it"
   },
   "homepage": "https://github.com/roshan-labs/ui",

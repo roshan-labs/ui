@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "before:init": ["npm run dev:prepare"]
+    "before:init": ["npm run dev:prepare", "npm run lint"]
   },
   "git": {
     "commitMessage": "chore: release v${version}",
