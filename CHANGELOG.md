@@ -1,5 +1,12 @@
 
 
+## 0.4.0 (2023-03-20)
+
+
+### Features
+
+* pro-form 增加 select 类型表单，与 select-v2 做区分 ([9cdd250](https://github.com/roshan-labs/ui/commit/9cdd250c02312a0781683a88c7c4621b6fd1384f))
+
 ### 0.3.8 (2023-03-17)
 
 
