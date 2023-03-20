@@ -159,6 +159,7 @@
     <edit-dialog
       v-model="editDialogVisible"
       :title="editDialogTitle"
+      :row="selectedRow"
       :form-props="editFormProps"
       :edit-request="editRequest"
     />
@@ -303,8 +304,15 @@ const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
 const { removeRow } = useRemove(dataRef, emit, refreshRequest)
 
-const { editDialogVisible, editDialogTitle, editVisible, editFormProps, editRow, editRequest } =
-  useEdit(toRef(props, 'edit'), dataRef, columnsRef, emit)
+const {
+  selectedRow,
+  editDialogVisible,
+  editDialogTitle,
+  editVisible,
+  editFormProps,
+  editRow,
+  editRequest,
+} = useEdit(toRef(props, 'edit'), dataRef, columnsRef, emit)
 </script>
 
 <style>

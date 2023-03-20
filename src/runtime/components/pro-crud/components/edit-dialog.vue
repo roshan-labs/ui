@@ -17,7 +17,7 @@ import { ref, computed } from 'vue'
 
 import type { ProFormProps } from '../../pro-form/types'
 import type { ProDialogBeforeConfirm } from '../../pro-dialog/types'
-import type { ProCrudEditEvent } from '../types'
+import type { ProCrudEditEvent, Data } from '../types'
 import ProDialog from '../../pro-dialog/pro-dialog.vue'
 import ProForm from '../../pro-form/pro-form.vue'
 
@@ -26,6 +26,8 @@ const props = defineProps({
   modelValue: { type: Boolean },
   /** 标题 */
   title: { type: String, default: '' },
+  /** 编辑的表格行 */
+  row: { type: Object as PropType<Data | null> },
   /** ProForm props */
   formProps: { type: Object as PropType<ProFormProps>, default: () => ({}) },
   /** 编辑数据回调方法 */
@@ -54,10 +56,17 @@ const onCancel = () => {
 }
 
 const beforeConfirm: ProDialogBeforeConfirm = (loading, done) => {
-  if (formRef.value) {
+  if (formRef.value && props.row) {
+    const row = props.row
+
     formRef.value.validate((isValid) => {
       if (isValid) {
-        props.editRequest({ params: props.formProps.modelValue, loading, done })
+        props.editRequest({
+          row,
+          params: props.formProps.modelValue || {},
+          loading,
+          done,
+        })
       }
     })
   }

@@ -24,11 +24,11 @@ export interface ProCrudColumn<T = any>
   /** 是否隐藏此列 */
   hide?: boolean
   /** 查询表单项配置 */
-  search?: boolean | Partial<ProFormOption>
+  search?: boolean | ProFormOption
   /** 新增表单项配置 */
-  create?: boolean | Partial<ProFormOption>
+  create?: boolean | ProFormOption
   /** 编辑表单项配置 */
-  edit?: boolean | Partial<ProFormOption>
+  edit?: boolean | ProFormOption
 }
 
 /** Crud 操作列配置 */
@@ -90,8 +90,8 @@ export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
 }
 
 /** 新增数据事件 */
-export type ProCrudCreateEvent<T extends Params = any> = (payload: {
-  params: T
+export type ProCrudCreateEvent = (payload: {
+  params: Params
   loading: Ref<boolean>
   done: ProFormDone
 }) => Promise<void> | void
@@ -105,8 +105,8 @@ export interface ProCrudViewOption {
 }
 
 /** 删除数据事件 */
-export type ProCrudRemoveEvent = <T extends Params = any>(payload: {
-  row: T
+export type ProCrudRemoveEvent = (payload: {
+  row: Params
   done: () => void
 }) => Promise<void> | void
 
@@ -119,8 +119,9 @@ export interface ProCrudEdit extends Omit<ProFormProps, 'options'> {
 }
 
 /** 编辑数据事件 */
-export type ProCrudEditEvent = <T extends Params = any>(payload: {
-  params: T
+export type ProCrudEditEvent = (payload: {
+  row: Params
+  params: Params
   loading: Ref<boolean>
   done: () => void
 }) => Promise<void> | void

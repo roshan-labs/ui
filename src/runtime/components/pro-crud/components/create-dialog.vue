@@ -66,7 +66,7 @@ const beforeConfirm: ProDialogBeforeConfirm = (loading, done) => {
           props.refreshRequest()
         }
 
-        props.createRequest({ params: props.formProps.modelValue, loading, done: doneFunc })
+        props.createRequest({ params: props.formProps.modelValue || {}, loading, done: doneFunc })
       }
     })
   }

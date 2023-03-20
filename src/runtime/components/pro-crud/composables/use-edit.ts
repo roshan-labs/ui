@@ -85,6 +85,7 @@ export const useEdit = (
   }
 
   return {
+    selectedRow,
     editDialogVisible,
     editDialogTitle,
     editVisible,
