@@ -104,22 +104,16 @@
       </el-table-column>
       <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
         <template #default="{ $index, row }">
-          <el-button
-            v-if="actionsColumnConfig.view"
-            type="primary"
-            :size="sizeModel"
-            link
-            @click="viewRow($index)"
-            >{{ actionsColumnConfig.viewText }}</el-button
-          >
-          <el-button
-            v-if="actionsColumnConfig.remove"
-            type="primary"
-            :size="sizeModel"
-            link
-            @click="removeRow($index)"
-            >{{ actionsColumnConfig.removeText }}</el-button
-          >
+          <slot name="actions-column-view" v-bind="{ row, size }">
+            <el-button
+              v-if="viewActionVisible"
+              type="primary"
+              :size="sizeModel"
+              link
+              @click="viewRow($index)"
+              >{{ actionsColumnConfig.viewText }}</el-button
+            >
+          </slot>
           <el-button
             v-if="editVisible"
             type="primary"
@@ -128,8 +122,18 @@
             @click="editRow($index)"
             >{{ actionsColumnConfig.editText }}</el-button
           >
+          <slot name="actions-column-remove" v-bind="{ row, size }">
+            <el-button
+              v-if="actionsColumnConfig.remove"
+              type="primary"
+              :size="sizeModel"
+              link
+              @click="removeRow($index)"
+              >{{ actionsColumnConfig.removeText }}</el-button
+            >
+          </slot>
           <!-- 自定义操作列插槽 -->
-          <slot v-if="$slots.actionsColumn" name="actionsColumn" v-bind="{ row, size }" />
+          <slot name="actions-column" v-bind="{ row, size }" />
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
@@ -300,7 +304,7 @@ const { settingVisible } = useSetting()
 
 const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emit)
 
-const { viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
+const { viewActionVisible, viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
 const { removeRow } = useRemove(dataRef, emit, refreshRequest)
 

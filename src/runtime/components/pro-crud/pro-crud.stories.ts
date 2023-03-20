@@ -9,7 +9,6 @@ import type {
   ProCrudActions,
   ProCrudActionsColumn,
   ProCrudSearchEvent,
-  ProCrudRemoveEvent,
   ProCrudCreateEvent,
 } from './types'
 import { ProCrud } from '.'
@@ -199,26 +198,54 @@ HideColumn.storyName = '列隐藏'
 
 export const ViewRow = Template.bind({})
 ViewRow.args = {
-  ...Default.args,
-  actionsColumn: {
-    view: true,
-    remove: false,
-  } as ProCrudActionsColumn,
+  data,
+  columns: [
+    { prop: 'date', label: '日期' },
+    { prop: 'name', label: '姓名', view: false },
+  ] as ProCrudColumn[],
 }
-ViewRow.storyName = '查看数据'
+ViewRow.storyName = '查看'
+
+export const ViewRowSlot: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #actions-column-view>
+        <el-button type="primary" link>自定义查看</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+ViewRowSlot.args = {
+  ...Default.args,
+}
+ViewRowSlot.storyName = '查看插槽'
 
 export const RemoveRow = Template.bind({})
 RemoveRow.args = {
   ...Default.args,
   actionsColumn: {
-    view: false,
     remove: true,
   } as ProCrudActionsColumn,
-  onRemove: (({ done }) => {
-    window.setTimeout(done, 2000)
-  }) as ProCrudRemoveEvent,
 }
 RemoveRow.storyName = '删除数据'
+
+export const RemoveSlot: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #actions-column-remove>
+        <el-button type="primary" link>自定义删除</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+RemoveSlot.args = {
+  ...RemoveRow.args,
+}
+RemoveSlot.storyName = '删除插槽'
 
 export const Search = Template.bind({})
 Search.args = {
@@ -380,7 +407,7 @@ export const ActionsColumnSlot: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <pro-crud v-bind="args">
-      <template #actionsColumn>
+      <template #actions-column>
         <el-button type="primary" link>自定义编辑</el-button>
       </template>
     </pro-crud>
@@ -397,13 +424,14 @@ AllUse.args = {
   data,
   columns: [
     { prop: 'date', label: '日期', search: true, create: true },
-    { prop: 'name', label: '姓名', search: true, create: true },
+    { prop: 'name', label: '姓名', search: true, create: true, edit: true },
     { prop: 'state', label: '州', search: true, create: true },
     { prop: 'city', label: '城市', search: true },
     { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
   ] as ProCrudColumn[],
   search: { collapseCount: 3 } as ProCrudSearch,
   actions: { refresh: true, size: true, setting: true } as ProCrudActions,
+  actionsColumn: { remove: true } as ProCrudActionsColumn,
   pagination: Search.args.pagination,
   onSearch: Search.args.onSearch,
   onRemove: RemoveRow.args.onRemove,

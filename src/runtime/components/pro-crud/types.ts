@@ -23,6 +23,8 @@ export interface ProCrudColumn<T = any>
   slots?: Slots<'default' | 'header'>
   /** 是否隐藏此列 */
   hide?: boolean
+  /** 查看配置 */
+  view?: boolean
   /** 查询表单项配置 */
   search?: boolean | ProFormOption
   /** 新增表单项配置 */
@@ -32,9 +34,10 @@ export interface ProCrudColumn<T = any>
 }
 
 /** Crud 操作列配置 */
-export interface ProCrudActionsColumn extends ProCrudColumn {
-  /** 是否查看表格行详情 */
-  view?: boolean
+export interface ProCrudActionsColumn
+  extends Partial<Omit<TableColumnCtx<any>, 'id' | 'realWidth'>> {
+  /** 是否隐藏此列 */
+  hide?: boolean
   /** 查看文本 */
   viewText?: string
   /** 是否删除数据 */

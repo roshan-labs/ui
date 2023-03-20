@@ -16,7 +16,6 @@ export const useActionsColumn = (actionsColumn: Ref<ProCrudActionsColumn>) => {
 
   /** 操作列配置 */
   const actionsColumnConfig = computed(() => ({
-    view: actionsColumn.value.view ?? true,
     viewText: actionsColumn.value.viewText ?? '查看',
     remove: actionsColumn.value.remove ?? false,
     removeText: actionsColumn.value.removeText ?? '删除',
