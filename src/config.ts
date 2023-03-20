@@ -40,6 +40,7 @@ export const proComponents = [
   { dirname: 'pro-dialog', name: 'ProDialog' },
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
+  { dirname: 'pro-select', name: 'ProSelect' },
 ]
 
 /** element-plus 指令 */
