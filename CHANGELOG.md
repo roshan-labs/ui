@@ -1,5 +1,12 @@
 
 
+### 0.4.2 (2023-03-20)
+
+
+### Bug Fixes
+
+* pro-crud 组件 toolbar 缺少插槽功能 ([dc0003f](https://github.com/roshan-labs/ui/commit/dc0003fdee0523463c1affc13ad3b1a5d78f3084))
+
 ### 0.4.1 (2023-03-20)
 
 ## 0.4.0 (2023-03-20)
