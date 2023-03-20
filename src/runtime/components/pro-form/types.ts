@@ -285,6 +285,14 @@ interface FormSelectOption extends FormBaseOption {
   component?: FormSelectProps
 }
 
+/**
+ * SelectV2
+ */
+interface FormSelectV2Option extends FormBaseOption {
+  type: 'select-v2'
+  component?: FormSelectProps
+}
+
 export type ProFormOption =
   | FormAutocompleteOption
   | FormCascaderOption
@@ -303,6 +311,7 @@ export type ProFormOption =
   | FormTransferOption
   | FormUploadOption
   | FormSelectOption
+  | FormSelectV2Option
 
 export interface ProFormAction extends LayoutColProps {
   submit?: boolean

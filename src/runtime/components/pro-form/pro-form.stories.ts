@@ -278,6 +278,26 @@ Select.args = {
 }
 Select.storyName = '选择器'
 
+export const SelectV2 = Template.bind({})
+SelectV2.args = {
+  options: [
+    {
+      type: 'select-v2',
+      prop: 'select-v2',
+      label: '虚拟化选择器',
+      component: {
+        class: width,
+        options: Array.from({ length: 5000 }).map((_, index) => ({
+          value: `${index + 1}`,
+          label: `选项${index + 1}`,
+        })),
+      },
+    },
+  ] as ProFormOption[],
+  labelWidth: 120,
+}
+SelectV2.storyName = '虚拟化选择器'
+
 export const Slider = Template.bind({})
 Slider.args = {
   options: [

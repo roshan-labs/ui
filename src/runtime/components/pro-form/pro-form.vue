@@ -120,7 +120,8 @@ const Autocomplete = defineAsyncComponent(() => import('./components/autocomplet
 const Cascader = defineAsyncComponent(() => import('./components/cascader'))
 const CascaderPanel = defineAsyncComponent(() => import('./components/cascader-panel'))
 const ColorPicker = defineAsyncComponent(() => import('./components/color-picker'))
-const Select = defineAsyncComponent(() => import('./components/select'))
+const ProSelect = defineAsyncComponent(() => import('../pro-select/pro-select.vue'))
+const SelectV2 = defineAsyncComponent(() => import('./components/select-v2'))
 const DatePicker = defineAsyncComponent(() => import('./components/date-picker'))
 const Slider = defineAsyncComponent(() => import('./components/slider'))
 const Switch = defineAsyncComponent(() => import('./components/switch'))
@@ -150,7 +151,9 @@ const getComponent = (type: ProFormOption['type']) => {
     case 'color-picker':
       return ColorPicker
     case 'select':
-      return Select
+      return ProSelect
+    case 'select-v2':
+      return SelectV2
     case 'date-picker':
       return DatePicker
     case 'slider':

@@ -1,5 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
+import { ElButton } from 'element-plus'
 
 import type {
   ProCrudColumn,
@@ -357,6 +358,22 @@ EditDataValidate.args = {
   ] as ProCrudColumn[],
 }
 EditDataValidate.storyName = '编辑数据带验证'
+
+export const ActionsColumnSlot: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #actionsColumn>
+        <el-button type="primary" link>自定义编辑</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+ActionsColumnSlot.args = {
+  ...Search.args,
+}
+ActionsColumnSlot.storyName = '操作列插槽'
 
 export const AllUse = Template.bind({})
 AllUse.args = {

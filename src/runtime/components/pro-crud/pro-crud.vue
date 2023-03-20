@@ -102,7 +102,7 @@
         </template>
       </el-table-column>
       <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
-        <template #default="{ $index }">
+        <template #default="{ $index, row }">
           <el-button
             v-if="actionsColumnConfig.view"
             type="primary"
@@ -127,6 +127,8 @@
             @click="editRow($index)"
             >{{ actionsColumnConfig.editText }}</el-button
           >
+          <!-- 自定义操作列插槽 -->
+          <slot v-if="$slots.actionsColumn" name="actionsColumn" v-bind="{ row, size }" />
         </template>
       </el-table-column>
       <template v-if="$slots.append" #append>
