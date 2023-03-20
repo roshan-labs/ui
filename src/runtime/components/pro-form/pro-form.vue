@@ -194,6 +194,10 @@ watchEffect(() => {
       case 'switch':
         value = false
         break
+      case 'select':
+      case 'select-v2':
+        value = item.component?.multiple ? [] : ''
+        break
       default:
         value = ''
         break
