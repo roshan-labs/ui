@@ -7,7 +7,8 @@ import type { ProCrudActionsColumn, ProCrudColumn } from '../types'
 export const useActionsColumn = (actionsColumn: Ref<ProCrudActionsColumn>) => {
   /** 操作列 ElTableColumn 属性 */
   const actionsColumnProps = computed<ProCrudColumn>(() => ({
-    label: actionsColumn.value.title ?? '操作',
+    label: actionsColumn.value.label || '操作',
+    ...actionsColumn.value,
   }))
 
   /** 操作列是否禁用 */

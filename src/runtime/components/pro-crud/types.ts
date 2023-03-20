@@ -5,6 +5,8 @@ import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '..
 import type { Slots, Writable } from '../../utils'
 import { ProForm } from '../pro-form'
 
+type Params = Record<string, any>
+
 /** ProForm 实例 */
 export type ProFormInstance = InstanceType<typeof ProForm>
 
@@ -30,11 +32,7 @@ export interface ProCrudColumn<T = any>
 }
 
 /** Crud 操作列配置 */
-export interface ProCrudActionsColumn {
-  /** 是否隐藏 */
-  hide?: boolean
-  /** 标题 */
-  title?: string
+export interface ProCrudActionsColumn extends ProCrudColumn {
   /** 是否查看表格行详情 */
   view?: boolean
   /** 查看文本 */
@@ -75,7 +73,7 @@ export interface ProCrudSearch extends Omit<ProFormProps, 'options'> {
 
 /** 查询数据事件 */
 export type ProCrudSearchEvent = (payload: {
-  params: Record<string, any>
+  params: Params
   done: ProFormDone
   currentPage: number
   pageSize: number
@@ -92,7 +90,7 @@ export interface ProCrudCreate extends Omit<ProFormProps, 'options'> {
 }
 
 /** 新增数据事件 */
-export type ProCrudCreateEvent<T = any> = (payload: {
+export type ProCrudCreateEvent<T extends Params = any> = (payload: {
   params: T
   loading: Ref<boolean>
   done: ProFormDone
@@ -107,7 +105,7 @@ export interface ProCrudViewOption {
 }
 
 /** 删除数据事件 */
-export type ProCrudRemoveEvent = <T = any>(payload: {
+export type ProCrudRemoveEvent = <T extends Params = any>(payload: {
   row: T
   done: () => void
 }) => Promise<void> | void
@@ -121,7 +119,7 @@ export interface ProCrudEdit extends Omit<ProFormProps, 'options'> {
 }
 
 /** 编辑数据事件 */
-export type ProCrudEditEvent = <T = any>(payload: {
+export type ProCrudEditEvent = <T extends Params = any>(payload: {
   params: T
   loading: Ref<boolean>
   done: () => void

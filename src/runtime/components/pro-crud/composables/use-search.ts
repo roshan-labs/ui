@@ -44,7 +44,7 @@ export const useSearch = (
         const config: ProFormOption = {
           label: column.label,
           prop: column.prop || '',
-          ...searchProp,
+          ...(searchProp as any),
         }
 
         // 非行内表单并且未设置占位默认 6

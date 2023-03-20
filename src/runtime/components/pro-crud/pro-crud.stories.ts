@@ -76,6 +76,22 @@ Title.args = {
 }
 Title.storyName = '带标题'
 
+export const ToolbarSlot: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #toolbar>
+        <el-button type="primary">自定义按钮</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+ToolbarSlot.args = {
+  ...Default.args,
+}
+ToolbarSlot.storyName = '工具栏插槽'
+
 export const Pagination = Template.bind({})
 Pagination.args = {
   ...Default.args,

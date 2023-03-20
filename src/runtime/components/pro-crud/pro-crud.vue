@@ -30,6 +30,7 @@
     <div v-if="toolbarVisible" class="pro-crud__toolbar">
       <div v-if="title" class="pro-crud__toolbar-title">{{ title }}</div>
       <div class="pro-crud__toolbar-actions">
+        <slot name="toolbar" />
         <el-space class="pro-crud__toolbar-items" size="large">
           <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
             {{ createButtonText }}
