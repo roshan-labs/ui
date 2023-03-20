@@ -1,5 +1,12 @@
 
 
+### 0.4.3 (2023-03-20)
+
+
+### Bug Fixes
+
+* pro-crud 编辑事件缺少当前 row 属性 ([7d5656f](https://github.com/roshan-labs/ui/commit/7d5656f793ddae41abc198d24a3a8b28ec094012))
+
 ### 0.4.2 (2023-03-20)
 
 
