@@ -1,5 +1,12 @@
 
 
+### 0.4.5 (2023-03-21)
+
+
+### Bug Fixes
+
+* pro-crud 支持选择功能 ([61dff70](https://github.com/roshan-labs/ui/commit/61dff70fdddeea30e699b7ad43c4d90bcf7b0f3a))
+
 ### 0.4.4 (2023-03-21)
 
 
