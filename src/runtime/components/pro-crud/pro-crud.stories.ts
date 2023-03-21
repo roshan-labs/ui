@@ -88,6 +88,7 @@ export const ToolbarSlot: Story = (args) => ({
 })
 ToolbarSlot.args = {
   ...Default.args,
+  actions: { size: true } as ProCrudActions,
 }
 ToolbarSlot.storyName = '工具栏插槽'
 
@@ -418,7 +419,17 @@ ActionsColumnSlot.args = {
 }
 ActionsColumnSlot.storyName = '操作列插槽'
 
-export const AllUse = Template.bind({})
+export const AllUse: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #toolbar>
+        <el-button type="primary">自定义按钮</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
 AllUse.args = {
   title: '一个综合使用的 CRUD 查询表格',
   data,
