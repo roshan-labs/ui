@@ -1,5 +1,12 @@
 
 
+### 0.4.4 (2023-03-21)
+
+
+### Bug Fixes
+
+* pro-crud 查看粒度由 column 控制，增加 remove 插槽 ([1022be8](https://github.com/roshan-labs/ui/commit/1022be8e363e3232bdd05ae7e8f61aae7dc47361))
+
 ### 0.4.3 (2023-03-20)
 
 
