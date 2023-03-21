@@ -17,6 +17,9 @@ export default {
   title: '高级组件/增删改查 ProCrud',
   component: ProCrud,
   argTypes: {
+    onSelect: { action: 'select' },
+    onSelectAll: { action: 'select-all' },
+    onSelectionChange: { action: 'selection-change' },
     'onUpdate:pagination': { action: 'update:pagination' },
     'onUpdate:size': { action: 'update:size' },
     onSearch: { action: 'search' },
@@ -418,6 +421,28 @@ ActionsColumnSlot.args = {
   ...Search.args,
 }
 ActionsColumnSlot.storyName = '操作列插槽'
+
+export const Selection: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #toolbar="{ selection }">
+        <el-button type="primary" :disabled="selection.length === 0">批量处理</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+Selection.args = {
+  data,
+  columns: [
+    { type: 'selection' },
+    { prop: 'date', label: '日期' },
+    { prop: 'name', label: '姓名' },
+    { prop: 'state', label: '州' },
+  ] as ProCrudColumn[],
+}
+Selection.storyName = '多选'
 
 export const AllUse: Story = (args) => ({
   components: { ProCrud, ElButton },

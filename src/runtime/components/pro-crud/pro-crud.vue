@@ -31,7 +31,7 @@
       <div v-if="title" class="pro-crud__toolbar-title">{{ title }}</div>
       <div class="pro-crud__toolbar-actions">
         <el-space class="pro-crud__toolbar-items" size="large">
-          <slot name="toolbar" />
+          <slot name="toolbar" v-bind="{ selection }" />
           <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
             {{ createButtonText }}
           </el-button>
@@ -76,8 +76,23 @@
         </el-space>
       </div>
     </div>
+    <!-- INFO -->
+    <el-alert
+      v-if="selection.length > 0"
+      class="pro-crud__info"
+      :title="selectionInfo"
+      close-text="取消选择"
+      @close="clearSelection"
+    />
     <!-- TABLE -->
-    <el-table v-loading="searchLoading" v-bind="$attrs" :data="data" :size="sizeModel">
+    <el-table
+      ref="tableRef"
+      v-loading="searchLoading"
+      v-bind="$attrs"
+      :data="data"
+      :size="sizeModel"
+      @selection-change="onSelectionChange"
+    >
       <el-table-column v-for="column in filterColumns" :key="column.prop" v-bind="column">
         <template v-if="column.slots?.header" #header="slotProps">
           <slot
@@ -171,7 +186,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ComponentSize } from 'element-plus'
+import type { ComponentSize, TableInstance } from 'element-plus'
 import type { PropType } from 'vue'
 import { ref, toRef, defineAsyncComponent } from 'vue'
 import {
@@ -184,6 +199,7 @@ import {
   ElTooltip,
   ElDropdown,
   ElDropdownItem,
+  ElAlert,
   vLoading,
 } from 'element-plus'
 import {
@@ -220,6 +236,7 @@ import { useTable } from './composables/use-table'
 import { useView } from './composables/use-view'
 import { useRemove } from './composables/use-remove'
 import { useEdit } from './composables/use-edit'
+import { useSelection } from './composables/use-selection'
 
 const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
 const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
@@ -252,6 +269,7 @@ const props = defineProps({
 const emit = defineEmits(['update:pagination', 'update:size', 'create', 'search', 'remove', 'edit'])
 
 const searchRef = ref<ProFormInstance | null>(null)
+const tableRef = ref<TableInstance | null>(null)
 const searchLoading = ref(false)
 const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
@@ -318,7 +336,11 @@ const {
   editRequest,
 } = useEdit(toRef(props, 'edit'), dataRef, columnsRef, emit)
 
+const { selection, selectionInfo, onSelectionChange, clearSelection } = useSelection(tableRef)
+
 defineExpose({
+  // ElTable 实例方法
+  ...tableRef.value,
   /** 刷新查询 */
   refreshSearch: refreshRequest,
 })
@@ -329,6 +351,10 @@ defineExpose({
   display: flex;
   align-items: center;
   height: 32px;
+  margin-bottom: 16px;
+}
+
+.pro-crud__info {
   margin-bottom: 16px;
 }
 
