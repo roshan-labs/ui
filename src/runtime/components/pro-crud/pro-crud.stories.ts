@@ -435,13 +435,8 @@ export const Selection: Story = (args) => ({
   `,
 })
 Selection.args = {
-  data,
-  columns: [
-    { type: 'selection' },
-    { prop: 'date', label: '日期' },
-    { prop: 'name', label: '姓名' },
-    { prop: 'state', label: '州' },
-  ] as ProCrudColumn[],
+  ...Search.args,
+  selection: true,
 }
 Selection.storyName = '多选'
 

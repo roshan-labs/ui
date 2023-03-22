@@ -32,7 +32,7 @@
       <div class="pro-crud__toolbar-actions">
         <el-space class="pro-crud__toolbar-items" size="large">
           <div v-if="$slots.toolbar">
-            <slot name="toolbar" v-bind="{ selection }" />
+            <slot name="toolbar" v-bind="{ selection: selectionList }" />
           </div>
           <el-button v-if="createVisible" type="primary" :icon="Plus" @click="openCreateDialog">
             {{ createButtonText }}
@@ -80,7 +80,7 @@
     </div>
     <!-- INFO -->
     <el-alert
-      v-if="selection.length > 0"
+      v-if="selectionList.length > 0"
       class="pro-crud__info"
       :title="selectionInfo"
       close-text="取消选择"
@@ -266,6 +266,12 @@ const props = defineProps({
   create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
   /** 编辑表单配置 */
   edit: { type: Object as PropType<ProCrudEdit>, default: () => ({}) },
+  /** 是否开启多选 */
+  selection: { type: Boolean },
+  /** 多选列宽度 */
+  selectionWidth: { type: [Number, String] },
+  /** 多选列是否固定 */
+  selectionFixed: { type: Boolean },
 })
 
 const emit = defineEmits(['update:pagination', 'update:size', 'create', 'search', 'remove', 'edit'])
@@ -280,8 +286,6 @@ const actionsColumnRef = toRef(props, 'actionsColumn')
 
 const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } =
   useActionsColumn(actionsColumnRef)
-
-const { filterColumns } = useTable(columnsRef)
 
 const { paginationProps, currentPage, pageSize } = usePagination(
   searchRef,
@@ -324,8 +328,6 @@ const { settingVisible } = useSetting()
 
 const { sizeModel, sizeOptions, changeSize } = useSize(toRef(props, 'size'), emit)
 
-const { viewActionVisible, viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
-
 const { removeRow } = useRemove(dataRef, emit, refreshRequest)
 
 const {
@@ -338,7 +340,17 @@ const {
   editRequest,
 } = useEdit(toRef(props, 'edit'), dataRef, columnsRef, emit)
 
-const { selection, selectionInfo, onSelectionChange, clearSelection } = useSelection(tableRef)
+const { selectionList, selectionInfo, selectionColumn, onSelectionChange, clearSelection } =
+  useSelection(
+    tableRef,
+    toRef(props, 'selection'),
+    toRef(props, 'selectionWidth'),
+    toRef(props, 'selectionFixed')
+  )
+
+const { filterColumns } = useTable(columnsRef, selectionColumn)
+
+const { viewActionVisible, viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
 
 defineExpose({
   // ElTable 实例方法

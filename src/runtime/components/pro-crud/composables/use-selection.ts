@@ -3,18 +3,39 @@ import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 import type { TableInstance } from 'element-plus'
 
-import type { Data } from '../types'
+import type { Data, ProCrudColumn } from '../types'
+import { isUndefined } from '../../../utils'
 
 /** 多选 */
-export const useSelection = (tableRef: Ref<TableInstance | null>) => {
-  const selection = ref<Data[]>([])
+export const useSelection = (
+  tableRef: Ref<TableInstance | null>,
+  selection: Ref<boolean>,
+  selectionWidth: Ref<number | string | undefined>,
+  selectionFixed: Ref<boolean>
+) => {
+  const selectionList = ref<Data[]>([])
 
   const selectionInfo = computed(() =>
-    selection.value.length > 0 ? `已选择 ${selection.value.length} 项` : ''
+    selectionList.value.length > 0 ? `已选择 ${selectionList.value.length} 项` : ''
   )
 
+  /** 多选列配置 */
+  const selectionColumn = computed<ProCrudColumn | null>(() => {
+    if (selection.value) {
+      const column: ProCrudColumn = { type: 'selection', fixed: selectionFixed.value }
+
+      if (!isUndefined(selectionWidth.value)) {
+        column.width = selectionWidth.value
+      }
+
+      return column
+    }
+
+    return null
+  })
+
   const onSelectionChange = (value: Data[]) => {
-    selection.value = value
+    selectionList.value = value
   }
 
   const clearSelection = () => {
@@ -22,8 +43,9 @@ export const useSelection = (tableRef: Ref<TableInstance | null>) => {
   }
 
   return {
-    selection,
+    selectionList,
     selectionInfo,
+    selectionColumn,
     onSelectionChange,
     clearSelection,
   }

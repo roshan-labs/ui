@@ -21,7 +21,7 @@ export const useView = (data: Ref<ProCrudData>, columns: Ref<ProCrudColumn[]>) =
     if (selectedRow.value) {
       const row = selectedRow.value
       return columns.value
-        .filter((column) => column.view ?? true)
+        .filter((column) => !column.type && (column.view ?? true))
         .map((column) => {
           const value = row[column.prop || ''] ?? ''
 
