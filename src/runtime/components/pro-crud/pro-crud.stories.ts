@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/vue3'
 import { h } from 'vue'
-import { ElButton } from 'element-plus'
+import { ElButton, ElLink } from 'element-plus'
 
 import type {
   ProCrudColumn,
@@ -79,19 +79,20 @@ Title.args = {
 Title.storyName = '带标题'
 
 export const ToolbarSlot: Story = (args) => ({
-  components: { ProCrud, ElButton },
+  components: { ProCrud, ElLink },
   setup: () => ({ args }),
   template: `
     <pro-crud v-bind="args">
       <template #toolbar>
-        <el-button type="primary">自定义按钮</el-button>
+        <el-link type="primary">自定义按钮</el-link>
+        <el-link type="primary">自定义按钮</el-link>
       </template>
     </pro-crud>
   `,
 })
 ToolbarSlot.args = {
   ...Default.args,
-  actions: { size: true } as ProCrudActions,
+  actions: { size: true, setting: true } as ProCrudActions,
 }
 ToolbarSlot.storyName = '工具栏插槽'
 
