@@ -1,5 +1,12 @@
 
 
+## 0.5.0 (2023-03-23)
+
+
+### Features
+
+* pro-crud 增加 searchFields 双向绑定属性 ([e4e9ef3](https://github.com/roshan-labs/ui/commit/e4e9ef362adc3b4d758873f76d0b4168b7eeea69))
+
 ### 0.4.5 (2023-03-21)
 
 
