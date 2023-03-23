@@ -9,6 +9,7 @@ export default {
   title: '高级组件/表单 ProForm',
   component: ProForm,
   argTypes: {
+    'onUpdate:modelValue': { action: 'update:model-value' },
     onReset: { action: 'reset' },
     onSubmit: { action: 'submit' },
   },
@@ -468,3 +469,22 @@ BeforeSubmit.args = {
   }) as ProFormBeforeSubmit,
 }
 BeforeSubmit.storyName = '表单提交前方法'
+
+export const DefaultValue = Template.bind({})
+DefaultValue.args = {
+  modelValue: { input1: 'input1' },
+  options: [
+    { prop: 'input1', type: 'input' },
+    { prop: 'input2', type: 'input', value: 'input2' },
+  ] as ProFormOption[],
+}
+DefaultValue.storyName = '表单初始值'
+
+export const HideFormItem = Template.bind({})
+HideFormItem.args = {
+  options: [
+    { prop: 'input1', type: 'input', label: 'input1' },
+    { prop: 'input2', type: 'input', label: 'input2', hide: true },
+  ] as ProFormOption[],
+}
+HideFormItem.storyName = '隐藏表单项'

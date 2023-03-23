@@ -2,12 +2,13 @@
   <el-form ref="formRef" v-bind="$attrs" :model="fields">
     <!-- Layout -->
     <el-row v-if="isLayout">
-      <el-col v-for="item in options" :key="item.prop" v-bind="item">
+      <el-col v-for="item in options" v-show="!item.hide" :key="item.prop" v-bind="item">
         <el-form-item v-bind="item">
           <component
             :is="getComponent(item.type)"
             v-bind="item.component"
-            v-model="fields[item.prop]"
+            :model-value="fields[item.prop]"
+            @update:model-value="updateFieldValue($event, item.prop)"
           >
             <template
               v-for="(slot, name) in (item.component?.slots as Slots<string>)"
@@ -33,11 +34,12 @@
     </el-row>
     <!-- Default -->
     <template v-else>
-      <el-form-item v-for="item in options" :key="item.prop" v-bind="item">
+      <el-form-item v-for="item in options" v-show="!item.hide" :key="item.prop" v-bind="item">
         <component
           :is="getComponent(item.type)"
           v-bind="item.component"
-          v-model="fields[item.prop]"
+          :model-value="fields[item.prop]"
+          @update:model-value="updateFieldValue($event, item.prop)"
         >
           <template
             v-for="(slot, name) in (item.component?.slots as Slots<string>)"
@@ -66,6 +68,7 @@ import type { PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
+import { useVModel } from '@vueuse/core'
 
 import { isUndefined } from '../../utils'
 import type { Slots } from '../../utils'
@@ -87,10 +90,7 @@ const emit = defineEmits(['update:modelValue', 'reset', 'submit'])
 const formRef = ref<FormInstance | null>(null)
 const loading = ref(false)
 
-const fields = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-})
+const fields = useVModel(props, 'modelValue', emit, { passive: true })
 
 const resetVisible = computed(() => (props.action ? props.action.reset ?? true : true))
 const resetText = computed(() => (props.action ? props.action.resetText ?? '重置' : ''))
@@ -203,9 +203,18 @@ watchEffect(() => {
         break
     }
 
-    fields.value[item.prop] = item.value ?? value
+    if (isUndefined(fields.value[item.prop])) {
+      fields.value[item.prop] = item.value ?? value
+    }
   })
 })
+
+const updateFieldValue = (value: any, key: string) => {
+  fields.value = {
+    ...fields.value,
+    [key]: value,
+  }
+}
 
 const reset = () => {
   if (formRef.value) {

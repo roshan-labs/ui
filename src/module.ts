@@ -1,4 +1,4 @@
-import { createResolver, defineNuxtModule } from '@nuxt/kit'
+import { createResolver, defineNuxtModule, installModule } from '@nuxt/kit'
 
 import type { ModuleOptions } from './types'
 import { useTranspile } from './composables/use-transpile'
@@ -35,5 +35,7 @@ export default defineNuxtModule<ModuleOptions>({
     useComposables(resolveRuntime)
     useComponents(resolveRuntime)
     useTransform()
+
+    await installModule('@vueuse/nuxt')
   },
 })

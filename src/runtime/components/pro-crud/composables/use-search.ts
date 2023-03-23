@@ -7,20 +7,20 @@ import { isUndefined, isBoolean } from '../../../utils'
 
 export const useSearch = (
   searchRef: Ref<ProFormInstance | null>,
+  searchFieldsModel: Ref<Record<string, any>>,
   searchLoading: Ref<boolean>,
   columns: Ref<ProCrudColumn[]>,
   search: Ref<ProCrudSearch>,
   currentPage: Ref<number>,
   pageSize: Ref<number>,
-  emit: (event: 'search', ...args: any[]) => void,
+  emit: (event: 'search' | 'update:searchFields', ...args: any[]) => void,
   setPageConfig: (init: boolean) => void
 ) => {
   /** 展开收起状态 */
   const collapse = ref(true)
 
-  const searchFields = ref({})
   const updateSearchFields: ProFormProps['onUpdate:modelValue'] = (value) => {
-    searchFields.value = value
+    searchFieldsModel.value = value
   }
 
   /** 查询表单原始选项配置 */
@@ -29,7 +29,7 @@ export const useSearch = (
       const { search: searchProp } = column
 
       if (isBoolean(searchProp) && searchProp) {
-        const config: ProFormOption = {
+        let config: ProFormOption = {
           type: 'input',
           prop: column.prop || '',
           label: column.label || '',
@@ -37,12 +37,15 @@ export const useSearch = (
 
         // 非行内表单默认删格布局占位 6
         if (!search.value.inline) {
-          config.span = 6
+          config = {
+            ...config,
+            span: 6,
+          }
         }
 
         prev.push(config)
       } else if (searchProp) {
-        const config: ProFormOption = {
+        let config: ProFormOption = {
           label: column.label,
           prop: column.prop || '',
           ...(searchProp as any),
@@ -50,7 +53,10 @@ export const useSearch = (
 
         // 非行内表单并且未设置占位默认 6
         if (!search.value.inline && isUndefined(searchProp.span)) {
-          config.span = 6
+          config = {
+            ...config,
+            span: 6,
+          }
         }
 
         prev.push(config)
@@ -60,6 +66,7 @@ export const useSearch = (
     }, [])
   )
 
+  /** 查询是否可折叠 */
   const searchCollapse = computed(() => {
     const { collapseCount } = search.value
 
@@ -67,19 +74,29 @@ export const useSearch = (
   })
 
   /** 当前状态查询表单选项配置 */
-  const searchOptions = computed(() =>
-    searchCollapse.value && collapse.value
-      ? searchOriginOptions.value.slice(0, search.value.collapseCount)
-      : searchOriginOptions.value
-  )
+  const searchOptions = computed(() => {
+    if (searchCollapse.value && collapse.value && !isUndefined(search.value.collapseCount)) {
+      const { collapseCount } = search.value
+
+      return searchOriginOptions.value.map((option, index) => {
+        if (index >= collapseCount) {
+          return { ...option, hide: true }
+        }
+
+        return { ...option }
+      })
+    }
+
+    return searchOriginOptions.value
+  })
 
   const searchVisible = computed(() => searchOptions.value.length > 0)
 
   const searchAction = computed(() => {
-    const { action = {} } = search.value
+    let { action = {} } = search.value
 
     if (!search.value.inline && isUndefined(action.span)) {
-      action.span = 6
+      action = { ...action, span: 6 }
     }
 
     return {
@@ -94,7 +111,7 @@ export const useSearch = (
   const searchProps = computed(() => {
     const result: ProFormProps = {
       ...search.value,
-      modelValue: searchFields.value,
+      modelValue: searchFieldsModel.value,
       options: searchOptions.value,
       action: searchAction.value,
       'onUpdate:modelValue': updateSearchFields,

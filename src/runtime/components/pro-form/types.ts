@@ -39,14 +39,19 @@ type SetPrefixEvent<T> = {
 }
 type MakeProps<T> = T & Record<string, any>
 type PickProps<T, S extends string = 'modelValue'> = Omit<Partial<T>, S>
-type LayoutColProps = Partial<Omit<Writable<ColProps>, 'tag'>>
+type LayoutColProps = Partial<ColProps>
 
-type FormBaseOption = Partial<FormItemProps> &
-  LayoutColProps & {
-    prop: string
-    value?: any
-    slots?: Slots<'default' | 'label' | 'error'>
-  }
+/** 表单项基本类型 */
+interface FormBaseOption extends Partial<FormItemProps>, Partial<ColProps> {
+  /** 表单 prop 必填 */
+  prop: string
+  /** 初始值 */
+  value?: any
+  /** 表单项插槽 */
+  slots?: Slots<'default' | 'label' | 'error'>
+  /** 是否隐藏 */
+  hide?: boolean
+}
 
 /**
  * Autocomplete

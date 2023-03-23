@@ -22,6 +22,7 @@ export default {
     onSelectionChange: { action: 'selection-change' },
     'onUpdate:pagination': { action: 'update:pagination' },
     'onUpdate:size': { action: 'update:size' },
+    'onUpdate:searchFields': { action: 'update:searchFields' },
     onSearch: { action: 'search' },
     onRemove: { action: 'remove' },
     onCreate: { action: 'create' },
@@ -348,6 +349,15 @@ SearchCollapse.args = {
   } as ProCrudSearch,
 }
 SearchCollapse.storyName = '查询展开折叠'
+
+export const SearchFields = Template.bind({})
+SearchFields.args = {
+  ...Search.args,
+  searchFields: {
+    date: '2023-08-01',
+  },
+}
+SearchFields.storyName = '查询字段配置'
 
 export const AddData = Template.bind({})
 AddData.args = {

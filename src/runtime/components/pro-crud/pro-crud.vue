@@ -215,6 +215,7 @@ import {
   Setting,
   DCaret,
 } from '@element-plus/icons-vue'
+import { useVModel } from '@vueuse/core'
 
 import ProForm from '../pro-form/pro-form.vue'
 import type {
@@ -263,6 +264,8 @@ const props = defineProps({
   title: { type: String, default: '' },
   /** 查询表单配置 */
   search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
+  /** 查询表单字段绑定 v-model */
+  searchFields: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
   /** 新增表单配置 */
   create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
   /** 编辑表单配置 */
@@ -275,7 +278,15 @@ const props = defineProps({
   selectionFixed: { type: Boolean },
 })
 
-const emit = defineEmits(['update:pagination', 'update:size', 'create', 'search', 'remove', 'edit'])
+const emit = defineEmits([
+  'update:pagination',
+  'update:size',
+  'update:searchFields',
+  'create',
+  'search',
+  'remove',
+  'edit',
+])
 
 const searchRef = ref<ProFormInstance | null>(null)
 const tableRef = ref<TableInstance | null>(null)
@@ -284,6 +295,7 @@ const columnsRef = toRef(props, 'columns')
 const actionsRef = toRef(props, 'actions')
 const dataRef = toRef(props, 'data')
 const actionsColumnRef = toRef(props, 'actionsColumn')
+const searchFieldsModel = useVModel(props, 'searchFields', emit, { passive: true })
 
 const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } =
   useActionsColumn(actionsColumnRef)
@@ -306,6 +318,7 @@ const {
   clickReset,
 } = useSearch(
   searchRef,
+  searchFieldsModel,
   searchLoading,
   columnsRef,
   toRef(props, 'search'),
