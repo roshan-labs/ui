@@ -31,7 +31,9 @@ const props = defineProps({
   /** ProForm props */
   formProps: { type: Object as PropType<ProFormProps>, default: () => ({}) },
   /** 编辑数据回调方法 */
-  editRequest: { type: Function as PropType<ProCrudEditEvent>, default: () => {} },
+  editRequest: { type: Function as PropType<ProCrudEditEvent>, required: true },
+  /** 刷新 Crud */
+  refreshRequest: { type: Function as PropType<() => void>, required: true },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -61,11 +63,16 @@ const beforeConfirm: ProDialogBeforeConfirm = (loading, done) => {
 
     formRef.value.validate((isValid) => {
       if (isValid) {
+        const doneFunc = () => {
+          props.refreshRequest()
+          done()
+        }
+
         props.editRequest({
           row,
           params: props.formProps.modelValue || {},
           loading,
-          done,
+          done: doneFunc,
         })
       }
     })

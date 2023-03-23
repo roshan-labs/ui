@@ -183,6 +183,7 @@
       :row="selectedRow"
       :form-props="editFormProps"
       :edit-request="editRequest"
+      :refresh-request="refreshRequest"
     />
   </div>
 </template>
