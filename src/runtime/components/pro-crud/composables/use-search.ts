@@ -12,7 +12,8 @@ export const useSearch = (
   search: Ref<ProCrudSearch>,
   currentPage: Ref<number>,
   pageSize: Ref<number>,
-  emit: (event: 'search', ...args: any[]) => void
+  emit: (event: 'search', ...args: any[]) => void,
+  setPageConfig: (init: boolean) => void
 ) => {
   /** 展开收起状态 */
   const collapse = ref(true)
@@ -134,10 +135,14 @@ export const useSearch = (
     }
   }
 
-  /**
-   * 点击查询按钮
-   * 这里重置分页到第一页
-   */
+  /** 点击重置按钮需要清空查询条件 */
+  const clickReset = (reset: () => void, submit: () => void) => {
+    setPageConfig(true)
+    reset()
+    submit()
+  }
+
+  /** 点击查询按钮选哟重置分页到第一页 */
   const clickSearch = (submit: () => void) => {
     currentPage.value = 1
     submit()
@@ -164,5 +169,6 @@ export const useSearch = (
     refreshRequest,
     changeCollapse,
     clickSearch,
+    clickReset,
   }
 }

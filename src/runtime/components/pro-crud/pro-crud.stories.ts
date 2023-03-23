@@ -110,8 +110,8 @@ export const PageSize = Template.bind({})
 PageSize.args = {
   ...Default.args,
   pagination: {
-    currentPage: 1,
-    pageSize: 30,
+    currentPage: 2,
+    pageSize: 10,
     total: 1000,
     layout: 'sizes, prev, pager, next',
   } as ProCrudPagination,
@@ -263,7 +263,7 @@ Search.args = {
     { prop: 'address', label: '地区', search: true, showOverflowTooltip: true },
   ] as ProCrudColumn[],
   onSearch: (({ done }) => {
-    window.setTimeout(done, 2000)
+    window.setTimeout(done, 1000)
   }) as ProCrudSearchEvent,
   pagination: {
     currentPage: 1,

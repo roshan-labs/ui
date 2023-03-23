@@ -4,7 +4,7 @@
     <pro-form v-if="searchVisible" ref="searchRef" v-bind="searchProps">
       <template #action="slotProps">
         <el-space>
-          <el-button :icon="RefreshRight" @click="slotProps.reset">{{
+          <el-button :icon="RefreshRight" @click="clickReset(slotProps.reset, slotProps.submit)">{{
             slotProps.resetText
           }}</el-button>
           <el-button
@@ -287,7 +287,7 @@ const actionsColumnRef = toRef(props, 'actionsColumn')
 const { actionsColumnVisible, actionsColumnProps, actionsColumnConfig } =
   useActionsColumn(actionsColumnRef)
 
-const { paginationProps, currentPage, pageSize } = usePagination(
+const { paginationProps, currentPage, pageSize, setPageConfig } = usePagination(
   searchRef,
   searchLoading,
   toRef(props, 'pagination'),
@@ -302,6 +302,7 @@ const {
   changeCollapse,
   refreshRequest,
   clickSearch,
+  clickReset,
 } = useSearch(
   searchRef,
   searchLoading,
@@ -309,7 +310,8 @@ const {
   toRef(props, 'search'),
   currentPage,
   pageSize,
-  emit
+  emit,
+  setPageConfig
 )
 
 const {

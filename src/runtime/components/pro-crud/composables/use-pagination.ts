@@ -11,46 +11,7 @@ export const usePagination = (
   emit: (event: 'update:pagination', ...args: any[]) => void
 ) => {
   const currentPage = ref(1)
-
-  watch(
-    pagination,
-    (value) => {
-      if (typeof value?.currentPage === 'number') {
-        currentPage.value = value.currentPage
-      }
-    },
-    { immediate: true }
-  )
-
-  watch(currentPage, (value) => {
-    const payload: ProCrudPagination = {
-      ...pagination.value,
-      currentPage: value,
-    }
-
-    emit('update:pagination', payload)
-  })
-
-  const pageSize = ref(30)
-
-  watch(
-    pagination,
-    (value) => {
-      if (typeof value?.pageSize === 'number') {
-        pageSize.value = value.pageSize
-      }
-    },
-    { immediate: true }
-  )
-
-  watch(pageSize, (value) => {
-    const payload: ProCrudPagination = {
-      ...pagination.value,
-      pageSize: value,
-    }
-
-    emit('update:pagination', payload)
-  })
+  const pageSize = ref(10)
 
   const paginationProps = computed<ProCrudPagination>(() => {
     let config: ProCrudPagination = {}
@@ -76,6 +37,39 @@ export const usePagination = (
     return config
   })
 
+  /** 设置分页 */
+  const setPageConfig = (init = false) => {
+    const page = pagination.value
+
+    // 初始化操作
+    if (init) {
+      currentPage.value = 1
+
+      if (page) {
+        if (!isUndefined(page.pageSize)) {
+          pageSize.value = page.pageSize
+        } else if (!isUndefined(page.pageSizes) && page.pageSizes.length > 0) {
+          pageSize.value = page.pageSizes[0]
+        } else {
+          pageSize.value = 10
+        }
+      } else {
+        pageSize.value = 10
+      }
+    } else {
+      // 同步 pagination 配置
+      if (page && !isUndefined(page.currentPage)) {
+        currentPage.value = page.currentPage
+      }
+
+      if (page && !isUndefined(page.pageSize)) {
+        pageSize.value = page.pageSize
+      } else if (page && !isUndefined(page.pageSizes) && page.pageSizes.length > 0) {
+        pageSize.value = page.pageSizes[0]
+      }
+    }
+  }
+
   const updateCurrentPage = (value: number) => {
     currentPage.value = value
     searchRef.value?.submit()
@@ -86,9 +80,36 @@ export const usePagination = (
     searchRef.value?.submit()
   }
 
+  watch(currentPage, (value) => {
+    const payload: ProCrudPagination = {
+      ...pagination.value,
+      currentPage: value,
+    }
+
+    emit('update:pagination', payload)
+  })
+
+  watch(pageSize, (value) => {
+    const payload: ProCrudPagination = {
+      ...pagination.value,
+      pageSize: value,
+    }
+
+    emit('update:pagination', payload)
+  })
+
+  watch(
+    pagination,
+    () => {
+      setPageConfig()
+    },
+    { immediate: true }
+  )
+
   return {
     currentPage,
     pageSize,
     paginationProps,
+    setPageConfig,
   }
 }
