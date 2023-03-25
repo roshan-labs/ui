@@ -450,6 +450,13 @@ Selection.args = {
 }
 Selection.storyName = '多选'
 
+export const SelectionWithBorder = Selection.bind({})
+SelectionWithBorder.args = {
+  ...Selection.args,
+  border: true,
+}
+SelectionWithBorder.storyName = '带边框多选'
+
 export const AllUse: Story = (args) => ({
   components: { ProCrud, ElButton },
   setup: () => ({ args }),
