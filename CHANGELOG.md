@@ -1,5 +1,12 @@
 
 
+### 0.5.1 (2023-03-25)
+
+
+### Bug Fixes
+
+* pro-crud selection 在边框模式下需要居中展示 ([222a0cb](https://github.com/roshan-labs/ui/commit/222a0cb851b4045d545a5cf4104e8fc30889c6a7))
+
 ## 0.5.0 (2023-03-23)
 
 
