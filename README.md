@@ -1,8 +1,8 @@
 # @roshan-labs/ui
 
-![npm](https://img.shields.io/npm/v/@roshan-labs/ui?color=%2342b883)
+[![npm](https://img.shields.io/npm/v/@roshan-labs/ui?color=%2342b883)](https://www.npmjs.com/package/@roshan-labs/ui)
 
-封装 `element-plus` 组件库自动导入 `Nuxt`
+在 `element-plus` 之上扩展的高级组件库
 
 ## 安装
 
@@ -20,6 +20,15 @@ export default defineNuxtConfig({
   },
 })
 ```
+
+## 选项
+
+### `windicss`
+
+- type: `boolean`
+- default: `false`
+
+是否开启 [windicss](https://windicss.org/) 模式
 
 ## License
 
