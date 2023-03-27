@@ -31,18 +31,21 @@ Default.args = {
     { value: '2', label: '选项3' },
   ] as ProCheckboxOption[],
 }
+Default.storyName = '默认'
 
 export const Checked = Template.bind({})
 Checked.args = {
   ...Default.args,
   modelValue: ['0', '1'],
 }
+Checked.storyName = '默认选中'
 
 export const Disabled = Template.bind({})
 Disabled.args = {
   ...Checked.args,
   disabled: true,
 }
+Disabled.storyName = '禁用'
 
 export const OptionDisabled = Template.bind({})
 OptionDisabled.args = {
@@ -51,15 +54,18 @@ OptionDisabled.args = {
     { value: '1', label: '选项2' },
   ] as ProCheckboxOption[],
 }
+OptionDisabled.storyName = '选项禁用'
 
 export const CheckboxButton = Template.bind({})
 CheckboxButton.args = {
   ...Checked.args,
   type: 'button',
 }
+CheckboxButton.storyName = '按钮类型'
 
 export const CheckboxBorder = Template.bind({})
 CheckboxBorder.args = {
   ...Default.args,
   type: 'border',
 }
+CheckboxBorder.storyName = '线框类型'
