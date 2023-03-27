@@ -217,8 +217,8 @@ export const ViewRowSlot: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <pro-crud v-bind="args">
-      <template #actions-column-view>
-        <el-button type="primary" link>自定义查看</el-button>
+      <template #actions-column-view="{ view }">
+        <el-button type="primary" link @click="view">自定义查看</el-button>
       </template>
     </pro-crud>
   `,
@@ -226,7 +226,7 @@ export const ViewRowSlot: Story = (args) => ({
 ViewRowSlot.args = {
   ...Default.args,
 }
-ViewRowSlot.storyName = '查看插槽'
+ViewRowSlot.storyName = '查看数据插槽'
 
 export const RemoveRow = Template.bind({})
 RemoveRow.args = {
@@ -242,8 +242,8 @@ export const RemoveSlot: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <pro-crud v-bind="args">
-      <template #actions-column-remove>
-        <el-button type="primary" link>自定义删除</el-button>
+      <template #actions-column-remove="{ remove }">
+        <el-button type="primary" link @click="remove">自定义删除</el-button>
       </template>
     </pro-crud>
   `,
@@ -251,7 +251,49 @@ export const RemoveSlot: Story = (args) => ({
 RemoveSlot.args = {
   ...RemoveRow.args,
 }
-RemoveSlot.storyName = '删除插槽'
+RemoveSlot.storyName = '删除数据插槽'
+
+export const EditData = Template.bind({})
+EditData.args = {
+  ...Default.args,
+  columns: [
+    { prop: 'date', label: '日期', edit: true },
+    {
+      prop: 'name',
+      label: '姓名',
+      edit: {
+        type: 'input',
+      },
+    },
+  ] as ProCrudColumn[],
+}
+EditData.storyName = '编辑数据'
+
+export const EditDataValidate = Template.bind({})
+EditDataValidate.args = {
+  ...Default.args,
+  columns: [
+    { prop: 'date', label: '日期', edit: { rules: [{ required: true, message: '日期不能为空' }] } },
+    { prop: 'name', label: '姓名', edit: { rules: [{ required: true, message: '姓名不能为空' }] } },
+  ] as ProCrudColumn[],
+}
+EditDataValidate.storyName = '编辑数据带验证'
+
+export const EditSlot: Story = (args) => ({
+  components: { ProCrud, ElButton },
+  setup: () => ({ args }),
+  template: `
+    <pro-crud v-bind="args">
+      <template #actions-column-edit="{ size, edit }">
+        <el-button type="primary" :size="size" link @click="edit">自定义编辑</el-button>
+      </template>
+    </pro-crud>
+  `,
+})
+EditSlot.args = {
+  ...EditData.args,
+}
+EditSlot.storyName = '编辑数据插槽'
 
 export const Search = Template.bind({})
 Search.args = {
@@ -390,32 +432,6 @@ AddDataValidate.args = {
   ] as ProCrudColumn[],
 }
 AddDataValidate.storyName = '新增数据带验证'
-
-export const EditData = Template.bind({})
-EditData.args = {
-  ...Default.args,
-  columns: [
-    { prop: 'date', label: '日期', edit: true },
-    {
-      prop: 'name',
-      label: '姓名',
-      edit: {
-        type: 'input',
-      },
-    },
-  ] as ProCrudColumn[],
-}
-EditData.storyName = '编辑数据'
-
-export const EditDataValidate = Template.bind({})
-EditDataValidate.args = {
-  ...Default.args,
-  columns: [
-    { prop: 'date', label: '日期', edit: { rules: [{ required: true, message: '日期不能为空' }] } },
-    { prop: 'name', label: '姓名', edit: { rules: [{ required: true, message: '姓名不能为空' }] } },
-  ] as ProCrudColumn[],
-}
-EditDataValidate.storyName = '编辑数据带验证'
 
 export const ActionsColumnSlot: Story = (args) => ({
   components: { ProCrud, ElButton },

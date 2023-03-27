@@ -8,15 +8,17 @@
             :icon="RefreshRight"
             :disabled="slotProps.loading"
             @click="clickReset(slotProps.reset, slotProps.submit)"
-            >{{ slotProps.resetText }}</el-button
           >
+            {{ slotProps.resetText }}
+          </el-button>
           <el-button
             type="primary"
             :icon="Search"
             :loading="slotProps.loading"
             @click="clickSearch(slotProps.submit)"
-            >{{ slotProps.submitText }}</el-button
           >
+            {{ slotProps.submitText }}
+          </el-button>
           <el-button
             v-if="searchCollapse"
             type="primary"
@@ -62,8 +64,9 @@
                     :key="option.value"
                     :class="{ 'pro-crud__toolbar-size-active': sizeModel === option.value }"
                     :command="option.value"
-                    >{{ option.label }}</el-dropdown-item
                   >
+                    {{ option.label }}
+                  </el-dropdown-item>
                 </template>
               </el-dropdown>
             </el-tooltip>
@@ -124,33 +127,41 @@
       </el-table-column>
       <el-table-column v-if="actionsColumnVisible" v-bind="actionsColumnProps">
         <template #default="{ $index, row }">
-          <slot name="actions-column-view" v-bind="{ row, size }">
+          <slot name="actions-column-view" v-bind="{ row, size, view: () => viewRow($index) }">
             <el-button
               v-if="viewActionVisible"
               type="primary"
               :size="sizeModel"
               link
               @click="viewRow($index)"
-              >{{ actionsColumnConfig.viewText }}</el-button
             >
+              {{ actionsColumnConfig.viewText }}
+            </el-button>
           </slot>
-          <el-button
-            v-if="editVisible"
-            type="primary"
-            :size="sizeModel"
-            link
-            @click="editRow($index)"
-            >{{ actionsColumnConfig.editText }}</el-button
+          <slot name="actions-column-edit" v-bind="{ row, size, edit: () => editRow($index) }">
+            <el-button
+              v-if="editVisible"
+              type="primary"
+              :size="sizeModel"
+              link
+              @click="editRow($index)"
+            >
+              {{ actionsColumnConfig.editText }}
+            </el-button>
+          </slot>
+          <slot
+            name="actions-column-remove"
+            v-bind="{ row, size, remove: () => removeRow($index) }"
           >
-          <slot name="actions-column-remove" v-bind="{ row, size }">
             <el-button
               v-if="actionsColumnConfig.remove"
               type="primary"
               :size="sizeModel"
               link
               @click="removeRow($index)"
-              >{{ actionsColumnConfig.removeText }}</el-button
             >
+              {{ actionsColumnConfig.removeText }}
+            </el-button>
           </slot>
           <!-- 自定义操作列插槽 -->
           <slot name="actions-column" v-bind="{ row, size }" />
