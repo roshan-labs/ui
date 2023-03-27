@@ -4,9 +4,12 @@
     <pro-form v-if="searchVisible" ref="searchRef" v-bind="searchProps">
       <template #action="slotProps">
         <el-space>
-          <el-button :icon="RefreshRight" @click="clickReset(slotProps.reset, slotProps.submit)">{{
-            slotProps.resetText
-          }}</el-button>
+          <el-button
+            :icon="RefreshRight"
+            :disabled="slotProps.loading"
+            @click="clickReset(slotProps.reset, slotProps.submit)"
+            >{{ slotProps.resetText }}</el-button
+          >
           <el-button
             type="primary"
             :icon="Search"
