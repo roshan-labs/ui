@@ -8,17 +8,27 @@
 <script lang="ts" setup>
 import type { StyleValue } from 'vue'
 import { ref, computed, watchEffect } from 'vue'
+import { useDevicePixelRatio } from '@vueuse/core'
 
 const props = defineProps({
   /** 文字内容 */
   content: { type: String, default: '' },
+  /** 水印的 z-index 属性 */
+  zIndex: { type: Number, default: 9 },
+  /** 水印旋转角度 */
+  rotate: { type: Number, default: -22 },
 })
 
 const image = ref('')
+const { pixelRatio } = useDevicePixelRatio()
+
+const width = computed(() => Math.floor(120 * pixelRatio.value))
+const height = computed(() => Math.floor(64 * pixelRatio.value))
+const fontSize = computed(() => Math.floor(16 * pixelRatio.value))
 
 const styles = computed<StyleValue>(() => ({
   position: 'absolute',
-  zIndex: 9,
+  zIndex: props.zIndex,
   top: 0,
   left: 0,
   width: '100%',
@@ -26,7 +36,7 @@ const styles = computed<StyleValue>(() => ({
   pointerEvents: 'none',
   backgroundRepeat: 'repeat',
   backgroundPosition: '0px 0px',
-  backgroundSize: '100px 100px',
+  // backgroundSize: `${}`,
   backgroundImage: `url(${image.value})`,
 }))
 
@@ -37,13 +47,14 @@ watchEffect(() => {
     const ctx = canvas.getContext('2d')
 
     if (ctx) {
-      ctx.canvas.width = 120
-      ctx.canvas.height = 64
+      ctx.canvas.width = width.value
+      ctx.canvas.height = height.value
 
-      ctx.font = '14px sans-serif'
+      ctx.font = `${fontSize.value}px sans-serif`
+      ctx.textBaseline = 'bottom'
       ctx.fillStyle = 'rgba(0,0,0,.15)'
-      ctx.rotate(-22 * (Math.PI / 180))
-      ctx.fillText(props.content, 0, 64)
+      ctx.rotate((props.rotate * Math.PI) / 180)
+      ctx.fillText(props.content, 0, height.value)
 
       image.value = ctx.canvas.toDataURL('image/png')
     }
