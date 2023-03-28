@@ -12,7 +12,7 @@ export const Content: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <watermark v-bind="args">
-      <div style="height: 300px;font-size: 16px">我是正文</div>
+      <div style="height: 300px;font-size: 16px">我是正文我是正文我是正文我是正文我是正文我是正文我是正文我是正文</div>
     </watermark>
   `,
 })
@@ -24,6 +24,14 @@ Content.storyName = '文字水印'
 export const Rotate = Content.bind({})
 Rotate.args = {
   ...Content.args,
-  rotate: 0,
+  rotate: 22,
 }
 Rotate.storyName = '旋转角度'
+
+export const Size = Content.bind({})
+Size.args = {
+  ...Content.args,
+  width: 200,
+  height: 200,
+}
+Size.storyName = '尺寸'

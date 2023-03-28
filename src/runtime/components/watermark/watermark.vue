@@ -17,13 +17,17 @@ const props = defineProps({
   zIndex: { type: Number, default: 9 },
   /** 水印旋转角度 */
   rotate: { type: Number, default: -22 },
+  /** 水印宽度 */
+  width: { type: Number, default: 120 },
+  /** 水印高度 */
+  height: { type: Number, default: 64 },
 })
 
-const image = ref('')
 const { pixelRatio } = useDevicePixelRatio()
+const image = ref('')
 
-const width = computed(() => Math.floor(120 * pixelRatio.value))
-const height = computed(() => Math.floor(64 * pixelRatio.value))
+const width = computed(() => Math.floor(props.width * pixelRatio.value))
+const height = computed(() => Math.floor(props.height * pixelRatio.value))
 const fontSize = computed(() => Math.floor(16 * pixelRatio.value))
 
 const styles = computed<StyleValue>(() => ({
@@ -36,25 +40,30 @@ const styles = computed<StyleValue>(() => ({
   pointerEvents: 'none',
   backgroundRepeat: 'repeat',
   backgroundPosition: '0px 0px',
-  // backgroundSize: `${}`,
   backgroundImage: `url(${image.value})`,
 }))
+
+/** 渲染文本水印 */
+const renderText = (ctx: CanvasRenderingContext2D) => {
+  ctx.font = `${fontSize.value}px sans-serif`
+  ctx.fillStyle = 'rgba(0,0,0,.15)'
+  ctx.textBaseline = 'middle'
+  ctx.textAlign = 'center'
+  ctx.translate(Math.floor(width.value / 2), Math.floor(height.value / 2))
+  ctx.rotate((props.rotate * Math.PI) / 180)
+  ctx.fillText(props.content, 0, 0)
+}
 
 watchEffect(() => {
   if (props.content.trim() && window) {
     const canvas = window.document.createElement('canvas')
-
     const ctx = canvas.getContext('2d')
 
     if (ctx) {
       ctx.canvas.width = width.value
       ctx.canvas.height = height.value
 
-      ctx.font = `${fontSize.value}px sans-serif`
-      ctx.textBaseline = 'bottom'
-      ctx.fillStyle = 'rgba(0,0,0,.15)'
-      ctx.rotate((props.rotate * Math.PI) / 180)
-      ctx.fillText(props.content, 0, height.value)
+      renderText(ctx)
 
       image.value = ctx.canvas.toDataURL('image/png')
     }
