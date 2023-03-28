@@ -12,12 +12,14 @@ export const Content: Story = (args) => ({
   setup: () => ({ args }),
   template: `
     <watermark v-bind="args">
-      <div style="height: 300px;font-size: 16px">我是正文我是正文我是正文我是正文我是正文我是正文我是正文我是正文</div>
+      <div style="width: 128px;height: 300px;font-size: 16px">我是水印我是水印</div>
     </watermark>
   `,
 })
 Content.args = {
-  content: '我是水印',
+  content: '我',
+  rotate: 0,
+  gap: [0, 0],
 }
 Content.storyName = '文字水印'
 
