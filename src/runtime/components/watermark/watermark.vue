@@ -10,6 +10,8 @@ import type { PropType, StyleValue } from 'vue'
 import { ref, computed, watchEffect } from 'vue'
 import { useDevicePixelRatio } from '@vueuse/core'
 
+import type { WatermarkFont } from './types'
+
 const props = defineProps({
   /** 文字内容 */
   content: { type: String, default: '' },
@@ -21,6 +23,8 @@ const props = defineProps({
   width: { type: Number },
   /** 水印高度 */
   height: { type: Number },
+  /** 字体配置 */
+  font: { type: Object as PropType<WatermarkFont>, default: () => ({}) },
   /** 水印之间间距 */
   gap: { type: Array as PropType<number[]>, default: () => [100, 100] },
 })
@@ -29,7 +33,15 @@ const { pixelRatio } = useDevicePixelRatio()
 const image = ref('')
 const bgSize = ref(0)
 
-const fontSize = computed(() => Math.floor(16 * pixelRatio.value))
+const fontConfig = computed(() => ({
+  color: '#E6E8EB',
+  fontFamily: 'sans-serif',
+  fontSize: 16,
+  fontWeight: 'normal',
+  fontStyle: 'normal',
+  ...props.font,
+}))
+const fontSize = computed(() => Math.floor(fontConfig.value.fontSize * pixelRatio.value))
 
 const styles = computed<StyleValue>(() => ({
   position: 'absolute',
@@ -50,7 +62,7 @@ const renderText = (ctx: CanvasRenderingContext2D) => {
   const gapX = (props.gap[0] ?? 0) * pixelRatio.value
   const gapY = (props.gap[1] ?? 0) * pixelRatio.value
   const rotate = (props.rotate * Math.PI) / 180
-  const font = `normal ${fontSize.value}px sans-serif`
+  const font = `${fontConfig.value.fontStyle} ${fontConfig.value.fontWeight} ${fontSize.value}px ${fontConfig.value.fontFamily}`
 
   // 计算文本宽高
   ctx.font = font
@@ -76,7 +88,7 @@ const renderText = (ctx: CanvasRenderingContext2D) => {
   ctx.font = font
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
-  ctx.fillStyle = 'rgba(0,0,0,.15)'
+  ctx.fillStyle = fontConfig.value.color
 
   ctx.save()
 
