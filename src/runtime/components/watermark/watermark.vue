@@ -47,32 +47,52 @@ const styles = computed<StyleValue>(() => ({
 
 /** 渲染文本水印 */
 const renderText = (ctx: CanvasRenderingContext2D) => {
-  const gapX = props.gap[0] ?? 0
-  const gapY = props.gap[1] ?? 0
+  const gapX = (props.gap[0] ?? 0) * pixelRatio.value
+  const gapY = (props.gap[1] ?? 0) * pixelRatio.value
+  const rotate = (props.rotate * Math.PI) / 180
+  const font = `normal ${fontSize.value}px sans-serif`
 
-  ctx.font = `${fontSize.value}px normal sans-serif`
-  const text = ctx.measureText(props.content)
-  const textWidth = Math.floor(text.actualBoundingBoxLeft + text.actualBoundingBoxRight)
-  console.log(textWidth, fontSize.value, props.content, pixelRatio.value)
-  const cssWidth = textWidth * 2 + gapX * 2
-
-  const height = (16 * 2 + gapY * 2) * pixelRatio.value
-
-  ctx.canvas.width = cssWidth * pixelRatio.value
-  ctx.canvas.height = height
-  bgSize.value = cssWidth
-
-  ctx.fillStyle = 'rgba(0,0,0,.15)'
-  ctx.textBaseline = 'middle'
+  // 计算文本宽高
+  ctx.font = font
   ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+
+  const textMetrics = ctx.measureText(props.content)
+  const textWidth = Math.floor(
+    textMetrics.actualBoundingBoxLeft + textMetrics.actualBoundingBoxRight
+  )
+  const textHeight = Math.floor(
+    textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent
+  )
+
+  // 设置画布宽高
+  const width = textWidth * 2 + gapX * 2
+  const height = textHeight * 2 + gapY * 2
+
+  ctx.canvas.width = width
+  ctx.canvas.height = height
+  bgSize.value = Math.floor(width / pixelRatio.value)
+
+  ctx.font = font
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.fillStyle = 'rgba(0,0,0,.15)'
+
   ctx.save()
 
   // 绘制第一个水印
+  ctx.translate(Math.floor(gapX / 2 + textWidth / 2), Math.floor(gapY / 2 + textHeight / 2))
+  ctx.rotate(rotate)
+  ctx.fillText(props.content, 0, 0)
+
+  ctx.restore()
+
+  // 绘制第二个水印
   ctx.translate(
-    Math.floor((gapX / 2 + textWidth / 2) * pixelRatio.value),
-    Math.floor((gapY / 2 + 16 / 2) * pixelRatio.value)
+    Math.floor(gapX + gapX / 2 + textWidth + textWidth / 2),
+    Math.floor(gapY / 2 + gapY + textHeight + textHeight / 2)
   )
-  ctx.rotate((props.rotate * Math.PI) / 180)
+  ctx.rotate(rotate)
   ctx.fillText(props.content, 0, 0)
 }
 
