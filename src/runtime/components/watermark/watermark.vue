@@ -34,7 +34,7 @@ const image = ref('')
 const bgSize = ref(0)
 
 const fontConfig = computed(() => ({
-  color: '#E6E8EB',
+  color: 'rgba(0,0,0,.15)',
   fontFamily: 'sans-serif',
   fontSize: 16,
   fontWeight: 'normal',

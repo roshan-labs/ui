@@ -99,6 +99,7 @@
       v-bind="$attrs"
       :data="data"
       :size="sizeModel"
+      :border="border"
       @selection-change="onSelectionChange"
     >
       <el-table-column v-for="column in filterColumns" :key="column.prop" v-bind="column">
@@ -290,6 +291,8 @@ const props = defineProps({
   selectionWidth: { type: [Number, String] },
   /** 多选列是否固定 */
   selectionFixed: { type: Boolean },
+  /** 带边框 */
+  border: { type: Boolean },
 })
 
 const emit = defineEmits([
@@ -375,7 +378,8 @@ const { selectionList, selectionInfo, selectionColumn, onSelectionChange, clearS
     tableRef,
     toRef(props, 'selection'),
     toRef(props, 'selectionWidth'),
-    toRef(props, 'selectionFixed')
+    toRef(props, 'selectionFixed'),
+    toRef(props, 'border')
   )
 
 const { filterColumns } = useTable(columnsRef, selectionColumn)

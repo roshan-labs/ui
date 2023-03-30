@@ -1,4 +1,4 @@
-import { ref, computed, useAttrs } from 'vue'
+import { ref, computed } from 'vue'
 
 import type { Ref } from 'vue'
 import type { TableInstance } from 'element-plus'
@@ -11,9 +11,9 @@ export const useSelection = (
   tableRef: Ref<TableInstance | null>,
   selection: Ref<boolean>,
   selectionWidth: Ref<number | string | undefined>,
-  selectionFixed: Ref<boolean>
+  selectionFixed: Ref<boolean>,
+  border: Ref<Boolean>
 ) => {
-  const attrs = useAttrs()
   const selectionList = ref<Data[]>([])
 
   const selectionInfo = computed(() =>
@@ -29,7 +29,7 @@ export const useSelection = (
         column.width = selectionWidth.value
       }
 
-      if (attrs.border) {
+      if (border.value) {
         column.align = 'center'
       }
 
