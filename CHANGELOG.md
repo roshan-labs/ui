@@ -1,5 +1,12 @@
 
 
+## [0.6.0](https://github.com/roshan-labs/ui/compare/v0.5.2...v0.6.0) (2023-03-30)
+
+
+### Features
+
+* 新增 watermark 组件 ([4581809](https://github.com/roshan-labs/ui/commit/458180920d2844d5b6352bc82764ba90f9918fdb))
+
 ### 0.5.2 (2023-03-27)
 
 ### 0.5.1 (2023-03-25)
