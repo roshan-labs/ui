@@ -41,6 +41,7 @@ export const proComponents = [
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
   { dirname: 'pro-select', name: 'ProSelect' },
+  { dirname: 'router-breadcrumb', name: 'RouterBreadcrumb' },
   { dirname: 'watermark', name: 'Watermark' },
 ]
 
