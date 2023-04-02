@@ -25,9 +25,9 @@
         <el-form-item>
           <slot name="action" v-bind="actionProps">
             <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-            <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
-              submitText
-            }}</el-button>
+            <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">
+              {{ submitText }}
+            </el-button>
           </slot>
         </el-form-item>
       </el-col>
@@ -54,9 +54,9 @@
       <el-form-item v-if="action">
         <slot name="action" v-bind="actionProps">
           <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
-          <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">{{
-            submitText
-          }}</el-button>
+          <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">
+            {{ submitText }}
+          </el-button>
         </slot>
       </el-form-item>
     </template>

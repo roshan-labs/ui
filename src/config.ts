@@ -35,13 +35,13 @@ export const subComponents = {
 
 /** 高级组件列表 */
 export const proComponents = [
+  { dirname: 'pro-breadcrumb', name: 'ProBreadcrumb' },
   { dirname: 'pro-checkbox', name: 'ProCheckbox' },
   { dirname: 'pro-crud', name: 'ProCrud' },
   { dirname: 'pro-dialog', name: 'ProDialog' },
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
   { dirname: 'pro-select', name: 'ProSelect' },
-  { dirname: 'router-breadcrumb', name: 'RouterBreadcrumb' },
   { dirname: 'watermark', name: 'Watermark' },
 ]
 

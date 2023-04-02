@@ -29,7 +29,7 @@ export const useComponents = (resolveRuntime: ResolveRuntime) => {
 
   proComponents.forEach(({ dirname, name }) => {
     addComponent({
-      filePath: resolveRuntime(`components/${dirname}`),
+      filePath: resolveRuntime(`components/${dirname}/index`),
       export: name,
       name,
     })
