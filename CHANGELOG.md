@@ -1,5 +1,17 @@
 
 
+## [0.7.0](https://github.com/roshan-labs/ui/compare/v0.6.0...v0.7.0) (2023-04-02)
+
+
+### Features
+
+* 新增 pro-breadcrumb 高级面包屑，自动读取路由信息 ([22d7a68](https://github.com/roshan-labs/ui/commit/22d7a68d314c52e9d80de612826304a8eda705b0))
+
+
+### Bug Fixes
+
+* pro-crud selection 在 border 开启的情况下无法居中 ([ff14538](https://github.com/roshan-labs/ui/commit/ff14538d2d06641dc9a4082a5db809b3e961065b))
+
 ## [0.6.0](https://github.com/roshan-labs/ui/compare/v0.5.2...v0.6.0) (2023-03-30)
 
 
