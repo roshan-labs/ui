@@ -1,9 +1,9 @@
 # @roshan-labs/ui
 
+在 `element-plus` 之上扩展的高级组件库
+
 [![npm](https://img.shields.io/npm/v/@roshan-labs/ui?color=%2342b883)](https://www.npmjs.com/package/@roshan-labs/ui)
 [![CD](https://github.com/roshan-labs/ui/actions/workflows/cd.yml/badge.svg)](https://github.com/roshan-labs/ui/actions/workflows/cd.yml)
-
-在 `element-plus` 之上扩展的高级组件库
 
 ## 安装
 
