@@ -8,7 +8,7 @@ import HistoryTabs from './history-tabs.vue'
 type Story = StoryObj<typeof HistoryTabs>
 
 const meta: Meta<typeof HistoryTabs> = {
-  title: '高级组件/历史记录标签 history-tabs',
+  title: '高级组件/历史记录标签 HistoryTabs',
   component: HistoryTabs,
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
