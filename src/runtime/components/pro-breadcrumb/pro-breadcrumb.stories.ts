@@ -38,7 +38,6 @@ const meta: Meta<typeof ProBreadcrumb> = {
 
       setup((app) => {
         app.use(router)
-
         router.replace('/list/item')
       })
 
