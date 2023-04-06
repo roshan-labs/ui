@@ -4,3 +4,4 @@ export { ProCheckboxOption, ProCheckboxType } from './components/pro-checkbox/ty
 export { ProFormOption, ProFormAction, ProFormSubmit } from './components/pro-form/types'
 export { ProRadioOption, ProRadioType } from './components/pro-radio/types'
 export * from './components/pro-crud/types'
+export * from './components/pro-descriptions/types'
