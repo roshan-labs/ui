@@ -1,5 +1,17 @@
 
 
+## [0.8.0](https://github.com/roshan-labs/ui/compare/v0.7.0...v0.8.0) (2023-04-07)
+
+
+### Features
+
+* 新增 history-tabs 历史记录标签组件，支持访问已浏览页面 ([b6d47cb](https://github.com/roshan-labs/ui/commit/b6d47cb22efc15ed52382d0df39a8e09a748ac91))
+
+
+### Bug Fixes
+
+* 移除 post:install 命令 ([8c407e6](https://github.com/roshan-labs/ui/commit/8c407e6781b09e1d8b9249616b0713bdb8099a9c))
+
 ## [0.7.0](https://github.com/roshan-labs/ui/compare/v0.6.0...v0.7.0) (2023-04-02)
 
 
