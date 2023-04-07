@@ -1,5 +1,13 @@
 
 
+## [0.9.0](https://github.com/roshan-labs/ui/compare/v0.8.0...v0.9.0) (2023-04-07)
+
+
+### Features
+
+* pro-crud 查看描述列表使用线框展示 ([420b2f7](https://github.com/roshan-labs/ui/commit/420b2f7b89cc010385489f137761655b0d26cfb4))
+* 新增 pro-descriptions 组件，支持通过数据配置生成 el-descriptions ([072ffd3](https://github.com/roshan-labs/ui/commit/072ffd3c4b2c3b00a62c325b01bc8a4380b35666))
+
 ## [0.8.0](https://github.com/roshan-labs/ui/compare/v0.7.0...v0.8.0) (2023-04-07)
 
 
