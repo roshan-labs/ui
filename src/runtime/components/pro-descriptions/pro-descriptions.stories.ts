@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { ElText } from 'element-plus'
+import { ElText, ElTag } from 'element-plus'
+import { h } from 'vue'
 
 import type { ProDescriptionsColumn } from './types'
 import ProDescriptions from './pro-descriptions.vue'
@@ -124,19 +125,33 @@ export const ExtraSlot: Story = {
 export const ItemSlot: Story = {
   name: '列表项插槽',
   render: (args) => ({
-    components: { ProDescriptions },
+    components: { ProDescriptions, ElTag, ElText },
     setup: () => ({ args }),
     template: `
       <pro-descriptions v-bind="args">
-        <template></template>
+        <template #profession="{ value }">
+          <el-tag>{{ value }}</el-tag>
+        </template>
+        <template #address-label="{ label }">
+          <el-text type="success">{{ label }}</el-text>
+        </template>
       </pro-descriptions>
     `,
   }),
   args: {
+    border: true,
     columns: [
-      { prop: 'name', label: '姓名' },
+      {
+        prop: 'name',
+        label: '姓名',
+        slots: { label: (label: string) => h(ElText, { type: 'danger' }, () => label) },
+      },
       { prop: 'sex', label: '性别' },
-      { prop: 'phone', label: '电话' },
+      {
+        prop: 'phone',
+        label: '电话',
+        slots: { default: (value: string) => h(ElText, { type: 'primary' }, () => value) },
+      },
       {
         prop: 'profession',
         label: '职业',
@@ -144,7 +159,7 @@ export const ItemSlot: Story = {
           default: 'profession',
         },
       },
-      { prop: 'address', label: '地址' },
+      { prop: 'address', label: '地址', slots: { label: 'address-label' } },
     ] as ProDescriptionsColumn[],
     detail: {
       name: '西门吹雪',
