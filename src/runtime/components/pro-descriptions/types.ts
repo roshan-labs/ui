@@ -1,3 +1,5 @@
+import { Slots } from '../../type-utils'
+
 export interface ProDescriptionsColumn {
   prop: string
   label?: string
@@ -8,4 +10,5 @@ export interface ProDescriptionsColumn {
   labelAlign?: 'left' | 'center' | 'right'
   className?: string
   labelClassName?: string
+  slots?: Slots<'default' | 'label'>
 }

@@ -27,12 +27,11 @@
   ],
   "scripts": {
     "prepack": "nuxt-module-build",
-    "postinstall": "npm run dev:prepare",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook": "npm run dev:prepare && storybook dev -p 6006",
+    "build-storybook": "npm run dev:prepare && storybook build",
     "lint": "eslint src",
     "release": "release-it"
   },

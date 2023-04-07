@@ -6,7 +6,7 @@
     <template v-if="$slots.extra" #extra>
       <slot name="extra" />
     </template>
-    <el-descriptions-item v-for="item in columns" :key="item.prop" :label="item.label">
+    <el-descriptions-item v-for="item in columns" :key="item.prop" v-bind="item">
       {{ detail[item.prop] }}
     </el-descriptions-item>
   </el-descriptions>
@@ -20,10 +20,7 @@ import type { ProDescriptionsColumn } from './types'
 
 defineProps({
   /** 列表配置 */
-  columns: {
-    type: Array as PropType<ProDescriptionsColumn[]>,
-    default: (): ProDescriptionsColumn[] => [],
-  },
+  columns: { type: Array as PropType<ProDescriptionsColumn[]>, default: () => [] },
   /** 数据 */
   detail: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
 })

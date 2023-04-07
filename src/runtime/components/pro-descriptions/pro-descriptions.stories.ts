@@ -21,14 +21,14 @@ export const Default: Story = {
   name: '默认',
   args: {
     columns: [
-      { prop: 'username', label: '用户名' },
+      { prop: 'name', label: '姓名' },
       { prop: 'sex', label: '性别' },
       { prop: 'phone', label: '电话' },
       { prop: 'profession', label: '职业' },
       { prop: 'address', label: '地址' },
     ] as ProDescriptionsColumn[],
     detail: {
-      username: '西门吹雪',
+      name: '西门吹雪',
       sex: '男',
       phone: '13333333333',
       profession: '剑神',
@@ -118,5 +118,40 @@ export const ExtraSlot: Story = {
   }),
   args: {
     ...Title.args,
+  },
+}
+
+export const ItemSlot: Story = {
+  name: '列表项插槽',
+  render: (args) => ({
+    components: { ProDescriptions },
+    setup: () => ({ args }),
+    template: `
+      <pro-descriptions v-bind="args">
+        <template></template>
+      </pro-descriptions>
+    `,
+  }),
+  args: {
+    columns: [
+      { prop: 'name', label: '姓名' },
+      { prop: 'sex', label: '性别' },
+      { prop: 'phone', label: '电话' },
+      {
+        prop: 'profession',
+        label: '职业',
+        slots: {
+          default: 'profession',
+        },
+      },
+      { prop: 'address', label: '地址' },
+    ] as ProDescriptionsColumn[],
+    detail: {
+      name: '西门吹雪',
+      sex: '男',
+      phone: '13333333333',
+      profession: '剑神',
+      address: '大隐隐于市',
+    },
   },
 }
