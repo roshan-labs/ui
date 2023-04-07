@@ -159,8 +159,8 @@ TableSlot.args = {
       prop: 'state',
       label: '州',
       slots: {
-        default: ({ row }) => h('span', `插槽：${row.state}`),
-        header: ({ column }) => h('span', `插槽：${column.label}`),
+        default: ({ row }) => h('span', () => `插槽：${row.state}`),
+        header: ({ column }) => h('span', () => `插槽：${column.label}`),
       },
     },
   ] as ProCrudColumn[],

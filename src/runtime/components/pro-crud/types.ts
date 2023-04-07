@@ -103,8 +103,8 @@ export type ProCrudCreateEvent = (payload: {
 export interface ProCrudViewOption {
   /** 标题 */
   label: string
-  /** 值 */
-  value: string
+  /** 值属性 */
+  prop: string
 }
 
 /** 删除数据事件 */

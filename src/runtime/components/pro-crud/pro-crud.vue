@@ -190,7 +190,7 @@
     <!-- SETTING DIALOG -->
     <show-setting v-model="settingVisible" :columns="filterColumns" />
     <!-- VIEW DIALOG -->
-    <view-dialog v-model="viewVisible" :options="viewOptions" />
+    <view-dialog v-model="viewVisible" :options="viewOptions" :row="selectedViewRow || {}" />
     <!-- EDIT DIALOG -->
     <edit-dialog
       v-model="editDialogVisible"
@@ -384,7 +384,10 @@ const { selectionList, selectionInfo, selectionColumn, onSelectionChange, clearS
 
 const { filterColumns } = useTable(columnsRef, selectionColumn)
 
-const { viewActionVisible, viewVisible, viewOptions, viewRow } = useView(dataRef, filterColumns)
+const { viewActionVisible, viewVisible, viewOptions, selectedViewRow, viewRow } = useView(
+  dataRef,
+  filterColumns
+)
 
 defineExpose({
   // ElTable 实例方法

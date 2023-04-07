@@ -11,25 +11,20 @@ export const useView = (data: Ref<ProCrudData>, columns: Ref<ProCrudColumn[]>) =
   const viewVisible = ref(false)
 
   /** 选中的一条数据 */
-  const selectedRow: Ref<Data | null> = ref(null)
+  const selectedViewRow: Ref<Data | null> = ref(null)
 
   /** 查看功能是否开启 */
   const viewActionVisible = computed(() => columns.value.some((column) => column.view ?? true))
 
-  /** 数据查看配置 */
+  /** 查看数据配置 */
   const viewOptions = computed<ProCrudViewOption[]>(() => {
-    if (selectedRow.value) {
-      const row = selectedRow.value
+    if (selectedViewRow.value) {
       return columns.value
         .filter((column) => !column.type && (column.view ?? true))
-        .map((column) => {
-          const value = row[column.prop || ''] ?? ''
-
-          return {
-            label: column.label || '',
-            value,
-          }
-        })
+        .map((column) => ({
+          label: column.label || '',
+          prop: column.prop || '',
+        }))
     }
 
     return []
@@ -40,12 +35,13 @@ export const useView = (data: Ref<ProCrudData>, columns: Ref<ProCrudColumn[]>) =
     const row = data.value[index]
 
     if (row) {
-      selectedRow.value = row
+      selectedViewRow.value = row
       viewVisible.value = true
     }
   }
 
   return {
+    selectedViewRow,
     viewActionVisible,
     viewVisible,
     viewOptions,
