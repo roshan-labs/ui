@@ -1,9 +1,11 @@
-import type { Meta, Story } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { ProRadioOption } from './types'
-import { ProRadio } from '.'
+import ProRadio from './pro-radio.vue'
 
-export default {
+type Story = StoryObj<typeof ProRadio>
+
+const meta: Meta<typeof ProRadio> = {
   title: '高级组件/单选框 ProRadio',
   component: ProRadio,
   argTypes: {
@@ -13,50 +15,58 @@ export default {
       options: ['default', 'button', 'border'],
     },
   },
-} as Meta
-
-const Template: Story = (args) => ({
-  components: { ProRadio },
-  setup: () => ({ args }),
-  template: '<pro-radio v-bind="args" />',
-})
-
-export const Default = Template.bind({})
-Default.args = {
-  options: [
-    { value: '0', label: 'Option1' },
-    { value: '1', label: 'Option2' },
-  ] as ProRadioOption[],
 }
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  ...Default.args,
-  disabled: true,
+export default meta
+
+export const Default: Story = {
+  name: '默认',
+  args: {
+    options: [
+      { value: '0', label: 'Option1' },
+      { value: '1', label: 'Option2' },
+    ] as ProRadioOption[],
+  },
 }
 
-export const OptionDisabled = Template.bind({})
-OptionDisabled.args = {
-  options: [
-    { value: '0', label: 'Option1', disabled: true },
-    { value: '1', label: 'Option2' },
-  ] as ProRadioOption[],
+export const Disabled: Story = {
+  name: '禁用',
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
 }
 
-export const Selected = Template.bind({})
-Selected.args = {
-  ...Default.args,
-  modelValue: '0',
+export const OptionDisabled: Story = {
+  name: '选项禁用',
+  args: {
+    options: [
+      { value: '0', label: 'Option1', disabled: true },
+      { value: '1', label: 'Option2' },
+    ] as ProRadioOption[],
+  },
 }
 
-export const RadioButton = Template.bind({})
-RadioButton.args = {
-  ...Selected.args,
-  type: 'button',
+export const Selected: Story = {
+  name: '默认值',
+  args: {
+    ...Default.args,
+    modelValue: '0',
+  },
 }
 
-export const BorderRadio = Template.bind({})
-BorderRadio.args = {
-  ...Selected.args,
-  type: 'border',
+export const RadioButton: Story = {
+  name: '按钮模式',
+  args: {
+    ...Selected.args,
+    type: 'button',
+  },
+}
+
+export const BorderRadio: Story = {
+  name: '线框模式',
+  args: {
+    ...Selected.args,
+    type: 'border',
+  },
 }

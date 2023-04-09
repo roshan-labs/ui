@@ -23,7 +23,12 @@ export const useSelection = (
   /** 多选列配置 */
   const selectionColumn = computed<ProCrudColumn | null>(() => {
     if (selection.value) {
-      const column: ProCrudColumn = { type: 'selection', fixed: selectionFixed.value }
+      const column: ProCrudColumn = {
+        type: 'selection',
+        fixed: selectionFixed.value,
+        // 默认开启保存 selection
+        reserveSelection: true,
+      }
 
       if (!isUndefined(selectionWidth.value)) {
         column.width = selectionWidth.value

@@ -397,6 +397,12 @@ defineExpose({
 })
 </script>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <style>
 .pro-crud__toolbar {
   display: flex;
