@@ -1,7 +1,9 @@
-// 导出给模块使用者
+// 导出类型
 export * from 'element-plus'
-export { ProCheckboxOption, ProCheckboxType } from './components/pro-checkbox/types'
-export { ProFormOption, ProFormAction, ProFormSubmit } from './components/pro-form/types'
-export { ProRadioOption, ProRadioType } from './components/pro-radio/types'
+export * from './components/pro-checkbox/types'
 export * from './components/pro-crud/types'
 export * from './components/pro-descriptions/types'
+export * from './components/pro-dialog/types'
+export * from './components/pro-form/types'
+export * from './components/pro-radio/types'
+export * from './components/pro-select/types'
