@@ -3,12 +3,9 @@ import type { TableColumnCtx, PaginationProps } from 'element-plus'
 
 import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '../pro-form/types'
 import type { Slots, Writable } from '../../utils'
-import { ProForm } from '../pro-form'
+import ProCrud from './pro-crud.vue'
 
 type Params = Record<string, any>
-
-/** ProForm 实例 */
-export type ProFormInstance = InstanceType<typeof ProForm>
 
 /** Crud 单条数据 */
 export type Data = Record<string, any>
@@ -128,3 +125,5 @@ export type ProCrudEditEvent = (payload: {
   loading: Ref<boolean>
   done: () => void
 }) => Promise<void> | void
+
+export type ProCrudInstance = InstanceType<typeof ProCrud>

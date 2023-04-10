@@ -232,6 +232,7 @@ import {
 } from '@element-plus/icons-vue'
 import { useVModel } from '@vueuse/core'
 
+import type { ProFormInstance } from '../pro-form/types'
 import ProForm from '../pro-form/pro-form.vue'
 import type {
   ProCrudData,
@@ -241,7 +242,6 @@ import type {
   ProCrudCreate,
   ProCrudActions,
   ProCrudActionsColumn,
-  ProFormInstance,
   ProCrudEdit,
 } from './types'
 import { useActionsColumn } from './composables/use-actions-column'
