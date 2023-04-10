@@ -1,5 +1,12 @@
 
 
+## [0.11.0](https://github.com/roshan-labs/ui/compare/v0.10.0...v0.11.0) (2023-04-10)
+
+
+### Features
+
+* 导出 pro-crud、pro-form 实例类型 ([3fd49d2](https://github.com/roshan-labs/ui/commit/3fd49d20e707727193c4c25eada8b2c2ab471272))
+
 ## [0.10.0](https://github.com/roshan-labs/ui/compare/v0.9.1...v0.10.0) (2023-04-10)
 
 
