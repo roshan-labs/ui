@@ -1,5 +1,6 @@
 <template>
   <div style="position: relative">
+    <!-- @slot 默认内容 -->
     <slot />
     <div :style="styles"></div>
   </div>

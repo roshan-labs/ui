@@ -10,6 +10,7 @@ type Story = StoryObj<typeof HistoryTabs>
 const meta: Meta<typeof HistoryTabs> = {
   title: '高级组件/历史记录标签 HistoryTabs',
   component: HistoryTabs,
+  tags: ['autodocs'],
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
     type: { control: 'select', options: ['', 'card', 'border-card'] },

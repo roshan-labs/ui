@@ -52,6 +52,7 @@
         </component>
       </el-form-item>
       <el-form-item v-if="action">
+        <!-- @slot 自定义表单按钮内容插槽 -->
         <slot name="action" v-bind="actionProps">
           <el-button v-if="resetVisible" @click="reset">{{ resetText }}</el-button>
           <el-button v-if="submitVisible" type="primary" :loading="loading" @click="submit">

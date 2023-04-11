@@ -8,6 +8,7 @@ type Story = StoryObj<typeof ProRadio>
 const meta: Meta<typeof ProRadio> = {
   title: '高级组件/单选框 ProRadio',
   component: ProRadio,
+  tags: ['autodocs'],
   argTypes: {
     onInput: { action: 'input' },
     type: {

@@ -6,6 +6,7 @@ import { Watermark } from './index'
 export default {
   title: '扩展组件/水印 Watermark',
   component: Watermark,
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },

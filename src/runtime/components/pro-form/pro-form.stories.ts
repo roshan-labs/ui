@@ -8,6 +8,7 @@ import { ProForm } from './'
 export default {
   title: '高级组件/表单 ProForm',
   component: ProForm,
+  tags: ['autodocs'],
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
     onReset: { action: 'reset' },
