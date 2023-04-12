@@ -16,43 +16,52 @@ const meta: Meta<typeof Watermark> = {
 
 export default meta
 
-export const Content: Story = (args) => ({
-  components: { Watermark },
-  setup: () => ({ args }),
-  template: `
-    <watermark v-bind="args">
-      <div class="h-screen"></div>
-    </watermark>
-  `,
-})
+export const Content: Story = {
+  name: '文字水印',
+  render: (args) => ({
+    components: { Watermark },
+    setup: () => ({ args }),
+    template: `
+      <watermark v-bind="args">
+        <template v-if="args.default" #default>${args.default}</template>
+      </watermark>
+    `,
+  }),
+}
 Content.args = {
   content: '嘿！我是水印',
+  default: '<div class="h-screen"></div>',
 }
-Content.storyName = '文字水印'
 
-export const Rotate = Content.bind({})
-Rotate.args = {
-  ...Content.args,
-  rotate: 22,
+export const Rotate: Story = {
+  name: '旋转角度',
+  render: Content.render,
+  args: {
+    ...Content.args,
+    rotate: 22,
+  },
 }
-Rotate.storyName = '旋转角度'
 
-export const Gap = Content.bind({})
-Gap.args = {
-  ...Content.args,
-  gap: [50, 50],
+export const Gap: Story = {
+  name: '水印间距',
+  render: Content.render,
+  args: {
+    ...Content.args,
+    gap: [50, 50],
+  },
 }
-Gap.storyName = '水印间距'
 
-export const Font = Content.bind({})
-Font.args = {
-  ...Content.args,
-  font: {
-    color: '#b3e19d',
-    fontFamily: 'serif',
-    fontSize: 14,
-    fontWeight: 'bolder',
-    fontStyle: 'italic',
-  } as WatermarkFont,
+export const Font: Story = {
+  name: '自定义水印字体',
+  render: Content.render,
+  args: {
+    ...Content.args,
+    font: {
+      color: '#b3e19d',
+      fontFamily: 'serif',
+      fontSize: 14,
+      fontWeight: 'bolder',
+      fontStyle: 'italic',
+    } as WatermarkFont,
+  },
 }
-Font.storyName = '自定义水印字体'
