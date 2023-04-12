@@ -1,16 +1,20 @@
-import type { Meta, Story } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { WatermarkFont } from './types'
-import { Watermark } from './index'
+import Watermark from './watermark.vue'
 
-export default {
+type Story = StoryObj<typeof Watermark>
+
+const meta: Meta<typeof Watermark> = {
   title: '扩展组件/水印 Watermark',
   component: Watermark,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta
+}
+
+export default meta
 
 export const Content: Story = (args) => ({
   components: { Watermark },

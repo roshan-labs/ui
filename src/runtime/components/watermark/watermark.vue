@@ -1,33 +1,41 @@
 <template>
   <div style="position: relative">
-    <!-- @slot 默认内容 -->
+    <!-- @slot 需要添加水印的内容 -->
     <slot />
     <div :style="styles"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { PropType, StyleValue } from 'vue'
+import type { StyleValue } from 'vue'
 import { ref, computed, watchEffect } from 'vue'
 import { useDevicePixelRatio } from '@vueuse/core'
 
 import type { WatermarkFont } from './types'
 
-const props = defineProps({
-  /** 文字内容 */
-  content: { type: String, default: '' },
+interface Props {
+  /** 文字水印内容 */
+  content?: string
   /** 水印的 z-index 属性 */
-  zIndex: { type: Number, default: 9 },
+  zIndex?: number
   /** 水印旋转角度 */
-  rotate: { type: Number, default: -22 },
+  rotate?: number
   /** 水印宽度 */
-  width: { type: Number },
+  width?: number
   /** 水印高度 */
-  height: { type: Number },
+  height?: number
   /** 字体配置 */
-  font: { type: Object as PropType<WatermarkFont>, default: () => ({}) },
+  font?: WatermarkFont
   /** 水印之间间距 */
-  gap: { type: Array as PropType<number[]>, default: () => [100, 100] },
+  gap?: number[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  content: '',
+  zIndex: 9,
+  rotate: -22,
+  font: () => ({}),
+  gap: () => [100, 100],
 })
 
 const { pixelRatio } = useDevicePixelRatio()
