@@ -1,11 +1,14 @@
-import type { Meta, Story } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { ProSelectOption } from './types'
-import { ProSelect } from '.'
+import ProSelect from './pro-select.vue'
 
-export default {
+type Story = StoryObj<typeof ProSelect>
+
+const meta: Meta<typeof ProSelect> = {
   component: ProSelect,
   title: '高级组件/选择器 ProSelect',
+  tags: ['autodocs'],
   argTypes: {
     'onUpdate:modelValue': { event: 'update:model-value' },
     onChange: { event: 'change' },
@@ -15,17 +18,13 @@ export default {
     onBlur: { event: 'blur' },
     onFocus: { event: 'focus' },
   },
-} as Meta
+}
 
-const Template: Story = (args) => ({
-  components: { ProSelect },
-  setup: () => ({ args }),
-  template: `
-    <pro-select v-bind="args" />
-  `,
-})
+export default meta
 
-export const Default = Template.bind({})
+export const Default: Story = {
+  name: '',
+}
 Default.args = {
   options: [
     { value: '0', label: '选项1' },

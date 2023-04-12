@@ -11,6 +11,11 @@ const meta: Meta<typeof Watermark> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component: '给页面的某个区域加上水印。',
+      },
+    },
   },
 }
 

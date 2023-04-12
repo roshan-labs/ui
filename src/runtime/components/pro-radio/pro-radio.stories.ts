@@ -9,6 +9,13 @@ const meta: Meta<typeof ProRadio> = {
   title: '高级组件/单选框 ProRadio',
   component: ProRadio,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '通过数据配置生成单选框。',
+      },
+    },
+  },
   argTypes: {
     onInput: { action: 'input' },
     type: {
@@ -20,7 +27,7 @@ const meta: Meta<typeof ProRadio> = {
 
 export default meta
 
-export const Default: Story = {
+export const Basic: Story = {
   name: '默认',
   args: {
     options: [
@@ -33,7 +40,7 @@ export const Default: Story = {
 export const Disabled: Story = {
   name: '禁用',
   args: {
-    ...Default.args,
+    ...Basic.args,
     disabled: true,
   },
 }
@@ -51,7 +58,7 @@ export const OptionDisabled: Story = {
 export const Selected: Story = {
   name: '默认值',
   args: {
-    ...Default.args,
+    ...Basic.args,
     modelValue: '0',
   },
 }
