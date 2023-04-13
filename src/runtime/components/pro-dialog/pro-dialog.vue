@@ -2,12 +2,14 @@
   <el-dialog v-bind="$attrs" v-model="visible" class="pro-dialog" :fullscreen="_fullscreen">
     <template #header="{ titleId, titleClass }">
       <span :id="titleId" :class="titleClass" role="heading">{{ title }}</span>
-      <button class="fullscreen" @click="changeFullscreen">
+      <button class="fullscreen" @click="_fullscreen = !_fullscreen">
         <el-icon :size="16" color="var(--el-color-info)"><full-screen /></el-icon>
       </button>
     </template>
+    <!-- @slot 对话框内容 -->
     <slot />
     <template #footer>
+      <!-- @slot 对话框尾部自定义区域 -->
       <slot name="footer" v-bind="footProps">
         <el-button @click="onCancel">{{ cancelText }}</el-button>
         <el-button type="primary" :loading="loading" @click="onConfirm">
@@ -19,12 +21,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, toRef } from 'vue'
+import { ref, computed } from 'vue'
 import { ElDialog, ElButton, ElIcon } from 'element-plus'
 import { FullScreen } from '@element-plus/icons-vue'
+import { useVModel } from '@vueuse/core'
 
 import type { ProDialogBeforeConfirm } from './types'
-import { useFullscreen } from './composables/use-fullscreen'
 
 interface Props {
   /** 是否显示对话框 */
@@ -47,26 +49,20 @@ const props = withDefaults(defineProps<Props>(), {
   confirmText: '确定',
 })
 
-// const props = defineProps({
-//   /** 是否显示对话框 */
-//   modelValue: { type: Boolean },
-//   /** 对话框标题 */
-//   title: { type: String, default: '' },
-//   /** 取消按钮文本 */
-//   cancelText: { type: String, default: '取消' },
-//   /** 确定按钮文本 */
-//   confirmText: { type: String, default: '确定' },
-//   /** 是否为全屏 */
-//   fullscreen: { type: Boolean },
-//   /** 提交前回调方法 */
-//   beforeConfirm: { type: Function as PropType<ProDialogBeforeConfirm> },
-// })
+const emit = defineEmits<{
+  /** 更新显示对话框状态事件 */
+  (event: 'update:modelValue', value: boolean): void
+  /** 更新是否全屏状态事件 */
+  (event: 'update:fullscreen', value: boolean): void
+  /** 点击 cancel 按钮事件 */
+  (event: 'cancel'): void
+  /** 点击 confirm 按钮事件 */
+  (event: 'confirm'): void
+}>()
 
-const emit = defineEmits(['update:modelValue', 'cancel', 'confirm', 'update:fullscreen'])
+const visible = useVModel(props, 'modelValue', emit, { passive: true })
+const _fullscreen = useVModel(props, 'fullscreen', emit, { passive: true })
 
-const { _fullscreen, changeFullscreen } = useFullscreen(toRef(props, 'fullscreen'), emit)
-
-const visible = ref(props.modelValue)
 const loading = ref(false)
 
 const footProps = computed(() => ({
@@ -75,17 +71,6 @@ const footProps = computed(() => ({
   onConfirm,
   onCancel,
 }))
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    visible.value = value
-  }
-)
-
-watch(visible, (value) => {
-  emit('update:modelValue', value)
-})
 
 const onCancel = () => {
   visible.value = false
