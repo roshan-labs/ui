@@ -12,7 +12,8 @@ const meta: Meta<typeof ProRadio> = {
   parameters: {
     docs: {
       description: {
-        component: '通过数据配置生成单选框。',
+        component:
+          '通过数据配置化生成单选框，扩展自 <a href="https://element-plus.org/zh-CN/component/radio.html" target="_blank">ElRadio</a>。',
       },
     },
   },

@@ -10,16 +10,15 @@
     <template #footer>
       <slot name="footer" v-bind="footProps">
         <el-button @click="onCancel">{{ cancelText }}</el-button>
-        <el-button type="primary" :loading="loading" @click="onConfirm">{{
-          confirmText
-        }}</el-button>
+        <el-button type="primary" :loading="loading" @click="onConfirm">
+          {{ confirmText }}
+        </el-button>
       </slot>
     </template>
   </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { ref, computed, watch, toRef } from 'vue'
 import { ElDialog, ElButton, ElIcon } from 'element-plus'
 import { FullScreen } from '@element-plus/icons-vue'
@@ -27,20 +26,41 @@ import { FullScreen } from '@element-plus/icons-vue'
 import type { ProDialogBeforeConfirm } from './types'
 import { useFullscreen } from './composables/use-fullscreen'
 
-const props = defineProps({
+interface Props {
   /** 是否显示对话框 */
-  modelValue: { type: Boolean },
+  modelValue?: boolean
   /** 对话框标题 */
-  title: { type: String, default: '' },
+  title?: string
   /** 取消按钮文本 */
-  cancelText: { type: String, default: '取消' },
+  cancelText?: string
   /** 确定按钮文本 */
-  confirmText: { type: String, default: '确定' },
+  confirmText?: string
   /** 是否为全屏 */
-  fullscreen: { type: Boolean },
+  fullscreen?: boolean
   /** 提交前回调方法 */
-  beforeConfirm: { type: Function as PropType<ProDialogBeforeConfirm> },
+  beforeConfirm?: ProDialogBeforeConfirm
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  cancelText: '取消',
+  confirmText: '确定',
 })
+
+// const props = defineProps({
+//   /** 是否显示对话框 */
+//   modelValue: { type: Boolean },
+//   /** 对话框标题 */
+//   title: { type: String, default: '' },
+//   /** 取消按钮文本 */
+//   cancelText: { type: String, default: '取消' },
+//   /** 确定按钮文本 */
+//   confirmText: { type: String, default: '确定' },
+//   /** 是否为全屏 */
+//   fullscreen: { type: Boolean },
+//   /** 提交前回调方法 */
+//   beforeConfirm: { type: Function as PropType<ProDialogBeforeConfirm> },
+// })
 
 const emit = defineEmits(['update:modelValue', 'cancel', 'confirm', 'update:fullscreen'])
 

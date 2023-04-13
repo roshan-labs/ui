@@ -9,6 +9,14 @@ export default {
   title: '高级组件/表单 ProForm',
   component: ProForm,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '通过数据配置化生成表单，扩展自 <a href="https://element-plus.org/zh-CN/component/form.html" target="_blank">ElForm</a>',
+      },
+    },
+  },
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
     onReset: { action: 'reset' },

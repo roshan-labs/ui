@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import type { RouteLocation } from 'vue-router'
 import type { TabPaneName, TabsPaneContext } from 'element-plus'
 import { ref, watch } from 'vue'
@@ -28,12 +27,19 @@ import { useVModel } from '@vueuse/core'
 
 import { isString } from '../../utils'
 
-const props = defineProps({
+interface Props {
   /** 历史记录 */
-  modelValue: { type: Array as PropType<RouteLocation[]>, default: () => [] },
+  modelValue?: RouteLocation[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: () => [],
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{
+  /** 更新历史记录 */
+  (event: 'update:modelValue', value: RouteLocation[]): void
+}>()
 
 /** 当前激活的历史记录 */
 const active = ref('')

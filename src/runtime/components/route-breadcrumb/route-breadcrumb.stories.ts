@@ -4,13 +4,22 @@ import { markRaw } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { ArrowRight } from '@element-plus/icons-vue'
 
-import ProBreadcrumb from './pro-breadcrumb.vue'
+import RouteBreadcrumb from './route-breadcrumb.vue'
 
-type Story = StoryObj<typeof ProBreadcrumb>
+type Story = StoryObj<typeof RouteBreadcrumb>
 
-const meta: Meta<typeof ProBreadcrumb> = {
-  title: '高级组件/面包屑 ProBreadcrumb',
-  component: ProBreadcrumb,
+const meta: Meta<typeof RouteBreadcrumb> = {
+  title: '高级组件/路由面包屑 RouteBreadcrumb',
+  component: RouteBreadcrumb,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '根据当前页面路由生成面包屑导航，需要 vue-router 模块，扩展自 <a href="https://element-plus.org/zh-CN/component/breadcrumb.html" target="_blank">ElBreadcrumb</a>。',
+      },
+    },
+  },
   decorators: [
     (story, context) => {
       const Home = { template: '<div></div>' }
@@ -48,7 +57,7 @@ const meta: Meta<typeof ProBreadcrumb> = {
 
 export default meta
 
-export const Default: Story = {
+export const Basic: Story = {
   name: '默认',
 }
 

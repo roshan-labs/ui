@@ -9,17 +9,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { ElCheckboxGroup, ElCheckbox, ElCheckboxButton } from 'element-plus'
 import { computed } from 'vue'
 
 import type { ProCheckboxOption, ProCheckboxType } from './types'
 
-const props = defineProps({
-  /** 选项配置 */
-  options: { type: Array as PropType<ProCheckboxOption[]>, default: () => [] },
-  /** 类型：默认、按钮、带边框 */
-  type: { type: String as PropType<ProCheckboxType>, default: 'default' },
+interface Props {
+  /** 多选框选项配置 */
+  options?: ProCheckboxOption[]
+  /** 风格类型：默认、按钮、带边框 */
+  type?: ProCheckboxType
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  options: () => [],
+  type: 'default',
 })
 
 const checkbox = computed(() =>

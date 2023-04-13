@@ -36,7 +36,6 @@ export const subComponents = {
 /** 高级组件列表 */
 export const proComponents = [
   { dirname: 'history-tabs', name: 'HistoryTabs' },
-  { dirname: 'pro-breadcrumb', name: 'ProBreadcrumb' },
   { dirname: 'pro-checkbox', name: 'ProCheckbox' },
   { dirname: 'pro-crud', name: 'ProCrud' },
   { dirname: 'pro-descriptions', name: 'ProDescriptions' },
@@ -44,6 +43,7 @@ export const proComponents = [
   { dirname: 'pro-form', name: 'ProForm' },
   { dirname: 'pro-radio', name: 'ProRadio' },
   { dirname: 'pro-select', name: 'ProSelect' },
+  { dirname: 'route-breadcrumb', name: 'RouteBreadcrumb' },
   { dirname: 'watermark', name: 'Watermark' },
 ]
 

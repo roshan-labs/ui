@@ -10,6 +10,15 @@ type Story = StoryObj<typeof ProDescriptions>
 const meta: Meta<typeof ProDescriptions> = {
   title: '高级组件/描述列表 ProDescriptions',
   component: ProDescriptions,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '通过数据配置化生成描述列表，扩展自 <a href="https://element-plus.org/zh-CN/component/descriptions.html" target="_blank">ElDescriptions</a>。',
+      },
+    },
+  },
   argTypes: {
     direction: { control: 'select', options: ['vertical', 'horizontal'] },
     size: { control: 'select', options: ['small', 'default', 'large'] },
@@ -18,7 +27,7 @@ const meta: Meta<typeof ProDescriptions> = {
 
 export default meta
 
-export const Default: Story = {
+export const Basic: Story = {
   name: '默认',
   args: {
     columns: [
@@ -41,7 +50,7 @@ export const Default: Story = {
 export const Border: Story = {
   name: '带边框',
   args: {
-    ...Default.args,
+    ...Basic.args,
     border: true,
   },
 }
@@ -49,7 +58,7 @@ export const Border: Story = {
 export const ColumnCount: Story = {
   name: '行数',
   args: {
-    ...Default.args,
+    ...Basic.args,
     column: 1,
   },
 }

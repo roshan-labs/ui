@@ -1,11 +1,22 @@
-import type { Meta, Story } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { ProCheckboxOption } from './types'
-import { ProCheckbox } from './index'
+import ProCheckbox from './pro-checkbox.vue'
 
-export default {
+type Story = StoryObj<typeof ProCheckbox>
+
+const meta: Meta<typeof ProCheckbox> = {
   title: '高级组件/多选框 ProCheckbox',
   component: ProCheckbox,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '通过数据配置化生成多选框，扩展自 <a href="https://element-plus.org/zh-CN/component/checkbox.html" target="_blank">ElCheckbox</a>。',
+      },
+    },
+  },
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
     onChange: { action: 'change' },
@@ -15,57 +26,60 @@ export default {
       options: ['default', 'button', 'border'],
     },
   },
-} as Meta
-
-const Template: Story = (args) => ({
-  components: { ProCheckbox },
-  setup: () => ({ args }),
-  template: '<pro-checkbox v-bind="args" />',
-})
-
-export const Default = Template.bind({})
-Default.args = {
-  options: [
-    { value: '0', label: '选项1' },
-    { value: '1', label: '选项2' },
-    { value: '2', label: '选项3' },
-  ] as ProCheckboxOption[],
 }
-Default.storyName = '默认'
 
-export const Checked = Template.bind({})
-Checked.args = {
-  ...Default.args,
-  modelValue: ['0', '1'],
-}
-Checked.storyName = '默认选中'
+export default meta
 
-export const Disabled = Template.bind({})
-Disabled.args = {
-  ...Checked.args,
-  disabled: true,
+export const Basic: Story = {
+  name: '默认',
+  args: {
+    type: 'default',
+    options: [
+      { value: '0', label: '选项1' },
+      { value: '1', label: '选项2' },
+      { value: '2', label: '选项3' },
+    ] as ProCheckboxOption[],
+  },
 }
-Disabled.storyName = '禁用'
 
-export const OptionDisabled = Template.bind({})
-OptionDisabled.args = {
-  options: [
-    { value: '0', label: '选项1', disabled: true },
-    { value: '1', label: '选项2' },
-  ] as ProCheckboxOption[],
+export const Checked: Story = {
+  name: '默认选中',
+  args: {
+    ...Basic.args,
+    modelValue: ['0', '1'],
+  },
 }
-OptionDisabled.storyName = '选项禁用'
 
-export const CheckboxButton = Template.bind({})
-CheckboxButton.args = {
-  ...Checked.args,
-  type: 'button',
+export const Disabled: Story = {
+  name: '禁用',
+  args: {
+    ...Checked.args,
+    disabled: true,
+  },
 }
-CheckboxButton.storyName = '按钮类型'
 
-export const CheckboxBorder = Template.bind({})
-CheckboxBorder.args = {
-  ...Default.args,
-  type: 'border',
+export const OptionDisabled: Story = {
+  name: '选项禁用',
+  args: {
+    options: [
+      { value: '0', label: '选项1', disabled: true },
+      { value: '1', label: '选项2' },
+    ] as ProCheckboxOption[],
+  },
 }
-CheckboxBorder.storyName = '线框类型'
+
+export const CheckboxButton: Story = {
+  name: '按钮类型',
+  args: {
+    ...Checked.args,
+    type: 'button',
+  },
+}
+
+export const CheckboxBorder: Story = {
+  name: '线框类型',
+  args: {
+    ...Basic.args,
+    type: 'border',
+  },
+}

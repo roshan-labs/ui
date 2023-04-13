@@ -11,9 +11,17 @@ const meta: Meta<typeof HistoryTabs> = {
   title: '高级组件/历史记录标签 HistoryTabs',
   component: HistoryTabs,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '根据访问的历史记录生成分页，扩展自 <a href="https://element-plus.org/zh-CN/component/tabs.html" target="_blank">ElTabs</a>。',
+      },
+    },
+  },
   argTypes: {
     'onUpdate:modelValue': { action: 'update:model-value' },
-    type: { control: 'select', options: ['', 'card', 'border-card'] },
+    type: { control: 'select', options: ['card', 'border-card'] },
     tabPosition: { control: 'select', options: ['top', 'right', 'left'] },
   },
   decorators: [
