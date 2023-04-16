@@ -8,9 +8,11 @@
   "license": "MIT",
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build": "tsx scripts/build.ts"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@vueuse/core": "^10.0.0"
   },
   "devDependencies": {
@@ -19,14 +21,20 @@
     "@storybook/addon-links": "^7.0.4",
     "@storybook/vue3": "^7.0.4",
     "@storybook/vue3-vite": "^7.0.4",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "consola": "^3.0.2",
+    "defu": "^6.1.2",
     "element-plus": "^2.3.3",
     "storybook": "^7.0.4",
+    "tsx": "^3.12.6",
+    "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.2.0",
     "vite-plugin-windicss": "^1.8.10",
     "vue": "^3.2.47"
   },
   "peerDependencies": {
     "element-plus": "^2.3.3",
-    "vue": "^3.2.47"
+    "vue": "^3.2.0"
   },
   "optionalDependencies": {
     "vue-router": "^4.1.6"
