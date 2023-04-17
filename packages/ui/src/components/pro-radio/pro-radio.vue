@@ -9,17 +9,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { computed } from 'vue'
 import { ElRadioGroup, ElRadio, ElRadioButton } from 'element-plus'
 
 import type { ProRadioOption, ProRadioType } from './types'
 
-const props = defineProps({
+export interface Props {
   /** 选项配置 */
-  options: { type: Array as PropType<ProRadioOption[]>, default: () => [] },
+  options?: ProRadioOption[]
   /** 类型：默认、按钮、带边框 */
-  type: { type: String as PropType<ProRadioType>, default: 'default' },
+  type?: ProRadioType
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  options: () => [],
+  type: 'default',
 })
 
 const radio = computed(() => (['default', 'border'].includes(props.type) ? ElRadio : ElRadioButton))

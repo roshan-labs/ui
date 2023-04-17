@@ -10,15 +10,18 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 
-import { isUndefined } from '../utils'
+import { isUndefined } from '../../utils'
 import type { ProSelectOption, SelectGroup } from './types'
 
-defineProps({
+export interface Props {
   /** 选项配置 */
-  options: { type: Array as PropType<ProSelectOption[]>, default: () => [] },
+  options?: ProSelectOption[]
+}
+
+withDefaults(defineProps<Props>(), {
+  options: () => [],
 })
 
 /** 判断是否为选项分组 */

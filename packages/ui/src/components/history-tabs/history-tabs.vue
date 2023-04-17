@@ -25,7 +25,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElTabs, ElTabPane } from 'element-plus'
 import { useVModel } from '@vueuse/core'
 
-import { isString } from '../utils'
+import { isString } from '../../utils'
 
 export interface Props {
   /** 历史记录 */
