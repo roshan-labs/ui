@@ -1,9 +1,14 @@
 import { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
-import { dependencies, peerDependencies } from '../package.json'
+import { dependencies, peerDependencies, optionalDependencies } from '../package.json'
 
-const deps = [...Object.keys(dependencies), ...Object.keys(peerDependencies)]
+const deps = [
+  ...Object.keys(dependencies),
+  ...Object.keys(peerDependencies),
+  ...Object.keys(optionalDependencies),
+]
 const rollupOptions = { external: deps }
 
 /**
@@ -30,6 +35,7 @@ export const createBaseConfig = (entry: string, format: 'cjs' | 'iife' | 'es') =
               output: {
                 globals: {
                   vue: 'Vue',
+                  'vue-router': 'VueRouter',
                   '@vueuse/core': 'VueUse',
                   'element-plus': 'ElementPlus',
                 },
@@ -39,9 +45,16 @@ export const createBaseConfig = (entry: string, format: 'cjs' | 'iife' | 'es') =
       outDir: `dist/${format}`,
       sourcemap: true,
       cssCodeSplit: false,
-      minify: 'esbuild',
+      minify: 'terser',
+      terserOptions: {
+        keep_fnames: true,
+      },
     },
     plugins: [vue({ isProduction: true })],
+  }
+
+  if (format === 'es') {
+    config.plugins?.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   }
 
   return config

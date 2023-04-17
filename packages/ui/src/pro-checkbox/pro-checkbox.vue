@@ -14,7 +14,7 @@ import { computed } from 'vue'
 
 import type { ProCheckboxOption, ProCheckboxType } from './types'
 
-interface Props {
+export interface Props {
   /** 多选框选项配置 */
   options?: ProCheckboxOption[]
   /** 风格类型：默认、按钮、带边框 */

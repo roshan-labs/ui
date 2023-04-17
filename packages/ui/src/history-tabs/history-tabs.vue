@@ -27,7 +27,7 @@ import { useVModel } from '@vueuse/core'
 
 import { isString } from '../utils'
 
-interface Props {
+export interface Props {
   /** 历史记录 */
   modelValue?: RouteLocation[]
 }

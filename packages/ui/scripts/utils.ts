@@ -3,8 +3,13 @@ import { exec } from 'node:child_process'
 import { existsSync, rmSync } from 'node:fs'
 import { promisify } from 'node:util'
 import { consola } from 'consola'
+import { moveSync } from 'fs-extra'
 
 const execPromise = promisify(exec)
+
+const getPath = (filePath: string) => fileURLToPath(new URL(filePath, import.meta.url))
+
+const removeFile = (filePath: string) => existsSync(filePath) && rmSync(filePath)
 
 export const entry = fileURLToPath(new URL('../src/index.ts', import.meta.url))
 
@@ -37,4 +42,11 @@ export const buildStart = () => {
 }
 
 /** 打包后的工作 */
-export const buildEnd = () => {}
+export const buildEnd = () => {
+  // 删除多余的 style.css 文件
+  removeFile(getPath('../dist/cjs/style.css'))
+  removeFile(getPath('../dist/iife/style.css'))
+
+  // 移动 es 包中 style.css 到 styles/index.css
+  moveSync(getPath('../dist/es/style.css'), getPath('../dist/styles/index.css'))
+}

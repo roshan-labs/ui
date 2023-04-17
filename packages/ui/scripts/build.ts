@@ -1,6 +1,6 @@
 import { consola } from 'consola'
 
-import { run, buildStart } from './utils'
+import { run, buildStart, buildEnd } from './utils'
 
 const build = async () => {
   try {
@@ -10,9 +10,13 @@ const build = async () => {
       run('vite build -c scripts/config/build-cjs.ts'),
       run('vite build -c scripts/config/build-iife.ts'),
       run('vite build -c scripts/config/build-es.ts'),
+      run('vue-tsc --project tsconfig.dts.json'),
     ])
+
+    buildEnd()
   } catch (error) {
     consola.error(error)
+    buildStart()
   }
 }
 

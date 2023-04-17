@@ -5,10 +5,8 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
-  },
-  "include": [
-    "./packages/**/*.ts",
-    "./packages/**/*.vue"
-  ]
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
 }
