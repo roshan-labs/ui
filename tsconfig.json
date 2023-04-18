@@ -3,13 +3,11 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
-  },
-  "exclude": [
-    "**/node_modules/**"
-  ]
+  }
 }
