@@ -241,14 +241,13 @@ const submit = () => {
 }
 
 defineExpose({
-  validate: ((...args) => formRef.value!.validate(...args)) as FormInstance['validate'],
-  validateField: ((...args) =>
-    formRef.value!.validateField(...args)) as FormInstance['validateField'],
-  resetFields: ((...args) => formRef.value!.resetFields(...args)) as FormInstance['resetFields'],
-  scrollToField: ((...args) =>
-    formRef.value!.scrollToField(...args)) as FormInstance['scrollToField'],
-  clearValidate: ((...args) =>
-    formRef.value!.clearValidate(...args)) as FormInstance['clearValidate'],
+  // 原 ElForm 方法
+  validate: formRef.value!.validate,
+  validateField: formRef.value!.validateField,
+  resetFields: formRef.value!.resetFields,
+  scrollToField: formRef.value!.scrollToField,
+  clearValidate: formRef.value!.clearValidate,
+  /** 表单提交 */
   submit,
 })
 </script>
