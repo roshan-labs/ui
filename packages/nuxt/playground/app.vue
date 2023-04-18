@@ -1,5 +1,7 @@
 <template>
-  <div>Nuxt module playground!</div>
+  <div>
+    <el-button type="primary">Button</el-button>
+  </div>
 </template>
 
 <script lang="ts" setup></script>

@@ -17,5 +17,11 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.38.0",
     "typescript": "^5.0.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "vue": "^3.2.47",
+      "element-plus": "^2.3.3"
+    }
   }
 }
