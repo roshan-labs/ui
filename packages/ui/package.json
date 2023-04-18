@@ -27,6 +27,10 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue3",
+    "element-plus"
+  ],
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "@vueuse/core": "^10.0.0"
