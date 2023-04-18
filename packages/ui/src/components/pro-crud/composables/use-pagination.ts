@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
 import { ref, computed, watch } from 'vue'
 
-import type { ProCrudPagination, ProFormInstance } from '../types'
+import type { ProCrudPagination } from '../types'
+import type { ProFormInstance } from '../../pro-form/types'
 import { isUndefined } from '../../../utils'
 
 export const usePagination = (
@@ -25,12 +26,12 @@ export const usePagination = (
 
       if (!isUndefined(pagination.value.currentPage)) {
         config.currentPage = currentPage.value
-        config['onUpdate:currentPage'] = updateCurrentPage
+        config['on-update:current-page'] = updateCurrentPage
       }
 
       if (!isUndefined(pagination.value.pageSize)) {
         config.pageSize = pageSize.value
-        config['onUpdate:pageSize'] = updatePageSize
+        config['on-update:page-size'] = updatePageSize
       }
     }
 
@@ -73,11 +74,13 @@ export const usePagination = (
   const updateCurrentPage = (value: number) => {
     currentPage.value = value
     searchRef.value?.submit()
+    return true
   }
 
   const updatePageSize = (value: number) => {
     pageSize.value = value
     searchRef.value?.submit()
+    return true
   }
 
   watch(currentPage, (value) => {

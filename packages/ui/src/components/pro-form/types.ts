@@ -30,7 +30,7 @@ import type {
 
 import type { ProRadioOption, ProRadioType } from '../pro-radio/types'
 import type { ProCheckboxOption, ProCheckboxType } from '../pro-checkbox/types'
-import type { Slots, Writable } from '../../utils'
+import type { Slots, Writable } from '../../type-utils'
 import ProForm from './pro-form.vue'
 
 type SetPrefixEvent<T> = {

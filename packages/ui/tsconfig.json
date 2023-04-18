@@ -1,13 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "isolatedModules": true
+    "baseUrl": ".",
+    "jsx": "preserve"
   },
   "include": [
     "./src/**/*.ts",
     "./src/**/*.d.ts",
     "./src/**/*.tsx",
     "./src/**/*.vue"
+  ],
+  "exclude": [
+    "**/node_modules/**"
   ]
 }

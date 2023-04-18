@@ -20,7 +20,9 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build": "tsx scripts/build.ts"
+    "lint": "eslint src/ --ext .ts,.tsx,.vue",
+    "build": "tsx scripts/build.ts",
+    "dts": "vue-tsc --project tsconfig.dts.json"
   },
   "files": [
     "dist"

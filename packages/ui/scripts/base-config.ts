@@ -38,6 +38,7 @@ export const createBaseConfig = (entry: string, format: 'cjs' | 'iife' | 'es') =
                   'vue-router': 'VueRouter',
                   '@vueuse/core': 'VueUse',
                   'element-plus': 'ElementPlus',
+                  '@element-plus/icons-vue': 'ElementPlusIconsVue',
                 },
               },
             }

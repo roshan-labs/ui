@@ -205,7 +205,6 @@
 
 <script lang="ts" setup>
 import type { ComponentSize, TableInstance } from 'element-plus'
-import type { PropType } from 'vue'
 import { ref, toRef, defineAsyncComponent } from 'vue'
 import {
   ElTable,
@@ -232,7 +231,7 @@ import {
 } from '@element-plus/icons-vue'
 import { useVModel } from '@vueuse/core'
 
-import type { ProFormInstance } from '../pro-form/types'
+import type { ProFormInstance, ProFormModelValue } from '../pro-form/types'
 import ProForm from '../pro-form/pro-form.vue'
 import type {
   ProCrudData,
@@ -257,42 +256,50 @@ import { useRemove } from './composables/use-remove'
 import { useEdit } from './composables/use-edit'
 import { useSelection } from './composables/use-selection'
 
-const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
-const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
-const ViewDialog = defineAsyncComponent(() => import('./components/view-dialog.vue'))
-const EditDialog = defineAsyncComponent(() => import('./components/edit-dialog.vue'))
-
-const props = defineProps({
+export interface Props {
   /** 数据集 */
-  data: { type: Array as PropType<ProCrudData>, default: () => [] },
+  data?: ProCrudData
   /** 表格列配置 */
-  columns: { type: Array as PropType<ProCrudColumn[]>, default: () => [] },
+  columns?: ProCrudColumn[]
   /** 表格操作列配置 */
-  actionsColumn: { type: Object as PropType<ProCrudActionsColumn>, default: () => ({}) },
+  actionsColumn?: ProCrudActionsColumn
   /** 密度 */
-  size: { type: String as PropType<ComponentSize>, default: 'default' },
+  size?: ComponentSize
   /** 分页配置 */
-  pagination: { type: Object as PropType<ProCrudPagination> },
+  pagination?: ProCrudPagination
   /** 控件配置 */
-  actions: { type: Object as PropType<ProCrudActions>, default: () => ({}) },
+  actions?: ProCrudActions
   /** 表格标题 */
-  title: { type: String, default: '' },
+  title?: string
   /** 查询表单配置 */
-  search: { type: Object as PropType<ProCrudSearch>, default: () => ({}) },
+  search?: ProCrudSearch
   /** 查询表单字段绑定 v-model */
-  searchFields: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
+  searchFields?: ProFormModelValue
   /** 新增表单配置 */
-  create: { type: Object as PropType<ProCrudCreate>, default: () => ({}) },
+  create?: ProCrudCreate
   /** 编辑表单配置 */
-  edit: { type: Object as PropType<ProCrudEdit>, default: () => ({}) },
+  edit?: ProCrudEdit
   /** 是否开启多选 */
-  selection: { type: Boolean },
+  selection?: boolean
   /** 多选列宽度 */
-  selectionWidth: { type: [Number, String] },
+  selectionWidth?: number | string
   /** 多选列是否固定 */
-  selectionFixed: { type: Boolean },
+  selectionFixed?: boolean
   /** 带边框 */
-  border: { type: Boolean },
+  border?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  data: () => [],
+  columns: () => [],
+  actionsColumn: () => ({}),
+  size: 'default',
+  actions: () => ({}),
+  title: '',
+  search: () => ({}),
+  searchFields: () => ({}),
+  create: () => ({}),
+  edit: () => ({}),
 })
 
 const emit = defineEmits([
@@ -304,6 +311,11 @@ const emit = defineEmits([
   'remove',
   'edit',
 ])
+
+const CreateDialog = defineAsyncComponent(() => import('./components/create-dialog.vue'))
+const ShowSetting = defineAsyncComponent(() => import('./components/show-setting.vue'))
+const ViewDialog = defineAsyncComponent(() => import('./components/view-dialog.vue'))
+const EditDialog = defineAsyncComponent(() => import('./components/edit-dialog.vue'))
 
 const searchRef = ref<ProFormInstance | null>(null)
 const tableRef = ref<TableInstance | null>(null)
@@ -390,8 +402,19 @@ const { viewActionVisible, viewVisible, viewOptions, selectedViewRow, viewRow } 
 )
 
 defineExpose({
-  // ElTable 实例方法
-  ...tableRef.value,
+  clearSelection: tableRef.value!.clearSelection,
+  getSelectionRows: tableRef.value!.getSelectionRows,
+  toggleRowSelection: tableRef.value!.toggleRowSelection,
+  toggleAllSelection: tableRef.value!.toggleAllSelection,
+  toggleRowExpansion: tableRef.value!.toggleRowExpansion,
+  setCurrentRow: tableRef.value!.setCurrentRow,
+  clearSort: tableRef.value!.clearSort,
+  clearFilter: tableRef.value!.clearFilter,
+  doLayout: tableRef.value!.doLayout,
+  sort: tableRef.value!.sort,
+  scrollTo: tableRef.value!.scrollTo,
+  setScrollTop: tableRef.value!.setScrollTop,
+  setScrollLeft: tableRef.value!.setScrollLeft,
   /** 刷新查询 */
   refreshSearch: refreshRequest,
 })

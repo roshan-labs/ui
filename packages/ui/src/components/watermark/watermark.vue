@@ -13,7 +13,7 @@ import { useDevicePixelRatio } from '@vueuse/core'
 
 import type { WatermarkFont } from './types'
 
-interface Props {
+export interface Props {
   /** 文字水印内容 */
   content?: string
   /** 水印的 z-index 属性 */

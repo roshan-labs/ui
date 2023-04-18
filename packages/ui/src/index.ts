@@ -9,5 +9,5 @@ export * from './components/pro-select'
 export * from './components/route-breadcrumb'
 export * from './components/watermark'
 
-// 导出辅助类型
-export * from './types'
+// // 导出辅助类型
+export type * from './types'

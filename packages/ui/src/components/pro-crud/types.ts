@@ -1,8 +1,8 @@
 import type { Ref } from 'vue'
-import type { TableColumnCtx, PaginationProps } from 'element-plus'
+import type { TableColumnCtx, PaginationProps, PaginationEmits } from 'element-plus'
 
 import type { ProFormOption, ProFormAction, ProFormProps, ProFormDone } from '../pro-form/types'
-import type { Slots, Writable } from '../../utils'
+import type { Slots, Writable, SetPrefixEvent } from '../../type-utils'
 import ProCrud from './pro-crud.vue'
 
 type Params = Record<string, any>
@@ -56,7 +56,7 @@ export interface ProCrudActions {
 }
 
 /** 分页配置 */
-export type ProCrudPagination = Partial<Writable<PaginationProps>>
+export type ProCrudPagination = Partial<Writable<PaginationProps>> & SetPrefixEvent<PaginationEmits>
 
 /** 查询表单配置 */
 export interface ProCrudSearch extends Omit<ProFormProps, 'options'> {
