@@ -3,6 +3,7 @@ import { createResolver, defineNuxtModule } from '@nuxt/kit'
 import type { ModuleOptions } from './types'
 import { useTranspile } from './composables/use-transpile'
 import { useInjection } from './composables/use-injection'
+import { useTeleport } from './composables/use-teleport'
 import { useStyles } from './composables/use-styles'
 import { useComponents } from './composables/use-components'
 import { useTransform } from './composables/use-transform'
@@ -24,6 +25,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (nuxt.options.ssr) {
       useInjection()
+      useTeleport(options)
     }
 
     await useStyles(options, resolveRuntime)

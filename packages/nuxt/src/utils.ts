@@ -1,5 +1,5 @@
 import type { PresetImport } from './types'
-import { libraryName } from './config'
+import { baseLibraryName } from './config'
 
 export const hyphenate = (value: string) => value.replace(/\B([A-Z])/g, '-$1').toLowerCase()
 
@@ -21,5 +21,5 @@ export const genLibraryImport = (list: PresetImport[]) => {
     return item
   })
 
-  return `import { ${values.join(',')} } from '${libraryName}';`
+  return `import { ${values.join(',')} } from '${baseLibraryName}';`
 }

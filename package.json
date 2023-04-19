@@ -3,7 +3,10 @@
   "private": true,
   "description": "A component library based on element-plus",
   "scripts": {
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm --filter './packages/*' build",
+    "changeset": "changeset",
+    "version": "changeset version"
   },
   "config": {
     "commitizen": {
