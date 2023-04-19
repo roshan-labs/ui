@@ -1,13 +1,13 @@
 import { addPluginTemplate } from '@nuxt/kit'
 
 import type { ModuleOptions } from '../types'
-import { libraryName } from '../config'
+import { baseLibraryName } from '../config'
 
 export const useTeleport = (options: ModuleOptions) => {
   const defaultId = `#${options.namespace}-popper-container-`
 
   addPluginTemplate({
-    filename: `${libraryName}-teleport.mjs`,
+    filename: `${baseLibraryName}-teleport.mjs`,
     getContents: () => `
       import { defineNuxtPlugin } from '#imports'
 

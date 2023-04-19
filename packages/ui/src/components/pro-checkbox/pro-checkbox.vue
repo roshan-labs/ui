@@ -30,3 +30,9 @@ const checkbox = computed(() =>
   ['default', 'border'].includes(props.type) ? ElCheckbox : ElCheckboxButton
 )
 </script>
+
+<script lang="ts">
+export default {
+  name: 'ProCheckbox',
+}
+</script>

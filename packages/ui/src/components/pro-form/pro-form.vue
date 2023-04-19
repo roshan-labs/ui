@@ -251,3 +251,9 @@ defineExpose({
   submit,
 })
 </script>
+
+<script lang="ts">
+export default {
+  name: 'ProForm',
+}
+</script>

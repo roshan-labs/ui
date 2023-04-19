@@ -57,6 +57,7 @@ const getValue = (prop: string) => props.detail[prop] ?? ''
 
 <script lang="ts">
 export default {
+  name: 'ProDescriptions',
   inheritAttrs: false,
 }
 </script>

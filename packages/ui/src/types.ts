@@ -1,6 +1,7 @@
-// 导出类型
+// 导出 element-plus 工具类型
 export type * from 'element-plus'
 
+// 导出 roshan-ui 工具类型
 export type * from './components/pro-checkbox/types'
 export type * from './components/pro-crud/types'
 export type * from './components/pro-descriptions/types'

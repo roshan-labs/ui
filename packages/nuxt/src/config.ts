@@ -1,14 +1,16 @@
 import type { ElIdInjectionContext } from 'element-plus'
 import components from 'element-plus/es/component'
+import { components as roshanComponents } from 'roshan-ui'
 
-export const libraryName = 'element-plus'
+export const baseLibraryName = 'element-plus'
+export const proLibraryName = 'roshan-ui'
 
 export const injectionKey: ElIdInjectionContext = {
   prefix: 1024,
   current: 0,
 }
 
-/** element-plus 组件列表 */
+/** element-plus 组件名称列表 */
 export const baseComponents = components.map((item: any) => item.name as string)
 
 /** element-plus 子组件列表 */
@@ -39,3 +41,6 @@ export const directives: Record<string, string[]> = {
   Popover: ['ElPopoverDirective', 'ElPopover'],
   InfiniteScroll: ['ElInfiniteScroll'],
 }
+
+/** roshan-ui 组件名称列表 */
+export const proComponents = roshanComponents.map((item) => item.name)

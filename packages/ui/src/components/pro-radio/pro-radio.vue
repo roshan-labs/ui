@@ -28,3 +28,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const radio = computed(() => (['default', 'border'].includes(props.type) ? ElRadio : ElRadioButton))
 </script>
+
+<script lang="ts">
+export default {
+  name: 'ProRadio',
+}
+</script>

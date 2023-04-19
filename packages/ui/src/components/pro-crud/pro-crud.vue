@@ -423,6 +423,7 @@ defineExpose({
 
 <script lang="ts">
 export default {
+  name: 'ProCrud',
   inheritAttrs: false,
 }
 </script>

@@ -2,7 +2,7 @@ import { useNuxt } from '@nuxt/kit'
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
 
-import { libraryName, directives } from '../config'
+import { baseLibraryName, directives } from '../config'
 import { camelize, hyphenate, genLibraryImport } from '../utils'
 
 const directivesRegExp = /(?<=[ (])_?resolveDirective\(\s*["']([^'"]*?)["'][\s,]*[^)]*\)/g
@@ -10,7 +10,7 @@ const directivesRegExp = /(?<=[ (])_?resolveDirective\(\s*["']([^'"]*?)["'][\s,]
 const getDirectiveStyle = (name: string) => {
   const dir = hyphenate(name.slice(2))
 
-  return `${libraryName}/es/components/${dir}/style/css`
+  return `${baseLibraryName}/es/components/${dir}/style/css`
 }
 
 const getDirectiveConfig = (name: string): [name: string, style?: string] | undefined => {
@@ -24,7 +24,7 @@ const getDirectiveConfig = (name: string): [name: string, style?: string] | unde
 
 const plugin = createUnplugin(() => {
   return {
-    name: `${libraryName}-transform`,
+    name: `${baseLibraryName}-transform`,
     transform(code, id) {
       const s = new MagicString(code)
       const imports = new Set<string>()

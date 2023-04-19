@@ -91,6 +91,7 @@ watch(
 
 <script lang="ts">
 export default {
+  name: 'HistoryTabs',
   inheritAttrs: false,
 }
 </script>

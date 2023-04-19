@@ -2,11 +2,11 @@ import type { ModuleOptions as WindiOptions } from 'nuxt-windicss'
 import { installModule, resolvePath, useNuxt } from '@nuxt/kit'
 
 import type { ModuleOptions, ResolveRuntime } from '../types'
-import { libraryName } from '../config'
+import { baseLibraryName } from '../config'
 
 export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveRuntime) => {
   const nuxt = useNuxt()
-  const cssPath = `${libraryName}/dist/index.css`
+  const cssPath = `${baseLibraryName}/dist/index.css`
 
   // 开启工具类支持
   if (options.utilityClass) {

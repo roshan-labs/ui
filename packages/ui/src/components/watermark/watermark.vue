@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import type { StyleValue } from 'vue'
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, onMounted, watchEffect } from 'vue'
 import { useDevicePixelRatio } from '@vueuse/core'
 
 import type { WatermarkFont } from './types'
@@ -117,20 +117,28 @@ const renderText = (ctx: CanvasRenderingContext2D) => {
   ctx.fillText(props.content, 0, 0)
 }
 
-watchEffect(() => {
-  if (props.content.trim() && window) {
-    const canvas = window.document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
+onMounted(() => {
+  watchEffect(() => {
+    if (props.content.trim() && window) {
+      const canvas = window.document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
 
-    if (ctx) {
-      renderText(ctx)
+      if (ctx) {
+        renderText(ctx)
 
-      image.value = ctx.canvas.toDataURL('image/png')
+        image.value = ctx.canvas.toDataURL('image/png')
+      }
+
+      if (canvas) {
+        canvas.remove()
+      }
     }
-
-    if (canvas) {
-      canvas.remove()
-    }
-  }
+  })
 })
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Watermark',
+}
 </script>

@@ -1,10 +1,10 @@
 import { addPluginTemplate } from '@nuxt/kit'
 
-import { libraryName, injectionKey } from '../config'
+import { baseLibraryName, injectionKey } from '../config'
 
 export const useInjection = () => {
   addPluginTemplate({
-    filename: `${libraryName}-injection.mjs`,
+    filename: `${baseLibraryName}-injection.mjs`,
     getContents: () => `
       import { ID_INJECTION_KEY } from 'element-plus'
 

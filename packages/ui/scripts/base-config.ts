@@ -1,6 +1,5 @@
 import { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
 import { dependencies, peerDependencies, optionalDependencies } from '../package.json'
 
@@ -9,7 +8,6 @@ const deps = [
   ...Object.keys(peerDependencies),
   ...Object.keys(optionalDependencies),
 ]
-const rollupOptions = { external: deps }
 
 /**
  * 获取打包默认配置
@@ -28,21 +26,12 @@ export const createBaseConfig = (entry: string, format: 'cjs' | 'iife' | 'es') =
         // iife, umd 需要
         name: 'RoshanUI',
       },
-      rollupOptions:
-        format === 'iife'
-          ? {
-              ...rollupOptions,
-              output: {
-                globals: {
-                  vue: 'Vue',
-                  'vue-router': 'VueRouter',
-                  '@vueuse/core': 'VueUse',
-                  'element-plus': 'ElementPlus',
-                  '@element-plus/icons-vue': 'ElementPlusIconsVue',
-                },
-              },
-            }
-          : rollupOptions,
+      rollupOptions: {
+        external: deps,
+        output: {
+          chunkFileNames: format === 'es' ? '[name].mjs' : '[name].js',
+        },
+      },
       outDir: `dist/${format}`,
       sourcemap: true,
       cssCodeSplit: false,
@@ -54,8 +43,16 @@ export const createBaseConfig = (entry: string, format: 'cjs' | 'iife' | 'es') =
     plugins: [vue({ isProduction: true })],
   }
 
-  if (format === 'es') {
-    config.plugins?.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+  if (format === 'iife') {
+    config.build!.rollupOptions!.output = {
+      globals: {
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        '@vueuse/core': 'VueUse',
+        'element-plus': 'ElementPlus',
+        '@element-plus/icons-vue': 'ElementPlusIconsVue',
+      },
+    }
   }
 
   return config

@@ -92,6 +92,12 @@ const onConfirm = () => {
 }
 </script>
 
+<script lang="ts">
+export default {
+  name: 'ProDialog',
+}
+</script>
+
 <style>
 .pro-dialog.is-fullscreen {
   display: flex;

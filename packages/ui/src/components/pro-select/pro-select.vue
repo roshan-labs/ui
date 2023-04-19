@@ -27,3 +27,9 @@ withDefaults(defineProps<Props>(), {
 /** 判断是否为选项分组 */
 const isOptionGroup = (value: any): value is SelectGroup => !isUndefined(value.group)
 </script>
+
+<script lang="ts">
+export default {
+  name: 'ProSelect',
+}
+</script>

@@ -48,5 +48,8 @@ export const buildEnd = () => {
   removeFile(getPath('../dist/iife/style.css'))
 
   // 移动 es 包中 style.css 到 styles/index.css
-  moveSync(getPath('../dist/es/style.css'), getPath('../dist/styles/index.css'))
+  const stylePath = getPath('../dist/es/style.css')
+
+  existsSync(stylePath) &&
+    moveSync(getPath('../dist/es/style.css'), getPath('../dist/styles/index.css'))
 }

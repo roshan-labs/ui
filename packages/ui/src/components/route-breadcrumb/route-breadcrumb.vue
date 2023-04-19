@@ -14,3 +14,9 @@ import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 const route = useRoute()
 const routes = computed(() => route.matched)
 </script>
+
+<script lang="ts">
+export default {
+  name: 'RouteBreadcrumb',
+}
+</script>
