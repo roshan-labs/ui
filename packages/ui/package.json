@@ -30,6 +30,9 @@
     "vue3",
     "element-plus"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "@vueuse/core": "^9.13.0"

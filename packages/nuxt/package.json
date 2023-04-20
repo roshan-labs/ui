@@ -29,6 +29,14 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue3 components",
+    "element-plus",
+    "roshan-ui"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@nuxt/kit": "^3.4.1",
     "magic-string": "^0.30.0",
