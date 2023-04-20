@@ -53,7 +53,7 @@ jobs:
 
   deploy-docs:
     name: Deploy docs
-    needs: build-and-publish
+    needs: publish
     runs-on: ubuntu-latest
 
     permissions:
