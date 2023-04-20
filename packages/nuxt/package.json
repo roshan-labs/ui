@@ -29,10 +29,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
   "dependencies": {
     "@nuxt/kit": "^3.4.1",
     "magic-string": "^0.30.0",
