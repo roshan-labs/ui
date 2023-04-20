@@ -1,9 +1,12 @@
-name: CD
+name: 🚀 CD
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build-and-publish:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,7 +17,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -33,20 +36,20 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Build docs
-        run: pnpm build-storybook
+      - name: Release
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version-bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload docs artifacts
         uses: actions/upload-pages-artifact@v1
         with:
-          path: storybook-static
-
-      - name: Release
-        run: pnpm release --ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: packages/ui/storybook-static
 
   deploy-docs:
     name: Deploy docs
