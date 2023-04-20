@@ -1,7 +1,7 @@
 {
   "name": "@roshan-ui/nuxt",
   "description": "roshan-ui for Nuxt3",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "James Gao",
     "email": "gxmari007@gmail.com"
@@ -50,11 +50,11 @@
     "changelogen": "^0.5.3",
     "element-plus": "^2.3.3",
     "nuxt": "^3.4.1",
-    "@roshan-ui/ui": "workspace:^1.0.0",
+    "@roshan-ui/ui": "workspace:^1.0.1",
     "vitest": "^0.30.1"
   },
   "peerDependencies": {
     "element-plus": "^2.3.3",
-    "@roshan-ui/ui": "workspace:^1.0.0"
+    "@roshan-ui/ui": "workspace:^1.0.1"
   }
 }
