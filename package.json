@@ -4,7 +4,7 @@
   "description": "A component library based on element-plus",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "pnpm --filter ./packages/** build",
+    "build": "pnpm -r build",
     "changeset": "changeset",
     "version-bump": "changeset version",
     "release": "pnpm build && changeset publish"

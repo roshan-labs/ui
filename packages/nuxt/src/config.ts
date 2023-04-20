@@ -1,9 +1,9 @@
 import type { ElIdInjectionContext } from 'element-plus'
 import components from 'element-plus/es/component'
-import { components as roshanComponents } from 'roshan-ui'
+import { components as roshanComponents } from '@roshan-ui/ui'
 
 export const baseLibraryName = 'element-plus'
-export const proLibraryName = 'roshan-ui'
+export const proLibraryName = '@roshan-ui/ui'
 
 export const injectionKey: ElIdInjectionContext = {
   prefix: 1024,
