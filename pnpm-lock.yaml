@@ -55,7 +55,7 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1(rollup@3.20.6)(vue@3.2.47)
       '@roshan-ui/ui':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../ui
       changelogen:
         specifier: ^0.5.3
