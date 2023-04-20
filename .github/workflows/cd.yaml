@@ -25,16 +25,6 @@ jobs:
           node-version: 16
           cache: 'pnpm'
 
-      - name: Git config
-        run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "392041299@qq.com"
-
-      - name: Npm config
-        run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -45,6 +35,10 @@ jobs:
           version: pnpm version-bump
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build docs
+        run: pnpm --filter @roshan-ui/ui build-storybook
 
       - name: Upload docs artifacts
         uses: actions/upload-pages-artifact@v1
