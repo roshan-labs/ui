@@ -1,7 +1,7 @@
 {
   "name": "@roshan-ui/nuxt",
   "description": "roshan-ui for Nuxt3",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": {
     "name": "James Gao",
     "email": "gxmari007@gmail.com"
@@ -35,7 +35,7 @@
     "roshan-ui"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
   "dependencies": {
     "@nuxt/kit": "^3.4.1",

@@ -1,7 +1,7 @@
 {
-  "name": "roshan-ui",
+  "name": "@roshan-ui/ui",
   "description": "A component library based on element-plus",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": {
     "name": "James Gao",
     "email": "gxmari007@gmail.com"
@@ -31,7 +31,7 @@
     "element-plus"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
