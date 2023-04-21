@@ -1,5 +1,14 @@
 # @roshan-ui/nuxt
 
+## 2.0.3
+
+### Patch Changes
+
+- [#18](https://github.com/roshan-labs/ui/pull/18) [`d8e6b0b`](https://github.com/roshan-labs/ui/commit/d8e6b0bdc671b8bcb1b2bb45f9470928cf62b800) Thanks [@gxmari007](https://github.com/gxmari007)! - docs action 配置错误
+
+- Updated dependencies [[`d8e6b0b`](https://github.com/roshan-labs/ui/commit/d8e6b0bdc671b8bcb1b2bb45f9470928cf62b800)]:
+  - @roshan-ui/ui@1.1.3
+
 ## 2.0.2
 
 ### Patch Changes
