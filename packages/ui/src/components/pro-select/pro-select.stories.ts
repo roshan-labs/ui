@@ -62,14 +62,36 @@ export const Group: Story = {
   name: '选项分组',
   args: {
     options: [
+      { value: '0', label: '老板' },
       {
         label: '团队',
         group: [
-          { value: '0', label: '小甲' },
-          { value: '1', label: '小乙' },
+          { value: '1', label: '小甲' },
+          { value: '2', label: '小乙' },
         ],
       },
-      { label: '个人', group: [{ value: '2', label: '小丁' }] },
+      { label: '个人', group: [{ value: '3', label: '小丙' }] },
     ] as ProSelectOption[],
+  },
+}
+
+export const OptionSlot: Story = {
+  name: '自定义选项插槽',
+  render: (args) => ({
+    components: { ProSelect },
+    setup: () => ({ args }),
+    template: `
+      <pro-select v-bind="args">
+        <template #default="{ item }">
+          <span style="margin-right: 8px">{{ item.label }}</span>
+          <span style="color: var(--el-text-color-secondary); font-size: 13px">
+            {{ item.value }}
+          </span>
+        </template>
+      </pro-select>
+    `,
+  }),
+  args: {
+    ...Group.args,
   },
 }

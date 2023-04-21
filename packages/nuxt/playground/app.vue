@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProCheckboxOption } from 'roshan-ui'
+import type { ProCheckboxOption } from '@roshan-ui/ui'
 import { ref } from '#imports'
 
 const value = ref([])

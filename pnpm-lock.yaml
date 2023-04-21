@@ -119,6 +119,9 @@ importers:
       storybook:
         specifier: ^7.0.4
         version: 7.0.4
+      storybook-vue3-router:
+        specifier: 3.0.0-next.4
+        version: 3.0.0-next.4(@storybook/preview-api@7.0.4)(@storybook/vue3@7.0.4)(vue-router@4.1.6)(vue@3.2.47)
       terser:
         specifier: ^5.16.9
         version: 5.16.9
@@ -10803,6 +10806,25 @@ packages:
 
   /store2@2.14.2:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
+    dev: true
+
+  /storybook-vue3-router@3.0.0-next.4(@storybook/preview-api@7.0.4)(@storybook/vue3@7.0.4)(vue-router@4.1.6)(vue@3.2.47):
+    resolution: {integrity: sha512-pDb5p5na7ozdB0xw4aLSbw0quuiF2Jwf99V0TWerohGoLHY6LJP9Un3xtRVwpCx7xhhUVBvOtmrHbWo6cTAYmg==}
+    peerDependencies:
+      '@storybook/preview-api': 7.x||>=7.0.0-rc.0
+      '@storybook/vue3': 7.x||>=7.0.0-rc.0
+      vue: 3.x
+      vue-router: 4.x
+    peerDependenciesMeta:
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+    dependencies:
+      '@storybook/preview-api': 7.0.4
+      '@storybook/vue3': 7.0.4(vue@3.2.47)
+      vue: 3.2.47
+      vue-router: 4.1.6(vue@3.2.47)
     dev: true
 
   /storybook@7.0.4:

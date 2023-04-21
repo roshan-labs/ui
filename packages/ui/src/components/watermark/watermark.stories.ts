@@ -6,7 +6,7 @@ import Watermark from './watermark.vue'
 type Story = StoryObj<typeof Watermark>
 
 const meta: Meta<typeof Watermark> = {
-  title: '基础组件/水印 Watermark',
+  title: '基础扩展组件/水印 Watermark',
   component: Watermark,
   tags: ['autodocs'],
   parameters: {
