@@ -3,10 +3,12 @@
     <template v-for="item in options" :key="item.label">
       <el-option-group v-if="isOptionGroup(item)" v-bind="item">
         <el-option v-for="option in item.group" :key="option.label" v-bind="option">
+          <!-- @slot 自定义选项插槽 -->
           <slot v-if="$slots.default" v-bind="{ item: option }" />
         </el-option>
       </el-option-group>
       <el-option v-else v-bind="item">
+        <!-- @slot 自定义选项插槽 -->
         <slot v-if="$slots.default" v-bind="{ item }" />
       </el-option>
     </template>

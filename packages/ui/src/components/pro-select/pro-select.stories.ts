@@ -81,7 +81,7 @@ export const OptionSlot: Story = {
     components: { ProSelect },
     setup: () => ({ args }),
     template: `
-      <pro-select>
+      <pro-select v-bind="args">
         <template #default="{ item }">
           <span style="margin-right: 8px">{{ item.label }}</span>
           <span style="color: var(--el-text-color-secondary); font-size: 13px">
