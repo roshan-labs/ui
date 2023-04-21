@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.1.1
+
+### Patch Changes
+
+- [#14](https://github.com/roshan-labs/ui/pull/14) [`621cb04`](https://github.com/roshan-labs/ui/commit/621cb04c16bb2bf8ba658c54c80c82763b360175) Thanks [@gxmari007](https://github.com/gxmari007)! - 无法导出 search-page 组件
+
 ## 1.1.0
 
 ### Minor Changes
