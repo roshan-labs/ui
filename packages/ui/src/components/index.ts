@@ -7,7 +7,7 @@ import { ProForm } from './pro-form'
 import { ProRadio } from './pro-radio'
 import { ProSelect } from './pro-select'
 import { RouteBreadcrumb } from './route-breadcrumb'
-// import { SearchPage } from './search-page'
+import { SearchPage } from './search-page'
 import { Watermark } from './watermark'
 
 export {
@@ -20,7 +20,7 @@ export {
   ProRadio,
   ProSelect,
   RouteBreadcrumb,
-  // SearchPage,
+  SearchPage,
   Watermark,
 }
 
