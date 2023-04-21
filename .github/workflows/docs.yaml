@@ -3,7 +3,7 @@ name: 📝 DOCS
 on:
   push:
     tags:
-      - '@roshan-ui/ui*'
+      - '@roshan-ui/ui**'
 
 jobs:
   build-docs:
