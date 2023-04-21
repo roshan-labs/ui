@@ -1,5 +1,18 @@
 # @roshan-ui/nuxt
 
+## 2.0.0
+
+### Minor Changes
+
+- [#11](https://github.com/roshan-labs/ui/pull/11) [`f7dcd68`](https://github.com/roshan-labs/ui/commit/f7dcd685212a013a4be934b5ec2fe32feebdbe81) Thanks [@gxmari007](https://github.com/gxmari007)! - <pro-select> 组件支持选项自定义插槽
+
+- [#11](https://github.com/roshan-labs/ui/pull/11) [`6a2c08e`](https://github.com/roshan-labs/ui/commit/6a2c08e7ccaf94fb71f997dc0adb10dfa4e964ab) Thanks [@gxmari007](https://github.com/gxmari007)! - 新增 search-page 组件查询页面路由
+
+### Patch Changes
+
+- Updated dependencies [[`f7dcd68`](https://github.com/roshan-labs/ui/commit/f7dcd685212a013a4be934b5ec2fe32feebdbe81), [`6a2c08e`](https://github.com/roshan-labs/ui/commit/6a2c08e7ccaf94fb71f997dc0adb10dfa4e964ab)]:
+  - @roshan-ui/ui@1.1.0
+
 ## 1.0.2
 
 ### Patch Changes
