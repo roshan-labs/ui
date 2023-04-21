@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.1.2
+
+### Patch Changes
+
+- [#16](https://github.com/roshan-labs/ui/pull/16) [`d9365b1`](https://github.com/roshan-labs/ui/commit/d9365b1bdf236b9b811e85908a2e35a8e6610e0b) Thanks [@gxmari007](https://github.com/gxmari007)! - 无法生成文档
+
 ## 1.1.1
 
 ### Patch Changes
