@@ -43,7 +43,7 @@ jobs:
         run: pnpm --filter @roshan-ui/ui build-storybook
 
       - name: Upload docs artifacts
-        if: ${{ success() }}
+        if: contains(steps.changesets.outputs.publishedPackages.*.name, '@roshan-ui/ui')
         uses: actions/upload-pages-artifact@v1
         with:
           path: packages/ui/storybook-static
