@@ -1,4 +1,4 @@
-interface SelectOption {
+export interface SelectOption {
   /** 选项标签 */
   label: string | number
   /** 选项值 */
