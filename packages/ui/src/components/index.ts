@@ -34,6 +34,6 @@ export default [
   ProRadio,
   ProSelect,
   RouteBreadcrumb,
-  // SearchPage,
+  SearchPage,
   Watermark,
 ]
