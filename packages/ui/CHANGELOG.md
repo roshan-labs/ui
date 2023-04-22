@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.1.6
+
+### Patch Changes
+
+- [#31](https://github.com/roshan-labs/ui/pull/31) [`4ead514`](https://github.com/roshan-labs/ui/commit/4ead514437b62dbe9dde27acf68cd0b722882067) Thanks [@gxmari007](https://github.com/gxmari007)! - 未导出 search-page 组件
+
 ## 1.1.5
 
 ### Patch Changes
