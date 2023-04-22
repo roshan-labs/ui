@@ -1,6 +1,6 @@
 import { addComponent } from '@nuxt/kit'
 
-import { baseComponents, subComponents, proComponents } from '../config'
+import { baseComponents, subComponents, proComponents, proLibraryName } from '../config'
 import { hyphenate } from '../utils'
 
 export const useComponents = () => {
@@ -32,7 +32,7 @@ export const useComponents = () => {
     addComponent({
       name,
       export: name,
-      filePath: 'roshan-ui',
+      filePath: proLibraryName,
     })
   })
 }
