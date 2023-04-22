@@ -1,5 +1,16 @@
 # @roshan-ui/nuxt
 
+## 2.0.4
+
+### Patch Changes
+
+- [#24](https://github.com/roshan-labs/ui/pull/24) [`071e600`](https://github.com/roshan-labs/ui/commit/071e60036f9aeb77ff4fcdadb292bd63f3a0ff9a) Thanks [@gxmari007](https://github.com/gxmari007)! - 文档无法构建
+
+- [#20](https://github.com/roshan-labs/ui/pull/20) [`ef473a3`](https://github.com/roshan-labs/ui/commit/ef473a3da5e2e17cfcd4f5bf1e543d19c6d8ca84) Thanks [@gxmari007](https://github.com/gxmari007)! - 无法构建 docs
+
+- Updated dependencies [[`071e600`](https://github.com/roshan-labs/ui/commit/071e60036f9aeb77ff4fcdadb292bd63f3a0ff9a), [`ef473a3`](https://github.com/roshan-labs/ui/commit/ef473a3da5e2e17cfcd4f5bf1e543d19c6d8ca84)]:
+  - @roshan-ui/ui@1.1.4
+
 ## 2.0.3
 
 ### Patch Changes
