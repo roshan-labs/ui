@@ -1,8 +1,8 @@
 name: 📝 DOCS
 
 on:
-  release:
-    types: [published]
+  tags:
+    - '*'
 
 jobs:
   build-docs:
