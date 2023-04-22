@@ -1,5 +1,14 @@
 # @roshan-ui/nuxt
 
+## 2.0.5
+
+### Patch Changes
+
+- [#25](https://github.com/roshan-labs/ui/pull/25) [`14940b8`](https://github.com/roshan-labs/ui/commit/14940b8fc9027ac576104cf0925c838ac9193ab8) Thanks [@gxmari007](https://github.com/gxmari007)! - 更新 cd
+
+- Updated dependencies [[`14940b8`](https://github.com/roshan-labs/ui/commit/14940b8fc9027ac576104cf0925c838ac9193ab8)]:
+  - @roshan-ui/ui@1.1.5
+
 ## 2.0.4
 
 ### Patch Changes
