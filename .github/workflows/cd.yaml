@@ -37,29 +37,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Build docs
-        if: contains(steps.changesets.outputs.publishedPackages.*.name, '@roshan-ui/ui')
-        run: pnpm --filter @roshan-ui/ui build-storybook
-
-      - name: Upload docs artifacts
-        if: contains(steps.changesets.outputs.publishedPackages.*.name, '@roshan-ui/ui')
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: packages/ui/storybook-static
-
-  deploy-docs:
-    name: Deploy docs
-    needs: Publish
-    runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - uses: actions/deploy-pages@v1
