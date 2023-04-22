@@ -1,5 +1,11 @@
 # @roshan-ui/nuxt
 
+## 2.0.6
+
+### Patch Changes
+
+- [#28](https://github.com/roshan-labs/ui/pull/28) [`4a73354`](https://github.com/roshan-labs/ui/commit/4a733548a6156b7e7cd984af23577990be5e3f4a) Thanks [@gxmari007](https://github.com/gxmari007)! - @roshan-ui/ui 模块名称错误
+
 ## 2.0.5
 
 ### Patch Changes
