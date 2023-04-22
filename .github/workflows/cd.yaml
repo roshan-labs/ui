@@ -9,6 +9,8 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
+    outputs:
+      docs: ${{ steps.build_docs.outputs.docs }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,6 +32,7 @@ jobs:
         run: pnpm install
 
       - name: Release
+        id: release
         uses: changesets/action@v1
         with:
           publish: pnpm release
@@ -37,3 +40,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build docs
+        id: build_docs
+        if: steps.release.outputs.published == 'true'
+        run: |
+          pnpm --filter @roshan-ui/ui build-storybook
+          run: echo "docs=success" >> "$GITHUB_OUTPUT"
+
+      - name: Upload docs artifacts
+        if: steps.build_docs.conclusion == 'success'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: packages/ui/storybook-static
+
+  deploy-docs:
+    name: Deploy docs
+    needs: publish
+    if: needs.publish.outputs.docs == 'success'
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
