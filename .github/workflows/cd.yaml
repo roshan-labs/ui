@@ -46,7 +46,7 @@ jobs:
         if: steps.release.outputs.published == 'true'
         run: |
           pnpm --filter @roshan-ui/ui build-storybook
-          run: echo "docs=success" >> "$GITHUB_OUTPUT"
+          echo "docs=success" >> "$GITHUB_OUTPUT"
 
       - name: Upload docs artifacts
         if: steps.build_docs.conclusion == 'success'
