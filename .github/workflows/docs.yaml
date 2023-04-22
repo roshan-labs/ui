@@ -1,9 +1,8 @@
 name: 📝 DOCS
 
 on:
-  push:
-    tags:
-      - '@roshan-ui/ui**'
+  release:
+    types: [published]
 
 jobs:
   build-docs:
