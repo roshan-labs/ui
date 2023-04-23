@@ -1,35 +1,26 @@
-# @roshan-labs/ui
+# roshan-ui
 
-在 `element-plus` 之上扩展的高级组件库
+一个尽量快的 Vue3 高级组件库，扩展自 element-plus。
 
-[![npm](https://img.shields.io/npm/v/@roshan-labs/ui?color=%2342b883)](https://www.npmjs.com/package/@roshan-labs/ui)
-[![CD](https://github.com/roshan-labs/ui/actions/workflows/cd.yml/badge.svg)](https://github.com/roshan-labs/ui/actions/workflows/cd.yml)
+[![npm (scoped)](https://img.shields.io/npm/v/@roshan-ui/ui?color=%2342b883)](https://www.npmjs.com/package/@roshan-labs/ui)
+[![🚀 CD](https://github.com/roshan-labs/ui/actions/workflows/cd.yaml/badge.svg)](https://github.com/roshan-labs/ui/actions/workflows/cd.yaml)
 
-## 安装
+## 功能
 
-```bash
-pnpm add @roshan-labs/ui
-```
+- 包含 element-plus 所有基础组件
+- 改造部分组件支持参数化配置，比如 pro-form
+- 扩展基础组件
+- 通过 windicss 支持设计系统配置
+- 支持 Nuxt3
 
-## 使用
+详细信息请查看[文档](https://roshan-labs.github.io/ui)。
 
-```typescript
-export default defineNuxtConfig({
-  modules: ['@roshan-labs/ui'],
-  ui: {
-    // 选项
-  },
-})
-```
+## 软件包列表
 
-## 选项
-
-### `windicss`
-
-- type: `boolean`
-- default: `false`
-
-是否开启 [windicss](https://windicss.org/) 模式
+|  包名   | 版本号  |
+|  ----  | ----  |
+| [@roshan-ui/ui](https://github.com/roshan-labs/ui/tree/main/packages/ui)  | [![npm (scoped)](https://img.shields.io/npm/v/@roshan-ui/ui?color=%2342b883)](https://www.npmjs.com/package/@roshan-labs/ui) |
+| [@roshan-ui/nuxt](https://github.com/roshan-labs/ui/tree/main/packages/nuxt)  | [![npm (scoped)](https://img.shields.io/npm/v/@roshan-ui/nuxt?color=42b883)](https://www.npmjs.com/package/@roshan-ui/nuxt) |
 
 ## License
 
