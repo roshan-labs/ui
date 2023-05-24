@@ -403,7 +403,7 @@ const { viewActionVisible, viewVisible, viewOptions, selectedViewRow, viewRow } 
 
 defineExpose({
   // 原 ElTable 方法
-  clearSelection: tableRef.value!.clearSelection,
+  clearSelection: tableRef.value?.clearSelection,
   getSelectionRows: tableRef.value!.getSelectionRows,
   toggleRowSelection: tableRef.value!.toggleRowSelection,
   toggleAllSelection: tableRef.value!.toggleAllSelection,
