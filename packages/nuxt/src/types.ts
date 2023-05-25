@@ -1,6 +1,6 @@
 export interface ModuleOptions {
   /** 是否开启工具类支持 */
-  utilityClass: boolean
+  tailwindcss: boolean
   /** element-plus 命名空间 */
   namespace: string
 }
