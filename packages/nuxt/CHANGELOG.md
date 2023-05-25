@@ -1,5 +1,14 @@
 # @roshan-ui/nuxt
 
+## 2.0.8
+
+### Patch Changes
+
+- [#34](https://github.com/roshan-labs/ui/pull/34) [`56d8872`](https://github.com/roshan-labs/ui/commit/56d88724a0947d40dba4f7e443ca0b4016862a78) Thanks [@gxmari007](https://github.com/gxmari007)! - use tailwindcss
+
+- Updated dependencies [[`56d8872`](https://github.com/roshan-labs/ui/commit/56d88724a0947d40dba4f7e443ca0b4016862a78)]:
+  - @roshan-ui/ui@1.1.7
+
 ## 2.0.7
 
 ### Patch Changes

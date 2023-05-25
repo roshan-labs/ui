@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.1.7
+
+### Patch Changes
+
+- [#34](https://github.com/roshan-labs/ui/pull/34) [`56d8872`](https://github.com/roshan-labs/ui/commit/56d88724a0947d40dba4f7e443ca0b4016862a78) Thanks [@gxmari007](https://github.com/gxmari007)! - use tailwindcss
+
 ## 1.1.6
 
 ### Patch Changes
