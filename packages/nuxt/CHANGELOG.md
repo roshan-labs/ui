@@ -1,5 +1,11 @@
 # @roshan-ui/nuxt
 
+## 2.0.9
+
+### Patch Changes
+
+- [#36](https://github.com/roshan-labs/ui/pull/36) [`74904f5`](https://github.com/roshan-labs/ui/commit/74904f549e91c167ba4ed75115355516255b0d32) Thanks [@gxmari007](https://github.com/gxmari007)! - tailwindcss
+
 ## 2.0.8
 
 ### Patch Changes
