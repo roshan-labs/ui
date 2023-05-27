@@ -38,9 +38,15 @@ importers:
       '@nuxtjs/tailwindcss':
         specifier: ^6.7.0
         version: 6.7.0(rollup@3.20.6)(ts-node@10.9.1)(webpack@5.83.1)
+      defu:
+        specifier: ^6.1.2
+        version: 6.1.2
       magic-string:
         specifier: ^0.30.0
         version: 0.30.0
+      tailwindcss:
+        specifier: ^3.3.2
+        version: 3.3.2(ts-node@10.9.1)
       unplugin:
         specifier: ^1.3.1
         version: 1.3.1

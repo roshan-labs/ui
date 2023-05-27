@@ -1,4 +1,4 @@
-import { defineNuxtModule } from '@nuxt/kit'
+import { createResolver, defineNuxtModule } from '@nuxt/kit'
 
 import type { ModuleOptions } from './types'
 import { useTranspile } from './composables/use-transpile'
@@ -18,8 +18,8 @@ export default defineNuxtModule<ModuleOptions>({
     namespace: 'el',
   },
   async setup(options, nuxt) {
-    // const { resolve } = createResolver(import.meta.url)
-    // const resolveRuntime = (filePath: string) => resolve('./runtime', filePath)
+    const { resolve } = createResolver(import.meta.url)
+    const resolveRuntime = (filePath: string) => resolve('./runtime', filePath)
 
     useTranspile()
 
@@ -28,7 +28,7 @@ export default defineNuxtModule<ModuleOptions>({
       useTeleport(options)
     }
 
-    await useStyles(options)
+    await useStyles(options, resolveRuntime)
     useComponents()
     useTransform()
   },

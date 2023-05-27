@@ -6,4 +6,7 @@ export default defineNuxtConfig({
   typescript: {
     includeWorkspace: true,
   },
+  roshan: {
+    tailwindcss: false,
+  },
 })
