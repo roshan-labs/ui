@@ -1,12 +1,11 @@
 <template>
-  <watermark content="Roshan UI">
-    <div class="h-screen p-2">
-      <div class="flex">
-        <el-button>Button</el-button>
-        <pro-checkbox v-model="value" :options="options" />
-      </div>
+  <div class="h-screen p-2">
+    <div class="flex">
+      <el-button>Button</el-button>
+      <el-button type="primary">Primary</el-button>
+      <pro-checkbox v-model="value" :options="options" />
     </div>
-  </watermark>
+  </div>
 </template>
 
 <script lang="ts" setup>

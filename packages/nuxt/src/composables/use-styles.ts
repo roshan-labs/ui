@@ -1,16 +1,24 @@
 import { installModule, useNuxt } from '@nuxt/kit'
+import { defu } from 'defu'
 
-import type { ModuleOptions } from '../types'
+import type { ModuleOptions, ResolveRuntime } from '../types'
 import { baseLibraryName } from '../config'
 
-export const useStyles = async (options: ModuleOptions) => {
+export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveRuntime) => {
   const nuxt = useNuxt()
   const cssPath = `${baseLibraryName}/dist/index.css`
 
   // 开启工具类支持
   if (options.tailwindcss) {
-    await installModule('@nuxtjs/tailwindcss')
-  }
+    nuxt.options.tailwindcss = defu(
+      {
+        cssPath: resolveRuntime('tailwind.css'),
+      },
+      nuxt.options.tailwindcss
+    ) as any
 
-  nuxt.options.css.unshift(cssPath)
+    await installModule('@nuxtjs/tailwindcss')
+  } else {
+    nuxt.options.css.unshift(cssPath)
+  }
 }
