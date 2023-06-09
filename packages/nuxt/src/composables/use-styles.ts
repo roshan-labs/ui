@@ -10,12 +10,9 @@ export const useStyles = async (options: ModuleOptions, resolveRuntime: ResolveR
 
   // 开启工具类支持
   if (options.tailwindcss) {
-    nuxt.options.tailwindcss = defu(
-      {
-        cssPath: resolveRuntime('tailwind.css'),
-      },
-      nuxt.options.tailwindcss
-    ) as any
+    nuxt.options.tailwindcss = defu(nuxt.options.tailwindcss, {
+      cssPath: resolveRuntime('tailwind.css'),
+    }) as any
 
     await installModule('@nuxtjs/tailwindcss')
   } else {
