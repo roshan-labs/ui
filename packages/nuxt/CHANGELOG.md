@@ -1,5 +1,11 @@
 # @roshan-ui/nuxt
 
+## 2.0.10
+
+### Patch Changes
+
+- [#38](https://github.com/roshan-labs/ui/pull/38) [`ee031b8`](https://github.com/roshan-labs/ui/commit/ee031b892097a5c0dab1b0910a872d475ba95f4c) Thanks [@gxmari007](https://github.com/gxmari007)! - tailwind 无法热更新
+
 ## 2.0.9
 
 ### Patch Changes
