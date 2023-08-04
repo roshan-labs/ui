@@ -4,6 +4,7 @@
   "description": "A component library based on element-plus",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "commit": "cz",
     "build": "pnpm -r build",
     "changeset": "changeset",
     "version-bump": "changeset version",
@@ -16,7 +17,7 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.1",
+    "@changesets/cli": "^2.26.2",
     "@roshan-labs/eslint-config": "^1.4.0",
     "@types/node": "^18.15.11",
     "cz-conventional-changelog": "^3.3.0",

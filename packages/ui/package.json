@@ -28,7 +28,8 @@
   ],
   "keywords": [
     "vue3",
-    "element-plus"
+    "element-plus",
+    "pro-components"
   ],
   "publishConfig": {
     "access": "public"
