@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/vue3'
+import 'element-plus/dist/index.css'
+
 import '../src/style.css'
 
 const preview: Preview = {
