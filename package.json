@@ -6,7 +6,7 @@
     "preinstall": "npx only-allow pnpm",
     "commit": "cz",
     "build": "pnpm -r build",
-    "changeset": "changeset",
+    "changeset": "changeset add",
     "version-bump": "changeset version",
     "release": "pnpm build && changeset publish"
   },
