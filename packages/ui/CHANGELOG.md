@@ -1,5 +1,13 @@
 # roshan-ui
 
+## 1.1.9
+
+### Patch Changes
+
+- [#42](https://github.com/roshan-labs/ui/pull/42) [`ace71f3`](https://github.com/roshan-labs/ui/commit/ace71f35a40a8471426709e80ac03f9f69b72443) Thanks [@gxmari007](https://github.com/gxmari007)! - 修复 ProForm 报错
+
+- [#42](https://github.com/roshan-labs/ui/pull/42) [`ace71f3`](https://github.com/roshan-labs/ui/commit/ace71f35a40a8471426709e80ac03f9f69b72443) Thanks [@gxmari007](https://github.com/gxmari007)! - 修复 ProTable 报错
+
 ## 1.1.8
 
 ### Patch Changes
