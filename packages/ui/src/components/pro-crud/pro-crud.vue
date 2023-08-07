@@ -255,6 +255,7 @@ import { useView } from './composables/use-view'
 import { useRemove } from './composables/use-remove'
 import { useEdit } from './composables/use-edit'
 import { useSelection } from './composables/use-selection'
+import { useExposeTableMethods } from './composables/use-expose-table-methods'
 
 export interface Props {
   /** 数据集 */
@@ -401,21 +402,11 @@ const { viewActionVisible, viewVisible, viewOptions, selectedViewRow, viewRow } 
   filterColumns
 )
 
+const originExpose = useExposeTableMethods(tableRef)
+
 defineExpose({
   // 原 ElTable 方法
-  clearSelection: tableRef.value?.clearSelection,
-  getSelectionRows: tableRef.value!.getSelectionRows,
-  toggleRowSelection: tableRef.value!.toggleRowSelection,
-  toggleAllSelection: tableRef.value!.toggleAllSelection,
-  toggleRowExpansion: tableRef.value!.toggleRowExpansion,
-  setCurrentRow: tableRef.value!.setCurrentRow,
-  clearSort: tableRef.value!.clearSort,
-  clearFilter: tableRef.value!.clearFilter,
-  doLayout: tableRef.value!.doLayout,
-  sort: tableRef.value!.sort,
-  scrollTo: tableRef.value!.scrollTo,
-  setScrollTop: tableRef.value!.setScrollTop,
-  setScrollLeft: tableRef.value!.setScrollLeft,
+  ...originExpose,
   /** 刷新查询 */
   refreshSearch: refreshRequest,
 })

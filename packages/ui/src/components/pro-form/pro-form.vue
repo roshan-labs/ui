@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormItemProp } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 import { useVModel } from '@vueuse/core'
@@ -242,11 +242,21 @@ const submit = () => {
 
 defineExpose({
   // 原 ElForm 方法
-  validate: formRef.value!.validate,
-  validateField: formRef.value!.validateField,
-  resetFields: formRef.value!.resetFields,
-  scrollToField: formRef.value!.scrollToField,
-  clearValidate: formRef.value!.clearValidate,
+  validate: () => {
+    formRef.value?.validate()
+  },
+  validateField: () => {
+    formRef.value?.validateField()
+  },
+  resetFields: () => {
+    formRef.value?.resetFields()
+  },
+  scrollToField: (prop: FormItemProp) => {
+    formRef.value?.scrollToField(prop)
+  },
+  clearValidate: () => {
+    formRef.value?.clearValidate()
+  },
   /** 表单提交 */
   submit,
 })
