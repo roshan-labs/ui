@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { FormInstance, FormItemProp } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import { ref, computed, watchEffect, defineAsyncComponent } from 'vue'
 import { ElForm, ElFormItem, ElButton, ElRow, ElCol } from 'element-plus'
 import { useVModel } from '@vueuse/core'
@@ -74,6 +74,7 @@ import { useVModel } from '@vueuse/core'
 import { isUndefined } from '../../utils'
 import type { Slots } from '../../type-utils'
 import type { ProFormOption, ProFormAction, ProFormBeforeSubmit, ProFormModelValue } from './types'
+import { useExposeFormMethods } from './composables/use-expose-form-methods'
 
 const props = defineProps({
   /** 表单绑定值 v-model */
@@ -240,23 +241,11 @@ const submit = () => {
   }
 }
 
+const originExpose = useExposeFormMethods(formRef)
+
 defineExpose({
   // 原 ElForm 方法
-  validate: () => {
-    formRef.value?.validate()
-  },
-  validateField: () => {
-    formRef.value?.validateField()
-  },
-  resetFields: () => {
-    formRef.value?.resetFields()
-  },
-  scrollToField: (prop: FormItemProp) => {
-    formRef.value?.scrollToField(prop)
-  },
-  clearValidate: () => {
-    formRef.value?.clearValidate()
-  },
+  ...originExpose,
   /** 表单提交 */
   submit,
 })
