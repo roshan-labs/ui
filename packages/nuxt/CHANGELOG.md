@@ -1,5 +1,12 @@
 # @roshan-ui/nuxt
 
+## 2.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`527592f`](https://github.com/roshan-labs/ui/commit/527592f1d598726e504607442dd90c2debbe1a38)]:
+  - @roshan-ui/ui@1.1.10
+
 ## 2.0.12
 
 ### Patch Changes

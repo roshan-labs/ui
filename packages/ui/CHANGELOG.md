@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.1.10
+
+### Patch Changes
+
+- [#44](https://github.com/roshan-labs/ui/pull/44) [`527592f`](https://github.com/roshan-labs/ui/commit/527592f1d598726e504607442dd90c2debbe1a38) Thanks [@gxmari007](https://github.com/gxmari007)! - ProForm 导出方法报错
+
 ## 1.1.9
 
 ### Patch Changes
