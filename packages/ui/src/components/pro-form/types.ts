@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, VNode } from 'vue'
 import type {
   FormProps,
   FormEmits,
@@ -299,6 +299,14 @@ interface FormSelectV2Option extends FormBaseOption {
   component?: FormSelectProps
 }
 
+/**
+ * 自定义表单项
+ */
+interface FormCustomOption extends FormBaseOption {
+  type: 'custom'
+  component?: VNode
+}
+
 export type ProFormOption =
   | FormAutocompleteOption
   | FormCascaderOption
@@ -318,6 +326,7 @@ export type ProFormOption =
   | FormUploadOption
   | FormSelectOption
   | FormSelectV2Option
+  | FormCustomOption
 
 export interface ProFormAction extends LayoutColProps {
   submit?: boolean

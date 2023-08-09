@@ -385,6 +385,21 @@ Upload.args = {
 }
 Upload.storyName = '上传'
 
+export const SlotOption = Template.bind({})
+SlotOption.args = {
+  options: [
+    {
+      prop: 'custom',
+      type: 'custom',
+      slots: {
+        default: () => h(ElButton, null, () => '自定义表单项'),
+      },
+    },
+  ] as ProFormOption[],
+  labelWidth: 90,
+}
+SlotOption.storyName = '自定义插槽表单项'
+
 export const CustomAction = Template.bind({})
 CustomAction.args = {
   ...Default.args,
