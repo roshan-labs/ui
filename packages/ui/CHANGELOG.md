@@ -1,5 +1,11 @@
 # roshan-ui
 
+## 1.2.0
+
+### Minor Changes
+
+- [#46](https://github.com/roshan-labs/ui/pull/46) [`ae11c2e`](https://github.com/roshan-labs/ui/commit/ae11c2ebde246449588c804bdd3feb402a700ca0) Thanks [@gxmari007](https://github.com/gxmari007)! - ProForm 支持自定义表单项组件
+
 ## 1.1.10
 
 ### Patch Changes
