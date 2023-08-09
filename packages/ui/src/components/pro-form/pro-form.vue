@@ -4,8 +4,15 @@
     <el-row v-if="isLayout">
       <el-col v-for="item in options" v-show="!item.hide" :key="item.prop" v-bind="item">
         <el-form-item v-bind="item">
+          <!-- slots -->
+          <template v-for="(slot, name) in item.slots" :key="name" #[name]="slotProps">
+            <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
+            <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
+          </template>
+          <!-- Other form item -->
           <component
             :is="getComponent(item.type)"
+            v-if="item.type !== 'custom' && !item.slots"
             v-bind="item.component"
             :model-value="fields[item.prop]"
             @update:model-value="updateFieldValue($event, item.prop)"
@@ -32,11 +39,17 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <!-- Default -->
+    <!-- No layout -->
     <template v-else>
       <el-form-item v-for="item in options" v-show="!item.hide" :key="item.prop" v-bind="item">
+        <!-- slots -->
+        <template v-for="(slot, name) in item.slots" :key="name" #[name]="slotProps">
+          <slot v-if="typeof slot === 'string'" :name="slot" v-bind="slotProps" />
+          <component :is="slot(slotProps)" v-if="typeof slot === 'function'" />
+        </template>
         <component
           :is="getComponent(item.type)"
+          v-if="item.type !== 'custom' && !item.slots"
           v-bind="item.component"
           :model-value="fields[item.prop]"
           @update:model-value="updateFieldValue($event, item.prop)"
